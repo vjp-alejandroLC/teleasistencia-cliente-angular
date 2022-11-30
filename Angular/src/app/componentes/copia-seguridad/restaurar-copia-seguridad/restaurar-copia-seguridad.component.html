@@ -1,0 +1,18 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/copia_seguridad']">Copia seguridad</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Restaurar base de datos</li>
+      </ol>
+    </nav>
+
+    <h1 class="component-title">Restaurar base de datos</h1>
+    <hr>
+    <p>Restaurar la base de datos a su estado original (solo el usuario administrador).</p>
+    <button type="submit" class="btn btn-outline-success m-1" (click)="modalRestauracion()">
+      Restaurar
+    </button>
+  </div>
+</main>

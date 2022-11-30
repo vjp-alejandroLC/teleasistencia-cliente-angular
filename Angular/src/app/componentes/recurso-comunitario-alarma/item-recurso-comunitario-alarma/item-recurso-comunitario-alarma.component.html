@@ -1,0 +1,13 @@
+<td>{{ recursoComunitarioAlarma.id_alarma.id}} - {{recursoComunitarioAlarma.id_alarma.estado_alarma}}</td>
+<td>{{ recursoComunitarioAlarma.persona }}</td>
+<td>{{ recursoComunitarioAlarma.id_recurso_comunitario.nombre }} </td>
+<td>{{ recursoComunitarioAlarma.id_recurso_comunitario.telefono }}</td>
+<td>{{ recursoComunitarioAlarma.acuerdo_alcanzado }}</td>
+<td>{{ recursoComunitarioAlarma.fecha_registro | date : 'dd/MM/YYYY'}}</td>
+<td>
+  <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/recursos_comunitarios_alarma/modificar', recursoComunitarioAlarma.id]">
+    <i class="fa fa-pen"></i>
+  </button>
+  <button type="submit" class="btn btn-delete m-1" (click)="modalConfirmacion()"
+  ><i class="fa fa-trash"></i></button>
+</td>

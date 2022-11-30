@@ -1,0 +1,43 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/dispositivos_auxiliares_terminal']">Dispositivo auxiliar terminal</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Modificar dispositivo auxiliar terminal {{idDispositivoAuxiliarTerminal}}</li>
+      </ol>
+    </nav>
+    <h1 class="component-title" >Modificar dispositivo auxiliar terminal  {{idDispositivoAuxiliarTerminal}}</h1>
+    <form #modificarDispositivoAuxiliarTerminalForm="ngForm">
+      <div class="form-group mb-3">
+        <div class="form-group mb-3">
+          <label for="terminal" class="form-label">Terminal</label>
+          <select class="form-select" id="terminal" name="terminal" disabled
+                  [(ngModel)]="dispositivoAuxiliarTerminal.id_terminal" required>
+            <option class="relacion_persona_contacto_option" *ngFor="let terminal of terminales; let i = index"
+                    [value]="terminal.id">{{ dispositivoAuxiliarTerminal.id_terminal.id === terminal.id? optionSelectedTerminal(i):"" }}{{ terminal.numero_terminal }}</option>
+          </select>
+        </div>
+
+
+        <div class="form-group mb-3">
+          <label for="tipo_alarmas" class="form-label">Tipo Alarma</label>
+          <select class="form-select" id="tipo_alarmas" name="tipo_alarmas"
+                  [(ngModel)]="dispositivoAuxiliarTerminal.id_tipo_alarma" required>
+            <option class="relacion_alarma_option" *ngFor="let tipoAlarma of tipo_alarmas; let i = index"
+                    [value]="tipoAlarma.id">{{ dispositivoAuxiliarTerminal.id_tipo_alarma.id === tipoAlarma.id? optionSelectedAlarma(i):"" }}{{ tipoAlarma.nombre }}</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-outline-success m-1" (click)="modificarDispositivoAuxiliarTerminal()"
+              [disabled]="!modificarDispositivoAuxiliarTerminalForm.form.valid">
+        Guardar
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/dispositivos_auxiliares_terminal']">
+        Volver
+      </button>
+
+    </form>
+  </div>
+</main>

@@ -1,0 +1,48 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/alarmas']">Alarmas</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Editar teleoperador en alarma {{idAlarma}}</li>
+      </ol>
+    </nav>
+    <h1 class="component-title" >Editar teleoperador en alarma {{idAlarma}}</h1>
+    <form #modificarAlarmaForm="ngForm">
+
+
+      <div class="form-group mb-3">
+        <label for="estado_alarma" class="form-label">Estado Alarma</label>
+        <input type="text" name="estado_alarma" id="estado_alarma" class="form-control" disabled
+               required maxlength="500" [(ngModel)]="alarma.estado_alarma" #estado_alarma="ngModel">
+        <div *ngIf="estado_alarma.invalid && (estado_alarma.dirty || estado_alarma.touched)"
+             class="alert alert-secondary" role="alert">
+          <div *ngIf="estado_alarma.errors?.required">
+            El estado es obligatorio
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <div class="form-group mb-3">
+          <label for="teleoperador" class="form-label">Teleoperadores</label>
+          <select class="form-select" id="teleoperador" name="teleoperador"
+                  [(ngModel)]="alarma.id_teleoperador" required>
+            <option class="form-select" *ngFor="let teleoperador of teleoperadores; let i = index"
+                    [value]="teleoperador.id" >{{ alarma.id_teleoperador.id === teleoperador.id? optionSelected(i):"" }}{{ teleoperador.first_name }}</option>
+          </select>
+        </div>
+      </div>
+
+
+      <button type="submit" class="btn btn-outline-success m-1" (click)="modificarTeleoperador()"
+              [disabled]="!modificarAlarmaForm.form.valid">
+        Guardar
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/alarmas']">
+        Volver
+      </button>
+
+    </form>
+  </div>
+</main>

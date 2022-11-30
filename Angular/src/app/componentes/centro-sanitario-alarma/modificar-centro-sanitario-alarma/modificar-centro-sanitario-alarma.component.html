@@ -1,0 +1,72 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/centro_sanitario_alarma']">Centros sanitarios en alarma</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Modificar centro sanitario en alarma {{idCentroSanitarioAlarma}}</li>
+      </ol>
+    </nav>
+    <h1 class="component-title" >Modificar centro sanitario en alarma {{idCentroSanitarioAlarma}}</h1>
+    <form #modificarCentroSanitarioAlarmaForm="ngForm">
+      <div class="form-group mb-3">
+        <div class="form-group mb-3">
+          <label for="alarmas" class="form-label">Alarma (ID - Estado)</label>
+          <select class="form-select" id="alarmas" name="alarmas" disabled
+                  [(ngModel)]="centroSanitarioAlarma.id_alarma" required>
+            <option class="relacion_alarma_option" *ngFor="let alarma of alarmas; let i = index"
+                    [value]="alarma.id">{{ centroSanitarioAlarma.id_alarma.id === alarma.id? optionSelectedAlarma(i):"" }}{{ alarma.id }} - {{alarma.estado_alarma}}</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="centro_sanitario" class="form-label">Centro sanitario</label>
+          <select class="form-select" id="centro_sanitario" name="centro_sanitario"
+                  [(ngModel)]="centroSanitarioAlarma.id_centro_sanitario" required>
+            <option class="relacion_recurso_option" *ngFor="let centroSanitario of centrosSanitarios; let i = index"
+                    [value]="centroSanitario.id">{{ centroSanitarioAlarma.id_centro_sanitario.id === centroSanitario.id? optionSelectedCentro(i):"" }}{{ centroSanitario.nombre }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="persona" class="form-label">Persona</label>
+        <input type="text" name="persona" id="persona" class="form-control"
+               required maxlength="200" [(ngModel)]="centroSanitarioAlarma.persona" #persona="ngModel">
+        <div *ngIf="persona.invalid && (persona.dirty || persona.touched)" class="alert alert-secondary"
+             role="alert">
+          <div *ngIf="persona.errors?.required">
+            La Persona es obligatoria
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="resumen" class="form-label">Acuerdo alcanzado</label>
+        <textarea [(ngModel)]="centroSanitarioAlarma.acuerdo_alcanzado" name="resumen" id="resumen" class="form-control" required></textarea>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="fecha_registro" class="form-label">Fecha de registro</label>
+        <input type="date" name="fecha_registro" id="fecha_registro" class="form-control"
+               required max="{{ anno_actual }}-{{ mes_actual }}-{{ dia_actual }}"
+               [(ngModel)]="centroSanitarioAlarma.fecha_registro" #fecha_registro="ngModel">
+        <div *ngIf="fecha_registro.invalid && (fecha_registro.dirty || fecha_registro.touched)"
+             class="alert alert-secondary" role="alert">
+          <div *ngIf="fecha_registro.errors?.required">
+            La fecha de registro es obligatoria
+          </div>
+        </div>
+      </div>
+
+
+      <button type="submit" class="btn btn-outline-success m-1" (click)="modificarCentroSanitarioAlarma()"
+              [disabled]="!modificarCentroSanitarioAlarmaForm.form.valid">
+        Guardar
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/centro_sanitario_alarma']">
+        Volver
+      </button>
+
+    </form>
+  </div>
+</main>

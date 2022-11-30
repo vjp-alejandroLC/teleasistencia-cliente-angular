@@ -1,0 +1,91 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/relaciones_usuario_centro']">Relaciones usuario centro</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Crear relacion usuario centro</li>
+      </ol>
+    </nav>
+    <h1 class="component-title" >Crear relacion usuario centro</h1>
+    <form #crearRelacionUsuarioCentroForm="ngForm">
+      <div class="form-group mb-3">
+        <div class="form-group mb-3">
+          <label for="pacientes" class="form-label">Pacientes</label>
+          <select class="form-select" id="pacientes" name="pacientes"
+                  [(ngModel)]="relacionUsuarioCentro.id_paciente" required>
+            <option class="relacion_alarma_option" *ngFor="let paciente of pacientes; let i = index"
+                    [value]="paciente.id">{{ paciente.id_persona.nombre }}</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="centros_sanitario" class="form-label">Centro sanitario</label>
+          <select class="form-select" id="centros_sanitario" name="centros_sanitario"
+                  [(ngModel)]="relacionUsuarioCentro.id_centro_sanitario" required>
+            <option class="relacion_persona_contacto_option" *ngFor="let centroSanitario of centrosSanitario; let i = index"
+                    [value]="centroSanitario.id">{{ centroSanitario.nombre }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="persona_contacto_centro" class="form-label">Persona de contacto del centro</label>
+        <input type="text" name="persona_contacto_centro" id="persona_contacto_centro" class="form-control"
+               required maxlength="500" [(ngModel)]="relacionUsuarioCentro.persona_contacto" #persona_contacto="ngModel">
+        <div *ngIf="persona_contacto.invalid && (persona_contacto.dirty || persona_contacto.touched)"
+             class="alert alert-secondary" role="alert">
+          <div *ngIf="persona_contacto.errors?.required">
+            La persona de contacto es obligatoria
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="distancia" class="form-label">Distancia</label>
+        <input type="number" name="distancia" id="distancia" class="form-control"
+               required maxlength="500" [(ngModel)]="relacionUsuarioCentro.distancia" #distancia="ngModel">
+        <div *ngIf="distancia.invalid && (distancia.dirty || distancia.touched)"
+             class="alert alert-secondary" role="alert">
+          <div *ngIf="distancia.errors?.required">
+            La distancia es obligatoria
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="tiempo" class="form-label">Tiempo</label>
+        <input type="number" name="tiempo" id="tiempo" class="form-control"
+               required maxlength="500" [(ngModel)]="relacionUsuarioCentro.tiempo" #tiempo="ngModel">
+        <div *ngIf="tiempo.invalid && (tiempo.dirty || tiempo.touched)"
+             class="alert alert-secondary" role="alert">
+          <div *ngIf="tiempo.errors?.required">
+            La prioridad de expediente es obligatorio
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="observaciones" class="form-label">Observaciones</label>
+        <textarea [(ngModel)]="relacionUsuarioCentro.observaciones" name="observaciones" id="observaciones" class="form-control" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-outline-success m-1" (click)="nuevaRelacionUsuarioCentro()"
+              [disabled]="!crearRelacionUsuarioCentroForm.form.valid">
+        Guardar
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/relaciones_usuario_centro']">
+        Volver
+      </button>
+
+    </form>
+  </div>
+</main>
+
+
+
+
+
+
+
+
+
