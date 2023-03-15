@@ -244,13 +244,20 @@ import { NuevoTipoAgendaComponent } from './componentes/tipo-agenda/nuevo-tipo-a
 import { DetallesTipoAgendaComponent } from './componentes/tipo-agenda/detalles-tipo-agenda/detalles-tipo-agenda.component';
 import { DetallesTipoAgendaResolveService } from './servicios/detalles-tipo-agenda-resolve.service';
 import { AgendaComponent } from './componentes/agenda/lista-agenda/agenda.component';
+import {RecursosComponent} from "./componentes/recursos/recursos.component";
 
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
   {path: 'inicio', canActivate: [LoginGuard], component: HomeComponent},
   {path: 'recurso-comunitarios-personales', canActivate: [LoginGuard], component: RecursosComunitariosPersonalesComponent},
-
+  {
+    path:'recursos',
+    component:RecursosComponent,
+/*
+    canActivate: [LoginGuard]
+*/
+  },
   {
     path: 'usuarios',
     component: ListaUsersComponent,

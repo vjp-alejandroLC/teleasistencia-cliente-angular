@@ -155,6 +155,7 @@ import { ModificarTeleoperadorAlarmaComponent } from './componentes/alarma/modif
 import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-comunitarios-personales/recursos-comunitarios-personales.component';
 import { GruposComponent } from './componentes/grupos/grupos.component';
 import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component';
+import { RecursosComponent } from './componentes/recursos/recursos.component';
 
 
 @NgModule({
@@ -283,6 +284,7 @@ import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-
     ModificarTeleoperadorAlarmaComponent,
     GruposComponent,
     CrearAlarmaTerminalComponent,
+    RecursosComponent,
   ],
   imports: [
     BrowserModule,
