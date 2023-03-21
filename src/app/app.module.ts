@@ -155,6 +155,7 @@ import { ModificarTeleoperadorAlarmaComponent } from './componentes/alarma/modif
 import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-comunitarios-personales/recursos-comunitarios-personales.component';
 import { GruposComponent } from './componentes/grupos/grupos.component';
 import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -291,6 +292,7 @@ import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-
     FormsModule,
     CommonModule,
     NgxPaginationModule,
+    ReactiveFormsModule
   ],
   providers: [
     CargaUserService,
