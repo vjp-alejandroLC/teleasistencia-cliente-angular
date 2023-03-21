@@ -34,4 +34,7 @@ export const environment = {
   urlWebsocket: 'ws://localhost:8000/ws/socket-server/',
   urlBase: 'http://localhost:8000/api-rest/',
   urlToken: 'http://localhost:8000/api/token/',
+
+  //Control de roles
+  admins:['supervisor','administrador','profesor'],
 };

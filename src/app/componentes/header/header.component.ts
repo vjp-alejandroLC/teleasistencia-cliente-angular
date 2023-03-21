@@ -1,5 +1,4 @@
 import {Component, DoCheck, OnInit,} from '@angular/core';
-import {LoginService} from "../../servicios/login.service";
 import {environment} from "../../../environments/environment";
 import {webSocket} from 'rxjs/webSocket';
 import Swal from "sweetalert2";
@@ -11,6 +10,7 @@ import {Router} from "@angular/router";
 import {ModificarAlarmaResolveService} from "../../servicios/alarmas/modificar-alarma-resolve.service";
 import {ProfileService} from "../../servicios/profile.service";
 import {IProfileUser} from "../../interfaces/i-profile-user";
+import {AuthService} from "../../servicios/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -26,13 +26,13 @@ export class HeaderComponent implements OnInit, DoCheck {
   public teleoperador: number
   public grupoTeleoperador: string;
 
-  constructor(private loginService: LoginService, private profileService: ProfileService,
+  constructor(private auth: AuthService, private profileService: ProfileService,
               private cargarAlarma: CargaAlarmaService, private router: Router) {
   }
 
   ngOnInit(): void {
     //comprobamos si hay usuario logeado
-    if (this.loginService.estaLogin()) {
+    if (this.auth.isLoggedIn()) {
       //si hay usuario logeado establecemos conexion websocket
       this.subject.subscribe({
         //si va bien arrancará la funcion para comprobar que hacer
@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit, DoCheck {
   }
   //Compruebo si esta login para ocultar el navbar
   ngDoCheck(): void {
-    this.estaLogin = this.loginService.estaLogin()
+    this.estaLogin = this.auth.isLoggedIn()
 
   }
 
