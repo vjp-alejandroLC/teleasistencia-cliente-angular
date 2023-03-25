@@ -1,14 +1,15 @@
-<main class="text-center row p-0 m-0 justify-content-center">
+<!--- <main class="text-center row p-0 m-0 justify-content-center">
 <div class="container">
-  <nav aria-label="breadcrumb">
+      <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
       <li class="breadcrumb-item"><a [routerLink]="['/tipos_alarmas']">Tipos de alarmas</a></li>
       <li class="breadcrumb-item active" aria-current="page">Crear tipo de alarma</li>
     </ol>
-  </nav>
+  </nav>-->
+
   <h1 class="component-title">Crear nuevo tipo alarma</h1>
-  <form #nuevoTipoAlarmaForm="ngForm">
+  <form #nuevoTipoAlarmaForm="ngForm" class="border-left">
 
     <div class="form-group mb-3">
       <label for="nombre" class="form-label">Nombre</label>
@@ -63,10 +64,10 @@
             [disabled]="!nuevoTipoAlarmaForm.form.valid">
       Guardar
     </button>
-    <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/tipos_alarmas']">
-      Volver
+    <button type="button" class="btn btn-outline-secondary m-1" (click)="mostratCrearTipo()" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"><!-- [routerLink]="['/tipos_alarmas']"-->
+      Cancelar
     </button>
 
   </form>
-</div>
-</main>
+<!--</div>-->
+<!--</main>--->

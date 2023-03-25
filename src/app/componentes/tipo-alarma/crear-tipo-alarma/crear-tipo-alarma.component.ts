@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ITipoAlarma} from '../../../interfaces/i-tipo-alarma';
 import {IClasificacionAlarma} from '../../../interfaces/i-clasificacion-alarma';
 import {Title} from '@angular/platform-browser';
@@ -18,6 +18,7 @@ import {environment} from "../../../../environments/environment";
 export class CrearTipoAlarmaComponent implements OnInit {
   public tipo_alarma: ITipoAlarma;
   public clasificaciones_alarmas: IClasificacionAlarma[];
+  @Output () mostrar = new EventEmitter;
 
   constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposAlarmas: CargaTipoAlarmaService, private router: Router) {
   }
@@ -33,7 +34,8 @@ export class CrearTipoAlarmaComponent implements OnInit {
     this.cargaTiposAlarmas.nuevoTipoAlarma(this.tipo_alarma).subscribe(
       e => {
         this.alertExito()
-        this.router.navigate(['/tipos_alarmas']);
+        //this.router.navigate(['/tipos_alarmas']);
+        window.location.reload();
       },
       error => {
         this.alertError()
@@ -78,5 +80,8 @@ export class CrearTipoAlarmaComponent implements OnInit {
       icon: 'error',
       title: environment.fraseErrorCrear
     })
+  }
+  mostratCrearTipo(){
+    this.mostrar.emit(!this.mostrar);
   }
 }

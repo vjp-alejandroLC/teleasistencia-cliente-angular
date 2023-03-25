@@ -807,7 +807,8 @@ const routes: Routes = [
       alarma: ListaAlarmasResolveService,
       terminales: ListaTerminalesResolveService,
       tipos_alarmas: ListaTiposAlarmasResolveService,
-      pacientes_ucr: ListaPacientesResolveService
+      pacientes_ucr: ListaPacientesResolveService,
+      clasificaciones_alarmas: ListaClasificacionesAlarmasResolveService
     }
   },
   {

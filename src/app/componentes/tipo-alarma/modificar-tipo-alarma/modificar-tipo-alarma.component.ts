@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ITipoAlarma} from "../../../interfaces/i-tipo-alarma";
 import {IClasificacionAlarma} from "../../../interfaces/i-clasificacion-alarma";
 import {Title} from "@angular/platform-browser";
@@ -16,14 +16,15 @@ import {environment} from "../../../../environments/environment";
 
 export class ModificarTipoAlarmaComponent implements OnInit {
   public tipo_alarma: any;
-  public idTipoAlarma: number;
+  //public idTipoAlarma: number;
   public clasificaciones_alarmas: any;
+  @Input() public idTipoAlarma: number;
 
   constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposAlarmas: CargaTipoAlarmaService, private router: Router) {}
 
   ngOnInit(): void {
     this.tipo_alarma = this.route.snapshot.data['tipo_alarma'];
-    this.idTipoAlarma = this.route.snapshot.params['id'];
+    //this.idTipoAlarma = this.route.snapshot.params['id'];
     this.clasificaciones_alarmas = this.route.snapshot.data['clasificaciones_alarmas'];
     this.titleService.setTitle('Modificar tipo alarma ' + this.idTipoAlarma);
     this.tipo_alarma.id_clasificacion_alarma = this.tipo_alarma.id_clasificacion_alarma.id;

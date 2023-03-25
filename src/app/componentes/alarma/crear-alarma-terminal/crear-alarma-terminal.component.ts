@@ -7,6 +7,7 @@ import {CargaAlarmaService} from "../../../servicios/alarmas/carga-alarma.servic
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {Terminal} from "../../../clases/terminal";
+import {Paciente} from "../../../clases/paciente";
 
 @Component({
   selector: 'app-crear-alarma-terminal',
@@ -18,6 +19,9 @@ export class CrearAlarmaTerminalComponent implements OnInit {
   public alarma: Alarma;
   public tipos_alarmas: TipoAlarma[];
   public terminales: Terminal[];
+  public pacientes_ucr: Paciente[];
+  public mostrar: boolean = false;
+  public terminal: boolean = true;
   // public pacientes_ucr: Paciente[];
   // public fecha_actual = new Date();
   // public anno_actual = this.fecha_actual.getFullYear();
@@ -32,6 +36,7 @@ export class CrearAlarmaTerminalComponent implements OnInit {
     this.alarma = new Alarma();
     this.tipos_alarmas = this.route.snapshot.data['tipos_alarmas'];
     this.terminales = this.route.snapshot.data['terminales'];
+    this.pacientes_ucr = this.route.snapshot.data['pacientes_ucr'];
     // this.alarma.id_teleoperador = null;
   }
   nuevaAlarma(): void {
@@ -83,5 +88,15 @@ export class CrearAlarmaTerminalComponent implements OnInit {
       icon: 'error',
       title: environment.fraseErrorCrear
     })
+  }
+  mostratCrearTipo(){
+    this.mostrar = !this.mostrar;
+  }
+  elegirAlarma(terminal){
+    if(!terminal){
+      this.terminal = false;
+    }else {
+      this.terminal = true;
+    }
   }
 }
