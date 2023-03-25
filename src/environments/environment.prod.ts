@@ -34,10 +34,4 @@ export const environment = {
   urlWebsocket: 'ws://localhost:8000/ws/socket-server/',
   urlBase: 'http://localhost:8000/api-rest/',
   urlToken: 'http://localhost:8000/api/token/',
-  //sobrenombre y version de la pagina
-  subdominio: {
-    nombre:'CRT',
-    color:'blueviolet'
-  },
-  version: '1.0',
 };
