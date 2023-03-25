@@ -20,7 +20,7 @@ import Swal from "sweetalert2";
   templateUrl: './pantalla-login.component.html',
   styleUrls: ['./pantalla-login.component.scss']
 })
-export class PantallaLoginComponent implements OnInit, DoCheck {
+export class PantallaLoginComponent implements OnInit{
   public login: ILogin;
   public estaLogin: boolean;
   public username:string;
@@ -41,11 +41,9 @@ export class PantallaLoginComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.titleService.setTitle('Login');
     this.login = new Login();
-  }
-
-  ngDoCheck(): void {
     this.estaLogin = this.loginService.estaLogin();
   }
+
 
   //hago la peticion post de login añadiendo los datos del formulario
   //Si los datos son correctos solicito el token y lo grabo en localstorage
@@ -90,6 +88,7 @@ export class PantallaLoginComponent implements OnInit, DoCheck {
 
   hacerLogout(): void {
     this.loginService.hacerLogout();
+    this.estaLogin = this.loginService.estaLogin();
     this.router.navigate(['/login']);
 
 
