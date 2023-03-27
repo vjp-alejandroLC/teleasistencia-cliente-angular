@@ -1,17 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-   isLogin : boolean = false;
-   roleAs: string;
+  isLogin: boolean = false;
+  roleAs: string;
+  admin: boolean = false;
 
 
-  constructor() { }
+  constructor() {
+  }
 
-  login(username,userlastname,role,img) {
+  login(username, userlastname, role, img) {
     this.roleAs = role.toString();
 
     /***Apartado LocalStorage***/
@@ -20,9 +23,12 @@ export class AuthService {
     localStorage.setItem('role', this.roleAs);
     localStorage.setItem('img', img);
 
+    if (environment.admins.indexOf(this.roleAs) != -1) {
+      this.admin = true;
+    }
   }
 
-  isLoggedIn(): boolean{
+  isLoggedIn(): boolean {
     if (localStorage.getItem('token') != null) {
       return true;
     } else {
@@ -30,9 +36,9 @@ export class AuthService {
     }
   }
 
-  logout(): void{
-    this.isLogin=false;
-    this.roleAs='';
+  logout(): void {
+    this.isLogin = false;
+    this.roleAs = '';
 
     localStorage.removeItem('token');
     localStorage.removeItem('img');
@@ -41,9 +47,10 @@ export class AuthService {
     localStorage.removeItem('role');
   }
 
-  getRole(){
+  getRole() {
     return localStorage.getItem('role');
   }
+
 
 }
 

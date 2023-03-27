@@ -8,6 +8,7 @@ import {AuthService} from "../servicios/auth.service";
 })
 export class AuthGuard implements CanActivate {
 
+
   constructor(private authService: AuthService, private router: Router) {
   }
 
@@ -46,4 +47,6 @@ export class AuthGuard implements CanActivate {
     this.router.navigate(['/inicio']);
     return false;
   }
+
+
 }
