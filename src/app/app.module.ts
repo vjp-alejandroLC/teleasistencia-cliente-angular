@@ -22,11 +22,11 @@ import {ModificarTipoCentroSanitarioComponent} from './componentes/tipo-centro-s
 import {CrearTipoCentroSanitarioComponent} from './componentes/tipo-centro-sanitario/crear-tipo-centro-sanitario/crear-tipo-centro-sanitario.component';
 import {CargaClasificacionAlarmaService} from './servicios/carga-clasificacion-alarma.service';
 import {CargaTipoCentroSanitarioService} from './servicios/carga-tipo-centro-sanitario.service';
-import {ListaTiposRecursosComunitariosComponent} from './componentes/tipo-recurso-comunitario/lista-tipos-recursos-comunitarios/lista-tipos-recursos-comunitarios.component';
-import {ItemTipoRecursoComunitarioComponent} from './componentes/tipo-recurso-comunitario/item-tipo-recurso-comunitario/item-tipo-recurso-comunitario.component';
-import {ModificarTipoRecursoComunitarioComponent} from './componentes/tipo-recurso-comunitario/modificar-tipo-recurso-comunitario/modificar-tipo-recurso-comunitario.component';
-import {CrearTipoRecursoComunitarioComponent} from './componentes/tipo-recurso-comunitario/crear-tipo-recurso-comunitario/crear-tipo-recurso-comunitario.component';
-import {CargaTipoRecursoComunitarioService} from './servicios/carga-tipo-recurso-comunitario.service';
+import {ListaTiposRecursosComunitariosComponent} from './components/recursos/tipo-recurso-comunitario/lista-tipos-recursos-comunitarios/lista-tipos-recursos-comunitarios.component';
+import {ItemTipoRecursoComunitarioComponent} from './components/recursos/tipo-recurso-comunitario/item-tipo-recurso-comunitario/item-tipo-recurso-comunitario.component';
+import {ModificarTipoRecursoComunitarioComponent} from './components/recursos/tipo-recurso-comunitario/modificar-tipo-recurso-comunitario/modificar-tipo-recurso-comunitario.component';
+import {CrearTipoRecursoComunitarioComponent} from './components/recursos/tipo-recurso-comunitario/crear-tipo-recurso-comunitario/crear-tipo-recurso-comunitario.component';
+import {CargaTipoRecursoComunitarioService} from './services/recursos/carga-tipo-recurso-comunitario.service';
 import {ListaTiposModalidadesPacientesComponent} from './componentes/tipo-modalidad-paciente/lista-tipos-modalidades-pacientes/lista-tipos-modalidades-pacientes.component';
 import {ItemTipoModalidadPacienteComponent} from './componentes/tipo-modalidad-paciente/item-tipo-modalidad-paciente/item-tipo-modalidad-paciente.component';
 import {ModificarTipoModalidadPacienteComponent} from './componentes/tipo-modalidad-paciente/modificar-tipo-modalidad-paciente/modificar-tipo-modalidad-paciente.component';
@@ -41,10 +41,10 @@ import {ListaCentrosSanitariosComponent} from './componentes/centro-sanitario/li
 import {ItemCentroSanitarioComponent} from './componentes/centro-sanitario/item-centro-sanitario/item-centro-sanitario.component';
 import {ModificarCentroSanitarioComponent} from './componentes/centro-sanitario/modificar-centro-sanitario/modificar-centro-sanitario.component';
 import {CrearCentroSanitarioComponent} from './componentes/centro-sanitario/crear-centro-sanitario/crear-centro-sanitario.component';
-import {ListaRecursosComunitariosComponent} from './componentes/recurso-comunitario/lista-recursos-comunitarios/lista-recursos-comunitarios.component';
-import {ItemResursoComunitarioComponent} from './componentes/recurso-comunitario/item-resurso-comunitario/item-resurso-comunitario.component';
-import {ModificarRecursoComunitarioComponent} from './componentes/recurso-comunitario/modificar-recurso-comunitario/modificar-recurso-comunitario.component';
-import {CrearRecursoComunitarioComponent} from './componentes/recurso-comunitario/crear-recurso-comunitario/crear-recurso-comunitario.component';
+import {ListaRecursosComunitariosComponent} from './components/recursos/recurso-comunitario/lista-recursos-comunitarios/lista-recursos-comunitarios.component';
+import {ItemResursoComunitarioComponent} from './components/recursos/recurso-comunitario/item-resurso-comunitario/item-resurso-comunitario.component';
+import {ModificarRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/modificar-recurso-comunitario/modificar-recurso-comunitario.component';
+import {CrearRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/crear-recurso-comunitario/crear-recurso-comunitario.component';
 import {ListaPersonasComponent} from './componentes/persona/lista-personas/lista-personas.component';
 import {ItemPersonaComponent} from './componentes/persona/item-persona/item-persona.component';
 import {ModificarPersonaComponent} from './componentes/persona/modificar-persona/modificar-persona.component';
@@ -56,7 +56,7 @@ import {CrearDireccionComponent} from './componentes/direccion/crear-direccion/c
 import {CargaDireccionService} from './servicios/carga-direccion.service';
 import {CargaCentroSanitarioService} from './servicios/carga-centro-sanitario.service';
 import {CargaPersonaService} from './servicios/carga-persona.service';
-import {CargaRecursoComunitarioService} from './servicios/carga-recurso-comunitario.service';
+import {CargaRecursoComunitarioService} from './services/recursos/carga-recurso-comunitario.service';
 import {PantallaLoginComponent} from './componentes/pantalla-login/pantalla-login.component';
 import {HeaderComponent} from './componentes/header/header.component';
 import {FooterComponent} from './componentes/footer/footer.component';
@@ -155,7 +155,8 @@ import { ModificarTeleoperadorAlarmaComponent } from './componentes/alarma/modif
 import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-comunitarios-personales/recursos-comunitarios-personales.component';
 import { GruposComponent } from './componentes/grupos/grupos.component';
 import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component';
-import { RecursosComponent } from './componentes/recursos/recursos.component';
+import { VerRecursoComponent } from './components/recursos/recurso-comunitario/ver-recurso/ver-recurso.component';
+
 
 
 @NgModule({
@@ -284,7 +285,8 @@ import { RecursosComponent } from './componentes/recursos/recursos.component';
     ModificarTeleoperadorAlarmaComponent,
     GruposComponent,
     CrearAlarmaTerminalComponent,
-    RecursosComponent,
+    VerRecursoComponent,
+
   ],
   imports: [
     BrowserModule,

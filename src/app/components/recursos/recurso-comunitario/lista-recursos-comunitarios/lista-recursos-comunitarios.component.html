@@ -1,0 +1,31 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Recursos comunitarios</li>
+      </ol>
+    </nav>
+    <h1 class="component-title">Recursos comunitarios</h1>
+    <div class="table-responsive m-2">
+      <table id="tableList" class="table table-hover text-center">
+        <thead>
+        <tr class="table-purple">
+          <th class="ordenable" scope="col">Nombre</th>
+          <th class="ordenable" scope="col">Teléfono</th>
+          <th class="ordenable" scope="col">Tipo de Recurso</th>
+          <th class="ordenable" scope="col">Localidad</th>
+          <th class="ordenable" scope="col">Provincia</th>
+          <th class="ordenable" scope="col">CD</th>
+          <th class="ordenable" scope="col">Dirección</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let recurso of recursos_comunitarios" item-resurso-comunitario [recurso_comunitario]="recurso">
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

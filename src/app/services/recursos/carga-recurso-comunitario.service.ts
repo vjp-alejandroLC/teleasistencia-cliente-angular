@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {IRecursoComunitario} from '../interfaces/i-recurso-comunitario';
-import {ICentroSanitario} from "../interfaces/i-centro-sanitario";
-import {environment} from "../../environments/environment";
+import {IRecursoComunitario} from '../../interfaces/i-recurso-comunitario';
+import {ICentroSanitario} from "../../interfaces/i-centro-sanitario";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,10 @@ export class CargaRecursoComunitarioService {
     return this.http.post<IRecursoComunitario>(this.URL_SERVER_RECURSOS_COMUNITARIOS, recursoComunitario);
   }
 
-  eliminarRecursoComunitario(recursoComunitario:IRecursoComunitario): Observable<IRecursoComunitario> {
-    return this.http.delete<IRecursoComunitario>(this.URL_SERVER_RECURSOS_COMUNITARIOS + '/' + recursoComunitario.id);
+  eliminarRecursoComunitario(recursoComunitario:IRecursoComunitario) {
+    this.http.delete<IRecursoComunitario>(this.URL_SERVER_RECURSOS_COMUNITARIOS + '/' + recursoComunitario.id).subscribe(
+      error => console.log(error),
+      () => console.log('Fin del DELETE')
+    )
   }
 }
