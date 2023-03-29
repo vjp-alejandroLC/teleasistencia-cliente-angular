@@ -18,7 +18,7 @@
 
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample09">
       <ul class="navbar-nav px-5" id="ulPrincipal1">
-        <li class="nav">
+        <li class="nav" *ngIf="isAdmin">
           <a class="nav-link" href="#" [routerLink]="['/']" >
             Usuarios Del Sistema
           </a>
@@ -47,7 +47,7 @@
             Alarmas
           </a>
         </li>
-        <li class="nav">
+        <li class="nav" *ngIf="isAdmin">
           <a class="nav-link" href="#" [routerLink]="['/']">
             Copia de Seguridad
           </a>
