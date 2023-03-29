@@ -26,6 +26,9 @@ export class HeaderComponent implements OnInit, DoCheck {
   public teleoperador: number
   public grupoTeleoperador: string;
 
+  subdominioNombre= environment.subdominio.nombre;
+  subdominioColor= environment.subdominio.color;
+
   constructor(private loginService: LoginService, private profileService: ProfileService,
               private cargarAlarma: CargaAlarmaService, private router: Router) {
   }
