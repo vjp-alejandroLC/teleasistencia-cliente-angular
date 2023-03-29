@@ -42,6 +42,13 @@ export const environment = {
 
   //Control de roles
   admins:['supervisor','administrador','profesor'],
+  
+  //subdominio y version de la pagina
+  subdominio: {
+    nombre:'CRT',
+    color:'blueviolet'
+  },
+  version: '1.0',
 };
 
 /*

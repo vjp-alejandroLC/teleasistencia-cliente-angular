@@ -27,8 +27,10 @@ export class HeaderComponent implements OnInit, DoCheck {
   public grupoTeleoperador: string;
   isAdmin: boolean;
 
-  constructor(private auth: AuthService, private profileService: ProfileService,
+  constructor(private loginService: LoginService, private profileService: ProfileService,
               private cargarAlarma: CargaAlarmaService, private router: Router) {
+    subdominioNombre= environment.subdominio.nombre;
+    subdominioColor= environment.subdominio.color;
   }
 
   ngOnInit(): void {

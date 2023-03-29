@@ -1,6 +1,6 @@
-<td>{{ relacionPacientePersona.id_paciente.id_persona.nombre }} {{relacionPacientePersona.id_paciente.id_persona.apellidos}}</td>
+<td>{{ relacionPacientePersona.id_paciente?.id_persona.nombre }} {{relacionPacientePersona.id_paciente?.id_persona.apellidos}}</td>
 <td>{{ relacionPacientePersona.tipo_relacion }}</td>
-<td>{{ relacionPacientePersona.id_persona.nombre }} {{ relacionPacientePersona.id_persona.apellidos }}</td>
+<td>{{ relacionPacientePersona.id_persona?.nombre }} {{ relacionPacientePersona.id_persona?.apellidos }}</td>
 <td>{{ comprobarLlaves() }}</td>
 <td>{{ relacionPacientePersona.disponibilidad}}</td>
 <td>{{ relacionPacientePersona.observaciones}}</td>

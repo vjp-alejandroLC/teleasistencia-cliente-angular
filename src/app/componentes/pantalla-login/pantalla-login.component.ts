@@ -20,7 +20,7 @@ import {AuthService} from "../../servicios/auth.service";
   templateUrl: './pantalla-login.component.html',
   styleUrls: ['./pantalla-login.component.scss']
 })
-export class PantallaLoginComponent implements OnInit, DoCheck {
+export class PantallaLoginComponent implements OnInit{
   public login: ILogin;
   public estaLogin: boolean;
   public username:string;
@@ -46,6 +46,7 @@ export class PantallaLoginComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     this.estaLogin = this.auth.isLoggedIn();
   }
+
 
   //hago la peticion post de login añadiendo los datos del formulario
   //Si los datos son correctos solicito el token y lo grabo en localstorage
@@ -90,9 +91,6 @@ export class PantallaLoginComponent implements OnInit, DoCheck {
   hacerLogout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);
-
-
-
   }
 
 
