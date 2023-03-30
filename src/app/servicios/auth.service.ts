@@ -8,24 +8,20 @@ export class AuthService {
 
   isLogin: boolean = false;
   roleAs: string;
-  admin: boolean = false;
 
 
   constructor() {
   }
 
   login(username, userlastname, role, img) {
-    this.roleAs = role.toString();
+
 
     /***Apartado LocalStorage***/
     localStorage.setItem('username', username);
     localStorage.setItem('userlastname', userlastname);
-    localStorage.setItem('role', this.roleAs);
+    localStorage.setItem('role', role);
     localStorage.setItem('img', img);
 
-    if (environment.admins.indexOf(this.roleAs) != -1) {
-      this.admin = true;
-    }
   }
 
   isLoggedIn(): boolean {
@@ -49,6 +45,15 @@ export class AuthService {
 
   getRole() {
     return localStorage.getItem('role');
+  }
+
+  isAdmin() {
+    if (environment.admins.indexOf(localStorage.getItem('role')) != -1) {
+      console.log('es admin')
+      return true;
+    }
+    console.log('no es admin')
+    return false;
   }
 
 
