@@ -56,21 +56,12 @@ export class NuevoTipoAgendaComponent implements OnInit {
       return;
     }
 
-    this.crearTipo();
-  }
-
-  crearTipo() {
-    this.tipo_agenda = {
-      "nombre": this.nuevoTipo.get('nombre').value,
-      "codigo": this.nuevoTipo.get('codigo').value,
-      "importancia": this.nuevoTipo.get('importancia').value
-    }
     this.nuevoTipoAgenda()
   }
 
   // Método que lanza una petición al servidor para crear un nuevo tipo de agenda.
   nuevoTipoAgenda() {
-    this.cargaTiposAgenda.nuevoTipoAgenda(this.tipo_agenda).subscribe(
+    this.cargaTiposAgenda.nuevoTipoAgenda(this.nuevoTipo.value).subscribe(
       e => {
         this.alertExito();
         this.tipoNuevo.emit(e);

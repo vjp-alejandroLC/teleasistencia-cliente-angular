@@ -24,7 +24,7 @@ export class NuevoAgendaComponent implements OnInit {
   public personas_contacto: IPersona[];
   public pacientes: IPaciente[];
   public nuevaAgenda: FormGroup;
-  public importanciaArray = ['Alta', 'Baja'];
+  public importanciaArray:string[] = ['Alta', 'Baja'];
   submitted = false;
   mostrarNuevoTipo = false;
   mostrarEditarTipo = false;
@@ -57,6 +57,9 @@ export class NuevoAgendaComponent implements OnInit {
         Validators.required
       ]],
       tipo_agenda: ['', [
+        Validators.required
+      ]],
+      importancia: ['', [
         Validators.required
       ]],
       fecha_prevista: ['', [
@@ -187,5 +190,9 @@ export class NuevoAgendaComponent implements OnInit {
         }
       )
     )
+  }
+
+  mostrarImp() {
+    console.log(this.importanciaArray)
   }
 }
