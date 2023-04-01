@@ -156,7 +156,6 @@ import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-
 import { GruposComponent } from './componentes/grupos/grupos.component';
 import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
