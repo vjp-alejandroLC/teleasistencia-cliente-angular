@@ -86,4 +86,6 @@ export class CrearUserComponent implements OnInit {
       title: environment.fraseErrorCrear
     })
   }
+  //variable necesaria para ocultar/mostrar la contraseña
+  hide = false;
 }

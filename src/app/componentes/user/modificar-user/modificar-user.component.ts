@@ -92,5 +92,6 @@ export class ModificarUserComponent implements OnInit {
       title: environment.fraseErrorModificar
     })
   }
-
+  //variable necesaria para ocultar/mostrar la contraseña
+  hide = false;
 }

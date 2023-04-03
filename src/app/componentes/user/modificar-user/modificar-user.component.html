@@ -30,9 +30,12 @@
 
     <div class="form-group mb-3">
       <label for="password" class="form-label">Contraseña</label>
-      <input type="password" name="password" id="password" class="form-control"
-             required minlength="8" maxlength="16" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$"
-             [(ngModel)]="user.password" #password="ngModel">
+      <div class="input-group">
+        <input [type]="!hide ? 'password' : 'text'" type="password" name="password" id="password" class="form-control"
+               required minlength="8" maxlength="16" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$"
+               [(ngModel)]="user.password" #password="ngModel">
+        <i class="input-group-text" (click)="hide = !hide" class="{{hide ? 'fas fa-eye' : 'fas fa-eye-slash'}}" ></i>
+      </div>
       <div *ngIf="password.invalid && (password.dirty || password.touched)"
            class="alert alert-secondary" role="alert">
         <div *ngIf="password.errors?.required; else elseBlock">
