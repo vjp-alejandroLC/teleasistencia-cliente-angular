@@ -244,6 +244,9 @@ import { NuevoTipoAgendaComponent } from './componentes/tipo-agenda/nuevo-tipo-a
 import { DetallesTipoAgendaComponent } from './componentes/tipo-agenda/detalles-tipo-agenda/detalles-tipo-agenda.component';
 import { DetallesTipoAgendaResolveService } from './servicios/detalles-tipo-agenda-resolve.service';
 import { AgendaComponent } from './componentes/agenda/lista-agenda/agenda.component';
+import {
+  CrearPersonaContactoComponent
+} from "./componentes/personas-contacto/crear-persona-contacto/crear-persona-contacto.component";
 
 
 const routes: Routes = [
@@ -1126,6 +1129,11 @@ const routes: Routes = [
   {
     path: 'copia_seguridad/restaurar',
     component: RestaurarCopiaSeguridadComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'contacto',
+    component: CrearPersonaContactoComponent,
     canActivate: [LoginGuard],
   },
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},

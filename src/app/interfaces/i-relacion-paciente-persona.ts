@@ -8,6 +8,7 @@ export interface IRelacionPacientePersona {
   disponibilidad: string;
   observaciones: string;
   prioridad: number;
+  es_conviviente: boolean,
   id_paciente: IPaciente;
   id_persona: IPersona;
 }

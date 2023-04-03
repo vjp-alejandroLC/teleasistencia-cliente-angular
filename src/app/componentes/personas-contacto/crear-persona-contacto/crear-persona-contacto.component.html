@@ -1,0 +1,170 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <h1 class="component-title" >Crear relacion paciente persona</h1>
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()" id="formularioRelacion">
+      <div class="row">
+        <div class="col-xs-12 col-xl-4">
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="pacientes">Pacientes</label>
+            <ng-select id="pacientes"
+                       formControlName="pacientes">
+              <ng-option class="form-select"
+                         *ngFor="let paciente of pacientes,let i = index"
+                         [value]="paciente.id">{{ paciente.id_persona.nombre }}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-xl-4">
+
+          <div class="form-group mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" name="nombre" id="nombre" class="form-control"
+                   formControlName="nombre">
+            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
+              <div *ngIf="nombre.errors?.required; else elseBlock">
+                El nombre es obligatorio
+              </div>
+              <ng-template #elseBlock>
+                Introduzca un nombre válido
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="form-group mb-3">
+            <label for="apellidos" class="form-label">Apellido</label>
+            <input type="text" name="apellidos" id="apellidos" class="form-control"
+                   formControlName="apellidos" >
+            <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-secondary" role="alert">
+              <div *ngIf="apellidos.errors?.required; else elseBlock">
+                El apellido es obligatorio
+              </div>
+              <ng-template #elseBlock>
+                Introduzca un apellido válido
+              </ng-template>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-xl-4">
+
+
+          <div class="form-group mb-3">
+            <label for="telefono_fijo" class="form-label">Telefono</label>
+            <input type="text" name="telefono_fijo" id="telefono_fijo" class="form-control"
+                   formControlName="telefono_fijo">
+            <div *ngIf="telefono_fijo.invalid && (telefono_fijo.dirty || telefono_fijo.touched)" class="alert alert-secondary" role="alert">
+              <div *ngIf="telefono_fijo.errors?.required; else elseBlock">
+                El telefono es obligatorio
+              </div>
+              <ng-template #elseBlock>
+                Introduzca un telefono válido
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+
+
+          <div class="form-group mb-3">
+            <label for="tipo_relacion" class="form-label">Tipo de relacion</label>
+            <input type="text" name="tipo_relacion" id="tipo_relacion" class="form-control"
+                   formControlName="tipo_relacion">
+            <div *ngIf="tipo_relacion.invalid && (tipo_relacion.dirty || tipo_relacion.touched)" class="alert alert-secondary" role="alert">
+              <div *ngIf="tipo_relacion.errors?.required; else elseBlock">
+                El tipo de relacion es obligatorio
+              </div>
+              <ng-template #elseBlock>
+                Introduzca una relacion válida
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+
+
+          <div class="form-check mb-3">
+            <span>Tiene llaves de la vivienda</span>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="tiene_llaves_vivienda_true"
+                     name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda">
+              <label class="form-check-label" for="tiene_llaves_vivienda_true">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="tiene_llaves_vivienda_false"
+                     name="tiene_llaves_vivienda" [value]="false" formControlName="tiene_llaves_vivienda">
+              <label class="form-check-label" for="tiene_llaves_vivienda_false">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-xl-4">
+
+          <div class="form-group mb-3">
+            <label for="disponibilidad" class="form-label">Disponibilidad</label>
+            <textarea formControlName="disponibilidad" name="disponibilidad" id="disponibilidad" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="col-xl-4">
+
+          <div class="form-group mb-3">
+            <label for="observaciones" class="form-label">Observaciones</label>
+            <textarea formControlName="observaciones" name="observaciones" id="observaciones" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="form-check mb-3">
+            <span>Es conviviente</span>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="es_conviviente_true"
+                     name="es_conviviente" [value]="true" formControlName="es_conviviente">
+              <label class="form-check-label" for="es_conviviente_true">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="es_conviviente_false"
+                     name="es_conviviente" [value]="false" formControlName="es_conviviente">
+              <label class="form-check-label" for="es_conviviente_false">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+
+          <div class="form-group mb-3">
+            <label for="prioridad" class="form-label">Prioridad</label>
+            <input type="number" name="prioridad" id="prioridad" class="form-control"
+                   formControlName="prioridad" >
+            <div *ngIf="prioridad.invalid && (prioridad.dirty || prioridad.touched)"
+                 class="alert alert-secondary" role="alert">
+              <div *ngIf="prioridad.errors?.required">
+                La prioridad de expediente es obligatorio
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+
+
+          <button type="submit" class="btn btn-outline-success m-1"
+                  [disabled]="formulario.invalid"  >
+            Guardar
+          </button>
+          <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/inicio']">
+            Volver
+          </button>
+          <button (click)="crearHtml()" class="btn btn-outline-success m-1">
+            <i class="fa-sharp fa-solid fa-octagon-plus">+</i>
+          </button>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</main>

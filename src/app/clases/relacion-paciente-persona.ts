@@ -7,6 +7,7 @@ export class RelacionPacientePersona implements IRelacionPacientePersona{
   disponibilidad: string;
   observaciones: string;
   prioridad: number;
+  es_conviviente: boolean;
   id_paciente: any;
   id_persona: any;
 }

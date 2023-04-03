@@ -10,6 +10,7 @@ import {CrearUserComponent} from './componentes/user/crear-user/crear-user.compo
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {HomeComponent} from './componentes/home/home.component';
 import {CargaUserService} from './servicios/carga-user.service';
 import {ItemClasificacionAlarmaComponent} from './componentes/clasificacion-alarma/item-clasificacion-alarma/item-clasificacion-alarma.component';
@@ -155,7 +156,8 @@ import { ModificarTeleoperadorAlarmaComponent } from './componentes/alarma/modif
 import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-comunitarios-personales/recursos-comunitarios-personales.component';
 import { GruposComponent } from './componentes/grupos/grupos.component';
 import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component';
-
+import { NgSelectModule } from '@ng-select/ng-select';
+import { CrearPersonaContactoComponent } from './componentes/personas-contacto/crear-persona-contacto/crear-persona-contacto.component';
 
 @NgModule({
   declarations: [
@@ -283,14 +285,17 @@ import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-
     ModificarTeleoperadorAlarmaComponent,
     GruposComponent,
     CrearAlarmaTerminalComponent,
+    CrearPersonaContactoComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    NgSelectModule,
     CommonModule,
     NgxPaginationModule,
+    ReactiveFormsModule,
   ],
   providers: [
     CargaUserService,

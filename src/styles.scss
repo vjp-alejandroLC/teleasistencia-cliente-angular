@@ -147,9 +147,7 @@ td > .btn-modify {
     box-sizing: border-box;
   }
 
-  .ng-select .ng-arrow-wrapper{
-    display: none;
-  }
+
 
 }
 
@@ -620,4 +618,8 @@ footer {
 
 .table>:not(:last-child)>:last-child>* {
   white-space: nowrap;
+}
+
+.row{
+  align-items: center;
 }
