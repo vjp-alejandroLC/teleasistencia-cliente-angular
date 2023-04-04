@@ -56,13 +56,12 @@
     <div class="col-12 col-xl-6">
     <h1 class="component-title" >Crear Alarma</h1>
 
-    <form #crearAlarmaForm="ngForm" [ngClass]="this.mostrar ? 'inactiveForm':''" >
+    <form [formGroup]="formEdit" (submit)="nuevaAlarma()" [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
       <div class="form-group mb-3 row">
         <label for="tipos_alarma" class="form-label text-start p-0">Tipo de alarma</label>
         <div class="col-12 col-lg-9  p-0 pb-1">
-          <select class="form-select" id="tipos_alarma" name="tipos_alarma"
-                  [(ngModel)]="alarma.id_tipo_alarma" required>
-            <option *ngFor="let tipo_alarma of tipos_alarmas; let i = index"
+          <select class="form-select" id="tipos_alarma" name="tipos_alarma" formControlName="tipos_alarma">
+            <option *ngFor="let tipo_alarma of tipos_alarmas;"
                     [value]="tipo_alarma.id">{{tipo_alarma.nombre}}</option>
           </select>
         </div>
@@ -70,21 +69,23 @@
             <button class="btn btn-success boton" type="button" (click)="mostratCrearTipo()" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"><i class="fa fa-solid fa-plus"></i></button>
         </div>
         <div class="col-4 col-lg-1  p-0">
-          <button class="btn btn-warning boton"><i class="fa fa-sharp fa-solid fa-pen fa-sm"></i></button>
+          <button class="btn btn-warning boton" type="button" (click)="mostrarEditarTipo()" [disabled]="botonDes(formEdit.value.tipos_alarma)" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
+            <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+          </button>
         </div>
         <div class="col-4 col-lg-1  p-0">
-          <button class="btn btn-danger boton"><i class="fa fa-solid fa-trash"></i></button>
+          <button class="btn btn-danger boton" type="button"><i class="fa fa-solid fa-trash"></i></button>
         </div>
       </div>
       <div class="form-group mb-3 row">
-        <label class="form-label text-start p-0">Alarma según: </label>
+        <label class="form-label text-start p-0">Alarma según: {{formEdit.value.tipos_alarma}}</label>
         <div class="col d-flex justify-content-around ">
           <div>
-            <input type="radio" class="btn-check" name="options" id="rterminal"  autocomplete="off" checked (click)="elegirAlarma(true)">
+            <input type="radio" class="btn-check" name="options" id="rterminal" autocomplete="off" checked (click)="elegirAlarma(true)">
             <label class="btn btn-success" [ngClass]="terminal? 'opacity':''" for="rterminal">Terminal</label>
           </div>
           <div>
-            <input type="radio" class="btn-check" name="options" id="rpaciente"  autocomplete="off" (click)="elegirAlarma(false)">
+            <input type="radio" class="btn-check" name="options" id="rpaciente" autocomplete="off" (click)="elegirAlarma(false)">
             <label class="btn btn-success" [ngClass]="terminal? '':'opacity'" for="rpaciente">Paciente</label>
           </div>
         </div>
@@ -93,24 +94,22 @@
       <div class="form-group mb-3">
         <ng-container *ngIf="terminal; else selectPaciente">
           <label for="terminal" class="form-label">Terminal</label>
-            <select class="form-select" id="terminal" name="terminal"
-                    [(ngModel)]="alarma.id_terminal" required>
+            <select class="form-select" id="terminal" name="terminal" formControlName="id_terminal">
               <option class="relacion_recurso_option" *ngFor="let terminal of terminales; let i = index"
                       [value]="terminal.id">{{terminal.numero_terminal}} -- {{terminal.id_titular.id_persona.nombre}} {{terminal.id_titular.id_persona.apellidos}} </option>
             </select>
         </ng-container>
         <ng-template #selectPaciente>
           <label for="paciente" class="form-label">Paciente</label>
-          <select class="form-select" id="paciente" name="paciente"
-                  [(ngModel)]="alarma.id_paciente_ucr" required>
+          <select class="form-select" id="paciente" name="paciente" formControlName="id_paciente_ucr">
             <option *ngFor="let paciente of pacientes_ucr; let i = index"
                     [value]="paciente.id">{{paciente.numero_expediente}} -- {{paciente.id_persona.nombre}} {{paciente.id_persona.apellidos}}</option>
           </select>
         </ng-template>
       </div>
 
-      <button type="submit" class="btn btn-outline-success m-1" (click)="nuevaAlarma()"
-              [disabled]="!crearAlarmaForm.form.valid">
+      <button type="submit" class="btn btn-outline-success m-1"
+              [disabled]="formEdit.invalid">
         Guardar
       </button>
       <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/alarmas']">
@@ -120,12 +119,13 @@
     </form>
     </div>
     <div class="col-12 col-xl-6 collapse collapse-horizontal" id="collapseWidthExample">
-      <app-crear-tipo-alarma (mostrar)="mostrar=$event"></app-crear-tipo-alarma>
+      <app-crear-tipo-alarma (tipos_alarmas)="this.tipos_alarmas=$event" (mostrar)="this.mostrar=$event"></app-crear-tipo-alarma>
     </div>
-     <!--<div class="col-12 col-xl-6 d-none" >
-       [idTipoAlarma]="paciente.value" INPUT para enviar id al modificar
-        <app-modificar-tipo-alarma></app-modificar-tipo-alarma>
-      </div>-->
+
+      <!-- CLASE PARA HACER TRANSICION Y EL NGIF SIRVE PARA EVITAR QUE LA PETICION GET DEL MODIFICAR SE HAGA SOBRE UN TIPO DE ALARMA VACIO-->
+     <div class="col-12 col-xl-6 collapse collapse-horizontal" id="collapseWidthExample2" >
+        <app-modificar-tipo-alarma (mostrarModificar)="this.mostrarModificar=$event"  *ngIf="this.mostrarModificar" [listaTiposAlarma]="tipos_alarmas"  [idTipoAlarma]="formEdit.value.tipos_alarma"></app-modificar-tipo-alarma>
+      </div>
     </div>
   </div>
 </main>

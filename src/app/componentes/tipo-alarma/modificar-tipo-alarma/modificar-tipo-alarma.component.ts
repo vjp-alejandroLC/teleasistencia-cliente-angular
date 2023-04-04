@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ITipoAlarma} from "../../../interfaces/i-tipo-alarma";
 import {IClasificacionAlarma} from "../../../interfaces/i-clasificacion-alarma";
 import {Title} from "@angular/platform-browser";
@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CargaTipoAlarmaService} from "../../../servicios/carga-tipo-alarma.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -16,18 +17,38 @@ import {environment} from "../../../../environments/environment";
 
 export class ModificarTipoAlarmaComponent implements OnInit {
   public tipo_alarma: any;
-  //public idTipoAlarma: number;
+  public formEdit: FormGroup;
   public clasificaciones_alarmas: any;
   @Input() public idTipoAlarma: number;
+  @Output () mostrarModificar = new EventEmitter;
+  @Input () listaTiposAlarma: ITipoAlarma[];
 
-  constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposAlarmas: CargaTipoAlarmaService, private router: Router) {}
+  constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposAlarmas: CargaTipoAlarmaService, private router: Router, private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.tipo_alarma = this.route.snapshot.data['tipo_alarma'];
-    //this.idTipoAlarma = this.route.snapshot.params['id'];
+    this.buscarTipoAlarma();
     this.clasificaciones_alarmas = this.route.snapshot.data['clasificaciones_alarmas'];
     this.titleService.setTitle('Modificar tipo alarma ' + this.idTipoAlarma);
-    this.tipo_alarma.id_clasificacion_alarma = this.tipo_alarma.id_clasificacion_alarma.id;
+    this.formEdit = this.formBuilder.group({
+      nombre:[this.tipo_alarma.nombre,[Validators.required,Validators.maxLength(200)]],
+      codigo:[this.tipo_alarma.codigo,[Validators.required,Validators.pattern(/[A-Z & 0-9]+$/),Validators.maxLength(200)]],
+      es_dispositivo:[this.tipo_alarma.es_dispositivo,Validators.required],
+      id_clasificacion_alarma:[this.tipo_alarma.id_clasificacion_alarma.id,Validators.required],
+    });
+  }
+  get f(){
+    return this.formEdit.controls;
+  }
+  buscarTipoAlarma(){
+    let enc = false;
+    let i = 0;
+    while((i<this.listaTiposAlarma.length)&&(enc==false)){
+      if(this.listaTiposAlarma[i].id == this.idTipoAlarma){
+        enc = true;
+        this.tipo_alarma = this.listaTiposAlarma[i];
+      }
+      i++;
+    }
   }
 
   optionSelected(i: number): void {
@@ -35,10 +56,12 @@ export class ModificarTipoAlarmaComponent implements OnInit {
   }
 
   modificarTipoAlarma(): void {
-    this.cargaTiposAlarmas.modificarTipoAlarma(this.tipo_alarma).subscribe(
+    console.log(this.formEdit.value);
+
+    this.cargaTiposAlarmas.modificarTipoAlarma(this.formEdit.value,this.idTipoAlarma).subscribe(
       e => {
         this.alertExito()
-        this.router.navigate(['/tipos_alarmas']);
+        this.mostrarModificar.emit(!this.mostrarModificar);
       },
       error => {
         this.alertError()
@@ -83,6 +106,9 @@ export class ModificarTipoAlarmaComponent implements OnInit {
       icon: 'error',
       title: environment.fraseErrorModificar
     })
+  }
+  mostrarModificarTipo(){
+    this.mostrarModificar.emit(!this.mostrarModificar);
   }
 
 }

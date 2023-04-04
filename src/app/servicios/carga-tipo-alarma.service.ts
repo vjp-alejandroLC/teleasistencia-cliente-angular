@@ -24,8 +24,8 @@ export class CargaTipoAlarmaService {
     return this.http.get<ITipoAlarma>(this.URL_SERVER_TIPOS_ALARMAS + '/' + idTipoAlarma);
   }
 
-  modificarTipoAlarma(tipoAlarma: ITipoAlarma): Observable<ITipoAlarma> {
-    return this.http.put<ITipoAlarma>(this.URL_SERVER_TIPOS_ALARMAS + '/' + tipoAlarma.id, tipoAlarma);
+  modificarTipoAlarma(tipoAlarma: ITipoAlarma,id: number): Observable<ITipoAlarma> {
+    return this.http.put<ITipoAlarma>(this.URL_SERVER_TIPOS_ALARMAS + '/' + id, tipoAlarma);
   }
 
   nuevoTipoAlarma(tipoAlarma: ITipoAlarma): Observable<ITipoAlarma> {

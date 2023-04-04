@@ -7,6 +7,7 @@ import {CargaTipoAlarmaService} from '../../../servicios/carga-tipo-alarma.servi
 import {TipoAlarma} from '../../../clases/tipo-alarma';
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -17,25 +18,38 @@ import {environment} from "../../../../environments/environment";
 
 export class CrearTipoAlarmaComponent implements OnInit {
   public tipo_alarma: ITipoAlarma;
+  public listaAlarmas : ITipoAlarma[];
   public clasificaciones_alarmas: IClasificacionAlarma[];
   @Output () mostrar = new EventEmitter;
-
-  constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposAlarmas: CargaTipoAlarmaService, private router: Router) {
+  @Output () tipos_alarmas = new EventEmitter;
+  public formCrear: FormGroup;
+  constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposAlarmas: CargaTipoAlarmaService, private router: Router, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.formCrear = this.formBuilder.group({
+      nombre:['',[Validators.required,Validators.maxLength(200)]],
+      codigo:['',[Validators.required,Validators.pattern(/[A-Z & 0-9]+$/),Validators.maxLength(200)]],
+      es_dispositivo:[true,Validators.required],
+      id_clasificacion_alarma:['',Validators.required],
+    });
     this.titleService.setTitle('Nuevo tipo de alarma');
-    this.tipo_alarma = new TipoAlarma();
     this.clasificaciones_alarmas = this.route.snapshot.data['clasificaciones_alarmas'];
-    this.tipo_alarma.es_dispositivo = true;
-  }
+    this.listaAlarmas = this.route.snapshot.data['tipos_alarmas'];
 
+  }
+  get f(){
+    return this.formCrear.controls;
+  }
   nuevoTipoAlarma(): void {
-    this.cargaTiposAlarmas.nuevoTipoAlarma(this.tipo_alarma).subscribe(
+    this.cargaTiposAlarmas.nuevoTipoAlarma(this.formCrear.value).subscribe(
       e => {
         this.alertExito()
-        //this.router.navigate(['/tipos_alarmas']);
-        window.location.reload();
+        //AÑADIMOS LA NUEVA ALARMA A LA LISTA
+        this.listaAlarmas.push(this.formCrear.value);
+        this.tipos_alarmas.emit(this.listaAlarmas);
+        this.mostrar.emit(!this.mostrar);
+        this.formCrear.reset();
       },
       error => {
         this.alertError()

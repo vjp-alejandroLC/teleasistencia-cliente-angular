@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {Terminal} from "../../../clases/terminal";
 import {Paciente} from "../../../clases/paciente";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-crear-alarma-terminal',
@@ -22,6 +23,8 @@ export class CrearAlarmaTerminalComponent implements OnInit {
   public pacientes_ucr: Paciente[];
   public mostrar: boolean = false;
   public terminal: boolean = true;
+  public formEdit: FormGroup;
+  public mostrarModificar: boolean = false;
   // public pacientes_ucr: Paciente[];
   // public fecha_actual = new Date();
   // public anno_actual = this.fecha_actual.getFullYear();
@@ -29,7 +32,9 @@ export class CrearAlarmaTerminalComponent implements OnInit {
   // public dia_actual = this.fecha_actual.getDate();
 
 
-  constructor(private titleService: Title, private route: ActivatedRoute, private cargaAlarma: CargaAlarmaService, private router: Router) { }
+
+
+  constructor(private titleService: Title, private route: ActivatedRoute, private cargaAlarma: CargaAlarmaService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('Nueva Alarma');
@@ -38,9 +43,32 @@ export class CrearAlarmaTerminalComponent implements OnInit {
     this.terminales = this.route.snapshot.data['terminales'];
     this.pacientes_ucr = this.route.snapshot.data['pacientes_ucr'];
     // this.alarma.id_teleoperador = null;
+    //FORMULARIO REACTIVO
+    this.formEdit = this.formBuilder.group({
+      tipos_alarma: ['',Validators.required],
+      id_terminal: [''],
+      id_paciente_ucr: [''],
+    });
   }
+
   nuevaAlarma(): void {
-    this.cargaAlarma.nuevaAlarma(this.alarma).subscribe(
+    let data
+    if(this.terminal == true) {
+      data = {
+        id_tipo_alarma: this.formEdit.value.tipos_alarma,
+        id_terminal: this.formEdit.value.id_terminal
+      }
+      console.log("TERMINAL: ");
+      console.log(data);
+    }else{
+      data = {
+        id_tipo_alarma: this.formEdit.value.tipos_alarma,
+        id_paciente_ucr: this.formEdit.value.id_paciente_ucr
+      }
+      console.log("PACIENTE: ");
+      console.log(data);
+    }
+    this.cargaAlarma.nuevaAlarma(data).subscribe(
       e => {
         this.alertExito()
         this.router.navigate(['/alarmas'])
@@ -91,6 +119,16 @@ export class CrearAlarmaTerminalComponent implements OnInit {
   }
   mostratCrearTipo(){
     this.mostrar = !this.mostrar;
+  }
+  mostrarEditarTipo(){
+    this.mostrarModificar = !this.mostrarModificar;
+  }
+  botonDes(id: any){
+    if(id == ''){
+      return true;
+    }else{
+      return false;
+    }
   }
   elegirAlarma(terminal){
     if(!terminal){
