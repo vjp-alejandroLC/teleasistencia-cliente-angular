@@ -7,7 +7,6 @@ import {environment} from "../../environments/environment";
 export class AuthService {
 
   isLogin: boolean = false;
-  roleAs: string;
 
 
   constructor() {
@@ -21,7 +20,6 @@ export class AuthService {
     localStorage.setItem('userlastname', userlastname);
     localStorage.setItem('role', role);
     localStorage.setItem('img', img);
-
   }
 
   isLoggedIn(): boolean {
@@ -34,7 +32,6 @@ export class AuthService {
 
   logout(): void {
     this.isLogin = false;
-    this.roleAs = '';
 
     localStorage.removeItem('token');
     localStorage.removeItem('img');
@@ -49,10 +46,8 @@ export class AuthService {
 
   isAdmin() {
     if (environment.admins.indexOf(localStorage.getItem('role')) != -1) {
-      console.log('es admin')
       return true;
     }
-    console.log('no es admin')
     return false;
   }
 

@@ -20,7 +20,7 @@ import {AuthService} from "../../servicios/auth.service";
 export class HeaderComponent implements OnInit, DoCheck {
   //establecemos la direccion para la conexion con el websocket
   subject = webSocket(environment.urlWebsocket);
-  public estaLogin: boolean
+  public isLoggedIn: boolean
   public alarmaAModificar: Alarma
   public accion: string
   public teleoperador: number
@@ -45,16 +45,14 @@ export class HeaderComponent implements OnInit, DoCheck {
         complete: () => console.log('complete') // Called when connection is closed (for whatever reason).
 
       })
-
-      this.isAdmin = this.auth.isAdmin();
     }
   }
 
   //Compruebo si esta login para ocultar el navbar
   ngDoCheck():
     void {
-    this.estaLogin = this.auth.isLoggedIn()
-
+    this.isLoggedIn = this.auth.isLoggedIn()
+    this.isAdmin = this.auth.isAdmin();
 
   }
 
