@@ -237,7 +237,7 @@ import {
 } from "./componentes/alarma/modificar-teleoperador-alarma/modificar-teleoperador-alarma.component";
 import {ListaGruposService} from "./servicios/lista-grupos.service";
 import {GruposComponent} from "./componentes/grupos/grupos.component";
-import {CrearAlarmaTerminalComponent} from "./componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component";
+import {CrearAlarmaComponent} from "./componentes/alarma/crear-alarma/crear-alarma.component";
 import { TipoAgendaComponent } from './componentes/tipo-agenda/lista-tipo-agenda/tipo-agenda.component';
 import { ListaTiposAgendaResolveService } from './servicios/lista-tipo-agenda-resolve.service';
 import { NuevoTipoAgendaComponent } from './componentes/tipo-agenda/nuevo-tipo-agenda/nuevo-tipo-agenda.component';
@@ -800,8 +800,8 @@ const routes: Routes = [
     }
   },
   {
-    path: 'alarmas/nueva/terminal',
-    component: CrearAlarmaTerminalComponent,
+    path: 'alarmas/nueva',
+    component: CrearAlarmaComponent,
     canActivate: [LoginGuard],
     resolve: {
       alarma: ListaAlarmasResolveService,

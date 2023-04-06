@@ -154,7 +154,7 @@ import { ListaRelacionUsuarioCentroComponent } from './componentes/relacion-usua
 import { ModificarTeleoperadorAlarmaComponent } from './componentes/alarma/modificar-teleoperador-alarma/modificar-teleoperador-alarma.component';
 import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-comunitarios-personales/recursos-comunitarios-personales.component';
 import { GruposComponent } from './componentes/grupos/grupos.component';
-import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component';
+import { CrearAlarmaComponent} from "./componentes/alarma/crear-alarma/crear-alarma.component";
 import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
@@ -282,7 +282,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     ListaRelacionUsuarioCentroComponent,
     ModificarTeleoperadorAlarmaComponent,
     GruposComponent,
-    CrearAlarmaTerminalComponent,
+    CrearAlarmaComponent,
 
   ],
   imports: [

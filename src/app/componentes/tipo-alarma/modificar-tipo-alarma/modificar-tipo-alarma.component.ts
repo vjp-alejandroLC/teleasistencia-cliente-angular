@@ -22,6 +22,8 @@ export class ModificarTipoAlarmaComponent implements OnInit {
   @Input() public idTipoAlarma: number;
   @Output () mostrarModificar = new EventEmitter;
   @Input () listaTiposAlarma: ITipoAlarma[];
+  @Output() tipos_alarmas = new EventEmitter;
+  public listaAlarmas : ITipoAlarma[];
 
   constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposAlarmas: CargaTipoAlarmaService, private router: Router, private formBuilder: FormBuilder) {}
 
@@ -61,10 +63,13 @@ export class ModificarTipoAlarmaComponent implements OnInit {
     this.cargaTiposAlarmas.modificarTipoAlarma(this.formEdit.value,this.idTipoAlarma).subscribe(
       e => {
         this.alertExito()
-        this.mostrarModificar.emit(!this.mostrarModificar);
+
       },
       error => {
         this.alertError()
+      },
+      ()=>{
+        this.refrescar();
       }
     );
   }
@@ -106,6 +111,20 @@ export class ModificarTipoAlarmaComponent implements OnInit {
       icon: 'error',
       title: environment.fraseErrorModificar
     })
+  }
+  refrescar(){
+    //peticion para refrescar los tipos de alarmas
+    this.cargaTiposAlarmas.getTiposAlarmas().subscribe(
+      lista => {
+        this.listaAlarmas = lista;
+      },
+      error => {},
+      ()=> {
+        //pasamos el array al padre para que se actualice al instante
+        this.tipos_alarmas.emit(this.listaAlarmas);
+        this.mostrarModificar.emit(!this.mostrarModificar);
+
+      });
   }
   mostrarModificarTipo(){
     this.mostrarModificar.emit(!this.mostrarModificar);

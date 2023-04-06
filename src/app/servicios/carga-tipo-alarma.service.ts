@@ -31,10 +31,7 @@ export class CargaTipoAlarmaService {
   nuevoTipoAlarma(tipoAlarma: ITipoAlarma): Observable<ITipoAlarma> {
     return this.http.post<ITipoAlarma>(this.URL_SERVER_TIPOS_ALARMAS, tipoAlarma);
   }
-  eliminarTipoAlarma(tipoAlarma:ITipoAlarma): Observable<IUsers> {
-    console.log("servicio");
-    console.log(tipoAlarma);
-    console.log(tipoAlarma.id);
-    return this.http.delete<IUsers>(this.URL_SERVER_TIPOS_ALARMAS + '/' + tipoAlarma.id);
+  eliminarTipoAlarma(tipoAlarma: ITipoAlarma): Observable<ITipoAlarma> {
+    return this.http.delete<ITipoAlarma>(this.URL_SERVER_TIPOS_ALARMAS + '/' + tipoAlarma);
   }
 }

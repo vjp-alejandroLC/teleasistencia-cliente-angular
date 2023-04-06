@@ -35,8 +35,6 @@ export class CrearTipoAlarmaComponent implements OnInit {
     });
     this.titleService.setTitle('Nuevo tipo de alarma');
     this.clasificaciones_alarmas = this.route.snapshot.data['clasificaciones_alarmas'];
-    this.listaAlarmas = this.route.snapshot.data['tipos_alarmas'];
-
   }
   get f(){
     return this.formCrear.controls;
@@ -45,14 +43,13 @@ export class CrearTipoAlarmaComponent implements OnInit {
     this.cargaTiposAlarmas.nuevoTipoAlarma(this.formCrear.value).subscribe(
       e => {
         this.alertExito()
-        //AÑADIMOS LA NUEVA ALARMA A LA LISTA
-        this.listaAlarmas.push(this.formCrear.value);
-        this.tipos_alarmas.emit(this.listaAlarmas);
-        this.mostrar.emit(!this.mostrar);
-        this.formCrear.reset();
       },
       error => {
         this.alertError()
+      },
+      ()=>{
+        this.formCrear.reset();
+        this.refrescar();
       }
     );
   }
@@ -94,6 +91,19 @@ export class CrearTipoAlarmaComponent implements OnInit {
       icon: 'error',
       title: environment.fraseErrorCrear
     })
+  }
+  refrescar(){
+    //peticion para refrescar los tipos de alarmas
+    this.cargaTiposAlarmas.getTiposAlarmas().subscribe(
+      lista => {
+        this.listaAlarmas = lista;
+      },
+      error => {},
+    ()=> {
+        //pasamos el array al padre para que se actualice al instante
+      this.tipos_alarmas.emit(this.listaAlarmas);
+      this.mostrar.emit(!this.mostrar);
+    });
   }
   mostratCrearTipo(){
     this.mostrar.emit(!this.mostrar);
