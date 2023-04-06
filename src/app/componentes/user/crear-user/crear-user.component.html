@@ -48,6 +48,16 @@
           La contraseña debe tener entre 8 y 16 caracteres
         </div>
       </div>
+      <label for="password" class="form-label">Confirmar Contraseña</label>
+      <div class="input-group">
+        <input [type]="!hide ? 'password' : 'text'" type="password" name="confirmPassword" id="confirmpassword" class="form-control"
+               required minlength="8" maxlength="16" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$"
+               [(ngModel)]="confirmpassword" #confirmPassword="ngModel">
+        <i class="input-group-text" (click)="hide = !hide" class="{{hide ? 'fas fa-eye' : 'fas fa-eye-slash'}}" ></i>
+      </div>
+      <div *ngIf="confirmPassword.value!=password.value" class="alert alert-secondary" role="alert">
+        La confirmacion de contraseña debe coincidir con la contraseña
+      </div>
     </div>
 
     <div class="form-group mb-3">
@@ -108,9 +118,10 @@
     </div>
 
     <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoUser()"
-            [disabled]="!nuevoUserForm.form.valid">
+            [disabled]="!nuevoUserForm.form.valid || confirmPassword.value!=password.value">
       Guardar
     </button>
+
     <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/usuarios']">
       Volver
     </button>

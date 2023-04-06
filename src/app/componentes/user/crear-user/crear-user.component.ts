@@ -20,6 +20,7 @@ import {environment} from "../../../../environments/environment";
 export class CrearUserComponent implements OnInit {
   public user: IUsers;
   public grupos: IGrupo[];
+  public confirmpassword: string;
 
   constructor(private titleService: Title, private route: ActivatedRoute, private cargaUsers: CargaUserService, private router: Router,private cargaGrupo :CargaGrupoService) {
   }
@@ -33,7 +34,7 @@ export class CrearUserComponent implements OnInit {
       console.log(this.grupos)
       }
     )
-
+    this.confirmpassword="";
   }
 
   nuevoUser(): void {
