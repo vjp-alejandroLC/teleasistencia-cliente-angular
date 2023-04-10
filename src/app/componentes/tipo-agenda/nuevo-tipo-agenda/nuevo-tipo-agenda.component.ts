@@ -29,6 +29,7 @@ export class NuevoTipoAgendaComponent implements OnInit {
     this.crearForm();
   }
 
+  //Método para crear e inicializar a vacío los datos del formulario
   crearForm() {
     this.nuevoTipo = this.formBuilder.group({
       nombre: ['', [
@@ -45,10 +46,12 @@ export class NuevoTipoAgendaComponent implements OnInit {
     });
   }
 
+  //Método para obtener los datos del formulario
   get form() {
     return this.nuevoTipo.controls;
   }
 
+  //Método para comprobar si es válido el nuevo tipo de agenda
   onSubmit() {
     this.submitted = true;
 
@@ -114,6 +117,7 @@ export class NuevoTipoAgendaComponent implements OnInit {
     })
   }
 
+  //Método para reiniciar los campos del nuevo tipo de la agenda
   onReset() {
     this.submitted = false;
     this.nuevoTipo.reset();

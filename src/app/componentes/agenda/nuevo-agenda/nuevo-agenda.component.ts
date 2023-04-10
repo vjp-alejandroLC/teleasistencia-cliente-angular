@@ -19,7 +19,7 @@ import {CargaTipoAgendaService} from "../../../servicios/carga-tipo-agenda.servi
 })
 export class NuevoAgendaComponent implements OnInit {
 
-  public agenda: IAgenda;
+  public agenda: IAgenda | any;
   public tipos_agenda: ITipoAgenda[];
   public personas_contacto: IPersona[];
   public pacientes: IPaciente[];
@@ -43,7 +43,6 @@ export class NuevoAgendaComponent implements OnInit {
     this.tipos_agenda = this.route.snapshot.data['tipos_agenda'];
     this.personas_contacto = this.route.snapshot.data['personas'];
     this.titleService.setTitle('Nuevo agenda');
-    this.agenda = new Agenda();
     this.pacientes = this.route.snapshot.data['pacientes'];
     this.crearForm();
   }
@@ -93,10 +92,17 @@ export class NuevoAgendaComponent implements OnInit {
 
   // Método que realiza la petición al servidor de creación de una agenda.
   nuevoAgenda() {
-    /*this.agenda = {
+    this.agenda = {
+      'prioridad': this.nuevaAgenda.get('importancia').value,
       'id_paciente': this.nuevaAgenda.get('paciente').value,
-      'id'
-    }*/
+      'id_tipo_agenda': this.nuevaAgenda.get('tipo_agenda').value,
+      'id_persona': 9,
+      'fecha_registro': new Date(),
+      'fecha_prevista': this.nuevaAgenda.get('fecha_prevista').value,
+      'fecha_resolucion': null,
+      'observaciones': this.nuevaAgenda.get('observaciones').value
+    }
+    console.log(this.personas_contacto);
     this.cargaAgendas.nuevoAgenda(this.agenda).subscribe(
       e => {
         this.alertExito();
@@ -146,13 +152,16 @@ export class NuevoAgendaComponent implements OnInit {
       title: environment.fraseErrorCrear
     })
   }
+
+  //Método mediante el cual se mostrará u ocultará el card de nuevo-tipo-agenda
   mostrarCrear() {
     this.mostrarNuevoTipo = !this.mostrarNuevoTipo;
   }
+  //Método mediante el cual se controlará la muestra del card de nuevo-tipo-agenda una vez creado el objeto
   mostrarNuevo(mostrar: boolean) {
     this.mostrarNuevoTipo = mostrar;
   }
-
+  //Método para que una vez creado o modificado el tipo-agenda se seleccione automáticamente en el select del formulario
   cambiarTipo(tipo: ITipoAgenda) {
     this.mostrarNuevoTipo = false;
     this.cargaTiposAgendas.getTiposAgenda().subscribe(
@@ -167,12 +176,16 @@ export class NuevoAgendaComponent implements OnInit {
     )
   }
 
+  //Método mediante el cual se mostrará u ocultará el card de detalles-tipo-agenda
   mostrarModificar() {
     this.mostrarEditarTipo = !this.mostrarEditarTipo;
   }
+  //Método mediante el cual se controlará la muestra del card de detalles-tipo-agenda una vez modificado el objeto
   mostrarMod(mostrar: boolean) {
     this.mostrarEditarTipo = mostrar;
   }
+
+  //Método para eliminar el objeto tipo-agenda seleccionado en el select del formulario
   eliminarTipo() {
     this.cargaTiposAgendas.borrarTipoAgenda(this.nuevaAgenda.get('tipo_agenda').value).subscribe(
       () => {},
@@ -190,9 +203,5 @@ export class NuevoAgendaComponent implements OnInit {
         }
       )
     )
-  }
-
-  mostrarImp() {
-    console.log(this.importanciaArray)
   }
 }

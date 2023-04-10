@@ -37,6 +37,7 @@ export class DetallesTipoAgendaComponent implements OnInit {
     this.crearForm();
   }
 
+  //Método en el que se inicializan los campos del formulario con los valores del objeto a modificar
   crearForm() {
     this.tipo_agenda = this.tipos_agenda.find(tipo => tipo.id == this.idTipo);
     this.modTipo = this.formBuilder.group({
@@ -54,10 +55,12 @@ export class DetallesTipoAgendaComponent implements OnInit {
     })
   }
 
+  //Método para obtener los valores del formulario
   get form() {
     return this.modTipo.controls;
   }
 
+  //Método para comprobar si es válida la modificación
   onSubmit() {
     this.submitted = true;
 
@@ -68,6 +71,7 @@ export class DetallesTipoAgendaComponent implements OnInit {
     this.modificarTipo();
   }
 
+  //Método en el que se crea el que se sobreescriben los valores del objeto de tipo agenda
   modificarTipo() {
     this.tipo_agenda = {
       "id": this.tipo_agenda.id,
@@ -139,6 +143,7 @@ export class DetallesTipoAgendaComponent implements OnInit {
     })
   }
 
+  //Método para reiniciar los campos del modificar tipo de la agenda
   onReset() {
     this.submitted = false;
     this.modTipo.reset();
