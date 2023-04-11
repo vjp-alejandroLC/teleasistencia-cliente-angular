@@ -2,7 +2,7 @@
   <div class="container-fluid contenedor-cabecera">
     <a class="navbar-brand" [routerLink]="['/inicio']">
       <img src="./assets/cabecera-logo.png" alt="Logo TLA" width="100" height="71" class="d-inline-block">
-      <span class="titulo-cabecera">TLA<span class="nombre-servicio"> - Servicio de teleasistencia</span></span>
+      <span class="titulo-cabecera">TLA<span class="nombre-servicio"> - Servicio de teleasistencia<b style="color: {{subdominioColor}}"> - {{subdominioNombre}}</b></span></span>
     </a>
     <div class="col-md-3 text-end login">
       <app-botones-login></app-botones-login>
@@ -10,7 +10,7 @@
   </div>
 </header>
 
-<nav *ngIf="estaLogin" class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Tenth navbar example" id="navDefinitivo">
+<nav *ngIf="isLoggedIn" class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Tenth navbar example" id="navDefinitivo">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -18,7 +18,7 @@
 
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample09">
       <ul class="navbar-nav px-5" id="ulPrincipal1">
-        <li class="nav">
+        <li class="nav" *ngIf="isAdmin">
           <a class="nav-link" href="#" [routerLink]="['/']" >
             Usuarios Del Sistema
           </a>
@@ -47,7 +47,7 @@
             Alarmas
           </a>
         </li>
-        <li class="nav">
+        <li class="nav" *ngIf="isAdmin">
           <a class="nav-link" href="#" [routerLink]="['/']">
             Copia de Seguridad
           </a>
@@ -57,7 +57,7 @@
   </div>
 </nav>
 
-<nav *ngIf="estaLogin" class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Tenth navbar example">
+<nav *ngIf="isLoggedIn" class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Tenth navbar example">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
