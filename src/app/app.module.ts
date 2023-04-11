@@ -157,6 +157,7 @@ import { GruposComponent } from './componentes/grupos/grupos.component';
 import { CrearAlarmaComponent} from "./componentes/alarma/crear-alarma/crear-alarma.component";
 import {ReactiveFormsModule} from "@angular/forms";
 
+
 @NgModule({
   declarations: [
     AppComponent,
