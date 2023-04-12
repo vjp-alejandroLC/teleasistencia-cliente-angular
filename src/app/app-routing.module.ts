@@ -143,9 +143,6 @@ import {ModificarPacienteComponent} from "./componentes/paciente/modificar-pacie
 import {ModificarPacienteResolveService} from "./servicios/paciente/modificar-paciente-resolve.service";
 import {CrearPacienteComponent} from "./componentes/paciente/crear-paciente/crear-paciente.component";
 import {
-  ListaRelacionPacientePersonaComponent
-} from "./componentes/relacion-paciente-persona/lista-relacion-paciente-persona/lista-relacion-paciente-persona.component";
-import {
   ListaRelacionPacientePersonaResolveService
 } from "./servicios/relacion-paciente-persona/lista-relacion-paciente-persona-resolve.service";
 import {
@@ -178,15 +175,10 @@ import {
 import {
   ListaRelacionUsuarioCentroResolveService
 } from "./servicios/relacion-usuario-centro/lista-relacion-usuario-centro-resolve.service";
-import {
-  ModificarRelacionPacientePersonaComponent
-} from "./componentes/relacion-paciente-persona/modificar-relacion-paciente-persona/modificar-relacion-paciente-persona.component";
+
 import {
   ModificarRelacionPacientePersonaResolveService
 } from "./servicios/relacion-paciente-persona/modificar-relacion-paciente-persona-resolve.service";
-import {
-  CrearRelacionPacientePersonaComponent
-} from "./componentes/relacion-paciente-persona/crear-relacion-paciente-persona/crear-relacion-paciente-persona.component";
 import {
   ModificarCentroSanitarioAlarmaComponent
 } from "./componentes/centro-sanitario-alarma/modificar-centro-sanitario-alarma/modificar-centro-sanitario-alarma.component";
@@ -247,6 +239,9 @@ import { AgendaComponent } from './componentes/agenda/lista-agenda/agenda.compon
 import {
   CrearPersonaContactoComponent
 } from "./componentes/personas-contacto/crear-persona-contacto/crear-persona-contacto.component";
+import {
+  CrearDatosSanitariosComponent
+} from "./componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component";
 
 
 const routes: Routes = [
@@ -896,42 +891,6 @@ const routes: Routes = [
     }
   },
   {
-    path: 'relacion_paciente_persona',
-    component: ListaRelacionPacientePersonaComponent,
-    canActivate: [LoginGuard],
-    resolve: {
-      relaciones_pacientes_personas: ListaRelacionPacientePersonaResolveService
-    }
-  },
-  {
-    path: 'relacion_paciente_persona/borrado/:id',
-    component: ListaRelacionPacientePersonaComponent,
-    canActivate: [LoginGuard],
-    resolve: {
-      relaciones_pacientes_personas: ListaRelacionPacientePersonaResolveService
-    }
-  },
-  {
-    path: 'relacion_paciente_persona/modificar/:id',
-    component: ModificarRelacionPacientePersonaComponent,
-    canActivate: [LoginGuard],
-    resolve: {
-      relacion_paciente_persona: ModificarRelacionPacientePersonaResolveService,
-      pacientes: ListaPacientesResolveService,
-      personas: ListaPersonasResolveService,
-    }
-  },
-  {
-    path: 'relacion_paciente_persona/nueva',
-    component: CrearRelacionPacientePersonaComponent,
-    canActivate: [LoginGuard],
-    resolve: {
-      relacion_paciente_persona: ListaRelacionPacientePersonaResolveService,
-      pacientes: ListaPacientesResolveService,
-      personas: ListaPersonasResolveService,
-    }
-  },
-  {
     path: 'centro_sanitario_alarma',
     component: ListaCentroSanitarioAlarmaComponent,
     canActivate: [LoginGuard],
@@ -1134,6 +1093,11 @@ const routes: Routes = [
   {
     path: 'contacto',
     component: CrearPersonaContactoComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'datos_sanitario',
+    component:CrearDatosSanitariosComponent,
     canActivate: [LoginGuard],
   },
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},

@@ -1,8 +1,10 @@
 import {IPaciente} from "./i-paciente";
-import {IPersona} from "./i-persona";
 
 export interface IRelacionPacientePersona {
   id: number;
+  telefono:number;
+  apellidos: string;
+  nombre: string;
   tipo_relacion: string;
   tiene_llaves_vivienda: boolean;
   disponibilidad: string;
@@ -10,5 +12,4 @@ export interface IRelacionPacientePersona {
   prioridad: number;
   es_conviviente: boolean,
   id_paciente: IPaciente;
-  id_persona: IPersona;
 }

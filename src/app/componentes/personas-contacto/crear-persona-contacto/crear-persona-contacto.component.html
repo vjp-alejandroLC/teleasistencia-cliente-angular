@@ -1,6 +1,9 @@
 <main class="text-center row p-0 m-0 justify-content-center">
   <div class="container">
     <h1 class="component-title" >Crear relacion paciente persona</h1>
+    <button (click)="crearHtml()" class="btn btn-outline-success m-1">
+      Crear nueva relacion paciente-persona
+    </button>
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()" id="formularioRelacion">
       <div class="row">
         <div class="col-xs-12 col-xl-4">
@@ -62,23 +65,6 @@
               </div>
               <ng-template #elseBlock>
                 Introduzca un telefono válido
-              </ng-template>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4">
-
-
-          <div class="form-group mb-3">
-            <label for="tipo_relacion" class="form-label">Tipo de relacion</label>
-            <input type="text" name="tipo_relacion" id="tipo_relacion" class="form-control"
-                   formControlName="tipo_relacion">
-            <div *ngIf="tipo_relacion.invalid && (tipo_relacion.dirty || tipo_relacion.touched)" class="alert alert-secondary" role="alert">
-              <div *ngIf="tipo_relacion.errors?.required; else elseBlock">
-                El tipo de relacion es obligatorio
-              </div>
-              <ng-template #elseBlock>
-                Introduzca una relacion válida
               </ng-template>
             </div>
           </div>
@@ -159,12 +145,13 @@
           <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/inicio']">
             Volver
           </button>
-          <button (click)="crearHtml()" class="btn btn-outline-success m-1">
-            <i class="fa-sharp fa-solid fa-octagon-plus">+</i>
-          </button>
+
 
         </div>
       </div>
     </form>
+    <ng-container #contenedor></ng-container>
+
+
   </div>
 </main>
