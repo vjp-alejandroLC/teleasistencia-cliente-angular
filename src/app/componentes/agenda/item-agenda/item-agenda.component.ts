@@ -6,6 +6,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {CargaAgendaService} from "../../../servicios/carga-agenda.service";
 import {CargaHistoricoAgendaService} from "../../../servicios/carga-historico-agenda.service";
+import {ITipoAgenda} from "../../../interfaces/i-tipo-agenda";
+import {IPaciente} from "../../../interfaces/i-paciente";
 
 @Component({
   selector: 'app-item-agenda, [app-item-agenda]',
@@ -16,6 +18,9 @@ export class ItemAgendaComponent implements OnInit {
 
   @Input() public agenda: IAgenda; // Input que servirá para coger una agenda en concreto de la lista
   @Input() public fechaToday: Date = null;
+  public prioridad : any;
+  public n_expediente : any;
+
 
   constructor(
     private cargaAgendaService: CargaAgendaService,
@@ -25,6 +30,8 @@ export class ItemAgendaComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.prioridad = this.agenda.id_tipo_agenda.importancia;
+    this.n_expediente = this.agenda.id_paciente.numero_expediente;
   }
 
   //Toast para el Alert indicando que la operación fue exitosa

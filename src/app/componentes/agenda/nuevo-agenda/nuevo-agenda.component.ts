@@ -21,10 +21,10 @@ export class NuevoAgendaComponent implements OnInit {
 
   public agenda: IAgenda | any;
   public tipos_agenda: ITipoAgenda[];
-  public personas_contacto: IPersona[];
+  public tipo_agenda: ITipoAgenda;
   public pacientes: IPaciente[];
+  public paciente: IPaciente;
   public nuevaAgenda: FormGroup;
-  public importanciaArray:string[] = ['Alta', 'Baja'];
   submitted = false;
   mostrarNuevoTipo = false;
   mostrarEditarTipo = false;
@@ -41,7 +41,6 @@ export class NuevoAgendaComponent implements OnInit {
   // Carga de los datos para poder rellenar el formulario de creación.
   ngOnInit(): void {
     this.tipos_agenda = this.route.snapshot.data['tipos_agenda'];
-    this.personas_contacto = this.route.snapshot.data['personas'];
     this.titleService.setTitle('Nuevo agenda');
     this.pacientes = this.route.snapshot.data['pacientes'];
     this.crearForm();
@@ -96,13 +95,11 @@ export class NuevoAgendaComponent implements OnInit {
       'prioridad': this.nuevaAgenda.get('importancia').value,
       'id_paciente': this.nuevaAgenda.get('paciente').value,
       'id_tipo_agenda': this.nuevaAgenda.get('tipo_agenda').value,
-      'id_persona': 9,
       'fecha_registro': new Date(),
       'fecha_prevista': this.nuevaAgenda.get('fecha_prevista').value,
       'fecha_resolucion': null,
       'observaciones': this.nuevaAgenda.get('observaciones').value
     }
-    console.log(this.personas_contacto);
     this.cargaAgendas.nuevoAgenda(this.agenda).subscribe(
       e => {
         this.alertExito();
@@ -168,6 +165,7 @@ export class NuevoAgendaComponent implements OnInit {
       tipos_agenda => {
         this.tipos_agenda = tipos_agenda;
         this.nuevaAgenda.get('tipo_agenda').setValue(tipo.id);
+        this.obtenerImportancia();
         this.alertExito();
       },
       error => {
@@ -196,6 +194,7 @@ export class NuevoAgendaComponent implements OnInit {
         tipos_agenda => {
           this.tipos_agenda = tipos_agenda;
           this.nuevaAgenda.get('tipo_agenda').setValue('');
+          this.nuevaAgenda.get('importancia').setValue('');
           this.alertExito();
         },
         error => {
@@ -203,5 +202,16 @@ export class NuevoAgendaComponent implements OnInit {
         }
       )
     )
+  }
+
+  //Método para obtener el número de expediente del paciente seleccionado en el formulario
+  obtenerExpediente() {
+    this.paciente = this.pacientes.find(paciente => paciente.id == this.nuevaAgenda.get('paciente').value);
+    this.nuevaAgenda.get('n_expediente').setValue(this.paciente.numero_expediente);
+  }
+
+  obtenerImportancia() {
+    this.tipo_agenda = this.tipos_agenda.find(tipo => tipo.id == this.nuevaAgenda.get('tipo_agenda').value);
+    this.nuevaAgenda.get('importancia').setValue(this.tipo_agenda.importancia);
   }
 }
