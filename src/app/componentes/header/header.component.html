@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample09">
       <ul class="navbar-nav px-5" id="ulPrincipal1">
         <li class="nav p-1 mr-1">
-          <a class="nav-link" href="#" [routerLink]="['/']" data-bs-toggle="dropdown" aria-expanded="false" >
+          <a class="nav-link" href="#" [routerLink]="['/datos_sanitario']" data-bs-toggle="dropdown" aria-expanded="false" >
             Usuarios del sistema
           </a>
         </li>
@@ -30,10 +30,17 @@
           </a>
         </li>
 
-        <li class="nav p-1  mr-1">
-          <a class="nav-link " href="#" [routerLink]="['/datos_sanitario']">
+        <li class="nav-item dropdown p-1  mr-1">
+          <a class="nav-link dropdown-toggle" id="navRecursos" data-bs-toggle="dropdown" aria-expanded="false" href="#" [routerLink]="['/']">
             Recursos
           </a>
+          <ul class="dropdown-menu" aria-labelledby="navRecursos">
+            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Sanitarios</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Sociosanitarios</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Organismos Institucionales</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Seguridad</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Sociosanitarios</a></li>
+          </ul>
         </li>
 
         <li class="nav p-1 mr-1">
