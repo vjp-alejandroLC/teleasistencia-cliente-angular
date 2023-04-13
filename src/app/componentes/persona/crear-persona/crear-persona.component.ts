@@ -50,6 +50,7 @@ export class CrearPersonaComponent implements OnInit {
     );
   }
 
+
   nuevaPersona(): void {
     this.persona.id_direccion = this.dire;
     this.cargaPersonas.nuevaPersona(this.persona).subscribe(

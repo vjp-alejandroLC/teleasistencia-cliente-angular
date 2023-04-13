@@ -245,6 +245,9 @@ import { DetallesTipoAgendaResolveService } from './servicios/detalles-tipo-agen
 import { AgendaComponent } from './componentes/agenda/lista-agenda/agenda.component';
 import {AuthGuard} from "./guards/auth.guard";
 import {environment} from "../environments/environment";
+import {
+  CrearUserServicioComponent
+} from "./componentes/usuarios-del-servicio/crear-user-servicio/crear-user-servicio.component";
 
 
 const routes: Routes = [
@@ -1427,6 +1430,14 @@ const routes: Routes = [
   {
     path: 'copia_seguridad/restaurar',
     component: RestaurarCopiaSeguridadComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: null
+    },
+  },
+  {
+    path: 'usuarios_del_servicio/crear',
+    component: CrearUserServicioComponent,
     canActivate: [AuthGuard],
     data:{
       role:null
