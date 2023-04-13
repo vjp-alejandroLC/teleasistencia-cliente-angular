@@ -30,13 +30,13 @@
 
       <div class="form-check form-check-inline">
         <input class="btn-check" type="radio" id="es_dispositivo_true"
-               name="es_dispositivo" [value]="true" formControlName="es_dispositivo"  autocomplete="off">
-        <label class="btn btn-success boton" for="es_dispositivo_true"> Sí </label>
+               name="es_dispositivo" [value]="true" formControlName="es_dispositivo"  autocomplete="off" (click)="elegirOpcion(true)">
+        <label class="btn btn-success boton" for="es_dispositivo_true" [ngClass]="opcion? '':'opacity'" > Sí </label>
       </div>
         <div class="form-check form-check-inline">
         <input class="btn-check" type="radio" id="es_dispositivo_false"
-               name="es_dispositivo" [value]="false" formControlName="es_dispositivo" autocomplete="off">
-        <label class="btn btn-success boton" for="es_dispositivo_false"> No </label>
+               name="es_dispositivo" [value]="false" formControlName="es_dispositivo" autocomplete="off" (click)="elegirOpcion(false)">
+        <label class="btn btn-success boton" for="es_dispositivo_false" [ngClass]="opcion? 'opacity':''"> No </label>
       </div>
     </div>
 

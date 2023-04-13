@@ -1,49 +1,5 @@
-<!-- <main class="text-center row p-0 m-0 justify-content-center">
-  <div class="container">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-        <li class="breadcrumb-item"><a [routerLink]="['/alarmas']">Alarmas</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Crear Alarma por Terminal</li>
-      </ol>
-    </nav>
-    <h1 class="component-title" >Crear Alarma por Terminal</h1>
-    <form #crearAlarmaForm="ngForm">
-      <div class="form-group mb-3">
-        <label for="tipos_alarma" class="form-label">Tipo de alarma</label>
-        <select class="form-select" id="tipos_alarma" name="tipos_alarma"
-                [(ngModel)]="alarma.id_tipo_alarma" required>
-          <option *ngFor="let tipo_alarma of tipos_alarmas; let i = index"
-                  [value]="tipo_alarma.id">{{tipo_alarma.nombre}}</option>
-        </select>
-      </div>
-            <div class="form-group mb-3">
-              <label for="terminal" class="form-label">Terminal</label>
-              <select class="form-select" id="terminal" name="terminal"
-                      [(ngModel)]="alarma.id_terminal" required>
-                <option class="relacion_recurso_option" *ngFor="let terminal of terminales; let i = index"
-                        [value]="terminal.id">{{terminal.numero_terminal}} -- {{terminal.id_titular.id_persona.nombre}} {{terminal.id_titular.id_persona.apellidos}} </option>
-              </select>
-            </div>
-
-
-
-
-      <button type="submit" class="btn btn-outline-success m-1" (click)="nuevaAlarma()"
-              [disabled]="!crearAlarmaForm.form.valid">
-        Guardar
-      </button>
-      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/alarmas']">
-        Volver
-      </button>
-
-    </form>
-  </div>
-</main>
--->
 <main class="text-center row p-0 m-0 justify-content-center">
 
-  <!--- -->
   <div class="container">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -61,8 +17,8 @@
         <label for="tipos_alarma" class="form-label text-start p-0">Tipo de alarma</label>
         <div class="col-12 col-lg-9  p-0 pb-1">
           <select class="form-select" id="tipos_alarma" name="tipos_alarma" formControlName="tipos_alarma">
-            <option *ngFor="let tipo_alarma of tipos_alarmas;"
-                    [value]="tipo_alarma.id">{{tipo_alarma.nombre}}</option>
+            <option *ngFor="let tipo_alarma of tipos_alarmas; let i = index" class="tipo_alarma"
+                    [value]="tipo_alarma.id">{{ tipo_alarma.id == this.alarmaCreada? optionSelected(i):"" }}{{tipo_alarma.nombre}}</option>
           </select>
         </div>
         <div class="col-4 col-lg-1  p-0">
@@ -78,15 +34,15 @@
         </div>
       </div>
       <div class="form-group mb-3 row">
-        <label class="form-label text-start p-0">Alarma según: {{formCrearA.value.tipos_alarma}}</label>
+        <label class="form-label text-start p-0">Alarma según: {{this.alarmaCreada}}</label>
         <div class="col d-flex justify-content-around ">
           <div>
             <input type="radio" class="btn-check" name="options" id="rterminal" autocomplete="off" checked (click)="elegirAlarma(true)">
-            <label class="btn btn-success" [ngClass]="terminal? 'opacity':''" for="rterminal">Terminal</label>
+            <label class="btn btn-success" [ngClass]="terminal? '':'opacity'" for="rterminal">Terminal</label>
           </div>
           <div>
             <input type="radio" class="btn-check" name="options" id="rpaciente" autocomplete="off" (click)="elegirAlarma(false)">
-            <label class="btn btn-success" [ngClass]="terminal? '':'opacity'" for="rpaciente">Paciente</label>
+            <label class="btn btn-success" [ngClass]="terminal? 'opacity':''" for="rpaciente">Paciente</label>
           </div>
         </div>
       </div>
@@ -119,7 +75,7 @@
     </form>
     </div>
     <div class="col-12 col-xl-6 collapse collapse-horizontal" id="collapseWidthExample">
-      <app-crear-tipo-alarma (tipos_alarmas)="this.tipos_alarmas=$event" (mostrar)="this.mostrar=$event"></app-crear-tipo-alarma>
+      <app-crear-tipo-alarma (tipos_alarmas)="this.tipos_alarmas=$event" (alarma_creada)="this.alarmaCreada=$event"  (mostrar)="this.mostrar=$event"></app-crear-tipo-alarma>
     </div>
 
       <!-- CLASE PARA HACER TRANSICION Y EL NGIF SIRVE PARA EVITAR QUE LA PETICION GET DEL MODIFICAR SE HAGA SOBRE UN TIPO DE ALARMA VACIO-->

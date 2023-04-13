@@ -113,7 +113,6 @@ import {
   NuevoHistoricoAgendaComponent
 } from "./componentes/historico-agenda/nuevo-historico-agenda/nuevo-historico-agenda.component";
 import { ListaAlarmasComponent } from './componentes/alarma/lista-alarmas/lista-alarmas.component';
-import { CrearAlarmaUcrComponent } from './componentes/alarma/crear-alarma-ucr/crear-alarma-ucr.component';
 import { ModificarCerrarAlarmaComponent } from './componentes/alarma/modificar-cerrar-alarma/modificar-cerrar-alarma.component';
 import { ItemAlarmaComponent } from './componentes/alarma/item-alarma/item-alarma.component';
 import { ListaTerminalComponent } from './componentes/terminal/lista-terminal/lista-terminal.component';
@@ -246,7 +245,6 @@ import {ReactiveFormsModule} from "@angular/forms";
     ModificarAgendaComponent,
     NuevoHistoricoAgendaComponent,
     ListaAlarmasComponent,
-    CrearAlarmaUcrComponent,
     ModificarCerrarAlarmaComponent,
     ItemAlarmaComponent,
     ListaTerminalComponent,

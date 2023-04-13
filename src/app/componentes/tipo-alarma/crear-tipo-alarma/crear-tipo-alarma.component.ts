@@ -4,7 +4,6 @@ import {IClasificacionAlarma} from '../../../interfaces/i-clasificacion-alarma';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CargaTipoAlarmaService} from '../../../servicios/carga-tipo-alarma.service';
-import {TipoAlarma} from '../../../clases/tipo-alarma';
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -19,10 +18,13 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class CrearTipoAlarmaComponent implements OnInit {
   public tipo_alarma: ITipoAlarma;
   public listaAlarmas : ITipoAlarma[];
+  public opcion: boolean = true;
   public clasificaciones_alarmas: IClasificacionAlarma[];
   @Output () mostrar = new EventEmitter;
   @Output () tipos_alarmas = new EventEmitter;
+  @Output () alarma_creada= new EventEmitter;
   public formCrear: FormGroup;
+
   constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposAlarmas: CargaTipoAlarmaService, private router: Router, private formBuilder: FormBuilder) {
   }
 
@@ -33,11 +35,18 @@ export class CrearTipoAlarmaComponent implements OnInit {
       es_dispositivo:[true,Validators.required],
       id_clasificacion_alarma:['',Validators.required],
     });
-    this.titleService.setTitle('Nuevo tipo de alarma');
     this.clasificaciones_alarmas = this.route.snapshot.data['clasificaciones_alarmas'];
   }
   get f(){
     return this.formCrear.controls;
+  }
+  //Funcion para eleccion si es un dispositivo ( SI O NO)
+  elegirOpcion(opcion){
+    if(!opcion){
+      this.opcion = false;
+    }else {
+      this.opcion = true;
+    }
   }
   nuevoTipoAlarma(): void {
     this.cargaTiposAlarmas.nuevoTipoAlarma(this.formCrear.value).subscribe(
@@ -49,6 +58,8 @@ export class CrearTipoAlarmaComponent implements OnInit {
       },
       ()=>{
         this.formCrear.reset();
+        this.formCrear.get('es_dispositivo').setValue(true);
+        this.opcion = true;
         this.refrescar();
       }
     );
@@ -102,7 +113,10 @@ export class CrearTipoAlarmaComponent implements OnInit {
     ()=> {
         //pasamos el array al padre para que se actualice al instante
       this.tipos_alarmas.emit(this.listaAlarmas);
+      this.alarma_creada.emit(this.listaAlarmas.slice(-1).pop().id);
       this.mostrar.emit(!this.mostrar);
+      console.log(this.listaAlarmas.slice(-1).pop().id);
+
     });
   }
   mostratCrearTipo(){

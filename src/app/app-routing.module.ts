@@ -28,9 +28,6 @@ import {ModificarTipoModalidadPacienteResolveService} from './servicios/modifica
 import {CrearTipoModalidadPacienteComponent} from './componentes/tipo-modalidad-paciente/crear-tipo-modalidad-paciente/crear-tipo-modalidad-paciente.component';
 import {ListaTiposAlarmasComponent} from './componentes/tipo-alarma/lista-tipos-alarmas/lista-tipos-alarmas.component';
 import {ListaTiposAlarmasResolveService} from './servicios/lista-tipos-alarmas-resolve.service';
-import {ModificarTipoAlarmaComponent} from './componentes/tipo-alarma/modificar-tipo-alarma/modificar-tipo-alarma.component';
-import {ModificarTipoAlarmaResolveService} from './servicios/modificar-tipo-alarma-resolve.service';
-import {CrearTipoAlarmaComponent} from './componentes/tipo-alarma/crear-tipo-alarma/crear-tipo-alarma.component';
 import {ListaDireccionesComponent} from './componentes/direccion/lista-direcciones/lista-direcciones.component';
 import {ListaDireccionesResolveService} from './servicios/lista-direcciones-resolve.service';
 import {ModificarDireccionComponent} from './componentes/direccion/modificar-direccion/modificar-direccion.component';
@@ -132,7 +129,6 @@ import {ListaAlarmasComponent} from "./componentes/alarma/lista-alarmas/lista-al
 import {ModificarCerrarAlarmaComponent} from "./componentes/alarma/modificar-cerrar-alarma/modificar-cerrar-alarma.component";
 import {ModificarAlarmaResolveService} from "./servicios/alarmas/modificar-alarma-resolve.service";
 import {ListaTerminalesResolveService} from "./servicios/terminal/lista-terminales-resolve.service";
-import {CrearAlarmaUcrComponent} from "./componentes/alarma/crear-alarma-ucr/crear-alarma-ucr.component";
 import {ListaTerminalComponent} from "./componentes/terminal/lista-terminal/lista-terminal.component";
 import {ModificarTerminalComponent} from "./componentes/terminal/modificar-terminal/modificar-terminal.component";
 import {ModificarTerminalResolveService} from "./servicios/terminal/modificar-terminal-resolve.service";
@@ -420,29 +416,6 @@ const routes: Routes = [
     },
     resolve: {
       tipos_alarmas: ListaTiposAlarmasResolveService
-    }
-  },
-  {
-    path: 'tipos_alarmas/modificar/:id',
-    component: ModificarTipoAlarmaComponent,
-    canActivate: [AuthGuard],
-    data:{
-      role:null
-    },
-    resolve: {
-      tipo_alarma: ModificarTipoAlarmaResolveService,
-      clasificaciones_alarmas: ListaClasificacionesAlarmasResolveService
-    }
-  },
-  {
-    path: 'tipos_alarmas/nuevo',
-    component: CrearTipoAlarmaComponent,
-    canActivate: [AuthGuard],
-    data:{
-      role:null
-    },
-    resolve: {
-      clasificaciones_alarmas: ListaClasificacionesAlarmasResolveService
     }
   },
   {
@@ -976,20 +949,6 @@ const routes: Routes = [
     resolve: {
       alarma: ModificarAlarmaResolveService,
       teleoperadores: ListaUsersResolveService
-    }
-  },
-  {
-    path: 'alarmas/nueva/ucr',
-    component: CrearAlarmaUcrComponent,
-    canActivate: [AuthGuard],
-    data:{
-      role:null
-    },
-    resolve: {
-      alarma: ListaAlarmasResolveService,
-      terminales: ListaTerminalesResolveService,
-      tipos_alarmas: ListaTiposAlarmasResolveService,
-      pacientes_ucr: ListaPacientesResolveService
     }
   },
   {

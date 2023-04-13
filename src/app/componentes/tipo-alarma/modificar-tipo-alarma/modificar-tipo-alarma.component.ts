@@ -18,7 +18,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class ModificarTipoAlarmaComponent implements OnInit {
   public tipo_alarma: any;
   public formEdit: FormGroup;
-  public clasificaciones_alarmas: any;
+  public opcion: boolean = true;
+  public clasificaciones_alarmas: IClasificacionAlarma[];
   @Input() public idTipoAlarma: number;
   @Output () mostrarModificar = new EventEmitter;
   @Input () listaTiposAlarma: ITipoAlarma[];
@@ -30,7 +31,6 @@ export class ModificarTipoAlarmaComponent implements OnInit {
   ngOnInit(): void {
     this.buscarTipoAlarma();
     this.clasificaciones_alarmas = this.route.snapshot.data['clasificaciones_alarmas'];
-    this.titleService.setTitle('Modificar tipo alarma ' + this.idTipoAlarma);
     this.formEdit = this.formBuilder.group({
       nombre:[this.tipo_alarma.nombre,[Validators.required,Validators.maxLength(200)]],
       codigo:[this.tipo_alarma.codigo,[Validators.required,Validators.pattern(/[A-Z & 0-9]+$/),Validators.maxLength(200)]],
@@ -40,6 +40,13 @@ export class ModificarTipoAlarmaComponent implements OnInit {
   }
   get f(){
     return this.formEdit.controls;
+  }
+  elegirOpcion(opcion){
+    if(!opcion){
+      this.opcion = false;
+    }else {
+      this.opcion = true;
+    }
   }
   buscarTipoAlarma(){
     let enc = false;
