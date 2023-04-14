@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute, Router} from "@angular/router";
 import {IAgenda} from "../../../interfaces/i-agenda";
-import {Agenda} from "../../../clases/agenda";
 import {CargaAgendaService} from "../../../servicios/carga-agenda.service";
 import {ITipoAgenda} from "../../../interfaces/i-tipo-agenda";
-import {IPersona} from "../../../interfaces/i-persona";
 import {IPaciente} from "../../../interfaces/i-paciente";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
@@ -92,7 +90,6 @@ export class NuevoAgendaComponent implements OnInit {
   // Método que realiza la petición al servidor de creación de una agenda.
   nuevoAgenda() {
     this.agenda = {
-      'prioridad': this.nuevaAgenda.get('importancia').value,
       'id_paciente': this.nuevaAgenda.get('paciente').value,
       'id_tipo_agenda': this.nuevaAgenda.get('tipo_agenda').value,
       'fecha_registro': new Date(),
@@ -210,6 +207,7 @@ export class NuevoAgendaComponent implements OnInit {
     this.nuevaAgenda.get('n_expediente').setValue(this.paciente.numero_expediente);
   }
 
+  //Método para obtener la prioridad del tipo de agenda
   obtenerImportancia() {
     this.tipo_agenda = this.tipos_agenda.find(tipo => tipo.id == this.nuevaAgenda.get('tipo_agenda').value);
     this.nuevaAgenda.get('importancia').setValue(this.tipo_agenda.importancia);

@@ -29,18 +29,6 @@
       </div>
 
       <div class="form-group mb-3">
-        <label for="id_persona_contacto" class="form-label">Persona de contacto</label>
-        <input type="text" name="id_persona_contacto" id="id_persona_contacto" class="form-control"
-               required maxlength="200" [(ngModel)]="agenda.id_persona.nombre" disabled>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="telefonoContacto" class="form-label">Teléfono de contacto</label>
-        <input type="text" name="telefonoContacto" id="telefonoContacto" class="form-control"
-               required maxlength="200" [(ngModel)]="agenda.id_persona.telefono_movil" disabled>
-      </div>
-
-      <div class="form-group mb-3">
         <label for="fecha_prevista" class="form-label">Fecha prevista</label>
         <input type="date" name="fecha_prevista" id="fecha_prevista" class="form-control"
                required maxlength="200" [(ngModel)]="agenda.fecha_prevista" #fecha_prevista="ngModel" disabled>

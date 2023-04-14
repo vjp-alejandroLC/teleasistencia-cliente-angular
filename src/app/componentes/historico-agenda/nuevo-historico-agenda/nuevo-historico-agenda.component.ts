@@ -68,7 +68,6 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
 
     this.agenda.id_tipo_agenda = this.agenda.id_tipo_agenda.id;
     this.agenda.id_paciente = this.agenda.id_paciente.id;
-    this.agenda.id_persona = this.agenda.id_persona.id;
 
 
     this.cargaAgendaService.modificarAgenda(this.agenda).subscribe(
