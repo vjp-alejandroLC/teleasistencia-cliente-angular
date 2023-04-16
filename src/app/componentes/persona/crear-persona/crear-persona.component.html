@@ -1,77 +1,72 @@
 <main class="p-0 m-0">
-  <form #nuevaPersonaForm="ngForm">
+  <form [formGroup]="formulario">
 
     <div class="row mb-4">
       <div class="col-4">
         <div class="form-group">
           <input type="text" name="nombre" id="nombre" class="form-control" required maxlength="200"
-                 pattern="^[\w'\-,.][^0-9_!¡?÷?¿(\)\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
-                 [(ngModel)]="persona.nombre" #nombre="ngModel" placeholder="Nombre">
+                 placeholder="Nombre" formControlName="nombre">
         </div>
-        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="nombre.errors?.required; else elseBlock">
-            El nombre es obligatorio
-          </div>
-          <ng-template #elseBlock>
-            Introduzca un nombre válido
-          </ng-template>
-        </div>
+        <!--        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">-->
+        <!--          <div *ngIf="nombre.errors?.required; else elseBlock">-->
+        <!--            El nombre es obligatorio-->
+        <!--          </div>-->
+        <!--          <ng-template #elseBlock>-->
+        <!--            Introduzca un nombre válido-->
+        <!--          </ng-template>-->
+        <!--        </div>-->
       </div>
 
       <div class="col-4">
         <div class="form-group">
           <input type="text" name="apellidos" id="apellidos" class="form-control"
-                 required maxlength="200" pattern="^[\w'\-,.][^0-9_!¡?÷?¿(\)\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
-                 [(ngModel)]="persona.apellidos" #apellidos="ngModel" placeholder="Apellidos">
+                placeholder="Apellidos" formControlName="apellidos">
         </div>
 
-        <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-secondary"
-             role="alert">
-          <div *ngIf="apellidos.errors?.required; else elseBlock">
-            Los apellidos son obligatorios
-          </div>
-          <ng-template #elseBlock>
-            Introduzca unos apellidos válidos
-          </ng-template>
-        </div>
+<!--        <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-secondary"-->
+<!--             role="alert">-->
+<!--          <div *ngIf="apellidos.errors?.required; else elseBlock">-->
+<!--            Los apellidos son obligatorios-->
+<!--          </div>-->
+<!--          <ng-template #elseBlock>-->
+<!--            Introduzca unos apellidos válidos-->
+<!--          </ng-template>-->
+<!--        </div>-->
       </div>
 
       <div class="col-4">
         <div class="form-group">
-          <input type="text" name="dni" id="dni" class="form-control" required maxlength="9"
-                 pattern="((([X-Z])|([LM])){1}([-]?)((\d){7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]))"
-                 [(ngModel)]="persona.dni" #dni="ngModel" placeholder="DNI">
+          <input type="text" name="dni" id="dni" class="form-control" placeholder="DNI" formControlName="dni">
         </div>
-        <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-secondary" role="alert">
-          <div *ngIf="dni.errors?.required; else elseBlock">
-            El dni es obligatorio
-          </div>
-          <ng-template #elseBlock>
-            Introduzca un dni válido
-          </ng-template>
-        </div>
+<!--        <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-secondary" role="alert">-->
+<!--          <div *ngIf="dni.errors?.required; else elseBlock">-->
+<!--            El dni es obligatorio-->
+<!--          </div>-->
+<!--          <ng-template #elseBlock>-->
+<!--            Introduzca un dni válido-->
+<!--          </ng-template>-->
+<!--        </div>-->
       </div>
     </div>
 
     <div class="row mb-4">
       <div class="col-4">
         <div class="form-group">
-          <input type="date" name="fecha_nacimiento " id="fecha_nacimiento" class="form-control" required
-                 max="{{ anno_actual }}-{{ mes_actual }}-{{ dia_actual }}" [(ngModel)]="persona.fecha_nacimiento"
-                 #fecha_nacimiento="ngModel" placeholder="Fecha de nacimiento">
+          <input type="date" name="fecha_nacimiento " id="fecha_nacimiento" class="form-control"
+                 max="{{ anno_actual }}-{{ mes_actual }}-{{ dia_actual }}"
+                  formControlName="fecha_nacimiento">
         </div>
-        <div *ngIf="fecha_nacimiento.invalid && (fecha_nacimiento.dirty || fecha_nacimiento.touched)"
-             class="alert alert-secondary" role="alert">
-          <div *ngIf="fecha_nacimiento.errors?.required">
-            La fecha de nacimiento es obligatoria
-          </div>
-        </div>
+<!--        <div *ngIf="fecha_nacimiento.invalid && (fecha_nacimiento.dirty || fecha_nacimiento.touched)"-->
+<!--             class="alert alert-secondary" role="alert">-->
+<!--          <div *ngIf="fecha_nacimiento.errors?.required">-->
+<!--            La fecha de nacimiento es obligatoria-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
 
       <div class="col-4">
         <div class="form-group">
-          <select class="form-select" id="sexo" name="sexo" required
-                  [(ngModel)]="persona.sexo">
+          <select class="form-select" id="sexo" name="sexo" formControlName="sexo">
             <option class="sexo_option" value="Hombre">Hombre</option>
             <option class="sexo_option" value="Mujer">Mujer</option>
           </select>
@@ -80,123 +75,115 @@
 
       <div class="col-4">
         <div class="form-group">
-          <input type="tel" name="telefono_fijo" id="telefono_fijo" class="form-control" maxlength="12"
-                 pattern="^[9]{1}[ ]*([0-9][ ]*){8}$"
-                 [(ngModel)]="persona.telefono_fijo" #telefono_fijo="ngModel" placeholder="Teléfono Fijo">
+          <input type="tel" name="telefono_fijo" id="telefono_fijo" class="form-control"
+                 placeholder="Teléfono Fijo" formControlName="telefono_fijo">
         </div>
-        <div *ngIf="telefono_fijo.invalid && (telefono_fijo.dirty || telefono_fijo.touched)"
-             class="alert alert-secondary"
-             role="alert">
-          <div *ngIf="telefono_fijo.errors">
-            Introduzca un teléfono fijo válido
-          </div>
-        </div>
+<!--        <div *ngIf="telefono_fijo.invalid && (telefono_fijo.dirty || telefono_fijo.touched)"-->
+<!--             class="alert alert-secondary"-->
+<!--             role="alert">-->
+<!--          <div *ngIf="telefono_fijo.errors">-->
+<!--            Introduzca un teléfono fijo válido-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
     </div>
     <div class="row mb-4">
       <div class="col-4">
         <div class="form-group">
-          <input type="text" name="localidad" id="localidad" class="form-control"
-                 required maxlength="200" [(ngModel)]="dire.localidad"
-                 #localidad="ngModel" placeholder="Localidad">
+          <input type="text" name="localidad" id="localidad" class="form-control" placeholder="Localidad" formControlName="localidad">
         </div>
-        <div *ngIf="localidad.invalid && (localidad.dirty || localidad.touched)" class="alert alert-secondary"
-             role="alert">
-          <div *ngIf="localidad.errors?.required">
-            La localidad es obligatoria
-          </div>
-        </div>
+<!--        <div *ngIf="localidad.invalid && (localidad.dirty || localidad.touched)" class="alert alert-secondary"-->
+<!--             role="alert">-->
+<!--          <div *ngIf="localidad.errors?.required">-->
+<!--            La localidad es obligatoria-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
 
       <div class="col-4">
         <div class="form-group">
-          <input type="tel" name="telefono_movil" id="telefono_movil" class="form-control" maxlength="12"
-                 pattern="^[6|7]{1}[ ]*([0-9][ ]*){8}$"
-                 [(ngModel)]="persona.telefono_movil" #telefono_movil="ngModel" placeholder="Teléfono Movil">
+          <input type="tel" name="telefono_movil" id="telefono_movil" class="form-control"
+               placeholder="Teléfono Movil" formControlName="telefono_movil">
         </div>
-        <div *ngIf="telefono_movil.invalid && (telefono_movil.dirty || telefono_movil.touched)"
-             class="alert alert-secondary" role="alert">
-          <div *ngIf="telefono_movil.errors">
-            Introduzca un teléfono móvil válido
-          </div>
-        </div>
+<!--        <div *ngIf="telefono_movil.invalid && (telefono_movil.dirty || telefono_movil.touched)"-->
+<!--             class="alert alert-secondary" role="alert">-->
+<!--          <div *ngIf="telefono_movil.errors">-->
+<!--            Introduzca un teléfono móvil válido-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
 
 
       <div class="col-4">
         <div class="form-group">
           <input type="text" name="provincia" id="provincia" class="form-control"
-                 required maxlength="200" [(ngModel)]="dire.provincia"
-                 #provincia="ngModel" placeholder="Provincia">
+                 required maxlength="200" placeholder="Provincia" formControlName="provincia">
         </div>
-        <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert alert-secondary"
-             role="alert">
-          <div *ngIf="provincia.errors?.required">
-            La provincia es obligatoria
-          </div>
-        </div>
+<!--        <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert alert-secondary"-->
+<!--             role="alert">-->
+<!--          <div *ngIf="provincia.errors?.required">-->
+<!--            La provincia es obligatoria-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
     </div>
     <div class="row mb-4">
       <div class="col-4">
         <div class="form-group">
           <input type="text" name="direccion" id="direccion" class="form-control"
-                 required maxlength="200" [(ngModel)]="dire.direccion"
-                 #direccion="ngModel" placeholder="Dirección">
+                      placeholder="Dirección" formControlName="direccion">
         </div>
-        <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="alert alert-secondary"
-             role="alert">
-          <div *ngIf="direccion.errors?.required">
-            La dirección es obligatoria
-          </div>
-        </div>
+<!--        <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="alert alert-secondary"-->
+<!--             role="alert">-->
+<!--          <div *ngIf="direccion.errors?.required">-->
+<!--            La dirección es obligatoria-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
 
 
       <div class="col-4">
         <div class="form-group">
           <input type="text" name="codigo_postal" id="codigo_postal" class="form-control"
-                 required minlength="5" maxlength="5" pattern="[0-9]+$" [(ngModel)]="dire.codigo_postal"
-                 #codigo_postal="ngModel" placeholder="CP">
+                  placeholder="CP" formControlName="codigo_postal">
         </div>
-        <div *ngIf="codigo_postal.invalid && (codigo_postal.dirty || codigo_postal.touched)"
-             class="alert alert-secondary"
-             role="alert">
-          <div *ngIf="codigo_postal.errors?.required; else elseBlock">
-            El código postal es obligatorio
-          </div>
-          <ng-template #elseBlock>
-            El código postal debe tener 5 caracteres numéricos
-          </ng-template>
-        </div>
+<!--        <div *ngIf="codigo_postal.invalid && (codigo_postal.dirty || codigo_postal.touched)"-->
+<!--             class="alert alert-secondary"-->
+<!--             role="alert">-->
+<!--          <div *ngIf="codigo_postal.errors?.required; else elseBlock">-->
+<!--            El código postal es obligatorio-->
+<!--          </div>-->
+<!--          <ng-template #elseBlock>-->
+<!--            El código postal debe tener 5 caracteres numéricos-->
+<!--          </ng-template>-->
+<!--        </div>-->
       </div>
     </div>
-    <div class="row mb-4">
-      <div class="col-4">
-        <div class="form-group">
-          <select class="form-select" id="tipo_user" name="tipo_user" required>
-            <option  value="Persona mayor">Persona mayor</option>
-            <option  value="Persona con enfermedad crónica">Persona con enfermedad crónica</option>
-            <option  value="Persona con enfermedad mental">Persona con enfermedad mental</option>
-            <option  value="Demencia">Demencia</option>
-            <option  value="Diversidad funcional sensorial">Diversidad funcional sensorial</option>
-            <option  value="Diversidad funcional intelectual">Diversidad funcional intelectual</option>
-            <option  value="Diversidad funcional física">Diversidad funcional física</option>
-            <option  value="Víctima de violencia de género">Víctima de violencia de género</option>
-          </select>
-        </div>
-      </div>
-    </div>
+    <!--    <div class="row mb-4">-->
+    <!--      <div class="col-4">-->
+    <!--        <div class="form-group">-->
+    <!--          <select class="form-select" id="tipo_user" name="tipo_user" required>-->
+    <!--            <option  value="Persona mayor">Persona mayor</option>-->
+    <!--            <option  value="Persona con enfermedad crónica">Persona con enfermedad crónica</option>-->
+    <!--            <option  value="Persona con enfermedad mental">Persona con enfermedad mental</option>-->
+    <!--            <option  value="Demencia">Demencia</option>-->
+    <!--            <option  value="Diversidad funcional sensorial">Diversidad funcional sensorial</option>-->
+    <!--            <option  value="Diversidad funcional intelectual">Diversidad funcional intelectual</option>-->
+    <!--            <option  value="Diversidad funcional física">Diversidad funcional física</option>-->
+    <!--            <option  value="Víctima de violencia de género">Víctima de violencia de género</option>-->
+    <!--          </select>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
-    <div class="row">
-          <div class="form-group">
-            <textarea placeholder="  (SAD / Centro de Dia)"></textarea>
-          </div>
-    </div>
+    <!--    <div class="row">-->
+    <!--          <div class="form-group">-->
+    <!--            <textarea placeholder="  (SAD / Centro de Dia)"></textarea>-->
+    <!--          </div>-->
+    <!--    </div>-->
 
 
-    <button type="submit" class="btn btn-outline-success m-1" (click)="nuevaPersona()"
-            [disabled]="!nuevaPersonaForm.form.valid">Guardar
+    <button type="submit" class="btn btn-outline-success m-1" (click)="comprobarFormulario()">Guardar
     </button>
     <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/inicio']">Volver</button>
 

@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import {Direccion} from "../../../clases/direccion";
 import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
 import {environment} from "../../../../environments/environment";
-
+import {FormBuilder, FormGroup, MaxValidator, Validators} from "@angular/forms";
 
 
 @Component({
@@ -25,12 +25,17 @@ export class CrearPersonaComponent implements OnInit {
   public anno_actual = this.fecha_actual.getFullYear();
   public mes_actual = this.fecha_actual.getMonth() + 1;
   public dia_actual = this.fecha_actual.getDate();
-  public dire : IDireccion;
+  public dire: IDireccion;
+  public formulario: FormGroup;
 
-  constructor(private titleService: Title, private route: ActivatedRoute, private cargaPersonas: CargaPersonaService, private router: Router, private cargaDirecciones : CargaDireccionService) {
+  constructor(private titleService: Title, private route: ActivatedRoute, private cargaPersonas: CargaPersonaService, private router: Router, private cargaDirecciones: CargaDireccionService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    //Formularios reactivos
+    this.buildForm();
+
+
     this.titleService.setTitle('Crear nueva persona');
     this.persona = new Persona();
     //this.direcciones = this.route.snapshot.data['direcciones'];
@@ -39,6 +44,7 @@ export class CrearPersonaComponent implements OnInit {
     this.persona.telefono_movil = '';
     this.dire = new Direccion();
   }
+
   nuevaDireccion(): void {
     this.cargaDirecciones.nuevaDireccion(this.dire).subscribe(
       e => {
@@ -58,14 +64,15 @@ export class CrearPersonaComponent implements OnInit {
         this.nuevaDireccion();
         this.alertExito()
         this.router.navigate(['/personas']);
-        },
+      },
       error => {
         this.alertError()
       }
     );
   }
+
   //Toast para el Alert indicando que la operación fue exitosa
-  alertExito() :void {
+  alertExito(): void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -84,8 +91,9 @@ export class CrearPersonaComponent implements OnInit {
       title: environment.fraseCrear,
     })
   }
+
   //Toast para el alert indicando que hubo algún error en la operación
-  alertError() :void {
+  alertError(): void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -103,4 +111,50 @@ export class CrearPersonaComponent implements OnInit {
       title: environment.fraseErrorCrear
     })
   }
+
+
+  //formularios reactivos
+  private buildForm() {
+    this.formulario = this.formBuilder.group({
+      nombre:['',[Validators.required,
+                Validators.maxLength(200),
+                Validators.pattern("^[\w'\-,.][^0-9_!¡?÷?¿(\)\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$")],
+             ],
+      apellidos:[''],
+
+      dni:['',[Validators.required,
+              Validators.maxLength(9),
+              Validators.pattern("((([X-Z])|([LM])){1}([-]?)((\d){7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]))")],
+              ],
+
+      fecha_nacimiento:['',[Validators.required]],
+
+      sexo:['',[Validators.required]],
+
+      telefono_fijo:['',[Validators.maxLength(12),
+                        Validators.pattern("^[6|7]{1}[ ]*([0-9][ ]*){8}$")]],
+
+      localidad:['',[Validators.required,
+                    Validators.maxLength(200)]],
+
+      telefono_movil:['',[Validators.maxLength(12),
+                        Validators.pattern("^[6|7]{1}[ ]*([0-9][ ]*){8}$")]],
+
+      provincia:['',[Validators.required,
+                    Validators.maxLength(200)]],
+
+      direccion:['',[Validators.required,
+                    Validators.maxLength(200),]],
+
+      codigo_postal:['',[Validators.maxLength(5),
+                        Validators.minLength(5),
+                        Validators.pattern("[0-9]+$")]]
+    });
+  }
+
+  comprobarFormulario(){
+      console.log(this.formulario.value)
+  }
+
+
 }

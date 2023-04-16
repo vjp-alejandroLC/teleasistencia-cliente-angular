@@ -157,6 +157,7 @@ import { GruposComponent } from './componentes/grupos/grupos.component';
 import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component';
 import { CrearUserServicioComponent } from './componentes/usuarios-del-servicio/crear-user-servicio/crear-user-servicio.component';
 import { ConsultarUsersServicioComponent } from './componentes/usuarios-del-servicio/consultar-users-servicio/consultar-users-servicio.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -294,6 +295,7 @@ import { ConsultarUsersServicioComponent } from './componentes/usuarios-del-serv
     FormsModule,
     CommonModule,
     NgxPaginationModule,
+    ReactiveFormsModule
   ],
   providers: [
     CargaUserService,
