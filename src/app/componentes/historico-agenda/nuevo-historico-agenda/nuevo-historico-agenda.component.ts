@@ -9,6 +9,7 @@ import {IAgenda} from "../../../interfaces/i-agenda";
 import {toInteger} from "@ng-bootstrap/ng-bootstrap/util/util";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-nuevo-historico-agenda',
@@ -17,17 +18,21 @@ import {environment} from "../../../../environments/environment";
 })
 export class NuevoHistoricoAgendaComponent implements OnInit {
 
-  public historico_agenda: IHistoricoAgenda;
+  public historico_agenda: IHistoricoAgenda | any;
   public agendas: IAgenda[];
   public teleoperadores: any[];
   public agenda: IAgenda;
+  public nuevoHistorico: FormGroup;
+  public fecha_actual: Date;
+  submitted = false;
 
   constructor(
     private titleService: Title,
     private route: ActivatedRoute,
     private cargaHistoricoAgenda: CargaHistoricoAgendaService,
     private cargaAgendaService: CargaAgendaService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) { }
 
   // Carga de los datos al cargar el componente
@@ -37,7 +42,35 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
     this.teleoperadores = this.route.snapshot.data['teleoperadores'];
     this.agenda = this.route.snapshot.data['agenda'];
 
-    this.historico_agenda.id_agenda = this.agenda.id;
+    //this.historico_agenda.id_agenda = this.agenda.id;
+    this.fecha_actual = new Date;
+    this.crearForm();
+  }
+
+  //Método para obtener los valores del formulario
+  get form() {
+    return this.nuevoHistorico.controls;
+  }
+
+  //Método para comprobar si es válida la modificación
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.nuevoHistorico.invalid) {
+      return;
+    }
+
+    this.crearNuevoHistorico();
+  }
+
+  crearNuevoHistorico() {
+    this.historico_agenda = {
+      'id_agenda': this.agenda.id,
+      'id_teleoperador': this.nuevoHistorico.get('teleoperador').value,
+      'fecha_llamada': this.nuevoHistorico.get('fecha_llamada').value,
+      'observaciones': this.nuevoHistorico.get('observaciones_historico').value
+    }
+    this.nuevoHistoricoAgenda();
   }
 
   //Petición al servidor para la creación de un nuevo histórico de agenda.
@@ -123,6 +156,40 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
     Toast.fire({
       icon: 'error',
       title: environment.fraseErrorCrear
+    })
+  }
+
+  public crearForm() {
+    this.nuevoHistorico = this.formBuilder.group({
+      paciente: [this.agenda.id_paciente.id_persona.nombre + " " + this.agenda.id_paciente.id_persona.apellidos + " - " + this.agenda.id_paciente.id_persona.dni,[
+        Validators.required
+      ]],
+      movil_paciente: [this.agenda.id_paciente.id_persona.telefono_movil, [
+        Validators.required
+      ]],
+      tipo_agenda: [this.agenda.id_tipo_agenda.nombre, [
+        Validators.required
+      ]],
+      fecha_prevista: [ this.agenda.fecha_registro, [
+        Validators.required
+      ]],
+      observaciones: [this.agenda.observaciones, [
+        Validators.required,
+        Validators.minLength(10)
+      ]],
+      agenda: [this.agenda.id, [
+        Validators.required
+      ]],
+      teleoperador: [ '',[
+        Validators.required
+      ]],
+      fecha_llamada: [ this.fecha_actual, [
+        Validators.required
+      ]],
+      observaciones_historico: [ '', [
+        Validators.required,
+        Validators.minLength(10)
+      ]]
     })
   }
 }

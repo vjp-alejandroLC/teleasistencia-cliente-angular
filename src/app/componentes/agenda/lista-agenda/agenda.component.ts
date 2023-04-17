@@ -40,6 +40,7 @@ export class AgendaComponent implements OnInit {
   // Al cargar el componente, se establecen las agendas para el día actual
   ngOnInit() {
     this.agendasDelDia = this.route.snapshot.data['agendasDelDia'];
+    this.agendasDelDia = this.agendasDelDia.sort((a, b) => a.id_tipo_agenda.importancia > b.id_tipo_agenda.importancia ? 1 : -1);
     this.fechaString = + this.fechaToday.getDate() + ' de ' + this.getNombreMes(this.fechaToday.getMonth()) + ' de '
       + this.fechaToday.getFullYear();
   }

@@ -157,7 +157,6 @@ export class ModificarAgendaComponent implements OnInit {
 
   //Método en el que se crea el que se sobreescriben los valores del objeto de tipo agenda
   modificarAgenda() {
-    console.log(this.modAgenda.get('fecha_prevista').value)
     this.agenda = {
       'id': this.agenda.id,
       'id_paciente': this.modAgenda.get('paciente').value,
