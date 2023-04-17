@@ -41,7 +41,6 @@ export class CrearPersonaContactoComponent implements OnInit {
 
 
 ngOnInit() {
-  this.pacientes = this.route.snapshot.data['pacientes'];
   this.relacionPacientePersona = new RelacionPacientePersona();
   this.crearFormulario();
 
@@ -61,6 +60,7 @@ crearFormulario(){
     apellidos: ['',[Validators.required,Validators.maxLength(200)]],
     telefono_fijo: ['',[Validators.required,Validators.maxLength(200),Validators.pattern("^((\\\\+91-?)|0)?[0-9]{9}$")]],
     pacientes: ['',[Validators.required]],
+    tipo_relacion:['',[Validators.required]],
     tiene_llaves_vivienda: ['', [Validators.required]],
     disponibilidad: ['',[Validators.required]],
     observaciones: ['',[Validators.required]],
@@ -81,12 +81,13 @@ crearRelacion(){
           'telefono': this.formulario.get('telefono_fijo').value,
           'nombre': this.formulario.get('nombre').value,
           'apellidos': this.formulario.get('apellidos').value,
+          'tipo_relacion': this.formulario.get('tipo_relacion').value,
           'tiene_llaves_viviendas': this.formulario.get('tiene_llaves_vivienda').value,
           'disponibilidad': this.formulario.get('disponibilidad').value,
           'observaciones': this.formulario.get('observaciones').value,
           'prioridad': this.formulario.get('prioridad').value,
            'es_conviviente': this.formulario.get('es_conviviente').value,
-          'id_paciente': this.formulario.get('pacientes').value
+           'id_paciente': this.formulario.get('pacientes').value
 
   }
 
@@ -108,7 +109,7 @@ crearHtml(){
 
   if (this.componentIndex < this.maxComponents) {
     const factory = this.componentFactoryResolver.resolveComponentFactory(MostrarCrearComponent);
-    const componentRef = this.container.createComponent(factory);
+    this.container.createComponent(factory);
     this.componentIndex++;
   } else {
     console.log('No se pueden crear más componentes');

@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="component-title" >Crear relacion paciente persona</h1>
     <button (click)="crearHtml()" class="btn btn-outline-success m-1">
-      Crear nueva relacion paciente-persona
+      Crear contacto
     </button>
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()" id="formularioRelacion">
       <div class="row">
@@ -49,6 +49,19 @@
             </div>
           </div>
 
+          <div class="form-group mb-3">
+            <label for="tipo_relacion" class="form-label">Tipo Relación</label>
+            <input type="text" name="tipo_relacion" id="tipo_relacion" class="form-control"
+                   formControlName="tipo_relacion" >
+            <div *ngIf="tipo_relacion.invalid && (tipo_relacion.dirty || tipo_relacion.touched)" class="alert alert-secondary" role="alert">
+              <div *ngIf="tipo_relacion.errors?.required; else elseBlock">
+                El tipo de relacion es obligatoria
+              </div>
+              <ng-template #elseBlock>
+                Introduzca un tipo de relación válida
+              </ng-template>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">

@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit, } from '@angular/core';
 import {IRecursoComunitario} from "../../../interfaces/i-recurso-comunitario";
 import {ITipoRecursoComunitario} from "../../../interfaces/i-tipo-recurso-comunitario";
-import {IDireccion} from "../../../interfaces/i-direccion";
 import {IRelacionTerminalRecursoComunitarios} from "../../../interfaces/i-relacion-terminal-recurso-comunitarios";
-import {Terminal} from "../../../clases/terminal";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {
@@ -13,8 +11,6 @@ import {ITerminal} from "../../../interfaces/i-terminal";
 import {CargaTerminalesService} from "../../../servicios/terminal/carga-terminales.service";
 import {CargaTipoRecursoComunitarioService} from "../../../servicios/carga-tipo-recurso-comunitario.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {RecursoComunitario} from "../../../clases/recurso-comunitario";
-import {Direccion} from "../../../clases/direccion";
 import {RelacionTerminalRecursoComunitarios} from "../../../clases/relacion-terminal-recurso-comunitarios";
 import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
 import Swal from "sweetalert2";
@@ -27,23 +23,23 @@ import {CargaRecursoComunitarioService} from "../../../servicios/carga-recurso-c
   styleUrls: ['./crear-datos-sanitarios.component.scss']
 })
 export class CrearDatosSanitariosComponent implements OnInit {
+  edit = false;
   submitted = false;
   mostrar = false;
+  id = 0;
   public recurso_comunitario: IRecursoComunitario |any;
   public tipos_recursos_comunitarios: ITipoRecursoComunitario[] | any;
   public relaciones_terminales: ITerminal[] | any;
   public relacion_terminal_recurso : IRelacionTerminalRecursoComunitarios | any;
-  public dire: IDireccion | any;
   public formulario: FormGroup | any;
-  public cantidadRecursos: IRecursoComunitario[] = [] ;
-  public recursoBorrad: IRecursoComunitario | any;
+  public recurso: IRecursoComunitario | any ;
+  public recursoBorrad: IRelacionTerminalRecursoComunitarios | any;
   public recursosMostrados: IRecursoComunitario[];
+  public arrayRelaciones: IRelacionTerminalRecursoComunitarios [] = [];
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private router: Router, private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService, private cargaRelacionTerminal: CargaTerminalesService, private cargaTiposRecursos: CargaTipoRecursoComunitarioService, private formBuilder: FormBuilder, private cargaDireccion: CargaDireccionService, private cargaRecurso: CargaRecursoComunitarioService) { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,private route: ActivatedRoute, private titleService: Title, private router: Router, private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService, private cargaRelacionTerminal: CargaTerminalesService, private cargaTiposRecursos: CargaTipoRecursoComunitarioService, private formBuilder: FormBuilder, private cargaDireccion: CargaDireccionService, private cargaRecurso: CargaRecursoComunitarioService) { }
 
   ngOnInit(): void {
-    this.dire = new Direccion();
-    this.recurso_comunitario = new RecursoComunitario();
     this.relacion_terminal_recurso = new RelacionTerminalRecursoComunitarios();
     this.cargaRelacionTerminal.getTerminales().subscribe(
       terminal => {
@@ -72,7 +68,6 @@ export class CrearDatosSanitariosComponent implements OnInit {
       this.formulario = this.formBuilder.group(
         {
           recurso: ['',[Validators.required]],
-          tipoRecurso: ['',[Validators.required]],
           relacion_terminal: ['',[Validators.required]],
           tiempo: ['', [Validators.required]]
 
@@ -80,42 +75,46 @@ export class CrearDatosSanitariosComponent implements OnInit {
       )
   }
 
-  agregarArray(){
-    this.cargaRecurso.getRecursoComunitario(this.formulario.get('recurso').value).subscribe(
-        recurso =>{
-          this.cantidadRecursos.push(recurso);
-
-        }
-    )
-  }
-
 
 
   crearRelacion(){
-    console.log(this.cantidadRecursos);
-    for (let recurso of this.cantidadRecursos){
-      this.relacion_terminal_recurso = {
-        'id_terminal': this.formulario.get('relacion_terminal').value,
-        'id_recurso_comunitario': recurso.id,
-        'tiempo_estimado': this.formulario.get('tiempo').value
-      }
-      this.cargaRelacionTerminalRecursosComunitarios.nuevaRelacionRecurso(this.relacion_terminal_recurso).subscribe(
-        () =>{
-        }
+    this.cargaRecurso.getRecursoComunitario(this.formulario.get('recurso').value).subscribe(
+      recurso => {
+        this.recurso = recurso;
+      }, error => console.log(error),
+      () =>{
 
-      )
-    }
+        this.relacion_terminal_recurso = {
+          'id_terminal': this.formulario.get('relacion_terminal').value,
+          'id_recurso_comunitario': this.recurso.id,
+          'tiempo_estimado': this.formulario.get('tiempo').value
+        }
+        this.cargaRelacionTerminalRecursosComunitarios.nuevaRelacionRecurso(this.relacion_terminal_recurso).subscribe(
+          relacion =>{
+            this.alertExito();
+            this.arrayRelaciones.push(relacion);
+            this.ordenarPorTiempo();
+          }
+        )
+
+      }
+    )
+
+  }
+
+  ordenarPorTiempo(): void{
+    this.arrayRelaciones.sort((a,b) => b.tiempo_estimado - a.tiempo_estimado);
   }
 
   borrarRecurso(id: number, i: number) {
-    this.cargaRecurso.getRecursoComunitario(id).subscribe(
-      recurso => {
-        this.recursoBorrad = recurso
+    this.cargaRelacionTerminalRecursosComunitarios.getRelacionTerminalRecursoComunitario(id).subscribe(
+      terminal => {
+        this.recursoBorrad = terminal
       },
       error => console.log(error),
       () =>{
-        this.cantidadRecursos.splice(i,1);
-        this.cargaRecurso.eliminarRecursoComunitario(this.recursoBorrad).subscribe(
+        this.arrayRelaciones.splice(i,1);
+        this.cargaRelacionTerminalRecursosComunitarios.eliminarRelacionRecurso(this.recursoBorrad).subscribe(
           () =>{
             this.alertExito();
           }
@@ -130,13 +129,14 @@ verRecursos(){
     this.mostrar = !this.mostrar;
 }
 
+
+
   onSubmit(){
     this.submitted = true;
 
     if (this.formulario.invalid){
       return;
     }
-    this.agregarArray();
   }
 
   get nombre(){

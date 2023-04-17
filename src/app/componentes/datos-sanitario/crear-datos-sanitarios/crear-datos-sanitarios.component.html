@@ -21,14 +21,6 @@
         </div>
 
 
-          <div class="form-group mb-3">
-            <label for="tipo_recurso_comunitario" class="form-label">Tipo de recurso comunitario</label>
-            <ng-select id="tipo_recurso_comunitario" name="tipo_recurso_comunitario"
-                       formControlName="tipoRecurso">
-              <ng-option class="form-select"  *ngFor="let tipo of tipos_recursos_comunitarios,let i = index"
-                         [value]="tipo.id">{{ tipo.nombre }}</ng-option>
-            </ng-select>
-          </div>
 
           <div class="form-group mb-3">
             <label for="relacion_terminal" class="form-label">Número de terminal</label>
@@ -54,19 +46,24 @@
 
 
         <button type="submit" class="btn btn-outline-success m-1"
-                [disabled]="formulario.invalid"    >
-         Agregar
+                 >
+         Guardar
         </button>
 
         <button type="button" class="btn btn-outline-secondary m-1" >
           Volver
         </button>
 
+      <button type="button" (click)="crearRelacion()" class="btn btn-outline-secondary m-1" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+        </svg>
+      </button>
 
-        <button type="button" (click)="verRecursos()" class="btn btn-outline-warning m-1" >
-          <i class="fa-solid fa-eye"></i>
+      <button type="button" (click)="verRecursos()" class="btn btn-outline-warning m-1" >
+        <i class="fa-solid fa-eye"></i>
 
-        </button>
+      </button>
 
     </form>
 
@@ -79,13 +76,13 @@
 
           <tr>
             <th>Nombre del recurso</th>
-            <th>Telefono del recurso</th>
+            <th>Numero de la terminal</th>
             <th>Eliminar</th>
           </tr>
-          <tr *ngFor="let recurso of cantidadRecursos, let i = index">
-            <td>{{recurso.nombre}}</td>
-            <td>{{recurso.telefono}}</td>
-            <td><button class="btn btn-outline-success m-1" (click)="borrarRecurso(recurso.id, i)" >Borrar</button></td>
+          <tr *ngFor="let relacion of arrayRelaciones, let i = index">
+            <td>{{relacion.id_recurso_comunitario.nombre}}</td>
+            <td>{{relacion.id_terminal.numero_terminal}}</td>
+            <td><button class="btn btn-outline-success m-1" (click)="borrarRecurso(relacion.id, i)" >Borrar</button></td>
           </tr>
         </table>
       </div>
