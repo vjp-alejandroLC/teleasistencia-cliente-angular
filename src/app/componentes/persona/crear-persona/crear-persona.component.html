@@ -4,48 +4,36 @@
     <div class="row mb-4">
       <div class="col-4">
         <div class="form-group">
-          <input type="text" name="nombre" id="nombre" class="form-control" required maxlength="200"
-                 placeholder="Nombre" formControlName="nombre">
+          <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre"
+                 formControlName="nombre">
         </div>
-        <!--        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">-->
-        <!--          <div *ngIf="nombre.errors?.required; else elseBlock">-->
-        <!--            El nombre es obligatorio-->
-        <!--          </div>-->
-        <!--          <ng-template #elseBlock>-->
-        <!--            Introduzca un nombre válido-->
-        <!--          </ng-template>-->
-        <!--        </div>-->
+        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
+          <span *ngIf="nombre.errors.required">El Nombre es obligatorio.</span>
+          <span *ngIf="nombre.errors.pattern">El Nombre no es válido.</span>
+        </div>
       </div>
 
       <div class="col-4">
         <div class="form-group">
           <input type="text" name="apellidos" id="apellidos" class="form-control"
-                placeholder="Apellidos" formControlName="apellidos">
+                 placeholder="Apellidos" formControlName="apellidos">
+        </div>
+        <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-secondary"
+             role="alert">
+          <span *ngIf="apellidos.errors.required">Los apellidos son obligatorios.</span>
+          <span *ngIf="apellidos.errors.pattern">Los apellidos no son válidos.</span>
         </div>
 
-<!--        <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-secondary"-->
-<!--             role="alert">-->
-<!--          <div *ngIf="apellidos.errors?.required; else elseBlock">-->
-<!--            Los apellidos son obligatorios-->
-<!--          </div>-->
-<!--          <ng-template #elseBlock>-->
-<!--            Introduzca unos apellidos válidos-->
-<!--          </ng-template>-->
-<!--        </div>-->
       </div>
 
       <div class="col-4">
         <div class="form-group">
           <input type="text" name="dni" id="dni" class="form-control" placeholder="DNI" formControlName="dni">
         </div>
-<!--        <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-secondary" role="alert">-->
-<!--          <div *ngIf="dni.errors?.required; else elseBlock">-->
-<!--            El dni es obligatorio-->
-<!--          </div>-->
-<!--          <ng-template #elseBlock>-->
-<!--            Introduzca un dni válido-->
-<!--          </ng-template>-->
-<!--        </div>-->
+        <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-secondary" role="alert">
+          <span *ngIf="dni.errors.required">El DNI es obligatorio.</span>
+          <span *ngIf="dni.errors.pattern">El DNI no es válido.</span>
+        </div>
       </div>
     </div>
 
@@ -53,21 +41,19 @@
       <div class="col-4">
         <div class="form-group">
           <input type="date" name="fecha_nacimiento " id="fecha_nacimiento" class="form-control"
-                 max="{{ anno_actual }}-{{ mes_actual }}-{{ dia_actual }}"
-                  formControlName="fecha_nacimiento">
+                 formControlName="date">
         </div>
-<!--        <div *ngIf="fecha_nacimiento.invalid && (fecha_nacimiento.dirty || fecha_nacimiento.touched)"-->
-<!--             class="alert alert-secondary" role="alert">-->
-<!--          <div *ngIf="fecha_nacimiento.errors?.required">-->
-<!--            La fecha de nacimiento es obligatoria-->
-<!--          </div>-->
-<!--        </div>-->
+        <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-secondary" role="alert">
+          <span *ngIf="date.errors.required">La fecha de nacimiento es obligatoria.</span>
+          <span *ngIf="date.errors.pattern">La fecha de nacimiento no es válida.</span>
+          <span *ngIf="date.errors.maxDate">La fecha de nacimiento no puede ser mayor a la actual.</span>
+        </div>
       </div>
 
       <div class="col-4">
         <div class="form-group">
           <select class="form-select" id="sexo" name="sexo" formControlName="sexo">
-            <option class="sexo_option" value="Hombre">Hombre</option>
+            <option class="sexo_option" value="Hombre" selected>Hombre</option>
             <option class="sexo_option" value="Mujer">Mujer</option>
           </select>
         </div>
@@ -78,39 +64,33 @@
           <input type="tel" name="telefono_fijo" id="telefono_fijo" class="form-control"
                  placeholder="Teléfono Fijo" formControlName="telefono_fijo">
         </div>
-<!--        <div *ngIf="telefono_fijo.invalid && (telefono_fijo.dirty || telefono_fijo.touched)"-->
-<!--             class="alert alert-secondary"-->
-<!--             role="alert">-->
-<!--          <div *ngIf="telefono_fijo.errors">-->
-<!--            Introduzca un teléfono fijo válido-->
-<!--          </div>-->
-<!--        </div>-->
+        <div *ngIf="telefono_fijo.invalid && (telefono_fijo.dirty || telefono_fijo.touched)"
+             class="alert alert-secondary" role="alert">
+          <span *ngIf="telefono_fijo.errors.pattern">Debe empezar por 9 y tener 9 dígitos</span>
+        </div>
       </div>
     </div>
     <div class="row mb-4">
       <div class="col-4">
         <div class="form-group">
-          <input type="text" name="localidad" id="localidad" class="form-control" placeholder="Localidad" formControlName="localidad">
+          <input type="text" name="localidad" id="localidad" class="form-control" placeholder="Localidad"
+                 formControlName="localidad">
         </div>
-<!--        <div *ngIf="localidad.invalid && (localidad.dirty || localidad.touched)" class="alert alert-secondary"-->
-<!--             role="alert">-->
-<!--          <div *ngIf="localidad.errors?.required">-->
-<!--            La localidad es obligatoria-->
-<!--          </div>-->
-<!--        </div>-->
+        <div *ngIf="localidad.invalid && (localidad.dirty || localidad.touched)" class="alert alert-secondary"
+             role="alert">
+          <span *ngIf="localidad.errors.required">La localidad es obligatoria.</span>
+        </div>
       </div>
 
       <div class="col-4">
         <div class="form-group">
           <input type="tel" name="telefono_movil" id="telefono_movil" class="form-control"
-               placeholder="Teléfono Movil" formControlName="telefono_movil">
+                 placeholder="Teléfono Movil" formControlName="telefono_movil">
         </div>
-<!--        <div *ngIf="telefono_movil.invalid && (telefono_movil.dirty || telefono_movil.touched)"-->
-<!--             class="alert alert-secondary" role="alert">-->
-<!--          <div *ngIf="telefono_movil.errors">-->
-<!--            Introduzca un teléfono móvil válido-->
-<!--          </div>-->
-<!--        </div>-->
+        <div *ngIf="telefono_movil.invalid && (telefono_movil.dirty || telefono_movil.touched)"
+             class="alert alert-secondary" role="alert">
+          <span *ngIf="telefono_movil.errors.pattern">Debe empezar por 6 o 7 y tener 9 dígitos</span>
+        </div>
       </div>
 
 
@@ -119,69 +99,62 @@
           <input type="text" name="provincia" id="provincia" class="form-control"
                  required maxlength="200" placeholder="Provincia" formControlName="provincia">
         </div>
-<!--        <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert alert-secondary"-->
-<!--             role="alert">-->
-<!--          <div *ngIf="provincia.errors?.required">-->
-<!--            La provincia es obligatoria-->
-<!--          </div>-->
-<!--        </div>-->
+        <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert alert-secondary"
+             role="alert">
+          <span *ngIf="provincia.errors.required">La provincia es obligatoria.</span>
+        </div>
       </div>
     </div>
     <div class="row mb-4">
       <div class="col-4">
         <div class="form-group">
           <input type="text" name="direccion" id="direccion" class="form-control"
-                      placeholder="Dirección" formControlName="direccion">
+                 placeholder="Dirección" formControlName="direccion">
         </div>
-<!--        <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="alert alert-secondary"-->
-<!--             role="alert">-->
-<!--          <div *ngIf="direccion.errors?.required">-->
-<!--            La dirección es obligatoria-->
-<!--          </div>-->
-<!--        </div>-->
+        <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="alert alert-secondary"
+             role="alert">
+          <span *ngIf="direccion.errors.required">La dirección es obligatoria.</span>
+        </div>
       </div>
 
 
       <div class="col-4">
         <div class="form-group">
           <input type="text" name="codigo_postal" id="codigo_postal" class="form-control"
-                  placeholder="CP" formControlName="codigo_postal">
+                 placeholder="CP" formControlName="codigo_postal">
         </div>
-<!--        <div *ngIf="codigo_postal.invalid && (codigo_postal.dirty || codigo_postal.touched)"-->
-<!--             class="alert alert-secondary"-->
-<!--             role="alert">-->
-<!--          <div *ngIf="codigo_postal.errors?.required; else elseBlock">-->
-<!--            El código postal es obligatorio-->
-<!--          </div>-->
-<!--          <ng-template #elseBlock>-->
-<!--            El código postal debe tener 5 caracteres numéricos-->
-<!--          </ng-template>-->
-<!--        </div>-->
+        <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-secondary" role="alert">
+          <span *ngIf="date.errors.required">La fecha es obligatorio.</span>
+          <span *ngIf="date.errors.pattern">La fecha no es válida.</span>
+          <span *ngIf="date.errors.maxDate">La fecha no puede ser mayor a la actual.</span>
+        </div>
       </div>
     </div>
-    <!--    <div class="row mb-4">-->
-    <!--      <div class="col-4">-->
-    <!--        <div class="form-group">-->
-    <!--          <select class="form-select" id="tipo_user" name="tipo_user" required>-->
-    <!--            <option  value="Persona mayor">Persona mayor</option>-->
-    <!--            <option  value="Persona con enfermedad crónica">Persona con enfermedad crónica</option>-->
-    <!--            <option  value="Persona con enfermedad mental">Persona con enfermedad mental</option>-->
-    <!--            <option  value="Demencia">Demencia</option>-->
-    <!--            <option  value="Diversidad funcional sensorial">Diversidad funcional sensorial</option>-->
-    <!--            <option  value="Diversidad funcional intelectual">Diversidad funcional intelectual</option>-->
-    <!--            <option  value="Diversidad funcional física">Diversidad funcional física</option>-->
-    <!--            <option  value="Víctima de violencia de género">Víctima de violencia de género</option>-->
-    <!--          </select>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
+    <div class="row mb-4">
+      <div class="col-4">
+        <div class="form-group">
+          <select class="form-select" id="tipo_user" name="tipo_user" required formControlName="tipo_user">
+            <option value="Persona mayor">Persona mayor</option>
+            <option value="Persona con enfermedad crónica">Persona con enfermedad crónica</option>
+            <option value="Persona con enfermedad mental">Persona con enfermedad mental</option>
+            <option value="Demencia">Demencia</option>
+            <option value="Diversidad funcional sensorial">Diversidad funcional sensorial</option>
+            <option value="Diversidad funcional intelectual">Diversidad funcional intelectual</option>
+            <option value="Diversidad funcional física">Diversidad funcional física</option>
+            <option value="Víctima de violencia de género">Víctima de violencia de género</option>
+          </select>
+        </div>
+      </div>
+    </div>
 
-    <!--    <div class="row">-->
-    <!--          <div class="form-group">-->
-    <!--            <textarea placeholder="  (SAD / Centro de Dia)"></textarea>-->
-    <!--          </div>-->
-    <!--    </div>-->
-
+    <div class="row">
+      <div class="form-group">
+        <textarea placeholder="  (SAD / Centro de Dia)" formControlName="text_area"></textarea>
+      </div>
+    </div>
+    <div *ngIf="text.invalid && (text.dirty || text.touched)" class="alert alert-secondary" role="alert">
+      <span *ngIf="text.errors.pattern">No puedes meter espacios en blanco</span>
+    </div>
 
     <button type="submit" class="btn btn-outline-success m-1" (click)="comprobarFormulario()">Guardar
     </button>
