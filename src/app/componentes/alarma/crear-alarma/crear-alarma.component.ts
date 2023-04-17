@@ -130,7 +130,7 @@ export class CrearAlarmaComponent implements OnInit {
   }
   //Funcion para deshabilitar botones (EDITAR Y BORRAR TIPO ALARMA)
   botonDes(){
-    if((this.formCrearA.value.tipos_alarma == '')||(this.formCrearA.value.tipos_alarma == undefined)){
+    if((this.formCrearA.value.tipos_alarma == '')||(this.formCrearA.value.tipos_alarma == null)){
       return true;
     }else{
       return false;
@@ -198,10 +198,7 @@ export class CrearAlarmaComponent implements OnInit {
       }
     })
   }
-  //SELECCIONAR LA ALARMA CREADA DE NUEVO
-  optionSelected(i: number): void {
-    document.getElementsByClassName('tipo_alarma')[i].setAttribute('selected', '');
-  }
+
   //FUNCION PARA BORRAR UN TIPO DE ALARMA(PETICION DELETE)
   eliminarTipoAlarma(){
     this.cargaTipoAlarma.eliminarTipoAlarma(this.formCrearA.value.tipos_alarma).subscribe(
@@ -214,16 +211,24 @@ export class CrearAlarmaComponent implements OnInit {
         this.alertErrorBorrar()
       },
       ()=>{
-          //peticion para refrescar los tipos de alarmas
-          this.cargaTipoAlarma.getTiposAlarmas().subscribe(
-            lista => {
-              this.tipos_alarmas = lista;
-            },
-            error => {},
-            ()=>{
-              this.formCrearA.reset();
-            });
+        this.actualizarAlarmas();
       }
+
     )
+  }
+  //FUNCION PARA REFRESACAR LOS TIPOS ADE ALARMA A TIEMPO REAL (SIN RECARGAR LA PAGINA)
+  actualizarAlarmas(id_tipo_alarma = null){
+    //peticion para refrescar los tipos de alarmas
+    this.cargaTipoAlarma.getTiposAlarmas().subscribe(
+      lista => {
+        this.tipos_alarmas = lista;
+        this.formCrearA.patchValue({tipos_alarma:id_tipo_alarma})
+          console.log("Entra");
+
+      },
+      error => {},
+      ()=>{
+        console.log("CAMPO TIPO"+this.formCrearA.value.tipos_alarma)
+      });
   }
 }

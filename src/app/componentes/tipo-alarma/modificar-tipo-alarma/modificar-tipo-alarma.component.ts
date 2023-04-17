@@ -18,13 +18,13 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class ModificarTipoAlarmaComponent implements OnInit {
   public tipo_alarma: any;
   public formEdit: FormGroup;
-  public opcion: boolean = true;
+  public opcion: boolean;
   public clasificaciones_alarmas: IClasificacionAlarma[];
   @Input() public idTipoAlarma: number;
   @Output () mostrarModificar = new EventEmitter;
   @Input () listaTiposAlarma: ITipoAlarma[];
-  @Output() tipos_alarmas = new EventEmitter;
-  public listaAlarmas : ITipoAlarma[];
+  @Output () alarma_creada= new EventEmitter;
+
 
   constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposAlarmas: CargaTipoAlarmaService, private router: Router, private formBuilder: FormBuilder) {}
 
@@ -33,21 +33,27 @@ export class ModificarTipoAlarmaComponent implements OnInit {
     this.clasificaciones_alarmas = this.route.snapshot.data['clasificaciones_alarmas'];
     this.formEdit = this.formBuilder.group({
       nombre:[this.tipo_alarma.nombre,[Validators.required,Validators.maxLength(200)]],
-      codigo:[this.tipo_alarma.codigo,[Validators.required,Validators.pattern(/[A-Z & 0-9]+$/),Validators.maxLength(200)]],
+      codigo:[this.tipo_alarma.codigo,[Validators.required,Validators.maxLength(200)]],
       es_dispositivo:[this.tipo_alarma.es_dispositivo,Validators.required],
       id_clasificacion_alarma:[this.tipo_alarma.id_clasificacion_alarma.id,Validators.required],
     });
+    console.log(this.tipo_alarma.es_dispositivo);
+    this.comprobarBoton();
   }
   get f(){
     return this.formEdit.controls;
   }
-  elegirOpcion(opcion){
-    if(!opcion){
-      this.opcion = false;
-    }else {
+  comprobarBoton(){
+    if(this.formEdit.value.es_dispositivo == true){
       this.opcion = true;
+    }else {
+      this.opcion = false;
     }
   }
+  elegirOpcion(){
+   this.opcion = !this.opcion;
+  }
+  //Funcion para buscar la alarma en la lista de tipos de alarma segun el id
   buscarTipoAlarma(){
     let enc = false;
     let i = 0;
@@ -60,24 +66,22 @@ export class ModificarTipoAlarmaComponent implements OnInit {
     }
   }
 
-  optionSelected(i: number): void {
-    document.getElementsByClassName('clasificacion_alarma_option')[i].setAttribute('selected', '');
-  }
 
   modificarTipoAlarma(): void {
     console.log(this.formEdit.value);
 
     this.cargaTiposAlarmas.modificarTipoAlarma(this.formEdit.value,this.idTipoAlarma).subscribe(
       e => {
+        //Recargar los tipos de alarma mediante OUTPUT
+        this.alarma_creada.emit(this.idTipoAlarma);
+        this.mostrarModificar.emit(!this.mostrarModificar);
         this.alertExito()
 
       },
       error => {
         this.alertError()
       },
-      ()=>{
-        this.refrescar();
-      }
+      ()=>{}
     );
   }
   //Toast para el Alert indicando que la operación fue exitosa
@@ -119,20 +123,7 @@ export class ModificarTipoAlarmaComponent implements OnInit {
       title: environment.fraseErrorModificar
     })
   }
-  refrescar(){
-    //peticion para refrescar los tipos de alarmas
-    this.cargaTiposAlarmas.getTiposAlarmas().subscribe(
-      lista => {
-        this.listaAlarmas = lista;
-      },
-      error => {},
-      ()=> {
-        //pasamos el array al padre para que se actualice al instante
-        this.tipos_alarmas.emit(this.listaAlarmas);
-        this.mostrarModificar.emit(!this.mostrarModificar);
 
-      });
-  }
   mostrarModificarTipo(){
     this.mostrarModificar.emit(!this.mostrarModificar);
   }

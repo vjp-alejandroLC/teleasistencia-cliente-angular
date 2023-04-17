@@ -155,6 +155,7 @@ import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-
 import { GruposComponent } from './componentes/grupos/grupos.component';
 import { CrearAlarmaComponent} from "./componentes/alarma/crear-alarma/crear-alarma.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import { NgSelectModule} from "@ng-select/ng-select";
 
 
 @NgModule({
@@ -291,7 +292,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     FormsModule,
     CommonModule,
     NgxPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ],
   providers: [
     CargaUserService,

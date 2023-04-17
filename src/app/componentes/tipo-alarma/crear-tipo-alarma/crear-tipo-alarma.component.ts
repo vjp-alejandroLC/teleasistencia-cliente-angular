@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ITipoAlarma} from '../../../interfaces/i-tipo-alarma';
 import {IClasificacionAlarma} from '../../../interfaces/i-clasificacion-alarma';
 import {Title} from '@angular/platform-browser';
@@ -7,6 +7,7 @@ import {CargaTipoAlarmaService} from '../../../servicios/carga-tipo-alarma.servi
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {TipoAlarma} from "../../../clases/tipo-alarma";
 
 
 @Component({
@@ -17,13 +18,14 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 export class CrearTipoAlarmaComponent implements OnInit {
   public tipo_alarma: ITipoAlarma;
-  public listaAlarmas : ITipoAlarma[];
   public opcion: boolean = true;
   public clasificaciones_alarmas: IClasificacionAlarma[];
   @Output () mostrar = new EventEmitter;
   @Output () tipos_alarmas = new EventEmitter;
   @Output () alarma_creada= new EventEmitter;
+  @Input () listaTiposAlarma: ITipoAlarma[];
   public formCrear: FormGroup;
+  public tipoAlarma: TipoAlarma;
 
   constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposAlarmas: CargaTipoAlarmaService, private router: Router, private formBuilder: FormBuilder) {
   }
@@ -31,7 +33,7 @@ export class CrearTipoAlarmaComponent implements OnInit {
   ngOnInit(): void {
     this.formCrear = this.formBuilder.group({
       nombre:['',[Validators.required,Validators.maxLength(200)]],
-      codigo:['',[Validators.required,Validators.pattern(/[A-Z & 0-9]+$/),Validators.maxLength(200)]],
+      codigo:['',[Validators.required,Validators.maxLength(200)]],
       es_dispositivo:[true,Validators.required],
       id_clasificacion_alarma:['',Validators.required],
     });
@@ -51,19 +53,26 @@ export class CrearTipoAlarmaComponent implements OnInit {
   nuevoTipoAlarma(): void {
     this.cargaTiposAlarmas.nuevoTipoAlarma(this.formCrear.value).subscribe(
       e => {
+        //Recargar los tipos de alarma mediante OUTPUT
+        this.alarma_creada.emit();
+        this.mostrar.emit(!this.mostrar);
         this.alertExito()
       },
       error => {
         this.alertError()
       },
       ()=>{
+        //Reseteamos el formulario<para que quede vacio
         this.formCrear.reset();
+        //Establecemos de nuevo al boton de SI el valor true
         this.formCrear.get('es_dispositivo').setValue(true);
+        //Ponemos la la varible a true para que aparezca sin opacity
         this.opcion = true;
-        this.refrescar();
+        console.log("VALOR ES_DIPSOSITIVO"+this.formCrear.value.es_dispositivo);
       }
     );
   }
+
   //Toast para el Alert indicando que la operación fue exitosa
   alertExito() :void {
     const Toast = Swal.mixin({
@@ -103,22 +112,7 @@ export class CrearTipoAlarmaComponent implements OnInit {
       title: environment.fraseErrorCrear
     })
   }
-  refrescar(){
-    //peticion para refrescar los tipos de alarmas
-    this.cargaTiposAlarmas.getTiposAlarmas().subscribe(
-      lista => {
-        this.listaAlarmas = lista;
-      },
-      error => {},
-    ()=> {
-        //pasamos el array al padre para que se actualice al instante
-      this.tipos_alarmas.emit(this.listaAlarmas);
-      this.alarma_creada.emit(this.listaAlarmas.slice(-1).pop().id);
-      this.mostrar.emit(!this.mostrar);
-      console.log(this.listaAlarmas.slice(-1).pop().id);
 
-    });
-  }
   mostratCrearTipo(){
     this.mostrar.emit(!this.mostrar);
   }
