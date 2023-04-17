@@ -1,5 +1,5 @@
 
-import {Component, OnInit, Output,EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, ComponentRef, ViewContainerRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RelacionPacientePersona} from "../../../clases/relacion-paciente-persona";
 import {IPersona} from '../../../interfaces/i-persona';
@@ -25,9 +25,11 @@ import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-
 })
 
 export class MostrarCrearComponent implements OnInit {
-  submitted = false;
-  @Output() borrar: EventEmitter<void> = new EventEmitter<void>();
 
+  @Output() onBorrarComponente = new EventEmitter();
+
+
+  submitted = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
   public direccion: IDireccion | any;
   public pacientes: IPaciente[] | any;
@@ -151,10 +153,11 @@ export class MostrarCrearComponent implements OnInit {
       */
 
   }
-  borrarHTML() {
-    this.borrar.emit();
-  }
 
+
+  borrarComponente() {
+    this.onBorrarComponente.emit();
+  }
 
   onSubmit() {
     this.submitted = true;

@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, OnInit, } from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {IRecursoComunitario} from "../../../interfaces/i-recurso-comunitario";
 import {ITipoRecursoComunitario} from "../../../interfaces/i-tipo-recurso-comunitario";
 import {IRelacionTerminalRecursoComunitarios} from "../../../interfaces/i-relacion-terminal-recurso-comunitarios";
@@ -16,6 +16,7 @@ import {CargaDireccionService} from "../../../servicios/carga-direccion.service"
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {CargaRecursoComunitarioService} from "../../../servicios/carga-recurso-comunitario.service";
+import {MostrarCrearComponent} from "../../personas-contacto/mostrar-crear/mostrar-crear.component";
 
 @Component({
   selector: 'app-crear-datos-sanitarios',
@@ -27,6 +28,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
   submitted = false;
   mostrar = false;
   id = 0;
+  public objetoRecibido: IRelacionTerminalRecursoComunitarios | any;
   public recurso_comunitario: IRecursoComunitario |any;
   public tipos_recursos_comunitarios: ITipoRecursoComunitario[] | any;
   public relaciones_terminales: ITerminal[] | any;
@@ -125,10 +127,11 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
   }
 
+
+
 verRecursos(){
     this.mostrar = !this.mostrar;
 }
-
 
 
   onSubmit(){

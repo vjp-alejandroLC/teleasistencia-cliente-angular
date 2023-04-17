@@ -1,6 +1,4 @@
 <form [formGroup]="formulario" (ngSubmit)="onSubmit()" id="formularioRelacion">
-  <div class="row">
-    <div class="col-xs-12 col-xl-4">
 
       <div class="form-group mb-3">
         <label class="form-label" for="pacientes">Pacientes</label>
@@ -11,8 +9,6 @@
                      [value]="paciente.id">{{ paciente.id_persona.nombre }}</ng-option>
         </ng-select>
       </div>
-    </div>
-    <div class="col-xl-4">
 
       <div class="form-group mb-3">
         <label for="nombre" class="form-label">Nombre</label>
@@ -27,8 +23,6 @@
           </ng-template>
         </div>
       </div>
-    </div>
-    <div class="col-xl-4">
       <div class="form-group mb-3">
         <label for="apellidos" class="form-label">Apellido</label>
         <input type="text" name="apellidos" id="apellidos" class="form-control"
@@ -43,10 +37,6 @@
         </div>
       </div>
 
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-xl-4">
 
 
       <div class="form-group mb-3">
@@ -62,8 +52,6 @@
           </ng-template>
         </div>
       </div>
-    </div>
-    <div class="col-xl-4">
 
 
       <div class="form-group mb-3">
@@ -79,8 +67,6 @@
           </ng-template>
         </div>
       </div>
-    </div>
-    <div class="col-xl-4">
 
 
       <div class="form-check mb-3">
@@ -96,24 +82,16 @@
           <label class="form-check-label" for="tiene_llaves_vivienda_false">No</label>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-xl-4">
 
       <div class="form-group mb-3">
         <label for="disponibilidad" class="form-label">Disponibilidad</label>
         <textarea formControlName="disponibilidad" name="disponibilidad" id="disponibilidad" class="form-control"></textarea>
       </div>
-    </div>
-    <div class="col-xl-4">
 
       <div class="form-group mb-3">
         <label for="observaciones" class="form-label">Observaciones</label>
         <textarea formControlName="observaciones" name="observaciones" id="observaciones" class="form-control"></textarea>
       </div>
-    </div>
-    <div class="col-xl-4">
       <div class="form-check mb-3">
         <span>Es conviviente</span>
         <div class="form-check form-check-inline">
@@ -127,10 +105,6 @@
           <label class="form-check-label" for="es_conviviente_false">No</label>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12">
 
       <div class="form-group mb-3">
         <label for="prioridad" class="form-label">Prioridad</label>
@@ -143,22 +117,11 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12">
-
 
       <button type="submit" class="btn btn-outline-success m-1"
               [disabled]="formulario.invalid"  >
         Guardar
       </button>
-      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/inicio']">
-        Volver
-      </button>
-      <button (click)="borrarHTML()">Borrar</button>
+      <button class="btn btn-outline-secondary m-1" (click)="borrarComponente()">Borrar</button>
 
-
-    </div>
-  </div>
 </form>

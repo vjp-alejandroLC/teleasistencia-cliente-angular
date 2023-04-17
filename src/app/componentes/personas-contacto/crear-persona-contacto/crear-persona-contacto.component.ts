@@ -25,8 +25,10 @@ import {MostrarCrearComponent} from "../mostrar-crear/mostrar-crear.component";
 })
 export class CrearPersonaContactoComponent implements OnInit {
   @ViewChild('contenedor', { read: ViewContainerRef }) container: ViewContainerRef;
+
   componentIndex = 0;
   maxComponents = 3;
+
   submitted = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
   public direccion: IDireccion | any;
@@ -53,6 +55,7 @@ ngOnInit() {
   )
 
 }
+
 
 crearFormulario(){
   this.formulario = this.formBuilder.group({
@@ -101,22 +104,25 @@ crearRelacion(){
 
 }
 
-borrarHTML(){
-    this.container.clear();
-}
-
 crearHtml(){
 
   if (this.componentIndex < this.maxComponents) {
-    const factory = this.componentFactoryResolver.resolveComponentFactory(MostrarCrearComponent);
-    this.container.createComponent(factory);
+    const componente = this.componentFactoryResolver.resolveComponentFactory(MostrarCrearComponent);
+    const componenteRef = componente.create(this.container.injector);
     this.componentIndex++;
+    componenteRef.instance.onBorrarComponente.subscribe(() => {
+      this.borrarComponente(componenteRef);
+      this.componentIndex--;
+    });
+
+    this.container.insert(componenteRef.hostView);
   } else {
     console.log('No se pueden crear más componentes');
   }
 }
-
-
+  borrarComponente(componenteRef: any) {
+    componenteRef.destroy();
+  }
 
   onSubmit() {
     this.submitted = true;
