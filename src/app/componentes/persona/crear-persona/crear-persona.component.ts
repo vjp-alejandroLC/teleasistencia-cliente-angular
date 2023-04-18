@@ -77,7 +77,7 @@ export class CrearPersonaComponent implements OnInit {
   }
 
   get date() {
-    return this.formulario.get('date');
+    return this.formulario.get('fecha_nacimiento');
   }
 
   get telefono_fijo() {
@@ -104,6 +104,10 @@ export class CrearPersonaComponent implements OnInit {
     return this.formulario.get('text_area')
   }
 
+  get cp() {
+    return this.formulario.get('codigo_postal')
+  }
+
 
 
   nuevaDireccion(): void {
@@ -118,23 +122,76 @@ export class CrearPersonaComponent implements OnInit {
   }
 
   nuevaPersona(): void {
-    this.persona.id_direccion = this.dire;
-    this.cargaPersonas.nuevaPersona(this.persona).subscribe(
-      e => {
-        this.nuevaDireccion();
-        this.alertExito()
-      },
-      error => {
-        this.alertError()
-      }
-    );
+
+
+
+
+
+  //   this.cargaPersonas.nuevaPersona(this.persona).subscribe(
+  //     e => {
+  //       this.nuevaDireccion();
+  //       this.alertExito()
+  //     },
+  //     error => {
+  //       this.alertError()
+  //     }
+  //   );
+
+
+  }
+
+
+
+
+  /**
+   *   formularios reactivos
+   */
+  private buildForm() {
+    this.formulario = this.formBuilder.group({
+      nombre: ['', [Validators.required,
+        Validators.maxLength(200),
+        Validators.minLength(2),
+        Validators.pattern(this.REGEX_NAME)],
+      ],
+      apellidos: ['', [Validators.required,
+        Validators.maxLength(200),
+        Validators.minLength(2),
+        Validators.pattern(this.REGEX_NAME)],
+      ],
+      dni: ['', [Validators.required,
+        Validators.maxLength(9),
+        Validators.pattern(this.REGEX_DNI)],
+      ],
+      fecha_nacimiento: ['', [Validators.required]],
+      sexo: ['Hombre', [Validators.required]],
+      telefono_fijo: ['', [Validators.maxLength(12),
+        Validators.pattern(this.REGEX_FIJO)]],
+      localidad: ['', [Validators.required,
+        Validators.maxLength(200)]],
+      telefono_movil: ['', [Validators.maxLength(12),
+        Validators.pattern(this.REGEX_MOVIL)]],
+      provincia: ['', [Validators.required,
+        Validators.maxLength(200)]],
+      direccion: ['', [Validators.required,
+        Validators.maxLength(200),]],
+      codigo_postal: ['', [Validators.required,
+        Validators.maxLength(5),
+        Validators.minLength(5),
+        Validators.pattern(this.REGEX_CP)]],
+      tipo_user: ['Persona mayor', [Validators.required]],
+      text_area: ['', [Validators.pattern(this.REGEX_TEXT)]]
+    });
+  }
+
+
+  comprobarFormulario() {
+    this.nuevaPersona()
   }
 
 
   /**
    * Alertas
    */
-
   //Toast para el Alert indicando que la operación fue exitosa
   alertExito(): void {
     const Toast = Swal.mixin({
@@ -175,50 +232,5 @@ export class CrearPersonaComponent implements OnInit {
       title: environment.fraseErrorCrear
     })
   }
-
-
-  /**
-   *   formularios reactivos
-   */
-  private buildForm() {
-    this.formulario = this.formBuilder.group({
-      nombre: ['', [Validators.required,
-        Validators.maxLength(200),
-        Validators.minLength(2),
-        Validators.pattern(this.REGEX_NAME)],
-      ],
-      apellidos: ['', [Validators.required,
-        Validators.maxLength(200),
-        Validators.minLength(2),
-        Validators.pattern(this.REGEX_NAME)],
-      ],
-      dni: ['', [Validators.required,
-        Validators.maxLength(9),
-        Validators.pattern(this.REGEX_DNI)],
-      ],
-      date: ['', [Validators.required]],
-      sexo: ['Hombre', [Validators.required]],
-      telefono_fijo: ['', [Validators.maxLength(12),
-        Validators.pattern(this.REGEX_FIJO)]],
-      localidad: ['', [Validators.required,
-        Validators.maxLength(200)]],
-      telefono_movil: ['', [Validators.maxLength(12),
-        Validators.pattern(this.REGEX_MOVIL)]],
-      provincia: ['', [Validators.required,
-        Validators.maxLength(200)]],
-      direccion: ['', [Validators.required,
-        Validators.maxLength(200),]],
-      codigo_postal: ['', [Validators.maxLength(5),
-        Validators.minLength(5),
-        Validators.pattern(this.REGEX_CP)]],
-      tipo_user: ['Persona mayor', [Validators.required]],
-      text_area: ['', [Validators.pattern(this.REGEX_TEXT)]]
-    });
-  }
-
-
-  comprobarFormulario() {
-    console.log(this.formulario.value)
-  }
-
 }
+

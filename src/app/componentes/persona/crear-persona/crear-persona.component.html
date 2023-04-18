@@ -41,9 +41,9 @@
       <div class="col-4">
         <div class="form-group">
           <input type="date" name="fecha_nacimiento " id="fecha_nacimiento" class="form-control"
-                 formControlName="date">
+                 formControlName="fecha_nacimiento" max="2023-04-18">
         </div>
-        <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-secondary" role="alert">
+        <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-secondary" role="alert" >
           <span *ngIf="date.errors.required">La fecha de nacimiento es obligatoria.</span>
           <span *ngIf="date.errors.pattern">La fecha de nacimiento no es válida.</span>
           <span *ngIf="date.errors.maxDate">La fecha de nacimiento no puede ser mayor a la actual.</span>
@@ -123,10 +123,9 @@
           <input type="text" name="codigo_postal" id="codigo_postal" class="form-control"
                  placeholder="CP" formControlName="codigo_postal">
         </div>
-        <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-secondary" role="alert">
-          <span *ngIf="date.errors.required">La fecha es obligatorio.</span>
-          <span *ngIf="date.errors.pattern">La fecha no es válida.</span>
-          <span *ngIf="date.errors.maxDate">La fecha no puede ser mayor a la actual.</span>
+        <div *ngIf="cp.invalid && (cp.dirty || cp.touched)" class="alert alert-secondary" role="alert">
+          <span *ngIf="cp.errors.required">El código postal es obligatorio.</span>
+          <span *ngIf="cp.errors.pattern">La código postal no es válido.</span>
         </div>
       </div>
     </div>
