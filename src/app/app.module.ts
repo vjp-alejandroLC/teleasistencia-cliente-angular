@@ -10,6 +10,7 @@ import {CrearUserComponent} from './componentes/user/crear-user/crear-user.compo
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {HomeComponent} from './componentes/home/home.component';
 import {CargaUserService} from './servicios/carga-user.service';
 import {ItemClasificacionAlarmaComponent} from './componentes/clasificacion-alarma/item-clasificacion-alarma/item-clasificacion-alarma.component';
@@ -127,10 +128,6 @@ import { CrearPacienteComponent } from './componentes/paciente/crear-paciente/cr
 import { ItemPacienteComponent } from './componentes/paciente/item-paciente/item-paciente.component';
 import { ListaPacienteComponent } from './componentes/paciente/lista-paciente/lista-paciente.component';
 import { ModificarPacienteComponent } from './componentes/paciente/modificar-paciente/modificar-paciente.component';
-import { ModificarRelacionPacientePersonaComponent } from './componentes/relacion-paciente-persona/modificar-relacion-paciente-persona/modificar-relacion-paciente-persona.component';
-import { ItemRelacionPacientePersonaComponent } from './componentes/relacion-paciente-persona/item-relacion-paciente-persona/item-relacion-paciente-persona.component';
-import { ListaRelacionPacientePersonaComponent } from './componentes/relacion-paciente-persona/lista-relacion-paciente-persona/lista-relacion-paciente-persona.component';
-import { CrearRelacionPacientePersonaComponent } from './componentes/relacion-paciente-persona/crear-relacion-paciente-persona/crear-relacion-paciente-persona.component';
 import { CrearCentroSanitarioAlarmaComponent } from './componentes/centro-sanitario-alarma/crear-centro-sanitario-alarma/crear-centro-sanitario-alarma.component';
 import { ModificarCentroSanitarioAlarmaComponent } from './componentes/centro-sanitario-alarma/modificar-centro-sanitario-alarma/modificar-centro-sanitario-alarma.component';
 import { ListaCentroSanitarioAlarmaComponent } from './componentes/centro-sanitario-alarma/lista-centro-sanitario-alarma/lista-centro-sanitario-alarma.component';
@@ -155,6 +152,10 @@ import { ModificarTeleoperadorAlarmaComponent } from './componentes/alarma/modif
 import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-comunitarios-personales/recursos-comunitarios-personales.component';
 import { GruposComponent } from './componentes/grupos/grupos.component';
 import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { CrearPersonaContactoComponent } from './componentes/personas-contacto/crear-persona-contacto/crear-persona-contacto.component';
+import { CrearDatosSanitariosComponent } from './componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component';
+import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-crear/mostrar-crear.component';
 
 @NgModule({
   declarations: [
@@ -255,10 +256,6 @@ import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-
     ItemPacienteComponent,
     ListaPacienteComponent,
     ModificarPacienteComponent,
-    ModificarRelacionPacientePersonaComponent,
-    ItemRelacionPacientePersonaComponent,
-    ListaRelacionPacientePersonaComponent,
-    CrearRelacionPacientePersonaComponent,
     CrearCentroSanitarioAlarmaComponent,
     ModificarCentroSanitarioAlarmaComponent,
     ListaCentroSanitarioAlarmaComponent,
@@ -282,14 +279,19 @@ import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-
     ModificarTeleoperadorAlarmaComponent,
     GruposComponent,
     CrearAlarmaTerminalComponent,
+    CrearPersonaContactoComponent,
+    CrearDatosSanitariosComponent,
+    MostrarCrearComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    NgSelectModule,
     CommonModule,
     NgxPaginationModule,
+    ReactiveFormsModule,
   ],
   providers: [
     CargaUserService,
