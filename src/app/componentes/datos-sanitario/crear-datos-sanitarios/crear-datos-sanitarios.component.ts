@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit} from '@angular/core';
 import {IRecursoComunitario} from "../../../interfaces/i-recurso-comunitario";
 import {ITipoRecursoComunitario} from "../../../interfaces/i-tipo-recurso-comunitario";
 import {IRelacionTerminalRecursoComunitarios} from "../../../interfaces/i-relacion-terminal-recurso-comunitarios";
@@ -16,7 +16,8 @@ import {CargaDireccionService} from "../../../servicios/carga-direccion.service"
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {CargaRecursoComunitarioService} from "../../../servicios/carga-recurso-comunitario.service";
-import {MostrarCrearComponent} from "../../personas-contacto/mostrar-crear/mostrar-crear.component";
+import {IPaciente} from "../../../interfaces/i-paciente";
+import {CargaPacienteService} from "../../../servicios/paciente/carga-paciente.service";
 
 @Component({
   selector: 'app-crear-datos-sanitarios',
@@ -25,10 +26,8 @@ import {MostrarCrearComponent} from "../../personas-contacto/mostrar-crear/mostr
 })
 export class CrearDatosSanitariosComponent implements OnInit {
   edit = false;
-  submitted = false;
   mostrar = false;
   id = 0;
-  public objetoRecibido: IRelacionTerminalRecursoComunitarios | any;
   public recurso_comunitario: IRecursoComunitario |any;
   public tipos_recursos_comunitarios: ITipoRecursoComunitario[] | any;
   public relaciones_terminales: ITerminal[] | any;
@@ -38,8 +37,9 @@ export class CrearDatosSanitariosComponent implements OnInit {
   public recursoBorrad: IRelacionTerminalRecursoComunitarios | any;
   public recursosMostrados: IRecursoComunitario[];
   public arrayRelaciones: IRelacionTerminalRecursoComunitarios [] = [];
+  public pacientes: IPaciente[] | any;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,private route: ActivatedRoute, private titleService: Title, private router: Router, private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService, private cargaRelacionTerminal: CargaTerminalesService, private cargaTiposRecursos: CargaTipoRecursoComunitarioService, private formBuilder: FormBuilder, private cargaDireccion: CargaDireccionService, private cargaRecurso: CargaRecursoComunitarioService) { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,private route: ActivatedRoute, private titleService: Title, private router: Router, private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService, private cargaRelacionTerminal: CargaTerminalesService, private cargaTiposRecursos: CargaTipoRecursoComunitarioService, private formBuilder: FormBuilder, private cargaDireccion: CargaDireccionService, private cargaRecurso: CargaRecursoComunitarioService, private cargaPacientes: CargaPacienteService) { }
 
   ngOnInit(): void {
     this.relacion_terminal_recurso = new RelacionTerminalRecursoComunitarios();
@@ -56,19 +56,28 @@ export class CrearDatosSanitariosComponent implements OnInit {
       error => console.log(error),
     )
 
-    this.cargaRecurso.getRecursosComunitarios().subscribe(
+    this.cargaRecurso.getDatosSanitario(1).subscribe(
       recursos =>{
         this.recursosMostrados = recursos;
       },
       error => console.log(error),
     )
+    this.cargaPacientes.getPacientes().subscribe(
+      pacientes => {
+        this.pacientes = pacientes;
+      }
+    )
 
     this.crearFormulario();
   }
 
+
   crearFormulario(){
       this.formulario = this.formBuilder.group(
+
         {
+          pacientes: ['',[Validators.required]],
+          nuss: ['',[Validators.required]],
           recurso: ['',[Validators.required]],
           relacion_terminal: ['',[Validators.required]],
           tiempo: ['', [Validators.required]]
@@ -133,14 +142,15 @@ verRecursos(){
     this.mostrar = !this.mostrar;
 }
 
+actualizarNuss(){
+      this.cargaPacientes.modificarNUSS(this.formulario.get('pacientes').value, this.formulario.get('nuss').value).subscribe(
+        () =>{
+          this.alertExito();
+        }
+      )
 
-  onSubmit(){
-    this.submitted = true;
+}
 
-    if (this.formulario.invalid){
-      return;
-    }
-  }
 
   get nombre(){
     return this.formulario.get('nombre') as FormControl;

@@ -1,5 +1,5 @@
 
-import {Component, OnInit, Output, EventEmitter, ComponentRef, ViewContainerRef, ViewChild} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RelacionPacientePersona} from "../../../clases/relacion-paciente-persona";
 import {IPersona} from '../../../interfaces/i-persona';
@@ -10,10 +10,8 @@ import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CargaPersonaService} from "../../../servicios/carga-persona.service";
-import {Direccion} from "../../../clases/direccion";
 import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
 import {IDireccion} from "../../../interfaces/i-direccion";
-import {Persona} from '../../../clases/persona';
 import {CargaPacienteService} from "../../../servicios/paciente/carga-paciente.service";
 import {IPaciente} from "../../../interfaces/i-paciente";
 import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-persona";
@@ -27,8 +25,10 @@ import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-
 export class MostrarCrearComponent implements OnInit {
 
   @Output() onBorrarComponente = new EventEmitter();
+  mostrarGuardar = true;
+  mostrarEditar = false;
 
-
+  idRelacion: number;
   submitted = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
   public direccion: IDireccion | any;
@@ -37,14 +37,11 @@ export class MostrarCrearComponent implements OnInit {
   public persona: IPersona | any;
   public formulario: FormGroup | any;
   public fecha_actual = new Date();
-  public fechaAplicada = this.fecha_actual.getFullYear() + "-" + (this.fecha_actual.getMonth()+1) + "-" + this.fecha_actual.getDate()
+  public relacionBorrar : IRelacionPacientePersona |any;
   constructor(private route: ActivatedRoute, private router: Router, private  formBuilder: FormBuilder,private cargaPersonas: CargaPersonaService, private cargaDireccion: CargaDireccionService, private cargaPacientes: CargaPacienteService, private cargaRelacion: CargaRelacionPacientePersonaService) {
   }
 
   ngOnInit() {
-    this.direccion = new Direccion();
-    this.persona = new Persona();
-    this.pacientes = this.route.snapshot.data['pacientes']
     this.relacionPacientePersona = new RelacionPacientePersona();
     this.crearFormulario();
 
@@ -55,6 +52,65 @@ export class MostrarCrearComponent implements OnInit {
       error => console.log(error),
       () => console.log("Fin del observable")
     )
+
+  }
+
+  borrarRelacion(){
+      this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
+        relacion => {
+          this.relacionBorrar = relacion
+        }, error => console.log(error),
+        () => {
+          this.cargaRelacion.eliminarRelacionPacientePersona(this.relacionBorrar).subscribe(
+            () =>{
+              this.alertExito();
+
+            }, error => console.log(error),
+            () =>{
+              this.onBorrarComponente.emit();
+
+            }
+          )
+        }
+      )
+
+
+
+
+  }
+
+  editarRelacion(){
+    this.relacionPacientePersona = {
+      'telefono': this.formulario.get('telefono_fijo').value,
+      'nombre': this.formulario.get('nombre').value,
+      'apellidos': this.formulario.get('apellidos').value,
+      'tipo_relacion': this.formulario.get('tipo_relacion').value,
+      'tiene_llaves_viviendas': this.formulario.get('tiene_llaves_vivienda').value,
+      'disponibilidad': this.formulario.get('disponibilidad').value,
+      'observaciones': this.formulario.get('observaciones').value,
+      'prioridad': this.formulario.get('prioridad').value,
+      'es_conviviente': this.formulario.get('es_conviviente').value,
+      'id_paciente': this.formulario.get('pacientes').value
+
+    }
+    this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
+      relacion => {
+        this.relacionBorrar = relacion
+      }, error => console.log(error),
+      () => {
+        this.cargaRelacion.modificarRelacion(this.relacionBorrar.id,this.relacionPacientePersona).subscribe( //Paso la id usada + el formulario entero para cambiar todo el objeto
+          () =>{
+
+            this.alertExito();
+
+          }, error => console.log(error),
+          () =>{
+
+          }
+        )
+      }
+    )
+
 
   }
 
@@ -73,91 +129,33 @@ export class MostrarCrearComponent implements OnInit {
     })
   }
 
-  crearDireccion(): void{
-    this.direccion.direccion = "-";
-    this.direccion.localidad = "-";
-    this.direccion.provincia = "-";
-    this.direccion.codigo_postal = "-";
-    this.cargaDireccion.nuevaDireccion(this.direccion).subscribe(
-      () =>{
-        console.log("Direccion creada");
-      },
-      error => console.log(error),
-      () => {
-        console.log("Final del Crear direccion")
-      }
-    );
-  }
 
 
   crearRelacionPacientePersona(){
-    this.crearDireccion();
-
-    //this.persona.id_direccion = this.direccion;
-    this.persona = {
-      'nombre':  this.formulario.get('nombre').value,
+    this.relacionPacientePersona = {
+      'telefono': this.formulario.get('telefono_fijo').value,
+      'nombre': this.formulario.get('nombre').value,
       'apellidos': this.formulario.get('apellidos').value,
-      'dni': ' - ',
-      'sexo': 'Sin genero',
-      'fecha_nacimiento': this.fechaAplicada,
-      'telefono_fijo': this.formulario.get('telefono_fijo').value,
-      'telefono_movil': this.formulario.get('telefono_fijo').value,
-      'id_direccion': this.direccion
+      'tipo_relacion': this.formulario.get('tipo_relacion').value,
+      'tiene_llaves_viviendas': this.formulario.get('tiene_llaves_vivienda').value,
+      'disponibilidad': this.formulario.get('disponibilidad').value,
+      'observaciones': this.formulario.get('observaciones').value,
+      'prioridad': this.formulario.get('prioridad').value,
+      'es_conviviente': this.formulario.get('es_conviviente').value,
+      'id_paciente': this.formulario.get('pacientes').value
+
     }
 
-    this.cargaPersonas.nuevaPersona(this.persona).subscribe(
-      () =>{
-        console.log("Persona creada");
-      },
-      error => console.log(error),
-      () => {
-        this.cargaPacientes.getPaciente(this.formulario.get('pacientes').value).subscribe(
-          pacienteAgregado => {
-            this.paciente = pacienteAgregado;
-
-          },
-          error => console.log(error),
-          () =>{
-
-            this.relacionPacientePersona = {
-              'tipo_relacion': this.formulario.get('tipo_relacion').value,
-              'tiene_llaves_vivienda': this.formulario.get('tiene_llaves_vivienda').value,
-              'disponibilidad': this.formulario.get('disponibilidad').value,
-              'observaciones': this.formulario.get('observaciones').value,
-              'prioridad': this.formulario.get('prioridad').value,
-              'es_conviviente': this.formulario.get('es_conviviente').value,
-              'id_paciente': this.paciente.id,
-              'id_persona': this.persona.id
-            }
-
-            console.log(this.relacionPacientePersona);
-            console.log("Paciente "  +this.paciente.id);
-
-            this.cargaRelacion.nuevaRelacionPacientePersona(this.relacionPacientePersona).subscribe(
-              () =>{
-                this.alertExito();
-                console.log("Relacion creada");
-              },
-              error => console.log(error)
-            )
-          }
-        )
+    this.cargaRelacion.nuevaRelacionPacientePersona(this.relacionPacientePersona).subscribe(
+      persona =>{
+        this.idRelacion = persona.id; //Guardo la iD del form ya creada
+        this.alertExito()
       }
-    );
-
-
-
-
-    /*
-
-      */
+    )
 
   }
 
 
-  borrarComponente() {
-    this.onBorrarComponente.emit();
-  }
 
   onSubmit() {
     this.submitted = true;
@@ -165,7 +163,8 @@ export class MostrarCrearComponent implements OnInit {
     if (this.formulario.invalid) {
       return;
     }
-
+    this.mostrarGuardar = false;
+    this.mostrarEditar = true;
     this.crearRelacionPacientePersona();
   }
 

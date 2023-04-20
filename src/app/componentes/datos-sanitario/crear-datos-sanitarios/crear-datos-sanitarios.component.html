@@ -2,14 +2,24 @@
   <div class="container">
     <h1 class="component-title">Crear datos sanitarios</h1>
 
-    <div class="form-group mb-3">
-      <label for="nuss" class="form-label">NUSS</label>
-      <input type="text" name="nuss" id="nuss" class="form-control">
-
-    </div>
-    <form [formGroup]="formulario"  (ngSubmit)="onSubmit()" >
+    <form [formGroup]="formulario" >
 
 
+      <div class="form-group mb-3">
+        <label class="form-label" for="pacientes">Pacientes</label>
+        <ng-select id="pacientes"
+                   formControlName="pacientes">
+          <ng-option class="form-select"
+                     *ngFor="let paciente of pacientes,let i = index"
+                     [value]="paciente.id">{{ paciente.id_persona.nombre }}</ng-option>
+        </ng-select>
+      </div>
+
+        <div class="form-group mb-3">
+          <label for="nuss" class="form-label">NUSS</label>
+          <input type="text" name="nuss" id="nuss" class="form-control" formControlName="nuss">
+
+        </div>
 
         <div class="form-group mb-3">
           <label for="recurso" class="form-label">Recurso</label>
@@ -45,8 +55,7 @@
 
 
 
-        <button type="submit" class="btn btn-outline-success m-1"
-                [disabled]="formulario.invalid"    >
+        <button type="submit" class="btn btn-outline-success m-1" (click)="actualizarNuss()">
          Guardar
         </button>
 
