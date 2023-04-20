@@ -599,11 +599,13 @@ footer {
   opacity: 0.3;
   pointer-events: none;
 }
-.boton{
-  width: 7vh;
+.min50w{
+  min-width: 50px;
+
 }
 .botonOperacion{
   width: 96%;
+  height: 36px;
 }
 .bloque{
   transition: 400ms;
