@@ -137,7 +137,6 @@ td > .btn-modify {
 
 
   }
-
   .ng-select{
     position: relative;
     border-radius: 5px;
@@ -146,8 +145,6 @@ td > .btn-modify {
     width: 100%;
     box-sizing: border-box;
   }
-
-
 
 }
 
@@ -598,7 +595,25 @@ footer {
 .table>:not(:last-child)>:last-child>* {
   white-space: nowrap;
 }
+.inactiveForm{
+  opacity: 0.3;
+  pointer-events: none;
+}
+.min50w{
+  min-width: 50px;
 
+}
+.botonOperacion{
+  width: 96%;
+  height: 36px;
+}
+.bloque{
+  transition: 400ms;
+}
+.form-group .form-label{
+  text-align: left;
+  display: block;
+}
 .row{
   align-items: center;
 }

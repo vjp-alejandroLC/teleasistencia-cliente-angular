@@ -114,7 +114,6 @@ import {
   NuevoHistoricoAgendaComponent
 } from "./componentes/historico-agenda/nuevo-historico-agenda/nuevo-historico-agenda.component";
 import { ListaAlarmasComponent } from './componentes/alarma/lista-alarmas/lista-alarmas.component';
-import { CrearAlarmaUcrComponent } from './componentes/alarma/crear-alarma-ucr/crear-alarma-ucr.component';
 import { ModificarCerrarAlarmaComponent } from './componentes/alarma/modificar-cerrar-alarma/modificar-cerrar-alarma.component';
 import { ItemAlarmaComponent } from './componentes/alarma/item-alarma/item-alarma.component';
 import { ListaTerminalComponent } from './componentes/terminal/lista-terminal/lista-terminal.component';
@@ -151,11 +150,12 @@ import { ListaRelacionUsuarioCentroComponent } from './componentes/relacion-usua
 import { ModificarTeleoperadorAlarmaComponent } from './componentes/alarma/modificar-teleoperador-alarma/modificar-teleoperador-alarma.component';
 import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-comunitarios-personales/recursos-comunitarios-personales.component';
 import { GruposComponent } from './componentes/grupos/grupos.component';
-import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { CrearAlarmaComponent} from "./componentes/alarma/crear-alarma/crear-alarma.component";
+import { NgSelectModule} from "@ng-select/ng-select";
 import { CrearPersonaContactoComponent } from './componentes/personas-contacto/crear-persona-contacto/crear-persona-contacto.component';
 import { CrearDatosSanitariosComponent } from './componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component';
 import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-crear/mostrar-crear.component';
+
 
 @NgModule({
   declarations: [
@@ -245,7 +245,6 @@ import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-c
     ModificarAgendaComponent,
     NuevoHistoricoAgendaComponent,
     ListaAlarmasComponent,
-    CrearAlarmaUcrComponent,
     ModificarCerrarAlarmaComponent,
     ItemAlarmaComponent,
     ListaTerminalComponent,
@@ -278,7 +277,7 @@ import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-c
     ListaRelacionUsuarioCentroComponent,
     ModificarTeleoperadorAlarmaComponent,
     GruposComponent,
-    CrearAlarmaTerminalComponent,
+    CrearAlarmaComponent,
     CrearPersonaContactoComponent,
     CrearDatosSanitariosComponent,
     MostrarCrearComponent,
