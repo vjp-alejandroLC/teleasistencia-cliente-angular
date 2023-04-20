@@ -2,9 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {IRecursoComunitario} from '../../interfaces/i-recurso-comunitario';
-import {ICentroSanitario} from "../../interfaces/i-centro-sanitario";
 import {environment} from "../../../environments/environment";
-
+import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,12 +23,17 @@ export class CargaRecursoComunitarioService {
     return this.http.get<IRecursoComunitario>(this.URL_SERVER_RECURSOS_COMUNITARIOS + '/' + idRecursoComunitario);
   }
 
-  modificarRecursoComunitario(recursoComunitario: IRecursoComunitario): Observable<IRecursoComunitario> {
-    return this.http.put<IRecursoComunitario>(this.URL_SERVER_RECURSOS_COMUNITARIOS + '/' + recursoComunitario.id, recursoComunitario);
+  modificarRecursoComunitario(recursoComunitario: IRecursoComunitario, id: number): Observable<IRecursoComunitario> {
+    return this.http.put<IRecursoComunitario>(this.URL_SERVER_RECURSOS_COMUNITARIOS + '/' + id, recursoComunitario);
   }
 
-  nuevoRecursoComunitario(recursoComunitario: IRecursoComunitario): Observable<IRecursoComunitario> {
-    return this.http.post<IRecursoComunitario>(this.URL_SERVER_RECURSOS_COMUNITARIOS, recursoComunitario);
+  nuevoRecursoComunitario(recursoComunitario: any): Observable<IRecursoComunitario> {
+    return this.http.post<IRecursoComunitario>(this.URL_SERVER_RECURSOS_COMUNITARIOS, recursoComunitario)/*.pipe(
+      catchError(error => {
+        console.error('Error en la petición POST:', error)
+        throw error
+      })
+    );*/
   }
 
   eliminarRecursoComunitario(recursoComunitario:IRecursoComunitario) {

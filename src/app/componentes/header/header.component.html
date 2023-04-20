@@ -30,12 +30,16 @@
           </a>
         </li>
 
-        <li class="nav">
-          <a class="nav-link " href="#" [routerLink]="['/recursos_comunitarios']">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRecursos" data-bs-toggle="dropdown" aria-expanded="false">
             Recursos
           </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownRecursos">
+            <li *ngFor="let clasificacion of clasificacionRecursos">
+              <a class="dropdown-item" [routerLink]="['/recursos_comunitarios']">{{clasificacion.nombre}}</a>
+            </li>
+          </ul>
         </li>
-
         <li class="nav">
           <a class="nav-link" href="#" [routerLink]="['/']">
             Agenda

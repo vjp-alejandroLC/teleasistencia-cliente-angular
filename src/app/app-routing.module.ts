@@ -244,6 +244,7 @@ import { NuevoTipoAgendaComponent } from './componentes/tipo-agenda/nuevo-tipo-a
 import { DetallesTipoAgendaComponent } from './componentes/tipo-agenda/detalles-tipo-agenda/detalles-tipo-agenda.component';
 import { DetallesTipoAgendaResolveService } from './servicios/detalles-tipo-agenda-resolve.service';
 import { AgendaComponent } from './componentes/agenda/lista-agenda/agenda.component';
+import {VerRecursoComponent} from "./components/recursos/recurso-comunitario/ver-recurso/ver-recurso.component";
 
 
 const routes: Routes = [
@@ -463,6 +464,11 @@ const routes: Routes = [
     resolve: {
       tipos_recursos_comunitarios: ListaTiposRecursosComunitariosResolveService
     }
+  },
+  {
+    path: 'recursos_comunitarios/ver_recursos/:id',
+    component: VerRecursoComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: 'personas',

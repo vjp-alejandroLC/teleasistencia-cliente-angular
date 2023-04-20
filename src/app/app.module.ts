@@ -156,7 +156,7 @@ import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-
 import { GruposComponent } from './componentes/grupos/grupos.component';
 import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component';
 import { VerRecursoComponent } from './components/recursos/recurso-comunitario/ver-recurso/ver-recurso.component';
-
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -295,6 +295,7 @@ import { VerRecursoComponent } from './components/recursos/recurso-comunitario/v
     FormsModule,
     CommonModule,
     NgxPaginationModule,
+    ReactiveFormsModule
   ],
   providers: [
     CargaUserService,

@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IRecursoComunitario} from '../../../../interfaces/i-recurso-comunitario';
-import {CargaTipoRecursoComunitarioService} from "../../../../services/recursos/carga-tipo-recurso-comunitario.service";
 import {CargaRecursoComunitarioService} from "../../../../services/recursos/carga-recurso-comunitario.service";
-import {environment} from "../../../../../environments/environment";
 import {Router} from "@angular/router";
 
 
@@ -24,6 +22,5 @@ export class ItemResursoComunitarioComponent implements OnInit {
   eliminarRecurso(){
     this.cargaRecursoComunitario.eliminarRecursoComunitario(this.recurso_comunitario)
     window.location.reload()
-    console.log(this.recurso_comunitario)
   }
 }
