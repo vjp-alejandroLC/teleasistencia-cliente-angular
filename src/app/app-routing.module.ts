@@ -138,9 +138,6 @@ import {ModificarPacienteComponent} from "./componentes/paciente/modificar-pacie
 import {ModificarPacienteResolveService} from "./servicios/paciente/modificar-paciente-resolve.service";
 import {CrearPacienteComponent} from "./componentes/paciente/crear-paciente/crear-paciente.component";
 import {
-  ListaRelacionPacientePersonaComponent
-} from "./componentes/relacion-paciente-persona/lista-relacion-paciente-persona/lista-relacion-paciente-persona.component";
-import {
   ListaRelacionPacientePersonaResolveService
 } from "./servicios/relacion-paciente-persona/lista-relacion-paciente-persona-resolve.service";
 import {
@@ -173,15 +170,10 @@ import {
 import {
   ListaRelacionUsuarioCentroResolveService
 } from "./servicios/relacion-usuario-centro/lista-relacion-usuario-centro-resolve.service";
-import {
-  ModificarRelacionPacientePersonaComponent
-} from "./componentes/relacion-paciente-persona/modificar-relacion-paciente-persona/modificar-relacion-paciente-persona.component";
+
 import {
   ModificarRelacionPacientePersonaResolveService
 } from "./servicios/relacion-paciente-persona/modificar-relacion-paciente-persona-resolve.service";
-import {
-  CrearRelacionPacientePersonaComponent
-} from "./componentes/relacion-paciente-persona/crear-relacion-paciente-persona/crear-relacion-paciente-persona.component";
 import {
   ModificarCentroSanitarioAlarmaComponent
 } from "./componentes/centro-sanitario-alarma/modificar-centro-sanitario-alarma/modificar-centro-sanitario-alarma.component";
@@ -239,10 +231,14 @@ import { NuevoTipoAgendaComponent } from './componentes/tipo-agenda/nuevo-tipo-a
 import { DetallesTipoAgendaComponent } from './componentes/tipo-agenda/detalles-tipo-agenda/detalles-tipo-agenda.component';
 import { DetallesTipoAgendaResolveService } from './servicios/detalles-tipo-agenda-resolve.service';
 import { AgendaComponent } from './componentes/agenda/lista-agenda/agenda.component';
+import {
+  CrearPersonaContactoComponent
+} from "./componentes/personas-contacto/crear-persona-contacto/crear-persona-contacto.component";
+import {
+  CrearDatosSanitariosComponent
+} from "./componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {environment} from "../environments/environment";
-
-
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
   {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
@@ -1082,54 +1078,6 @@ const routes: Routes = [
     }
   },
   {
-    path: 'relacion_paciente_persona',
-    component: ListaRelacionPacientePersonaComponent,
-    canActivate: [AuthGuard],
-    data:{
-      role:null
-    },
-    resolve: {
-      relaciones_pacientes_personas: ListaRelacionPacientePersonaResolveService
-    }
-  },
-  {
-    path: 'relacion_paciente_persona/borrado/:id',
-    component: ListaRelacionPacientePersonaComponent,
-    canActivate: [AuthGuard],
-    data:{
-      role:null
-    },
-    resolve: {
-      relaciones_pacientes_personas: ListaRelacionPacientePersonaResolveService
-    }
-  },
-  {
-    path: 'relacion_paciente_persona/modificar/:id',
-    component: ModificarRelacionPacientePersonaComponent,
-    canActivate: [AuthGuard],
-    data:{
-      role:null
-    },
-    resolve: {
-      relacion_paciente_persona: ModificarRelacionPacientePersonaResolveService,
-      pacientes: ListaPacientesResolveService,
-      personas: ListaPersonasResolveService,
-    }
-  },
-  {
-    path: 'relacion_paciente_persona/nueva',
-    component: CrearRelacionPacientePersonaComponent,
-    canActivate: [AuthGuard],
-    data:{
-      role:null
-    },
-    resolve: {
-      relacion_paciente_persona: ListaRelacionPacientePersonaResolveService,
-      pacientes: ListaPacientesResolveService,
-      personas: ListaPersonasResolveService,
-    }
-  },
-  {
     path: 'centro_sanitario_alarma',
     component: ListaCentroSanitarioAlarmaComponent,
     canActivate: [AuthGuard],
@@ -1385,6 +1333,23 @@ const routes: Routes = [
   {
     path: 'copia_seguridad/nueva',
     component: CrearCopiaSeguridadComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+  },
+
+  {
+    path: 'datos_sanitario',
+    component: CrearDatosSanitariosComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+  },
+  {
+    path: 'contacto',
+    component: CrearPersonaContactoComponent,
     canActivate: [AuthGuard],
     data:{
       role:null
