@@ -22,15 +22,21 @@
           </ng-select>
         </div>
         <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-success botonOperacion" type="button" (click)="mostratCrearTipo()" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"><i class="fa fa-solid fa-plus"></i></button>
+            <button class="btn btn-success botonOperacion" type="button" (click)="mostratCrearTipo()"
+                    data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+              <i class="fa fa-solid fa-plus"></i>
+            </button>
         </div>
         <div class="col-4 col-lg-1  p-0">
-          <button class="btn btn-warning botonOperacion" id="des1" type="button" (click)="mostrarEditarTipo()" [disabled]="botonDes()" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
+          <button class="btn btn-warning botonOperacion" id="des1" type="button" (click)="mostrarEditarTipo()"
+                  [disabled]="botonDes()"
+                  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample2">
             <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
           </button>
         </div>
         <div class="col-4 col-lg-1  p-0">
-          <button class="btn btn-danger botonOperacion" id="des2" type="button" (click)="modalConfirmacion()" [disabled]="botonDes()"><i class="fa fa-solid fa-trash"></i></button>
+          <button class="btn btn-danger botonOperacion" id="des2" type="button" (click)="modalConfirmacion()"
+                  [disabled]="botonDes()"><i class="fa fa-solid fa-trash"></i></button>
         </div>
       </div>
       <div class="form-group mb-3 row">
@@ -75,12 +81,15 @@
     </form>
     </div>
     <div class="col-12 col-xl-6 collapse collapse-horizontal" id="collapseWidthExample">
-      <app-crear-tipo-alarma  (alarma_creada)="actualizarAlarmas($event)"  (mostrar)="this.mostrar=$event" [listaTiposAlarma]="tipos_alarmas" ></app-crear-tipo-alarma>
+      <app-crear-tipo-alarma  (alarma_creada)="actualizarAlarmas($event)"  (mostrar)="this.mostrar=$event"
+                              [listaTiposAlarma]="tipos_alarmas" ></app-crear-tipo-alarma>
     </div>
 
       <!-- CLASE PARA HACER TRANSICION Y EL NGIF SIRVE PARA EVITAR QUE LA PETICION GET DEL MODIFICAR SE HAGA SOBRE UN TIPO DE ALARMA VACIO-->
      <div class="col-12 col-xl-6 collapse collapse-horizontal" id="collapseWidthExample2" >
-        <app-modificar-tipo-alarma (mostrarModificar)="this.mostrarModificar=$event" (alarma_creada)="actualizarAlarmas($event)" *ngIf="this.mostrarModificar" [listaTiposAlarma]="tipos_alarmas"  [idTipoAlarma]="formCrearA.value.tipos_alarma"></app-modificar-tipo-alarma>
+        <app-modificar-tipo-alarma (mostrarModificar)="this.mostrarModificar=$event"
+                                   (alarma_creada)="actualizarAlarmas($event)" *ngIf="this.mostrarModificar"
+                                   [listaTiposAlarma]="tipos_alarmas"  [idTipoAlarma]="formCrearA.value.tipos_alarma"></app-modificar-tipo-alarma>
       </div>
     </div>
   </div>

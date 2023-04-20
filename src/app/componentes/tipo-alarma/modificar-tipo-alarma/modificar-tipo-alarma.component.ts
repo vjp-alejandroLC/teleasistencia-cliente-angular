@@ -50,8 +50,12 @@ export class ModificarTipoAlarmaComponent implements OnInit {
       this.opcion = false;
     }
   }
-  elegirOpcion(){
-   this.opcion = !this.opcion;
+  elegirOpcion(opcion){
+    if(!opcion){
+      this.opcion = false;
+    }else {
+      this.opcion = true;
+    }
   }
   //Funcion para buscar la alarma en la lista de tipos de alarma segun el id
   buscarTipoAlarma(){

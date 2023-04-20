@@ -54,7 +54,7 @@ export class CrearTipoAlarmaComponent implements OnInit {
     this.cargaTiposAlarmas.nuevoTipoAlarma(this.formCrear.value).subscribe(
       e => {
         //Recargar los tipos de alarma mediante OUTPUT
-        this.alarma_creada.emit();
+        this.alarma_creada.emit(e.id);
         this.mostrar.emit(!this.mostrar);
         this.alertExito()
       },

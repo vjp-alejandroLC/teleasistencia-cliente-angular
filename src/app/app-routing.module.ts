@@ -323,7 +323,13 @@ const routes: Routes = [
       clasificacion_alarma: ModificarClasificacionAlarmaResolveService
     }
   },
-  {path: 'clasificaciones_alarmas/nueva', component: CrearClasificacionAlarmaComponent, canActivate: [AuthGuard]},
+  {path: 'clasificaciones_alarmas/nueva',
+    component: CrearClasificacionAlarmaComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:[environment.admins]
+    }
+  },
   {
     path: 'tipos_centros_sanitarios',
     component: ListaTiposCentrosSanitariosComponent,
@@ -944,7 +950,7 @@ const routes: Routes = [
     component: ModificarTeleoperadorAlarmaComponent,
     canActivate: [AuthGuard],
     data:{
-      role:null
+      role:[environment.admins]
     },
     resolve: {
       alarma: ModificarAlarmaResolveService,
