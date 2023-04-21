@@ -23,7 +23,7 @@
                           formControlName="paciente" required (change)="obtenerExpediente()">
                     <option class="tipo_agenda_option"
                             *ngFor="let paciente of pacientes"
-                            [value]="paciente.id">{{ paciente.id_persona.nombre }} {{ paciente.id_persona.apellidos }}</option>
+                            [value]="paciente.id_persona.id">{{ paciente.id_persona.nombre }} {{ paciente.id_persona.apellidos }}</option>
                   </select>
                 </div>
               </div>
@@ -72,7 +72,7 @@
 
             <div class="form-group mb-3 row">
               <label for="fecha_prevista" class="form-label">Fecha prevista</label>
-              <input type="date" name="fecha_prevista" id="fecha_prevista" class="form-control"
+              <input type="datetime-local" name="fecha_prevista" id="fecha_prevista" class="form-control"
                      required maxlength="200" formControlName="fecha_prevista">
               <div *ngIf="form.fecha_prevista.invalid && (form.fecha_prevista.dirty || form.fecha_prevista.touched)" class="alert alert-secondary" role="alert">
                 <div *ngIf="form.fecha_prevista.errors?.required">

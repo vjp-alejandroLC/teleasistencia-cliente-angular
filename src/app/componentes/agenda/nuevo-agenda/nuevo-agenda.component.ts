@@ -90,13 +90,14 @@ export class NuevoAgendaComponent implements OnInit {
   // Método que realiza la petición al servidor de creación de una agenda.
   nuevoAgenda() {
     this.agenda = {
-      'id_paciente': this.nuevaAgenda.get('paciente').value,
+      'id_paciente': this.pacientes.find(paciente => paciente.id_persona.id == this.nuevaAgenda.get('paciente').value).id,
       'id_tipo_agenda': this.nuevaAgenda.get('tipo_agenda').value,
-      'fecha_registro': new Date(),
+      'fecha_registro': new Date().toISOString().slice(0, 16),
       'fecha_prevista': this.nuevaAgenda.get('fecha_prevista').value,
       'fecha_resolucion': null,
       'observaciones': this.nuevaAgenda.get('observaciones').value
     }
+    console.log(this.agenda);
     this.cargaAgendas.nuevoAgenda(this.agenda).subscribe(
       e => {
         this.alertExito();
@@ -203,7 +204,7 @@ export class NuevoAgendaComponent implements OnInit {
 
   //Método para obtener el número de expediente del paciente seleccionado en el formulario
   obtenerExpediente() {
-    this.paciente = this.pacientes.find(paciente => paciente.id == this.nuevaAgenda.get('paciente').value);
+    this.paciente = this.pacientes.find(paciente => paciente.id_persona.id == this.nuevaAgenda.get('paciente').value);
     this.nuevaAgenda.get('n_expediente').setValue(this.paciente.numero_expediente);
   }
 

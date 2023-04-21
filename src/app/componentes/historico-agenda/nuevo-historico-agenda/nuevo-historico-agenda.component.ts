@@ -24,6 +24,7 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
   public agenda: IAgenda;
   public nuevoHistorico: FormGroup;
   public fecha_actual: Date;
+  public teleoperador: any;
   submitted = false;
 
   constructor(
@@ -41,6 +42,9 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
     this.agendas = this.route.snapshot.data['agendas'];
     this.teleoperadores = this.route.snapshot.data['teleoperadores'];
     this.agenda = this.route.snapshot.data['agenda'];
+    /*this.teleoperador = this.route.snapshot.data['profile/1'];
+    console.log(this.teleoperador)
+    console.log(this.teleoperadores)*/
 
     //this.historico_agenda.id_agenda = this.agenda.id;
     this.fecha_actual = new Date;

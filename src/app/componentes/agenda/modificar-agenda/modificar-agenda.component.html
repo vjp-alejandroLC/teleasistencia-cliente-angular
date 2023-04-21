@@ -15,7 +15,7 @@
           <label for="idPaciente" class="form-label">Paciente</label>
           <select name="idPaciente" id="idPaciente"
                   formControlName="paciente" (change)="obtenerExpediente()" class="form-select" required>
-            <option class="agenda_option" *ngFor="let paciente of pacientes; let i = index" [value]="paciente.id">
+            <option class="agenda_option" *ngFor="let paciente of pacientes" [value]="paciente.id">
               {{paciente.id_persona.nombre + ' ' + paciente.id_persona.apellidos}}
             </option>
           </select>
@@ -68,8 +68,8 @@
 
       <div class="form-group mb-3">
         <label for="fecha_prevista" class="form-label">Fecha prevista</label>
-        <input type="date" name="fecha_prevista" id="fecha_prevista" class="form-control"
-               required maxlength="200" formControlName="fecha_prevista" >
+        <input type="datetime-local" name="fecha_prevista" id="fecha_prevista" class="form-control"
+               required maxlength="200" formControlName="fecha_prevista" [value]="agenda.fecha_prevista">
         <div *ngIf="form.fecha_prevista.invalid && (form.fecha_prevista.dirty || form.fecha_prevista.touched)" class="alert alert-secondary" role="alert">
           <div *ngIf="form.fecha_prevista.errors?.required">
             La fecha prevista es obligatoria.
@@ -88,7 +88,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-outline-success m-1" (click)="modificarEventoAgenda()"
+      <button type="submit" class="btn btn-outline-success m-1"
               [disabled]="!modAgenda.valid">
         Guardar
       </button>

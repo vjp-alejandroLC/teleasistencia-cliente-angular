@@ -40,9 +40,22 @@ export class AgendaComponent implements OnInit {
   // Al cargar el componente, se establecen las agendas para el día actual
   ngOnInit() {
     this.agendasDelDia = this.route.snapshot.data['agendasDelDia'];
-    this.agendasDelDia = this.agendasDelDia.sort((a, b) => a.id_tipo_agenda.importancia > b.id_tipo_agenda.importancia ? 1 : -1);
+    this.agendasDelDia = this.agendasDelDia.sort(this.ordenarAgendas);
     this.fechaString = + this.fechaToday.getDate() + ' de ' + this.getNombreMes(this.fechaToday.getMonth()) + ' de '
       + this.fechaToday.getFullYear();
+  }
+
+  ordenarAgendas(a:IAgenda, b:IAgenda ): number {
+    if(a.id_tipo_agenda.importancia > b.id_tipo_agenda.importancia) {
+      return 1;
+    } else {
+      if (a.id_tipo_agenda.importancia == b.id_tipo_agenda.importancia) {
+        if (a.fecha_prevista > b.fecha_prevista) {
+          return 1;
+        }
+      }
+    }
+    return -1;
   }
 
   // Método que ordena la tabla si hacemos click en las flechas de los th de la tabla

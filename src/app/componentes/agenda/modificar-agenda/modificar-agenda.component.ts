@@ -42,16 +42,8 @@ export class ModificarAgendaComponent implements OnInit {
     this.idAgenda = this.route.snapshot.params['id'];
     this.pacientes = this.route.snapshot.data['pacientes'];
     this.titleService.setTitle('Modificar agenda ' + this.idAgenda);
-    /*let dia = new Date(this.agenda.fecha_prevista).getDate();
-    let mes = new Date(this.agenda.fecha_prevista).getMonth();
-    let anio = new Date(this.agenda.fecha_prevista).getFullYear();
-    console.log(dia)
-    console.log(mes)
-    console.log(anio)
-    this.placeholder = dia+"/"+mes+"/"+anio;
-    console.log(this.placeholder)*/
-    this.agenda.id_tipo_agenda = this.agenda.id_tipo_agenda.id;
-    this.agenda.id_paciente = this.agenda.id_paciente.id;
+    //this.agenda.id_tipo_agenda = this.agenda.id_tipo_agenda.id;
+    //this.agenda.id_paciente = this.agenda.id_paciente.id;
     this.crearForm();
     this.obtenerExpediente();
     this.obtenerImportancia();
@@ -59,19 +51,19 @@ export class ModificarAgendaComponent implements OnInit {
 
   public crearForm() {
     this.modAgenda = this.formBuilder.group({
-      paciente: [this.agenda.id_paciente,[
+      paciente: [this.agenda.id_paciente.id,[
         Validators.required
       ]],
       n_expediente: [this.agenda.id_paciente.n_expediente, [
         Validators.required
       ]],
-      tipo_agenda: [this.agenda.id_tipo_agenda, [
+      tipo_agenda: [this.agenda.id_tipo_agenda.id, [
         Validators.required
       ]],
       importancia: [this.agenda.id_tipo_agenda.importancia, [
         Validators.required
       ]],
-      fecha_prevista: [ this.agenda.fecha_registro, [
+      fecha_prevista: [ this.agenda.fecha_prevista, [
         Validators.required
       ]],
       observaciones: [this.agenda.observaciones, [
