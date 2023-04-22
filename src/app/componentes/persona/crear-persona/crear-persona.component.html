@@ -4,7 +4,7 @@
     <div class="row mb-4">
       <div class="col-4">
         <div class="form-group">
-          <label for="nombre">Nombre <span class="obligatorios">*</span></label>
+          <label for="nombre" class="form-label text-start">Nombre <span class="obligatorios">*</span></label>
           <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre"
                  formControlName="nombre">
         </div>
@@ -16,7 +16,7 @@
 
       <div class="col-4">
         <div class="form-group">
-          <label for="apellidos">Apellidos <span class="obligatorios">*</span></label>
+          <label for="apellidos" class="form-label text-start">Apellidos <span class="obligatorios">*</span></label>
           <input type="text" name="apellidos" id="apellidos" class="form-control"
                  placeholder="Apellidos" formControlName="apellidos">
         </div>
@@ -30,7 +30,7 @@
 
       <div class="col-4">
         <div class="form-group">
-          <label for="dni">DNI <span class="obligatorios">*</span></label>
+          <label for="dni" class="form-label text-start">DNI <span class="obligatorios">*</span></label>
           <input type="text" name="dni" id="dni" class="form-control" placeholder="DNI" formControlName="dni">
         </div>
         <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-secondary" role="alert">
@@ -43,11 +43,11 @@
     <div class="row mb-4">
       <div class="col-4">
         <div class="form-group">
-          <label for="fecha_nacimiento">Fecha de Nacimiento <span class="obligatorios">*</span></label>
+          <label for="fecha_nacimiento" class="form-label text-start">Fecha de Nacimiento <span class="obligatorios">*</span></label>
           <input type="date" name="fecha_nacimiento " id="fecha_nacimiento" class="form-control"
                  formControlName="fecha_nacimiento" max="2023-04-18">
         </div>
-        <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-secondary" role="alert" >
+        <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-secondary" role="alert">
           <span *ngIf="date.errors.required">La fecha de nacimiento es obligatoria.</span>
           <span *ngIf="date.errors.pattern">La fecha de nacimiento no es válida.</span>
           <span *ngIf="date.errors.maxDate">La fecha de nacimiento no puede ser mayor a la actual.</span>
@@ -56,7 +56,7 @@
 
       <div class="col-4">
         <div class="form-group">
-          <label for="sexo">Género</label>
+          <label for="sexo" class="form-label text-start">Género</label>
           <select class="form-select" id="sexo" name="sexo" formControlName="sexo">
             <option class="sexo_option" value="Hombre" selected>Hombre</option>
             <option class="sexo_option" value="Mujer">Mujer</option>
@@ -66,7 +66,7 @@
 
       <div class="col-4">
         <div class="form-group">
-          <label for="telefono_fijo">Télefono Fijo</label>
+          <label for="telefono_fijo" class="form-label text-start">Télefono Fijo</label>
           <input type="tel" name="telefono_fijo" id="telefono_fijo" class="form-control"
                  placeholder="Teléfono Fijo" formControlName="telefono_fijo">
         </div>
@@ -79,7 +79,7 @@
     <div class="row mb-4">
       <div class="col-4">
         <div class="form-group">
-          <label for="localidad">Localidad <span class="obligatorios">*</span></label>
+          <label for="localidad" class="form-label text-start">Localidad <span class="obligatorios">*</span></label>
           <input type="text" name="localidad" id="localidad" class="form-control" placeholder="Localidad"
                  formControlName="localidad">
         </div>
@@ -91,7 +91,7 @@
 
       <div class="col-4">
         <div class="form-group">
-          <label for="telefono_movil">Teléfono movil</label>
+          <label for="telefono_movil" class="form-label text-start">Teléfono movil</label>
           <input type="tel" name="telefono_movil" id="telefono_movil" class="form-control"
                  placeholder="Teléfono Movil" formControlName="telefono_movil">
         </div>
@@ -104,7 +104,7 @@
 
       <div class="col-4">
         <div class="form-group">
-          <label for="provincia">Provincia <span class="obligatorios">*</span></label>
+          <label for="provincia" class="form-label text-start">Provincia <span class="obligatorios">*</span></label>
           <input type="text" name="provincia" id="provincia" class="form-control"
                  required maxlength="200" placeholder="Provincia" formControlName="provincia">
         </div>
@@ -117,7 +117,7 @@
     <div class="row mb-4">
       <div class="col-4">
         <div class="form-group">
-          <label for="direccion">Dirección <span class="obligatorios">*</span></label>
+          <label for="direccion" class="form-label text-start">Dirección <span class="obligatorios">*</span></label>
           <input type="text" name="direccion" id="direccion" class="form-control"
                  placeholder="Dirección" formControlName="direccion">
         </div>
@@ -130,7 +130,7 @@
 
       <div class="col-4">
         <div class="form-group">
-          <label for="codigo_postal">Código Postal <span class="obligatorios">*</span></label>
+          <label for="codigo_postal" class="form-label text-start">Código Postal <span class="obligatorios">*</span></label>
           <input type="text" name="codigo_postal" id="codigo_postal" class="form-control"
                  placeholder="CP" formControlName="codigo_postal">
         </div>
@@ -140,28 +140,39 @@
         </div>
       </div>
     </div>
-    <div class="row mb-4">
-      <div class="col-4">
-        <div class="form-group">
-          <label for="tipo_user">Tipo de persona</label>
-          <select class="form-select" id="tipo_user" name="tipo_user" required formControlName="tipo_user">
-            <option value="Persona mayor">Persona mayor</option>
-            <option value="Persona con enfermedad crónica">Persona con enfermedad crónica</option>
-            <option value="Persona con enfermedad mental">Persona con enfermedad mental</option>
-            <option value="Demencia">Demencia</option>
-            <option value="Diversidad funcional sensorial">Diversidad funcional sensorial</option>
-            <option value="Diversidad funcional intelectual">Diversidad funcional intelectual</option>
-            <option value="Diversidad funcional física">Diversidad funcional física</option>
-            <option value="Víctima de violencia de género">Víctima de violencia de género</option>
-          </select>
-        </div>
+    <div class="row mb-3 form-group">
+          <label for="tipos_personas" class="form-label text-start">Tipo de persona</label>
+          <div class="col-12 col-lg-9 pb-1 pb-lg-0">
+            <ng-select id="tipos_personas" formControlName="tipos_personas">
+              <ng-option *ngFor="let tipo_persona of tipos_personas; let i = index"
+                         [value]="tipo_persona.id">{{tipo_persona.nombre}}</ng-option>
+            </ng-select>
+          </div>
+          <div class="col-4 col-lg-1  p-0">
+            <button class="btn btn-success botonOperacion" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false"
+                    aria-controls="collapseWidthExample">
+              <i class="fa fa-solid fa-plus"></i>
+            </button>
+          </div>
+          <div class="col-4 col-lg-1  p-0">
+            <button class="btn btn-warning botonOperacion" id="des1" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false"
+                    aria-controls="collapseWidthExample2">
+              <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+            </button>
+          </div>
+          <div class="col-4 col-lg-1  p-0">
+            <button class="btn btn-danger botonOperacion" id="des2" type="button">
+              <i class="fa fa-solid fa-trash"></i>
+            </button>
+          </div>
       </div>
-    </div>
-
     <div class="row">
       <div class="form-group">
-        <label for="text_area">X</label>
-        <textarea placeholder="  (SAD / Centro de Dia)" formControlName="text_area" name="text_area" id="text_area"></textarea>
+        <label for="text_area" class="form-label text-start">X</label>
+        <textarea placeholder="  (SAD / Centro de Dia)" formControlName="text_area" name="text_area"
+                  id="text_area"></textarea>
       </div>
     </div>
     <div *ngIf="text.invalid && (text.dirty || text.touched)" class="alert alert-secondary" role="alert">

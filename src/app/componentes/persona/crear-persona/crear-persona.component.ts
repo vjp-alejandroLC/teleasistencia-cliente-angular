@@ -9,7 +9,21 @@ import Swal from "sweetalert2";
 import {Direccion} from "../../../clases/direccion";
 import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
 import {environment} from "../../../../environments/environment";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators,FormControl} from "@angular/forms";
+import {TipoModalidadPaciente} from "../../../clases/tipo-modalidad-paciente";
+
+
+export class DateValidator {
+
+  static LessThanToday(control: FormControl): ValidationErrors | null {
+    let today: Date = new Date();
+
+    if (new Date(control.value) > today)
+      return {"LessThanToday": true};
+
+    return null;
+  }
+}
 
 
 @Component({
@@ -27,6 +41,7 @@ export class CrearPersonaComponent implements OnInit {
   //public direcciones: IDireccion[];
   public dire: IDireccion;
   public formulario: FormGroup;
+  public tipos_personas: TipoModalidadPaciente[];
 
 
   /**
@@ -52,6 +67,7 @@ export class CrearPersonaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.tipos_personas = this.route.snapshot.data['tipos_personas'];
     this.buildForm();  //Formularios reactivos
     this.titleService.setTitle('Crear nueva persona');
     this.persona = new Persona();
@@ -109,7 +125,6 @@ export class CrearPersonaComponent implements OnInit {
   }
 
 
-
   nuevaDireccion(): void {
     this.cargaDirecciones.nuevaDireccion(this.dire).subscribe(
       e => {
@@ -124,23 +139,18 @@ export class CrearPersonaComponent implements OnInit {
   nuevaPersona(): void {
 
 
-
-
-
-  //   this.cargaPersonas.nuevaPersona(this.persona).subscribe(
-  //     e => {
-  //       this.nuevaDireccion();
-  //       this.alertExito()
-  //     },
-  //     error => {
-  //       this.alertError()
-  //     }
-  //   );
+    //   this.cargaPersonas.nuevaPersona(this.persona).subscribe(
+    //     e => {
+    //       this.nuevaDireccion();
+    //       this.alertExito()
+    //     },
+    //     error => {
+    //       this.alertError()
+    //     }
+    //   );
 
 
   }
-
-
 
 
   /**
@@ -178,7 +188,7 @@ export class CrearPersonaComponent implements OnInit {
         Validators.maxLength(5),
         Validators.minLength(5),
         Validators.pattern(this.REGEX_CP)]],
-      tipo_user: ['Persona mayor', [Validators.required]],
+      tipos_personas: ['', [Validators.required]],
       text_area: ['', [Validators.pattern(this.REGEX_TEXT)]]
     });
   }
@@ -186,6 +196,16 @@ export class CrearPersonaComponent implements OnInit {
 
   comprobarFormulario() {
     this.nuevaPersona()
+  }
+
+
+  validacionFechaMaxima(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (new Date(control.value) > new Date()) {
+        return {fechaExcedida: true};
+      }
+      return null;
+    }
   }
 
 

@@ -1375,6 +1375,9 @@ const routes: Routes = [
     data:{
       role:null
     },
+    resolve:{
+      tipos_personas: ListaTiposModalidadesPacientesResolveService
+    },
   },
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},
   {path: '**', redirectTo: '/inicio', pathMatch: 'full'}
