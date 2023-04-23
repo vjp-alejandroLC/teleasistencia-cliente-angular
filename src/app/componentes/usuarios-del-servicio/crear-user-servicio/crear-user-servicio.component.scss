@@ -1,9 +1,13 @@
 
 .formularios{
-  border: 2px solid red;
-  border-radius:5px;
+  border-top: 4mm ridge rgba(211, 220, 50, .6);
   margin: auto;
 }
-
-
-
+.form-container {
+  height: auto;
+  overflow: hidden;
+  transition: height 500ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+.form-container.cerrado {
+  height: 0;
+}

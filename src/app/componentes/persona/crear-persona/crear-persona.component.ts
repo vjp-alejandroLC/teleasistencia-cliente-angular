@@ -58,12 +58,6 @@ export class CrearPersonaComponent implements OnInit {
     this.tipos_personas = this.route.snapshot.data['tipos_personas'];
     this.buildForm();  //Formularios reactivos
     this.titleService.setTitle('Crear nueva persona');
-    this.persona = new Persona();
-    this.persona.sexo = 'Hombre';
-    this.persona.telefono_fijo = '';
-    this.persona.telefono_movil = '';
-    this.dire = new Direccion();
-    this.fecha_actual = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1);
   }
 
   /**

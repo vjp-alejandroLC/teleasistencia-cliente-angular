@@ -7,15 +7,24 @@ import {Component, OnInit} from '@angular/core';
 })
 export class CrearUserServicioComponent implements OnInit {
 
+  formVisible: boolean = true;
+  animacion:boolean = false;
+
   constructor() {
   }
+
+  onFormSubmit() {
+
+    this.animacion=true;
+    setTimeout(()=>{
+      this.formVisible = false;
+      this.animacion=false;
+    },3000);
+  }
+
 
   ngOnInit(): void {
   }
 
-  plegado: boolean = false;
 
-  plegar() {
-    this.plegado = !this.plegado;
-  }
 }

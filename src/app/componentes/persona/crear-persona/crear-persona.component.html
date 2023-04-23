@@ -140,14 +140,17 @@
           <div class="col-12 col-lg-9 pb-1 pb-lg-0">
             <ng-select id="tipos_personas" formControlName="tipos_personas">
               <ng-option *ngFor="let tipo_persona of tipos_personas; let i = index"
-                         [value]="tipo_persona.id">{{tipo_persona.nombre}}</ng-option>
+                         [value]="tipo_persona.nombre">{{tipo_persona.nombre}}</ng-option>
             </ng-select>
           </div>
           <div class="col-4 col-lg-1  p-0">
             <button class="btn btn-success botonOperacion" type="button"
                     data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false"
                     aria-controls="collapseWidthExample">
-              <i class="fa fa-solid fa-plus"></i>
+<!--              <i class="fa-solid fa-arrow-down"></i>  Preguntar por este otro icono-->
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="25" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 19 19">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+              </svg>
             </button>
           </div>
           <div class="col-4 col-lg-1  p-0">
