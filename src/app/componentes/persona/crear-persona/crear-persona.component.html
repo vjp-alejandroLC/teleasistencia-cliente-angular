@@ -43,7 +43,8 @@
     <div class="row mb-4">
       <div class="col-4">
         <div class="form-group">
-          <label for="fecha_nacimiento" class="form-label text-start">Fecha de Nacimiento <span class="obligatorios">*</span></label>
+          <label for="fecha_nacimiento" class="form-label text-start">Fecha de Nacimiento <span
+            class="obligatorios">*</span></label>
           <input type="date" name="fecha_nacimiento " id="fecha_nacimiento" class="form-control"
                  formControlName="fecha_nacimiento">
         </div>
@@ -125,7 +126,8 @@
 
       <div class="col-4">
         <div class="form-group">
-          <label for="codigo_postal" class="form-label text-start">Código Postal <span class="obligatorios">*</span></label>
+          <label for="codigo_postal" class="form-label text-start">Código Postal <span
+            class="obligatorios">*</span></label>
           <input type="text" name="codigo_postal" id="codigo_postal" class="form-control"
                  placeholder="CP" formControlName="codigo_postal">
         </div>
@@ -136,36 +138,39 @@
       </div>
     </div>
     <div class="row mb-3 form-group">
-          <label for="tipos_personas" class="form-label text-start">Tipo de persona <span class="obligatorios">*</span></label>
-          <div class="col-12 col-lg-9 pb-1 pb-lg-0">
-            <ng-select id="tipos_personas" formControlName="tipos_personas">
-              <ng-option *ngFor="let tipo_persona of tipos_personas; let i = index"
-                         [value]="tipo_persona.nombre">{{tipo_persona.nombre}}</ng-option>
-            </ng-select>
-          </div>
-          <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-success botonOperacion" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false"
-                    aria-controls="collapseWidthExample">
-<!--              <i class="fa-solid fa-arrow-down"></i>  Preguntar por este otro icono-->
-              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="25" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 19 19">
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
-              </svg>
-            </button>
-          </div>
-          <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-warning botonOperacion" id="des1" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false"
-                    aria-controls="collapseWidthExample2">
-              <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
-            </button>
-          </div>
-          <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-danger botonOperacion" id="des2" type="button">
-              <i class="fa fa-solid fa-trash"></i>
-            </button>
-          </div>
+      <label for="tipos_personas" class="form-label text-start">Tipo de persona <span
+        class="obligatorios">*</span></label>
+      <div class="col-12 col-lg-9 pb-1 pb-lg-0">
+        <ng-select id="tipos_personas" formControlName="tipos_personas">
+          <ng-option *ngFor="let tipo_persona of tipos_personas; let i = index"
+                     [value]="tipo_persona.nombre">{{tipo_persona.nombre}}</ng-option>
+        </ng-select>
       </div>
+      <div class="col-4 col-lg-1  p-0">
+        <button class="btn btn-success botonOperacion" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false"
+                aria-controls="collapseWidthExample">
+          <!--              <i class="fa-solid fa-arrow-down"></i>  Preguntar por este otro icono-->
+          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="25" fill="currentColor"
+               class="bi bi-arrow-down-circle-fill" viewBox="0 0 19 19">
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="col-4 col-lg-1  p-0">
+        <button class="btn btn-warning botonOperacion" id="des1" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false"
+                aria-controls="collapseWidthExample2">
+          <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+        </button>
+      </div>
+      <div class="col-4 col-lg-1  p-0">
+        <button class="btn btn-danger botonOperacion" id="des2" type="button">
+          <i class="fa fa-solid fa-trash"></i>
+        </button>
+      </div>
+    </div>
     <div class="row">
       <div class="form-group">
         <label for="text_area" class="form-label text-start">X</label>
@@ -181,4 +186,8 @@
     <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/inicio']">Volver</button>
 
   </form>
+  <div class="col-12 col-xl-8 collapse collapse-horizontal" id="collapseWidthExample">
+    <app-crear-tipo-modalidad-paciente>
+    </app-crear-tipo-modalidad-paciente>
+  </div>
 </main>
