@@ -30,7 +30,7 @@
 
       <div class="form-group mb-3">
         <label for="fecha_prevista" class="form-label">Fecha prevista</label>
-        <input type="date" name="fecha_prevista" id="fecha_prevista" class="form-control"
+        <input type="datetime-local" name="fecha_prevista" id="fecha_prevista" class="form-control"
                required maxlength="200" formControlName="fecha_prevista" disabled>
         <div *ngIf="form.fecha_prevista.invalid && (form.fecha_prevista.dirty || form.fecha_prevista.touched)" class="alert alert-secondary" role="alert">
           <div *ngIf="form.fecha_prevista.errors?.required">
@@ -82,7 +82,7 @@
 
       <div class="form-group mb-3">
         <label for="fecha_llamada" class="form-label">Fecha de llamada</label>
-        <input type="date" name="fecha_llamada" id="fecha_llamada" class="form-control"
+        <input type="datetime-local" name="fecha_llamada" id="fecha_llamada" class="form-control"
                required maxlength="200" formControlName="fecha_llamada" disabled>
         <div *ngIf="form.fecha_llamada.invalid && (form.fecha_llamada.dirty || form.fecha_llamada.touched)" class="alert alert-secondary" role="alert">
           <div *ngIf="form.fecha_llamada.errors?.required">

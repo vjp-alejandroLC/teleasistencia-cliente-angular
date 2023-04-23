@@ -18,7 +18,6 @@ export class ListaAgendaResolveService implements Resolve<IAgenda> {
   //fechaParseada =  this.fechaPrevista.getFullYear() +'-'+ (this.fechaPrevista.getMonth()+1) +'-'+ this.fechaPrevista.getDate();
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IAgenda> {
-    console.log(this.fechaPrevista)
     return this.cargaAgendaService.getAgendasPorFechaPrevista(this.fechaPrevista).pipe(
       catchError(error => {
         this.router.navigate(['/inicio']);

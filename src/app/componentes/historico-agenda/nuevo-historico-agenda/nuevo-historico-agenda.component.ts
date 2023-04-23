@@ -71,7 +71,7 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
     this.historico_agenda = {
       'id_agenda': this.agenda.id,
       'id_teleoperador': this.nuevoHistorico.get('teleoperador').value,
-      'fecha_llamada': this.nuevoHistorico.get('fecha_llamada').value,
+      'fecha_llamada': new Date().toISOString().slice(0, 16),
       'observaciones': this.nuevoHistorico.get('observaciones_historico').value
     }
     this.nuevoHistoricoAgenda();
@@ -82,6 +82,7 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
   // Esta llamada se hace puesto que al hacer la petición de guardado de un nuevo histórico, queremos a su vez settear
   // la fecha de resolución de dicha agenda para que pase de estar en estado 'no-resuelta' a 'resuelta'.
   nuevoHistoricoAgenda() {
+    console.log(this.historico_agenda)
     this.cargaHistoricoAgenda.nuevoHistoricoAgenda(this.historico_agenda).subscribe(
       e => {
         this.modificarFechaResolucionAgenda();
