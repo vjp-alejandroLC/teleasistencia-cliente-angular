@@ -27,7 +27,7 @@ export class CargaPersonaService {
   modificarPersona(persona: IPersona): Observable<IPersona> {
     return this.http.put<IPersona>(this.URL_SERVER_PERSONAS + '/' + persona.id, persona);
   }
-  nuevaPersona(persona: IPersona): Observable<IPersona> {
+  nuevaPersona(persona: any): Observable<IPersona> {
     return this.http.post<IPersona>(this.URL_SERVER_PERSONAS, persona);
 
   }

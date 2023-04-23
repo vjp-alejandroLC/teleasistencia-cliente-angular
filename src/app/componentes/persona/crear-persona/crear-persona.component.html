@@ -1,5 +1,5 @@
 <main class="p-0 m-0">
-  <form [formGroup]="formulario">
+  <form [formGroup]="formulario" (submit)="comprobarFormulario()">
 
     <div class="row mb-4">
       <div class="col-4">
@@ -45,12 +45,7 @@
         <div class="form-group">
           <label for="fecha_nacimiento" class="form-label text-start">Fecha de Nacimiento <span class="obligatorios">*</span></label>
           <input type="date" name="fecha_nacimiento " id="fecha_nacimiento" class="form-control"
-                 formControlName="fecha_nacimiento" max="2023-04-18">
-        </div>
-        <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-secondary" role="alert">
-          <span *ngIf="date.errors.required">La fecha de nacimiento es obligatoria.</span>
-          <span *ngIf="date.errors.pattern">La fecha de nacimiento no es válida.</span>
-          <span *ngIf="date.errors.maxDate">La fecha de nacimiento no puede ser mayor a la actual.</span>
+                 formControlName="fecha_nacimiento">
         </div>
       </div>
 
@@ -141,7 +136,7 @@
       </div>
     </div>
     <div class="row mb-3 form-group">
-          <label for="tipos_personas" class="form-label text-start">Tipo de persona</label>
+          <label for="tipos_personas" class="form-label text-start">Tipo de persona <span class="obligatorios">*</span></label>
           <div class="col-12 col-lg-9 pb-1 pb-lg-0">
             <ng-select id="tipos_personas" formControlName="tipos_personas">
               <ng-option *ngFor="let tipo_persona of tipos_personas; let i = index"
@@ -179,8 +174,7 @@
       <span *ngIf="text.errors.pattern">No puedes meter espacios en blanco</span>
     </div>
 
-    <button type="submit" class="btn btn-outline-success m-1" (click)="comprobarFormulario()">Guardar
-    </button>
+    <button type="submit" class="btn btn-outline-success m-1">Guardar</button>
     <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/inicio']">Volver</button>
 
   </form>
