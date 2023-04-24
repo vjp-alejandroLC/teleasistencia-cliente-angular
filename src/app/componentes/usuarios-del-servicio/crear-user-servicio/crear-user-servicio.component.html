@@ -10,22 +10,22 @@
 
     <form>
       <h1>Datos Personales</h1>
-      <div class="formularios m-auto mb-2 p-4 d-flex justify-content-center col-8 form-container"
+      <div class="formularios m-auto mb-2 p-4  col-8 form-container"
        [class.cerrado]="!formVisible">
         <app-crear-persona *ngIf="formVisible" (submit)="onFormSubmit()"></app-crear-persona>
       </div>
 
       <h1>Datos Sanitarios</h1>
-      <div class="formularios m-auto mt-4 p-4 d-flex justify-content-center col-8">
+      <div class="formularios m-auto mt-4 p-4  col-8">
       </div>
 
       <h1>Vivienda</h1>
-      <div class="formularios m-auto p-4 d-flex justify-content-center col-8">
+      <div class="formularios m-auto p-4   col-8">
       </div>
 
 
       <h1>Personas de Contacto</h1>
-      <div class="formularios m-auto p-4 d-flex justify-content-center col-8">
+      <div class="formularios m-auto p-4  col-8">
       </div>
 
     </form>

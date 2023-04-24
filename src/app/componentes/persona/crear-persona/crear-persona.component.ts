@@ -30,6 +30,7 @@ export class CrearPersonaComponent implements OnInit {
   public formulario: FormGroup;
   public tipos_personas: TipoModalidadPaciente[];
   public fecha_actual: Date;
+  public id:number;
 
 
   /**
@@ -184,6 +185,8 @@ export class CrearPersonaComponent implements OnInit {
 
     this.cargaPersonas.nuevaPersona(persona).subscribe(
       e => {
+        console.log("id"+e.id);
+        this.id=e.id;
         this.nuevaDireccion();
         this.alertExito()
       },
