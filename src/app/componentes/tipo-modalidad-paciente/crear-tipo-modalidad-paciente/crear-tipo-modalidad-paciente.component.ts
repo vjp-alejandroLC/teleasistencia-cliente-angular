@@ -29,7 +29,7 @@ export class CrearTipoModalidadPacienteComponent implements OnInit {
     this.cargaTiposModalidadesPacientes.nuevoTipoModalidadPaciente(this.tipo_modalidad_paciente).subscribe(
       e => {
         this.alertExito()
-        this.router.navigate(['/tipos_modalidades_pacientes']);
+        // this.router.navigate(['/tipos_modalidades_pacientes']);
       },
       error => {
         this.alertError()

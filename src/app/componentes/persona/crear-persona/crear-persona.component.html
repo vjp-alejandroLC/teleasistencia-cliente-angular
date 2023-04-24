@@ -182,11 +182,11 @@
       <span *ngIf="text.errors.pattern">No puedes meter espacios en blanco</span>
     </div>
 
-    <button type="submit" class="btn btn-outline-success m-1">Guardar</button>
+    <button [disabled]="formulario.invalid" type="submit" class="btn btn-outline-success m-1" >Guardar</button>
     <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/inicio']">Volver</button>
 
   </form>
-  <div class="col-12 col-xl-8 collapse collapse-horizontal" id="collapseWidthExample">
+  <div class="col-12 col-xl-8 collapse collapse-horizontal m-auto" id="collapseWidthExample">
     <app-crear-tipo-modalidad-paciente>
     </app-crear-tipo-modalidad-paciente>
   </div>
