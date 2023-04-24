@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ITipoModalidadPaciente} from '../../../interfaces/i-tipo-modalidad-paciente';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -16,6 +16,7 @@ import {environment} from "../../../../environments/environment";
 
 export class CrearTipoModalidadPacienteComponent implements OnInit {
   public tipo_modalidad_paciente: ITipoModalidadPaciente;
+  @Output () mostrar = new EventEmitter;
 
   constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposModalidadesPacientes: CargaTipoModalidadPacienteService, private router: Router) {
   }
@@ -36,6 +37,13 @@ export class CrearTipoModalidadPacienteComponent implements OnInit {
       }
     );
   }
+
+
+  mostratCrearTipo(){
+    this.mostrar.emit(!this.mostrar);
+  }
+
+
   //Toast para el Alert indicando que la operación fue exitosa
   alertExito() :void {
     const Toast = Swal.mixin({

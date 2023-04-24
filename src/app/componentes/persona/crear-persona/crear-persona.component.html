@@ -1,7 +1,7 @@
 <main class="p-0 m-0">
   <div class="row d-flex justify-content-center">
     <div class="col-12 col-xl-6">
-      <form [formGroup]="formulario" (submit)="comprobarFormulario()">
+      <form [formGroup]="formulario" (submit)="comprobarFormulario()" [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
         <div class="row mb-4">
           <div class="col-4">
             <div class="form-group">
@@ -150,8 +150,7 @@
           <div class="col-4 col-lg-1  p-0">
             <button class="btn btn-success botonOperacion" type="button"
                     data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false"
-                    aria-controls="collapseWidthExample">
-              <!--              <i class="fa-solid fa-arrow-down"></i>  Preguntar por este otro icono-->
+                    aria-controls="collapseWidthExample" (click)="mostratCrearTipo()">
               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="25" fill="currentColor"
                    class="bi bi-arrow-down-circle-fill" viewBox="0 0 19 19">
                 <path
@@ -162,12 +161,12 @@
           <div class="col-4 col-lg-1  p-0">
             <button class="btn btn-warning botonOperacion" id="des1" type="button"
                     data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false"
-                    aria-controls="collapseWidthExample2">
+                    aria-controls="collapseWidthExample2"  [disabled]="desactivado()">
               <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
             </button>
           </div>
           <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-danger botonOperacion" id="des2" type="button">
+            <button class="btn btn-danger botonOperacion" id="des2" type="button"  [disabled]="desactivado()">
               <i class="fa fa-solid fa-trash"></i>
             </button>
           </div>
@@ -189,7 +188,7 @@
       </form>
     </div>
     <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="collapseWidthExample">
-      <app-crear-tipo-modalidad-paciente>
+      <app-crear-tipo-modalidad-paciente  (mostrar)="this.mostrar=$event">
       </app-crear-tipo-modalidad-paciente>
     </div>
   </div>

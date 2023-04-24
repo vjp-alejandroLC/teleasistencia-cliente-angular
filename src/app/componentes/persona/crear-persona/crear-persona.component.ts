@@ -25,12 +25,12 @@ export class CrearPersonaComponent implements OnInit {
    * Atributos
    */
   public persona: IPersona;
-  //public direcciones: IDireccion[];
   public dire: IDireccion;
   public formulario: FormGroup;
   public tipos_personas: TipoModalidadPaciente[];
-  public fecha_actual: Date;
-  public id:number;
+  public id: number;
+  public mostrar: boolean = false;
+  public mostrarModificar: boolean = false;
 
 
   /**
@@ -42,6 +42,7 @@ export class CrearPersonaComponent implements OnInit {
   readonly REGEX_FIJO = /^[9]{1}[ ]*([0-9][ ]*){8}$/;
   readonly REGEX_CP = /[0-9]+$/;
   readonly REGEX_TEXT = /^[^\s]+(\s.*)?$/;
+
 
   /**
    * Constructor
@@ -64,6 +65,7 @@ export class CrearPersonaComponent implements OnInit {
   /**
    *  Getters del Formulario reactivo para los banners de error.
    */
+
   get dni() {
     return this.formulario.get('dni');
   }
@@ -130,8 +132,6 @@ export class CrearPersonaComponent implements OnInit {
       ],
       fecha_nacimiento: ['', [
         Validators.required,
-        Validators.pattern(/^\d{4}-\d{2}-\d{2}$/),
-        Validators.max(new Date('2023-12-31').getTime())
       ]],
       sexo: ['Hombre', [Validators.required]],
       telefono_fijo: ['', [Validators.maxLength(12),
@@ -167,12 +167,12 @@ export class CrearPersonaComponent implements OnInit {
       nombre: this.formulario.value.nombre,
       apellidos: this.formulario.value.apellidos,
       dni: this.formulario.value.dni,
-      fecha_nacimiento:this.formulario.value.fecha_nacimiento,
+      fecha_nacimiento: this.formulario.value.fecha_nacimiento,
       sexo: this.formulario.value.sexo,
       telefono_fijo: this.formulario.value.telefono_fijo,
       telefono_movil: this.formulario.value.telefono_movil,
-      tipo_modalidad_paciente:this.formulario.value.tipos_personas,
-      SAD:this.formulario.value.text_area,
+      tipo_modalidad_paciente: this.formulario.value.tipos_personas,
+      SAD: this.formulario.value.text_area,
       id_direccion: {
         localidad: this.formulario.value.localidad,
         provincia: this.formulario.value.provincia,
@@ -185,8 +185,8 @@ export class CrearPersonaComponent implements OnInit {
 
     this.cargaPersonas.nuevaPersona(persona).subscribe(
       e => {
-        console.log("id"+e.id);
-        this.id=e.id;
+        console.log("id" + e.id);
+        this.id = e.id;
         this.nuevaDireccion();
         this.alertExito()
       },
@@ -202,7 +202,7 @@ export class CrearPersonaComponent implements OnInit {
 
     id_direccion = {
       localidad: this.formulario.value.localidad,
-      provincia:this.formulario.value.provincia,
+      provincia: this.formulario.value.provincia,
       direccion: this.formulario.value.direccion,
       codigo_postal: this.formulario.value.codigo_postal
     }
@@ -215,6 +215,14 @@ export class CrearPersonaComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  mostratCrearTipo() {
+    this.mostrar = !this.mostrar;
+  }
+
+  desactivado() {
+    return (this.formulario.value.tipos_personas == '') || (this.formulario.value.tipos_personas == null);
   }
 
 
