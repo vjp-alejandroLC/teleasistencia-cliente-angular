@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ITipoRecursoComunitario} from '../../../interfaces/i-tipo-recurso-comunitario';
+import {ITipoRecursoComunitario} from '../../../../interfaces/i-tipo-recurso-comunitario';
 import {ActivatedRoute} from '@angular/router';
 import {Title} from '@angular/platform-browser';
-import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.service";
+import {OrdenacionTablasService} from "../../../../servicios/ordenacion-tablas.service";
 
 @Component({
   selector: 'app-lista-tipos-recursos-comunitarios',

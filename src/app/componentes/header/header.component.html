@@ -30,16 +30,15 @@
           </a>
         </li>
 
+
         <li class="nav-item dropdown p-1  mr-1">
           <a class="nav-link dropdown-toggle" id="navRecursos" data-bs-toggle="dropdown" aria-expanded="false" href="#" [routerLink]="['/']">
             Recursos
           </a>
           <ul class="dropdown-menu" aria-labelledby="navRecursos">
-            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Sanitarios</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Sociosanitarios</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Organismos Institucionales</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Seguridad</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/']" href="#">Sociosanitarios</a></li>
+            <li *ngFor="let clasificacion of clasificacionRecursos">
+              <a class="dropdown-item" [routerLink]="['/recursos_comunitarios']">{{clasificacion.nombre}}</a>
+            </li>
           </ul>
         </li>
 
