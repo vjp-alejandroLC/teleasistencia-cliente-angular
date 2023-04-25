@@ -24,7 +24,7 @@ export class CrearPersonaContactoComponent implements OnInit {
   @ViewChild('contenedor', { read: ViewContainerRef }) container: ViewContainerRef;
 
   componentIndex = 0;
-  maxComponents = 3;
+  maxComponents = 4;
   idRelacion: number;
 
   mostrarGuardar = true;
@@ -172,7 +172,7 @@ crearHtml(){
 
     this.container.insert(componenteRef.hostView);
   } else {
-    console.log('No se pueden crear más componentes');
+    alert("No se pueden crear más componentes")
   }
 }
   borrarComponente(componenteRef: any) {
