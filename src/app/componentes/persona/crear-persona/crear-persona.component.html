@@ -10,9 +10,9 @@
               <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre"
                      formControlName="nombre">
             </div>
-            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
-              <span *ngIf="nombre.errors.required">El Nombre es obligatorio.</span>
-              <span *ngIf="nombre.errors.pattern">El Nombre no es válido.</span>
+            <div *ngIf="controles.nombre.invalid && (controles.nombre.dirty || controles.nombre.touched)" class="alert alert-secondary" role="alert">
+              <span *ngIf="controles.nombre.errors.required">El Nombre es obligatorio.</span>
+              <span *ngIf="controles.nombre.errors.pattern">El Nombre no es válido.</span>
             </div>
           </div>
 
@@ -22,10 +22,10 @@
               <input type="text" name="apellidos" id="apellidos" class="form-control"
                      placeholder="Apellidos" formControlName="apellidos">
             </div>
-            <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-secondary"
+            <div *ngIf="controles.apellidos.invalid && (controles.apellidos.dirty || controles.apellidos.touched)" class="alert alert-secondary"
                  role="alert">
-              <span *ngIf="apellidos.errors.required">Los apellidos son obligatorios.</span>
-              <span *ngIf="apellidos.errors.pattern">Los apellidos no son válidos.</span>
+              <span *ngIf="controles.apellidos.errors.required">Los apellidos son obligatorios.</span>
+              <span *ngIf="controles.apellidos.errors.pattern">Los apellidos no son válidos.</span>
             </div>
 
           </div>
@@ -35,9 +35,9 @@
               <label for="dni" class="form-label text-start">DNI <span class="obligatorios">*</span></label>
               <input type="text" name="dni" id="dni" class="form-control" placeholder="DNI" formControlName="dni">
             </div>
-            <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-secondary" role="alert">
-              <span *ngIf="dni.errors.required">El DNI es obligatorio.</span>
-              <span *ngIf="dni.errors.pattern">El DNI no es válido.</span>
+            <div *ngIf="controles.dni.invalid && (controles.dni.dirty || controles.dni.touched)" class="alert alert-secondary" role="alert">
+              <span *ngIf="controles.dni.errors.required">El DNI es obligatorio.</span>
+              <span *ngIf="controles.dni.errors.pattern">El DNI no es válido.</span>
             </div>
           </div>
         </div>
@@ -68,9 +68,9 @@
               <input type="tel" name="telefono_fijo" id="telefono_fijo" class="form-control"
                      placeholder="Teléfono Fijo" formControlName="telefono_fijo">
             </div>
-            <div *ngIf="telefono_fijo.invalid && (telefono_fijo.dirty || telefono_fijo.touched)"
+            <div *ngIf="controles.telefono_fijo.invalid && (controles.telefono_fijo.dirty || controles.telefono_fijo.touched)"
                  class="alert alert-secondary" role="alert">
-              <span *ngIf="telefono_fijo.errors.pattern">Debe empezar por 9 y tener 9 dígitos</span>
+              <span *ngIf="controles.telefono_fijo.errors.pattern">Debe empezar por 9 y tener 9 dígitos</span>
             </div>
           </div>
         </div>
@@ -81,9 +81,9 @@
               <input type="text" name="localidad" id="localidad" class="form-control" placeholder="Localidad"
                      formControlName="localidad">
             </div>
-            <div *ngIf="localidad.invalid && (localidad.dirty || localidad.touched)" class="alert alert-secondary"
+            <div *ngIf="controles.localidad.value.invalid && (controles.localidad.dirty || controles.localidad.touched)" class="alert alert-secondary"
                  role="alert">
-              <span *ngIf="localidad.errors.required">La localidad es obligatoria.</span>
+              <span *ngIf="controles.localidad.errors.required">La localidad es obligatoria.</span>
             </div>
           </div>
 
@@ -93,9 +93,9 @@
               <input type="tel" name="telefono_movil" id="telefono_movil" class="form-control"
                      placeholder="Teléfono Movil" formControlName="telefono_movil">
             </div>
-            <div *ngIf="telefono_movil.invalid && (telefono_movil.dirty || telefono_movil.touched)"
+            <div *ngIf="controles.telefono_movil.invalid && (controles.telefono_movil.dirty || controles.telefono_movil.touched)"
                  class="alert alert-secondary" role="alert">
-              <span *ngIf="telefono_movil.errors.pattern">Debe empezar por 6 o 7 y tener 9 dígitos</span>
+              <span *ngIf="controles.telefono_movil.errors.pattern">Debe empezar por 6 o 7 y tener 9 dígitos</span>
             </div>
           </div>
 
@@ -106,9 +106,9 @@
               <input type="text" name="provincia" id="provincia" class="form-control"
                      required maxlength="200" placeholder="Provincia" formControlName="provincia">
             </div>
-            <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert alert-secondary"
+            <div *ngIf="controles.provincia.invalid && (controles.provincia.dirty || controles.provincia.touched)" class="alert alert-secondary"
                  role="alert">
-              <span *ngIf="provincia.errors.required">La provincia es obligatoria.</span>
+              <span *ngIf="controles.provincia.errors.required">La provincia es obligatoria.</span>
             </div>
           </div>
         </div>
@@ -119,9 +119,9 @@
               <input type="text" name="direccion" id="direccion" class="form-control"
                      placeholder="Dirección" formControlName="direccion">
             </div>
-            <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="alert alert-secondary"
+            <div *ngIf="controles.direccion.invalid && (controles.direccion.dirty || controles.direccion.touched)" class="alert alert-secondary"
                  role="alert">
-              <span *ngIf="direccion.errors.required">La dirección es obligatoria.</span>
+              <span *ngIf="controles.direccion.errors.required">La dirección es obligatoria.</span>
             </div>
           </div>
 
@@ -133,9 +133,9 @@
               <input type="text" name="codigo_postal" id="codigo_postal" class="form-control"
                      placeholder="CP" formControlName="codigo_postal">
             </div>
-            <div *ngIf="cp.invalid && (cp.dirty || cp.touched)" class="alert alert-secondary" role="alert">
-              <span *ngIf="cp.errors.required">El código postal es obligatorio.</span>
-              <span *ngIf="cp.errors.pattern">La código postal no es válido.</span>
+            <div *ngIf="controles.codigo_postal.invalid && (controles.codigo_postal.dirty || controles.codigo_postal.touched)" class="alert alert-secondary" role="alert">
+              <span *ngIf="controles.codigo_postal.errors.required">El código postal es obligatorio.</span>
+              <span *ngIf="controles.codigo_postal.errors.pattern">La código postal no es válido.</span>
             </div>
           </div>
         </div>
@@ -171,12 +171,8 @@
         <div class="row">
           <div class="form-group">
             <label for="text_area" class="form-label text-start">Observaciones</label>
-            <textarea formControlName="text_area" name="text_area" id="text_area"
-                      ng-init='foo="Some default value"'></textarea>
+            <textarea formControlName="text_area" name="text_area" id="text_area"></textarea>
           </div>
-        </div>
-        <div *ngIf="text.invalid && (text.dirty || text.touched)" class="alert alert-secondary" role="alert">
-          <span *ngIf="text.errors.pattern">No puedes meter espacios en blanco</span>
         </div>
 
         <button [disabled]="formulario.invalid" type="submit" class="btn btn-outline-success m-1">Guardar</button>

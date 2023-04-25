@@ -64,54 +64,6 @@ export class CrearPersonaComponent implements OnInit {
     this.titleService.setTitle('Crear nueva persona');
   }
 
-  /**
-   *  Getters del Formulario reactivo para los banners de error.
-   */
-
-  get dni() {
-    return this.formulario.get('dni');
-  }
-
-  get nombre() {
-    return this.formulario.get('nombre');
-  }
-
-  get apellidos() {
-    return this.formulario.get('apellidos');
-  }
-
-  get date() {
-    return this.formulario.get('fecha_nacimiento');
-  }
-
-  get telefono_fijo() {
-    return this.formulario.get('telefono_fijo')
-  }
-
-  get telefono_movil() {
-    return this.formulario.get('telefono_movil')
-  }
-
-  get localidad() {
-    return this.formulario.get('localidad')
-  }
-
-  get provincia() {
-    return this.formulario.get('provincia')
-  }
-
-  get direccion() {
-    return this.formulario.get('direccion')
-  }
-
-  get text() {
-    return this.formulario.get('text_area')
-  }
-
-  get cp() {
-    return this.formulario.get('codigo_postal')
-  }
-
 
   /**
    *   formularios reactivos
@@ -154,6 +106,15 @@ export class CrearPersonaComponent implements OnInit {
       text_area: [this.PLANTILLA_OBS, [Validators.max(250)]]
     });
   }
+
+  /**
+   *  Getters del Formulario reactivo para los banners de error.
+   */
+
+ get controles(){
+   return this.formulario.controls;
+  }
+
 
 
   comprobarFormulario() {
