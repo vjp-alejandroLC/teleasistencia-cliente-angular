@@ -1,5 +1,4 @@
 import {Component, DoCheck, OnInit,} from '@angular/core';
-import {LoginService} from "../../servicios/login.service";
 import {environment} from "../../../environments/environment";
 import {webSocket} from 'rxjs/webSocket';
 import Swal from "sweetalert2";
@@ -13,6 +12,7 @@ import {ProfileService} from "../../servicios/profile.service";
 import {IProfileUser} from "../../interfaces/i-profile-user";
 import {IClasificacioRecurso} from "../../interfaces/i-clasificacio-recurso";
 import {CargarClasificacionRecursosService} from "../../services/recursos/cargar-clasificacion-recursos.service";
+import {AuthService} from "../../servicios/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -22,7 +22,7 @@ import {CargarClasificacionRecursosService} from "../../services/recursos/cargar
 export class HeaderComponent implements OnInit, DoCheck {
   //establecemos la direccion para la conexion con el websocket
   subject = webSocket(environment.urlWebsocket);
-  public estaLogin: boolean
+  public isLoggedIn: boolean
   public alarmaAModificar: Alarma
   public accion: string
   public teleoperador: number
@@ -30,13 +30,18 @@ export class HeaderComponent implements OnInit, DoCheck {
   public clasificacionRecursos: IClasificacioRecurso[] | []; // Esta variable la utilizaremos para obtener la clasificacion de recursos que mostraremos en el apartado de Recursos
 
 
-  constructor(private loginService: LoginService, private profileService: ProfileService,
-              private cargarAlarma: CargaAlarmaService, private cargarClasificacion: CargarClasificacionRecursosService,private router: Router) {
+  isAdmin: boolean;
+
+  subdominioNombre = environment.subdominio.nombre;
+  subdominioColor = environment.subdominio.color;
+
+  constructor(private auth: AuthService, private profileService: ProfileService,
+              private cargarAlarma: CargaAlarmaService, private router: Router,private cargarClasificacion: CargarClasificacionRecursosService,) {
   }
 
   ngOnInit(): void {
     //comprobamos si hay usuario logeado
-    if (this.loginService.estaLogin()) {
+    if (this.auth.isLoggedIn()) {
       //si hay usuario logeado establecemos conexion websocket
       this.subject.subscribe({
         //si va bien arrancará la funcion para comprobar que hacer
@@ -54,13 +59,20 @@ export class HeaderComponent implements OnInit, DoCheck {
       )
     }
   }
+
   //Compruebo si esta login para ocultar el navbar
-  ngDoCheck(): void {
-    this.estaLogin = this.loginService.estaLogin()
+
+  ngDoCheck():
+    void {
+    this.isLoggedIn = this.auth.isLoggedIn()
+    this.isAdmin = this.auth.isAdmin();
+
   }
 
   //Toast para el Alert indicando que la operación fue exitosa
-  alertExito(): void {
+  alertExito()
+    :
+    void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -81,7 +93,9 @@ export class HeaderComponent implements OnInit, DoCheck {
   }
 
   //Toast para el alert indicando que hubo algún error en la operación
-  alertError(): void {
+  alertError()
+    :
+    void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -101,13 +115,17 @@ export class HeaderComponent implements OnInit, DoCheck {
   }
 
   //creamomos el metodo que lanzará el modal
-  modalAlarma(msg: any): void {
+  modalAlarma(msg
+                :
+                any
+  ):
+    void {
     //obtenemos el usuario logeado
     this.profileService.getProfile()
       .subscribe((resp: IProfileUser[]) => {
-        //obtenemos el nombre del grupo al que pertenece
-        this.grupoTeleoperador = resp[0].groups[0].name
-        //lanzamos el modal solo si pertenece a los teleoperadores
+          //obtenemos el nombre del grupo al que pertenece
+          this.grupoTeleoperador = resp[0].groups[0].name
+          //lanzamos el modal solo si pertenece a los teleoperadores
           if (this.grupoTeleoperador == "teleoperador") {
             //asignamos el valor de action a una variable
             this.accion = msg['action']
@@ -137,7 +155,9 @@ export class HeaderComponent implements OnInit, DoCheck {
 
   // con este metodo se asigna el teleoperador a la alarma y con el servicio se
   // modifica la alarma
-  asignarTeleoperador(alarma): void {
+  asignarTeleoperador(alarma)
+    :
+    void {
     this.profileService.getProfile()
       .subscribe((resp: IProfileUser[]) => {
           this.teleoperador = resp[0].id
@@ -156,10 +176,13 @@ export class HeaderComponent implements OnInit, DoCheck {
   }
 
   //comprobamos el tipo de action que nos llega por parametro
-  comprobarAccion(msg): void {
+  comprobarAccion(msg)
+    :
+    void {
     //si es una alarma nueva abre el modal de alarma
 
-    if (msg['action'] == 'new_alarm') {
+    if (msg['action'] == 'new_alarm'
+    ) {
       this.modalAlarma(msg)
     }
     // si una alarma fue asignada ya se cierra el modal
@@ -170,7 +193,9 @@ export class HeaderComponent implements OnInit, DoCheck {
   }
 
   //comprobamos si está a null pacientes ucr para devolver un string
-  comprobarProcedenciaTitular(msg): string {
+  comprobarProcedenciaTitular(msg)
+    :
+    string {
     if (msg.id_paciente_ucr) {
       //si no es null devolvemos el paciente ucr con su nombre
       return 'Titular: ' + msg.id_paciente_ucr.id_persona.nombre + ' ' + msg.id_paciente_ucr.id_persona.apellidos
@@ -182,7 +207,9 @@ export class HeaderComponent implements OnInit, DoCheck {
         '\nTerminal ' + msg.id_terminal.numero_terminal
   }
 
-  comprobarProcedencia(msg): string {
+  comprobarProcedencia(msg)
+    :
+    string {
     if (msg.id_paciente_ucr) {
       //si no es null devolvemos paciente
       return 'UCR'
