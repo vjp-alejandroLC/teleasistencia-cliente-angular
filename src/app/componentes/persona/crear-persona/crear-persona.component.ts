@@ -41,7 +41,9 @@ export class CrearPersonaComponent implements OnInit {
   readonly REGEX_MOVIL = /^[6|7]{1}[ ]*([0-9][ ]*){8}$/;
   readonly REGEX_FIJO = /^[9]{1}[ ]*([0-9][ ]*){8}$/;
   readonly REGEX_CP = /[0-9]+$/;
-  readonly REGEX_TEXT = /^[^\s]+(\s.*)?$/;
+  readonly PLANTILLA_OBS = '- Otros Servicios: \n' +
+    '- Datos de ocio: \n' +
+    '- Servicio de Comidas:';
 
 
   /**
@@ -149,7 +151,7 @@ export class CrearPersonaComponent implements OnInit {
         Validators.minLength(5),
         Validators.pattern(this.REGEX_CP)]],
       tipos_personas: ['', [Validators.required]],
-      text_area: ['', [Validators.pattern(this.REGEX_TEXT)]]
+      text_area: [this.PLANTILLA_OBS, [Validators.max(250)]]
     });
   }
 
