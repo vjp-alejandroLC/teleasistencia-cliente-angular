@@ -1,38 +1,37 @@
-<main class="text-center row p-0 m-0 justify-content-center">
-  <div class="container">
-    <h1 class="component-title">Crear datos sanitarios</h1>
-
+<main class="p-0 m-0">
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-xl-6">
     <form [formGroup]="formulario" >
 
+      <div class="row mb-2">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="recurso" class="form-label">Recurso</label>
+            <ng-select id="recurso" name="recurso"
+                       formControlName="recurso">
+              <ng-option class="form-select" *ngFor="let recurso of recursosMostrados,let i = index"
+                         [value]="recurso.id">{{ recurso.nombre }}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-6">
 
-      <div class="form-group mb-3">
-        <label class="form-label" for="pacientes">Pacientes</label>
-        <ng-select id="pacientes"
-                   formControlName="pacientes">
-          <ng-option class="form-select"
-                     *ngFor="let paciente of pacientes,let i = index"
-                     [value]="paciente.id">{{ paciente.id_persona.nombre }}</ng-option>
-        </ng-select>
+          <button type="button" (click)="crearRelacion()" class="btn btn-success " >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+            </svg>
+          </button>
+
+          <button type="button" (click)="verRecursos()" class="btn btn-outline-warning m-1" >
+            <i class="fa-solid fa-eye"></i>
+
+          </button>
+        </div>
       </div>
 
-        <div class="form-group mb-3">
-          <label for="nuss" class="form-label">NUSS</label>
-          <input type="text" name="nuss" id="nuss" class="form-control" formControlName="nuss">
-
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="recurso" class="form-label">Recurso</label>
-          <ng-select id="recurso" name="recurso"
-                     formControlName="recurso">
-            <ng-option class="form-select" *ngFor="let recurso of recursosMostrados,let i = index"
-                       [value]="recurso.id">{{ recurso.nombre }}</ng-option>
-          </ng-select>
-        </div>
-
-
-
-          <div class="form-group mb-3">
+      <div class="row mb-2">
+        <div class="col-6">
+          <div class="form-group">
             <label for="relacion_terminal" class="form-label">Número de terminal</label>
             <ng-select id="relacion_terminal" name="relacion_terminal"
                        formControlName="relacion_terminal">
@@ -40,7 +39,11 @@
                          [value]="terminal.id">{{ terminal.numero_terminal }}</ng-option>
             </ng-select>
           </div>
-          <div class="form-group mb-3">
+
+        </div>
+        <div class="col-6">
+
+          <div class="form-group">
             <label for="tiempo" class="form-label">Tiempo en minutos</label>
             <input type="number" name="tiempo" id="tiempo" class="form-control"
                    formControlName="tiempo"
@@ -53,54 +56,67 @@
             </div>
           </div>
 
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
 
+          <div class="form-group">
+            <label for="nuss" class="form-label">NUSS</label>
+            <input type="text" name="nuss" id="nuss" class="form-control" formControlName="nuss">
 
-        <button type="submit" class="btn btn-outline-success m-1" (click)="actualizarNuss()">
-         Guardar
-        </button>
+          </div>
+        </div>
+      </div>
 
-        <button type="button" class="btn btn-outline-secondary m-1" >
-          Volver
-        </button>
+      <div class="form-group">
+        <label class="form-label" for="pacientes">Pacientes</label>
+        <ng-select id="pacientes"
+                   formControlName="pacientes">
+          <ng-option class="form-select"
+                     *ngFor="let paciente of pacientes,let i = index"
+                     [value]="paciente.id">{{ paciente.id_persona.nombre }}</ng-option>
+        </ng-select>
+      </div>
 
-      <button type="button" (click)="crearRelacion()" class="btn btn-outline-secondary m-1" >
-        <i class="fa-solid fa-plus"></i>
+      <button type="submit" class="btn btn-outline-success m-1" (click)="actualizarNuss()">
+        Guardar
       </button>
 
-      <button type="button" (click)="verRecursos()" class="btn btn-outline-warning m-1" >
-        <i class="fa-solid fa-eye"></i>
-
+      <button type="button" class="btn btn-outline-secondary m-1" >
+        Volver
       </button>
+
+
 
     </form>
-
+    </div>
     <div class="row mt-4" *ngIf="this.mostrar">
-      <div class="col-xs-12 col-md-4">
+      <table class="table">
+        <tr>
+          <th>Nombre del recurso</th>
+          <th>Numero de la terminal</th>
+          <th>Eliminar</th>
+        </tr>
+        <tr *ngFor="let relacion of arrayRelaciones, let i = index">
+          <td>{{relacion.id_recurso_comunitario.nombre}}</td>
+          <td>{{relacion.id_terminal.numero_terminal}}</td>
+          <td>
+            <button class="btn btn-danger " (click)="borrarRecurso(relacion.id, i)" >
 
-      </div>
-      <div class="col-md-4">
-        <table class="table">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+              </svg>
+            </button>
+          </td>
 
-          <tr>
-            <th>Nombre del recurso</th>
-            <th>Numero de la terminal</th>
-            <th>Eliminar</th>
-          </tr>
-          <tr *ngFor="let relacion of arrayRelaciones, let i = index">
-            <td>{{relacion.id_recurso_comunitario.nombre}}</td>
-            <td>{{relacion.id_terminal.numero_terminal}}</td>
-            <td><button class="btn btn-outline-success m-1" (click)="borrarRecurso(relacion.id, i)" >Borrar</button></td>
-
-          </tr>
-        </table>
-      </div>
-      <div class="col-md-4">
-
-      </div>
+        </tr>
+      </table>
     </div>
 
 
-  </div>
 
 
+    </div>
 </main>
