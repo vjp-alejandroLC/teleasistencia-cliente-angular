@@ -25,7 +25,8 @@ export class CargaUserService {
   }
 
   modificarUser(user: IUsers): Observable<IUsers> {
-    return this.http.put<IUsers>(user.url, user);
+    //return this.http.put<IUsers>(user.url, user);
+    return this.http.put<IUsers>(this.URL_SERVER_USERS +'/' + user.id, user);
   }
 
   nuevoUser(user: IUsers): Observable<IUsers> {
