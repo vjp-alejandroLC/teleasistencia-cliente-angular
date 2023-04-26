@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild,  ComponentFactoryResolver, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewChild, ComponentFactoryResolver, ViewContainerRef, Input} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RelacionPacientePersona} from "../../../clases/relacion-paciente-persona";
 import {
@@ -21,11 +21,16 @@ import {MostrarCrearComponent} from "../mostrar-crear/mostrar-crear.component";
   styleUrls: ['./crear-persona-contacto.component.scss']
 })
 export class CrearPersonaContactoComponent implements OnInit {
-  @ViewChild('contenedor', { read: ViewContainerRef }) container: ViewContainerRef;
+  @ViewChild('contenedorCrear', { read: ViewContainerRef }) container: ViewContainerRef; //Hace referencia al componente hijo y al contenedor del padre mediante un contenedor
+  @Input() idPaciente = 1;
 
-  componentIndex = 0;
-  maxComponents = 4;
+
+  indicesCrear = 2; //Comienzo con el primero indice
+  maximoComponentes = 6; //Maximo numero de componentes que crea al darle al boton de crearHTML()
+
   idRelacion: number;
+
+  primerContacto = 1;
 
   mostrarGuardar = true;
   mostrarEditar = false;
@@ -34,9 +39,10 @@ export class CrearPersonaContactoComponent implements OnInit {
   public direccion: IDireccion | any;
   public pacientes: IPaciente[] | any;
   public paciente: IPaciente | any;
+  private componentesCreados: any[] = []; // Generamos un array de componentes para guardarlos posteriormente
+
   public formulario: FormGroup | any;
   lista = [];
-  public fecha_actual = new Date();
   public relacionBorrar : IRelacionPacientePersona |any;
   constructor(private componentFactoryResolver: ComponentFactoryResolver,private route: ActivatedRoute, private router: Router, private  formBuilder: FormBuilder,private cargaPersonas: CargaPersonaService, private cargaDireccion: CargaDireccionService, private cargaPacientes: CargaPacienteService, private cargaRelacion: CargaRelacionPacientePersonaService) {
 }
@@ -62,12 +68,12 @@ crearFormulario(){
     nombre: ['',[Validators.required,Validators.maxLength(200)]],
     apellidos: ['',[Validators.required,Validators.maxLength(200)]],
     telefono_fijo: ['',[Validators.required,Validators.maxLength(200),Validators.pattern("^((\\\\+91-?)|0)?[0-9]{9}$")]],
-    pacientes: ['',[Validators.required]],
     tipo_relacion:['',[Validators.required]],
     tiene_llaves_vivienda: ['', [Validators.required]],
     disponibilidad: ['',[Validators.required]],
     observaciones: ['',[Validators.required]],
     prioridad: ['',[Validators.required]],
+    tiempo_domicilio: ['',[Validators.required]],
     es_conviviente: ['',[Validators.required,Validators.maxLength(200)]]
   })
 
@@ -110,7 +116,8 @@ crearFormulario(){
       'observaciones': this.formulario.get('observaciones').value,
       'prioridad': this.formulario.get('prioridad').value,
       'es_conviviente': this.formulario.get('es_conviviente').value,
-      'id_paciente': this.formulario.get('pacientes').value
+      'tiempo_domicilio' : this.formulario.get('tiempo_domicilio').value,
+      'id_paciente': this.idPaciente
 
     }
     this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
@@ -146,7 +153,8 @@ crearRelacion(){
           'observaciones': this.formulario.get('observaciones').value,
           'prioridad': this.formulario.get('prioridad').value,
            'es_conviviente': this.formulario.get('es_conviviente').value,
-           'id_paciente': this.formulario.get('pacientes').value
+          'tiempo_domicilio' : this.formulario.get('tiempo_domicilio').value,
+           'id_paciente': this.idPaciente
 
   }
 
@@ -159,24 +167,53 @@ crearRelacion(){
 
 }
 
-crearHtml(){
 
-  if (this.componentIndex < this.maxComponents) {
-    const componente = this.componentFactoryResolver.resolveComponentFactory(MostrarCrearComponent);
-    const componenteRef = componente.create(this.container.injector);
-    this.componentIndex++;
-    componenteRef.instance.onBorrarComponente.subscribe(() => {
-      this.borrarComponente(componenteRef);
-      this.componentIndex--;
-    });
 
-    this.container.insert(componenteRef.hostView);
+
+crearHtml(){ //Creo el HTML con FactoryResolvver, que sirve para poder crear diferentes componentes segun desee
+
+  if (this.indicesCrear < this.maximoComponentes) { //Si el indice es menor al maximo de componentes, genera el mismo
+
+    const componente = this.componentFactoryResolver.resolveComponentFactory(MostrarCrearComponent); //Usa el componente de mostrarCrear para crear el componente
+
+    const componenteReferenciado = componente.create(this.container.injector); //Creo el componente justo en el contenedor
+
+
+    componenteReferenciado.instance.indice = this.indicesCrear; //Instancio el indice que se usará para mostrar el numero de contacto
+
+    componenteReferenciado.instance.idPaciente = this.idPaciente; //Instancia la id delPaciente a la hora de crear el componente
+
+    this.componentesCreados.push(componenteReferenciado); //Agregamos todos los componentes que vamos creando poco a poco
+
+    this.indicesCrear++; //Aumento en 1 el indice a la hora de volver a crearlo de nuevo
+
+    this.container.insert(componenteReferenciado.hostView); //Inserto en el contenedor el componente a la que la vista hace referencia
+
+    componenteReferenciado.instance.onBorrarComponente.subscribe( //Hago el subscribe aqui ya que aquí creo el componente, solamente entra si le da al boton de borrar
+      () => {
+        const indiceTomado = componenteReferenciado.instance.indice; //Tomo el indice que voy a borrar como constante
+        this.componentesCreados.splice(this.componentesCreados.indexOf(componenteReferenciado), 1); // Borramos el componente dado al boton
+        this.borrarComponente(componenteReferenciado); //Borro el componente desde el que hace referencia
+        for (const componente of this.componentesCreados) { //Recorremos todo el array generado y cambiamos el indice
+
+          if ( componente.instance.indice > indiceTomado  ){ //Este if compara el indice tomado con los demas, si es superiore, resta
+            componente.instance.indice--;
+
+          }
+        }
+        this.indicesCrear--;
+
+      }
+    );
+
+
+
   } else {
     alert("No se pueden crear más componentes")
   }
 }
-  borrarComponente(componenteRef: any) {
-    componenteRef.destroy();
+  borrarComponente(componenteUsado: any) { //Elimina el componente que elige el usuario con las clases de FactoryResolver
+    componenteUsado.destroy(); //Destruye el componente al que hace referencia
   }
 
   onSubmit() {
@@ -245,6 +282,11 @@ crearHtml(){
 
   get tipo_relacion(){
     return this.formulario.get('tipo_relacion') as FormControl;
+  }
+
+
+  get tiempo_domicilio(){
+    return this.formulario.get('tiempo_domicilio') as FormControl;
   }
 
   get form() {

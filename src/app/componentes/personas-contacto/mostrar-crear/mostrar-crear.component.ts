@@ -1,5 +1,5 @@
 
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RelacionPacientePersona} from "../../../clases/relacion-paciente-persona";
 import {IPersona} from '../../../interfaces/i-persona';
@@ -27,7 +27,8 @@ export class MostrarCrearComponent implements OnInit {
   @Output() onBorrarComponente = new EventEmitter();
   mostrarGuardar = true;
   mostrarEditar = false;
-
+  @Input() indice: number;
+  @Input() idPaciente: number;
   idRelacion: number;
   submitted = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
@@ -36,7 +37,6 @@ export class MostrarCrearComponent implements OnInit {
   public paciente: IPaciente | any;
   public persona: IPersona | any;
   public formulario: FormGroup | any;
-  public fecha_actual = new Date();
   public relacionBorrar : IRelacionPacientePersona |any;
   constructor(private route: ActivatedRoute, private router: Router, private  formBuilder: FormBuilder,private cargaPersonas: CargaPersonaService, private cargaDireccion: CargaDireccionService, private cargaPacientes: CargaPacienteService, private cargaRelacion: CargaRelacionPacientePersonaService) {
   }
@@ -44,7 +44,6 @@ export class MostrarCrearComponent implements OnInit {
   ngOnInit() {
     this.relacionPacientePersona = new RelacionPacientePersona();
     this.crearFormulario();
-
     this.pacientes = this.cargaPacientes.getPacientes().subscribe(
       paciente => {
         this.pacientes = paciente;
@@ -54,6 +53,12 @@ export class MostrarCrearComponent implements OnInit {
     )
 
   }
+
+  borrarHTML(){
+    this.onBorrarComponente.emit(); //Emito borrarComponente para avisar al padre que borraré el componente
+
+  }
+
 
   borrarRelacion(){
       this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
@@ -67,15 +72,12 @@ export class MostrarCrearComponent implements OnInit {
 
             }, error => console.log(error),
             () =>{
-              this.onBorrarComponente.emit();
+              this.onBorrarComponente.emit(); //Emito borrarComponente para avisar al padre que borraré el componente
 
             }
           )
         }
       )
-
-
-
 
   }
 
@@ -90,7 +92,8 @@ export class MostrarCrearComponent implements OnInit {
       'observaciones': this.formulario.get('observaciones').value,
       'prioridad': this.formulario.get('prioridad').value,
       'es_conviviente': this.formulario.get('es_conviviente').value,
-      'id_paciente': this.formulario.get('pacientes').value
+      'tiempo_domicilio' : this.formulario.get('tiempo_domicilio').value,
+      'id_paciente': this.idPaciente
 
     }
     this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
@@ -119,12 +122,12 @@ export class MostrarCrearComponent implements OnInit {
       nombre: ['',[Validators.required,Validators.maxLength(200)]],
       apellidos: ['',[Validators.required,Validators.maxLength(200)]],
       telefono_fijo: ['',[Validators.required,Validators.maxLength(200),Validators.pattern("^((\\\\+91-?)|0)?[0-9]{9}$")]],
-      pacientes: ['',[Validators.required]],
-      tipo_relacion: ['',[Validators.required]],
+      tipo_relacion:['',[Validators.required]],
       tiene_llaves_vivienda: ['', [Validators.required]],
       disponibilidad: ['',[Validators.required]],
       observaciones: ['',[Validators.required]],
       prioridad: ['',[Validators.required]],
+      tiempo_domicilio: ['',[Validators.required]],
       es_conviviente: ['',[Validators.required,Validators.maxLength(200)]]
     })
   }
@@ -142,7 +145,8 @@ export class MostrarCrearComponent implements OnInit {
       'observaciones': this.formulario.get('observaciones').value,
       'prioridad': this.formulario.get('prioridad').value,
       'es_conviviente': this.formulario.get('es_conviviente').value,
-      'id_paciente': this.formulario.get('pacientes').value
+      'tiempo_domicilio' : this.formulario.get('tiempo_domicilio').value,
+      'id_paciente': this.idPaciente
 
     }
 
@@ -223,6 +227,10 @@ export class MostrarCrearComponent implements OnInit {
 
   get tipo_relacion(){
     return this.formulario.get('tipo_relacion') as FormControl;
+  }
+
+  get tiempo_domicilio(){
+    return this.formulario.get('tiempo_domicilio') as FormControl;
   }
 
   get form() {

@@ -1,6 +1,6 @@
-<div class="row d-flex justify-content-center">
-  <div class="col-12 col-xl-6">
-
+<div class="row d-flex justify-content-center mt-5">
+  <h3 class="mb-3">Contacto {{indice}}</h3>
+  <div class="col-12 col-xl-6 mt-3">
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()" id="formularioRelacion">
       <div class="row">
         <div class="col-md-4">
@@ -48,10 +48,7 @@
         </div></div>
       </div>
       <div class="row">
-        <div class="col-md-6">
-
-
-
+        <div class="col-md-4">
           <div class="form-group mb-3">
             <label for="prioridad" class="form-label">Prioridad *</label>
             <input type="number" name="prioridad" id="prioridad" class="form-control"
@@ -64,9 +61,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-
-
+        <div class="col-md-4">
           <div class="form-group mb-3">
             <label for="telefono_fijo" class="form-label">Telefono *</label>
             <input type="text" name="telefono_fijo" id="telefono_fijo" class="form-control"
@@ -80,8 +75,21 @@
               </ng-template>
             </div>
           </div>
-
-
+        </div>
+        <div class="col-md-4">
+          <div class="form-group mb-3">
+            <label for="tiempo_domicilio" class="form-label">Tiempo domicilio *</label>
+            <input type="number" name="tiempo_domicilio" id="tiempo_domicilio" class="form-control"
+                   formControlName="tiempo_domicilio" placeholder="">
+            <div *ngIf="tiempo_domicilio.invalid && (tiempo_domicilio.dirty || tiempo_domicilio.touched)" class="alert alert-secondary" role="alert">
+              <div *ngIf="tiempo_domicilio.errors?.required; else elseBlock">
+                El tiempo en el domicilio es obligatorio
+              </div>
+              <ng-template #elseBlock>
+                Introduzca un tiempo valido
+              </ng-template>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -119,30 +127,31 @@
         </div>
         </div>
       </div>
+      <div class="row">
+          <div class="form-group mb-3">
+            <label for="disponibilidad" class="form-label">Disponibilidad *</label>
+            <textarea formControlName="disponibilidad" name="disponibilidad" id="disponibilidad" class="form-control"></textarea>
+          </div>
 
-      <div class="form-group mb-3">
-        <label for="disponibilidad" class="form-label">Disponibilidad *</label>
-        <textarea formControlName="disponibilidad" name="disponibilidad" id="disponibilidad" class="form-control"></textarea>
+
+      </div>
+      <div class="row">
+        <div class="form-group mb-3">
+          <label for="observaciones" class="form-label">Observaciones *</label>
+          <textarea formControlName="observaciones" name="observaciones" id="observaciones" class="form-control"></textarea>
+        </div>
       </div>
 
 
-      <div class="form-group mb-3">
-        <label for="observaciones" class="form-label">Observaciones *</label>
-        <textarea formControlName="observaciones" name="observaciones" id="observaciones" class="form-control"></textarea>
-      </div>
+
       <button type="submit" class="btn btn-outline-success m-1"
               [disabled]="formulario.invalid"  *ngIf="mostrarGuardar" >
         Guardar
       </button>
-      <div class="form-group mb-3">
-        <label class="form-label" for="pacientes">Pacientes</label>
-        <ng-select id="pacientes"
-                   formControlName="pacientes">
-          <ng-option class="form-select"
-                     *ngFor="let paciente of pacientes,let i = index"
-                     [value]="paciente.id">{{ paciente.id_persona.nombre }}</ng-option>
-        </ng-select>
-      </div>
+      <button class="btn btn-outline-danger m-1" *ngIf="mostrarGuardar" (click)="borrarHTML()">
+        Borrar
+      </button>
+
     </form>
     <button class="btn btn-danger m-1" (click)="borrarRelacion()" *ngIf="mostrarEditar" >
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
