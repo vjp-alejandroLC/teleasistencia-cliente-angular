@@ -1,14 +1,7 @@
 <main class="p-0 m-0">
-    <button (click)="crearHtml()" class="btn btn-outline-success m-2">
-      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="20" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
-        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
-      </svg>
-    </button>
-    <button class="btn btn-outline-success m-2">
-      Cerrar
-    </button>
   <div class="row d-flex justify-content-center">
     <div class="col-12 col-xl-6">
+      <h3 class="mb-3">Contacto {{primerContacto}}</h3>
       <form [formGroup]="formulario" (ngSubmit)="onSubmit()" id="formularioRelacion">
         <div class="row">
           <div class="col-md-4">
@@ -53,13 +46,11 @@
                   Introduzca un tipo de relación válida
                 </ng-template>
               </div>
-            </div></div>
+            </div>
+          </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-
-
-
+          <div class="col-md-4">
             <div class="form-group mb-3">
               <label for="prioridad" class="form-label">Prioridad *</label>
               <input type="number" name="prioridad" id="prioridad" class="form-control"
@@ -72,9 +63,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-
-
+          <div class="col-md-4">
             <div class="form-group mb-3">
               <label for="telefono_fijo" class="form-label">Telefono *</label>
               <input type="text" name="telefono_fijo" id="telefono_fijo" class="form-control"
@@ -88,65 +77,82 @@
                 </ng-template>
               </div>
             </div>
-
-
+          </div>
+          <div class="col-md-4">
+            <div class="form-group mb-3">
+              <label for="tiempo_domicilio" class="form-label">Tiempo domicilio *</label>
+              <input type="number" name="tiempo_domicilio" id="tiempo_domicilio" class="form-control"
+                     formControlName="tiempo_domicilio" placeholder="">
+              <div *ngIf="tiempo_domicilio.invalid && (tiempo_domicilio.dirty || tiempo_domicilio.touched)" class="alert alert-secondary" role="alert">
+                <div *ngIf="tiempo_domicilio.errors?.required; else elseBlock">
+                  El tiempo en el domicilio es obligatorio
+                </div>
+                <ng-template #elseBlock>
+                  Introduzca un tiempo valido
+                </ng-template>
+              </div>
+            </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">      <div class="form-check mb-3">
-            <span>¿LLaves de la vivienda? *</span>
-            <div class="form-check ">
-              <input class="form-check-input" type="radio" id="tiene_llaves_vivienda_true"
-                     name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda">
-              <label class="form-check-label" for="tiene_llaves_vivienda_true">Sí</label>
-            </div>
-            <div class="form-check ">
-              <input class="form-check-input" type="radio" id="tiene_llaves_vivienda_false"
-                     name="tiene_llaves_vivienda" [value]="false" formControlName="tiene_llaves_vivienda">
-              <label class="form-check-label" for="tiene_llaves_vivienda_false">No</label>
-            </div>
-          </div></div>
           <div class="col-md-6">
             <div class="form-check mb-3">
-              <span>¿Es conviviente? *</span>
-              <div class="form-check ">
+              <span>¿LLaves de la vivienda/casa? *</span>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="tiene_llaves_vivienda_true"
+                       name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda">
+                <label class="form-check-label" for="tiene_llaves_vivienda_true">Sí</label>
+              </div>
+              <div class="form-check form-check-inline mb-2">
+                <input class="form-check-input" type="radio" id="tiene_llaves_vivienda_false"
+                       name="tiene_llaves_vivienda" [value]="false" formControlName="tiene_llaves_vivienda">
+                <label class="form-check-label " for="tiene_llaves_vivienda_false">No</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+
+            <span>¿Es conviviente? *</span>
+
+            <div class="form-check mb-3">
+
+              <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" id="es_conviviente_true"
                        name="es_conviviente" [value]="true" formControlName="es_conviviente">
                 <label class="form-check-label" for="es_conviviente_true">Sí</label>
               </div>
-              <div class="form-check   ">
+              <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" id="es_conviviente_false"
                        name="es_conviviente" [value]="false" formControlName="es_conviviente">
                 <label class="form-check-label" for="es_conviviente_false">No</label>
               </div>
-            </div></div>
+            </div>
+          </div>
         </div>
 
-        <div class="form-group mb-3">
-          <label for="disponibilidad" class="form-label">Disponibilidad *</label>
-          <textarea formControlName="disponibilidad" name="disponibilidad" id="disponibilidad" class="form-control"></textarea>
+        <div class="row">
+          <div class="form-group mb-3">
+            <label for="disponibilidad" class="form-label">Disponibilidad *</label>
+            <textarea formControlName="disponibilidad" name="disponibilidad" id="disponibilidad" class="form-control"></textarea>
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="form-group mb-3">
+            <label for="observaciones" class="form-label">Observaciones *</label>
+            <textarea formControlName="observaciones" name="observaciones" id="observaciones" class="form-control"></textarea>
+          </div>
         </div>
 
 
-        <div class="form-group mb-3">
-          <label for="observaciones" class="form-label">Observaciones *</label>
-          <textarea formControlName="observaciones" name="observaciones" id="observaciones" class="form-control"></textarea>
-        </div>
+
 
 
         <button type="submit" class="btn btn-outline-success m-1"
                 [disabled]="formulario.invalid"  *ngIf="mostrarGuardar" >
           Guardar
         </button>
-        <div class="form-group mb-3">
-          <label class="form-label" for="pacientes">Pacientes</label>
-          <ng-select id="pacientes"
-                     formControlName="pacientes">
-            <ng-option class="form-select"
-                       *ngFor="let paciente of pacientes,let i = index"
-                       [value]="paciente.id">{{ paciente.id_persona.nombre }}</ng-option>
-          </ng-select>
-        </div>
       </form>
       <button class="btn btn-danger m-1" (click)="borrarRelacion()" *ngIf="mostrarEditar" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
         <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
@@ -159,9 +165,19 @@
     </div>
 
 
-    <ng-container #contenedor></ng-container>
-
+    <ng-container #contenedorCrear></ng-container> <!-- Contenedor usado para el mostrar-creera -->
   </div>
+    <button class="btn btn-outline-success m-2">
+      Continuar
+    </button>
+    <button (click)="crearHtml() "  class="btn btn-success m-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="20" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+      </svg>
+    </button>
+    <button class="btn btn-outline-warning m-2">
+      Volver
+    </button>
 
 
 </main>
