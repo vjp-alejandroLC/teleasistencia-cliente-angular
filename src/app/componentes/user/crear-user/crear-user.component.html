@@ -106,6 +106,22 @@
         </ng-template>
       </div>
     </div>
+<!--
+    <div class="form-group mb-3">
+      <label for="email" class="form-label">Imagen</label>
+      <input type="file" name="imagen" id="imagen" class="form-control" required
+             accept="image/*" [(ngModel)]="user.imagen" #imagen="ngModel">
+      <div *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)"
+           class="alert alert-secondary" role="alert">
+        <div *ngIf="email.errors?.required; else elseBlock">
+          la imagen es obligatorio
+        </div>
+        <ng-template #elseBlock>
+          Introduzca una imagen válido
+        </ng-template>
+      </div>
+    </div>
+    -->
 
     <div class="form-group mb-3">
       <label for="groups" class="form-label">Grupo</label>
