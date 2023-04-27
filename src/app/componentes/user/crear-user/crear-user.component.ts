@@ -10,6 +10,8 @@ import {IGrupo} from "../../../interfaces/i-grupo";
 import {Grupo} from "../../../clases/grupo";
 import {CargaGrupoService} from "../../../servicios/carga-grupo.service";
 import {environment} from "../../../../environments/environment";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+
 
 @Component({
   selector: 'app-crear-user',
@@ -21,8 +23,9 @@ export class CrearUserComponent implements OnInit {
   public user: IUsers;
   public grupos: IGrupo[];
   public confirmpassword: string;
+  public formCrearU: FormGroup;
 
-  constructor(private titleService: Title, private route: ActivatedRoute, private cargaUsers: CargaUserService, private router: Router,private cargaGrupo :CargaGrupoService) {
+  constructor(private titleService: Title, private route: ActivatedRoute, private cargaUsers: CargaUserService, private router: Router,private cargaGrupo :CargaGrupoService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -35,10 +38,20 @@ export class CrearUserComponent implements OnInit {
       }
     )
     this.confirmpassword="";
+    this.formCrearU = this.formBuilder.group({
+      password: ['',Validators.required],
+      confirmpassword: ['',Validators.required,],
+      username:  ['',[Validators.required,Validators.min(4),Validators.pattern('^[a-zA-Z0-9](_(?!(\\.|_))|\\.(?!(_|\\.))|[a-zA-Z0-9]){2,18}[a-zA-Z0-9]$')]],
+      first_name: ['',[Validators.required,Validators.max(200),Validators.pattern('^[\\w\'\\-,.][^0-9_!¡?÷?¿(\\)\\\\+=@#$%ˆ&*(){}|~<>;:[\\]]{2,}$')]],
+      last_name: ['',[Validators.required,Validators.max(200),Validators.pattern('^[\\w\'\\-,.][^0-9_!¡?÷?¿(\\)\\\\+=@#$%ˆ&*(){}|~<>;:[\\]]{2,}$')]],
+      email: ['',[Validators.required,Validators.email,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      groups: ['',Validators.required],
+      imagen: ['']
+    });
   }
 
   nuevoUser(): void {
-    this.cargaUsers.nuevoUser(this.user).subscribe(
+    this.cargaUsers.nuevoUser(this.formCrearU.value).subscribe(
       e => {
         this.alertExito()
         this.router.navigate(['/usuarios']);
