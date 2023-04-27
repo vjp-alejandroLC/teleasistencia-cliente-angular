@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import {Direccion} from "../../../clases/direccion";
 import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
 import {environment} from "../../../../environments/environment";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {TipoModalidadPaciente} from "../../../clases/tipo-modalidad-paciente";
 
 
@@ -86,6 +86,7 @@ export class CrearPersonaComponent implements OnInit {
       ],
       fecha_nacimiento: ['', [
         Validators.required,
+        validacionFechaMaxima()
       ]],
       sexo: ['Hombre', [Validators.required]],
       telefono_fijo: ['', [Validators.maxLength(12),
@@ -232,6 +233,17 @@ export class CrearPersonaComponent implements OnInit {
       title: environment.fraseErrorCrear
     })
   }
+  getToday(){
+    return new Date().toISOString().split("T")[0];
+  }
 }
 
-
+export function validacionFechaMaxima(): ValidatorFn {
+  return (control:AbstractControl) : ValidationErrors | null => {
+    if (new Date(control.value) > new Date()){
+      console.log(new Date(control.value));
+      return {fechaExcedida:true};
+    }
+    return null;
+  }
+}

@@ -47,8 +47,11 @@
             <div class="form-group">
               <label for="fecha_nacimiento" class="form-label text-start">Fecha de Nacimiento <span
                 class="obligatorios">*</span></label>
-              <input type="date" name="fecha_nacimiento " id="fecha_nacimiento" class="form-control"
+              <input type="date" name="fecha_nacimiento " id="fecha_nacimiento" class="form-control"  max='{{getToday()}}'
                      formControlName="fecha_nacimiento">
+            </div>
+            <div *ngIf="controles.fecha_nacimiento.errors?.fechaExcedida" class="alert alert-secondary" role="alert">
+              <span >La fecha de nacimiento no puede ser mayor a la actual.</span>
             </div>
           </div>
 
