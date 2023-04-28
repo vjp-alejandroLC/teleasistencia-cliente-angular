@@ -41,12 +41,8 @@ export class PantallaLoginComponent implements OnInit{
   ngOnInit(): void {
     this.titleService.setTitle('Login');
     this.login = new Login();
-  }
-
-  ngDoCheck(): void {
     this.estaLogin = this.auth.isLoggedIn();
   }
-
 
   //hago la peticion post de login añadiendo los datos del formulario
   //Si los datos son correctos solicito el token y lo grabo en localstorage
@@ -90,6 +86,7 @@ export class PantallaLoginComponent implements OnInit{
 
   hacerLogout(): void {
     this.auth.logout();
+    this.estaLogin = this.auth.isLoggedIn();
     this.router.navigate(['/login']);
   }
   //variable necesaria para ocultar/mostrar la contraseña
