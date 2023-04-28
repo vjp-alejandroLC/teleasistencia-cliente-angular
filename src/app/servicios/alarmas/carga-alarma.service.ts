@@ -23,6 +23,9 @@ export class CargaAlarmaService {
     modificarAlarma(alarma: IAlarma): Observable<IAlarma> {
       return this.http.put<IAlarma>(this.URL_SERVER_ALARMA+ '/' + alarma.id, alarma);
     }
+    cerrarAlarma(alarma: object ,idAlarma:number): Observable<IAlarma> {
+      return this.http.put<IAlarma>(this.URL_SERVER_ALARMA+ '/' + idAlarma, alarma);
+    }
 
     nuevaAlarma(alarma: any): Observable<IAlarma> {
       return this.http.post<IAlarma> (this.URL_SERVER_ALARMA, alarma);

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { Alarma } from "../../../clases/alarma";
-import { User } from "../../../clases/user";
 import { CargaAlarmaService } from "../../../servicios/alarmas/carga-alarma.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {Paciente} from "../../../clases/paciente";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {IAlarma} from "../../../interfaces/i-alarma";
 
 
 @Component({
@@ -15,24 +15,30 @@ import {Paciente} from "../../../clases/paciente";
   styleUrls: ['./modificar-cerrar-alarma.component.scss']
 })
 export class ModificarCerrarAlarmaComponent implements OnInit {
-  public alarma: Alarma
+  public alarma: IAlarma
   public idAlarma: number
   public paciente_ucr: Paciente
+  public formInf: FormGroup;
+  public idUcr: number;
+  public idTerminal: number;
 
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private router: Router, private cargarAlarmas: CargaAlarmaService) { }
+  constructor(private route: ActivatedRoute, private titleService: Title,private formBuilder: FormBuilder, private router: Router, private cargarAlarmas: CargaAlarmaService) { }
 
   ngOnInit(): void {
+    this.formInf = this.formBuilder.group({
+      observaciones:['',Validators.required],
+      resumen:['',Validators.required],
+    })
     this.alarma = this.route.snapshot.data['alarma'];
     this.idAlarma = this.route.snapshot.params['id'];
     this.paciente_ucr = this.alarma.id_paciente_ucr
-    if (this.alarma.id_teleoperador) {
-      this.alarma.id_teleoperador = this.alarma.id_teleoperador.id;
+    if (this.alarma.id_terminal) {
+      this.idTerminal = this.alarma.id_terminal.id;
+    }else{
+      this.idTerminal = this.alarma.id_paciente_ucr.id_terminal.id;
     }
-    if (this.alarma.id_paciente_ucr) {
-      this.alarma.id_paciente_ucr = this.alarma.id_paciente_ucr.id;
-    }
-
+    console.log(this.alarma)
 
   }
   //buscamos la opcion que coincida con el buscado para dejarla preseleccionada
@@ -40,8 +46,13 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
     document.getElementsByClassName('form-select')[i].setAttribute('selected', '');
   }
   modificarAlarma(): void {
-    this.alarma.estado_alarma = "Cerrada"
-    this.cargarAlarmas.modificarAlarma(this.alarma).subscribe(
+    let datos = {
+      estado_alarma:"Cerrada",
+      observaciones: this.formInf.value.observaciones,
+      resumen: this.formInf.value.resumen,
+      id_teleoperador: localStorage.getItem("id")
+    }
+    this.cargarAlarmas.cerrarAlarma(datos,this.idAlarma).subscribe(
       e => {
         this.alertExito()
         this.router.navigate(['/alarmas'])
@@ -124,4 +135,5 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
   obtenerTerminal() {
     return this.alarma.id_terminal.numero_terminal
   }
+
 }

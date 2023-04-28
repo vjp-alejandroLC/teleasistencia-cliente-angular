@@ -18,7 +18,6 @@ import {CargaTipoAlarmaService} from "../../../servicios/carga-tipo-alarma.servi
 })
 export class CrearAlarmaComponent implements OnInit {
 
-  public alarma: Alarma;
   public tipos_alarmas: TipoAlarma[];
   public terminales: Terminal[];
   public pacientes_ucr: Paciente[];
@@ -32,7 +31,6 @@ export class CrearAlarmaComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle('Nueva Alarma');
-    this.alarma = new Alarma();
     this.tipos_alarmas = this.route.snapshot.data['tipos_alarmas'];
     this.terminales = this.route.snapshot.data['terminales'];
     this.pacientes_ucr = this.route.snapshot.data['pacientes_ucr'];

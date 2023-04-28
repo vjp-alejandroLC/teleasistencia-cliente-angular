@@ -19,6 +19,9 @@ export class CargaRelacionTerminalRecursosComunitariosService {
   getRelacionTerminalRecursoComunitario(idRelacion: number): Observable<IRelacionTerminalRecursoComunitarios> {
     return this.http.get<IRelacionTerminalRecursoComunitarios>(this.URL_SERVER_RELACION_TERMINAL_RECURSOS_COMUNITARIOS+ '/' + idRelacion);
   }
+  getRelacionTerminal(idRelacion: number): Observable<IRelacionTerminalRecursoComunitarios[]> {
+    return this.http.get<IRelacionTerminalRecursoComunitarios[]>(this.URL_SERVER_RELACION_TERMINAL_RECURSOS_COMUNITARIOS+ '?id_terminal=' + idRelacion);
+  }
   modificarRelacionRecurso(relacionRecurso: IRelacionTerminalRecursoComunitarios): Observable<IRelacionTerminalRecursoComunitarios> {
     return this.http.put<IRelacionTerminalRecursoComunitarios>(this.URL_SERVER_RELACION_TERMINAL_RECURSOS_COMUNITARIOS+'/'+ relacionRecurso.id, relacionRecurso);
   }

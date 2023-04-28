@@ -12,10 +12,11 @@ export class AuthService {
   constructor() {
   }
 
-  login(username, userlastname, role, img) {
+  login(id,username, userlastname, role, img) {
 
 
     /***Apartado LocalStorage***/
+    localStorage.setItem('id',id)
     localStorage.setItem('username', username);
     localStorage.setItem('userlastname', userlastname);
     localStorage.setItem('role', role);
