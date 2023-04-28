@@ -10,6 +10,8 @@ import {toInteger} from "@ng-bootstrap/ng-bootstrap/util/util";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {IProfileUser} from "../../../interfaces/i-profile-user";
+import {ProfileService} from "../../../servicios/profile.service";
 
 @Component({
   selector: 'app-nuevo-historico-agenda',
@@ -23,7 +25,7 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
   public teleoperadores: any[];
   public agenda: IAgenda;
   public nuevoHistorico: FormGroup;
-  public fecha_actual: Date;
+  public fecha_actual: Date | any;
   public teleoperador: any;
   submitted = false;
 
@@ -32,6 +34,7 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
     private route: ActivatedRoute,
     private cargaHistoricoAgenda: CargaHistoricoAgendaService,
     private cargaAgendaService: CargaAgendaService,
+    private cargaUserLogued: ProfileService,
     private router: Router,
     private formBuilder: FormBuilder
   ) { }
@@ -42,13 +45,18 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
     this.agendas = this.route.snapshot.data['agendas'];
     this.teleoperadores = this.route.snapshot.data['teleoperadores'];
     this.agenda = this.route.snapshot.data['agenda'];
-    /*this.teleoperador = this.route.snapshot.data['profile/1'];
-    console.log(this.teleoperador)
-    console.log(this.teleoperadores)*/
-
-    //this.historico_agenda.id_agenda = this.agenda.id;
-    this.fecha_actual = new Date;
-    this.crearForm();
+    this.fecha_actual = new Date().toISOString().slice(0, 16);
+    this.cargaUserLogued.getProfile().subscribe(
+      (resp: IProfileUser[]) => {
+        this.teleoperador = resp[0];
+      },
+      error => {
+        this.alertError();
+      },
+      () => {
+        this.crearForm();
+      }
+    );
   }
 
   //Método para obtener los valores del formulario
@@ -70,7 +78,7 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
   crearNuevoHistorico() {
     this.historico_agenda = {
       'id_agenda': this.agenda.id,
-      'id_teleoperador': this.nuevoHistorico.get('teleoperador').value,
+      'id_teleoperador': this.teleoperador.id,
       'fecha_llamada': new Date().toISOString().slice(0, 16),
       'observaciones': this.nuevoHistorico.get('observaciones_historico').value
     }
@@ -185,7 +193,7 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
       agenda: [this.agenda.id, [
         Validators.required
       ]],
-      teleoperador: [ '',[
+      teleoperador: [ this.teleoperador.id,[
         Validators.required
       ]],
       fecha_llamada: [ this.fecha_actual, [

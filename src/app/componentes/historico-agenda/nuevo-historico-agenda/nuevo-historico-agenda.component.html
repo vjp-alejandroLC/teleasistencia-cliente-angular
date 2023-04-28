@@ -68,7 +68,7 @@
 
       <div class="form-group mb-3">
         <label for="id_teleoperador" class="form-label">Teleoperador</label>
-        <select name="id_teleoperador" id="id_teleoperador" formControlName="teleoperador" class="form-select" required>
+        <select name="id_teleoperador" id="id_teleoperador" formControlName="teleoperador" class="form-select" required disabled>
           <option *ngFor="let teleoperador of teleoperadores; let i = index" [value]="teleoperador.id">
             {{teleoperador.first_name + ' ' + teleoperador.last_name}}
           </option>

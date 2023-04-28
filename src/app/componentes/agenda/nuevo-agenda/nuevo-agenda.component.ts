@@ -97,7 +97,6 @@ export class NuevoAgendaComponent implements OnInit {
       'fecha_resolucion': null,
       'observaciones': this.nuevaAgenda.get('observaciones').value
     }
-    console.log(this.agenda);
     this.cargaAgendas.nuevoAgenda(this.agenda).subscribe(
       e => {
         this.alertExito();

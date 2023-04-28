@@ -25,7 +25,6 @@ export class ModificarAgendaComponent implements OnInit {
   public pacientes: IPaciente[];
   public modAgenda: FormGroup;
   submitted = false;
-  //placeholder : any;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,14 +41,14 @@ export class ModificarAgendaComponent implements OnInit {
     this.idAgenda = this.route.snapshot.params['id'];
     this.pacientes = this.route.snapshot.data['pacientes'];
     this.titleService.setTitle('Modificar agenda ' + this.idAgenda);
-    //this.agenda.id_tipo_agenda = this.agenda.id_tipo_agenda.id;
-    //this.agenda.id_paciente = this.agenda.id_paciente.id;
     this.crearForm();
     this.obtenerExpediente();
     this.obtenerImportancia();
   }
 
   public crearForm() {
+    this.agenda.fecha_prevista = new Date(this.agenda.fecha_prevista);
+    console.log(this.agenda.fecha_prevista)
     this.modAgenda = this.formBuilder.group({
       paciente: [this.agenda.id_paciente.id,[
         Validators.required

@@ -46,16 +46,18 @@ export class AgendaComponent implements OnInit {
   }
 
   ordenarAgendas(a:IAgenda, b:IAgenda ): number {
-    if ((a.fecha_resolucion != null && b.fecha_resolucion === null) || (b.fecha_resolucion != null && a.fecha_resolucion === null) || (a.fecha_resolucion === null && b.fecha_resolucion === null)) {
+    if((a.fecha_resolucion != null && b.fecha_resolucion === null)) {
+      return 1;
+    }
+    if (a.fecha_resolucion === null && b.fecha_resolucion != null) {
       return -1;
+    }
+    if(a.id_tipo_agenda.importancia > b.id_tipo_agenda.importancia) {
+      return 1;
     } else {
-      if(a.id_tipo_agenda.importancia > b.id_tipo_agenda.importancia) {
-        return 1;
-      } else {
-        if (a.id_tipo_agenda.importancia == b.id_tipo_agenda.importancia) {
-          if (a.fecha_prevista > b.fecha_prevista) {
-            return 1;
-          }
+      if (a.id_tipo_agenda.importancia == b.id_tipo_agenda.importancia) {
+        if (a.fecha_prevista > b.fecha_prevista) {
+          return 1;
         }
       }
     }
@@ -92,6 +94,7 @@ export class AgendaComponent implements OnInit {
           }
         }
         document.getElementById("campoBusqueda").focus();
+        this.agendasDelDia.sort(this.ordenarAgendas);
       },
       error => {
         console.log(error);
