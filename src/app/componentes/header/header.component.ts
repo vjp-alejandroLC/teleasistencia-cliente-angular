@@ -10,6 +10,8 @@ import {Router} from "@angular/router";
 import {ModificarAlarmaResolveService} from "../../servicios/alarmas/modificar-alarma-resolve.service";
 import {ProfileService} from "../../servicios/profile.service";
 import {IProfileUser} from "../../interfaces/i-profile-user";
+import {IClasificacioRecurso} from "../../interfaces/i-clasificacio-recurso";
+import {CargarClasificacionRecursosService} from "../../services/recursos/cargar-clasificacion-recursos.service";
 import {AuthService} from "../../servicios/auth.service";
 
 @Component({
@@ -25,13 +27,16 @@ export class HeaderComponent implements OnInit, DoCheck {
   public accion: string
   public teleoperador: number
   public grupoTeleoperador: string;
+  public clasificacionRecursos: IClasificacioRecurso[] | []; // Esta variable la utilizaremos para obtener la clasificacion de recursos que mostraremos en el apartado de Recursos
+
+
   isAdmin: boolean;
 
   subdominioNombre = environment.subdominio.nombre;
   subdominioColor = environment.subdominio.color;
 
   constructor(private auth: AuthService, private profileService: ProfileService,
-              private cargarAlarma: CargaAlarmaService, private router: Router) {
+              private cargarAlarma: CargaAlarmaService, private router: Router,private cargarClasificacion: CargarClasificacionRecursosService,) {
   }
 
   ngOnInit(): void {
@@ -43,12 +48,20 @@ export class HeaderComponent implements OnInit, DoCheck {
         next: msg => this.comprobarAccion(msg), // Called whenever there is a message from the server.
         error: err => console.log(err), // Called if at any point WebSocket API signals some kind of error.
         complete: () => console.log('complete') // Called when connection is closed (for whatever reason).
-
       })
+      // Utilizamos un GET para cargar la clasificacion de los recursos
+      this.cargarClasificacion.getClasificacionRecursosComunitarios().subscribe(
+        listaClasificacion => {
+          this.clasificacionRecursos = listaClasificacion;
+        },
+        error => console.log(error),
+        () => console.log('Fin de observable')
+      )
     }
   }
 
   //Compruebo si esta login para ocultar el navbar
+
   ngDoCheck():
     void {
     this.isLoggedIn = this.auth.isLoggedIn()

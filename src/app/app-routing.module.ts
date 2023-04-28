@@ -16,11 +16,11 @@ import {ListaTiposCentrosSanitariosResolveService} from './servicios/lista-tipos
 import {ModificarTipoCentroSanitarioComponent} from './componentes/tipo-centro-sanitario/modificar-tipo-centro-sanitario/modificar-tipo-centro-sanitario.component';
 import {ModificarTipoCentroSanitarioResolveService} from './servicios/modificar-tipo-centro-sanitario-resolve.service';
 import {CrearTipoCentroSanitarioComponent} from './componentes/tipo-centro-sanitario/crear-tipo-centro-sanitario/crear-tipo-centro-sanitario.component';
-import {ListaTiposRecursosComunitariosComponent} from './componentes/tipo-recurso-comunitario/lista-tipos-recursos-comunitarios/lista-tipos-recursos-comunitarios.component';
+import {ListaTiposRecursosComunitariosComponent} from './components/recursos/tipo-recurso-comunitario/lista-tipos-recursos-comunitarios/lista-tipos-recursos-comunitarios.component';
 import {ListaTiposRecursosComunitariosResolveService} from './servicios/lista-tipos-recursos-comunitarios-resolve.service';
-import {ModificarTipoRecursoComunitarioComponent} from './componentes/tipo-recurso-comunitario/modificar-tipo-recurso-comunitario/modificar-tipo-recurso-comunitario.component';
+import {ModificarTipoRecursoComunitarioComponent} from './components/recursos/tipo-recurso-comunitario/modificar-tipo-recurso-comunitario/modificar-tipo-recurso-comunitario.component';
 import {ModificarTipoRecursoComunitarioResolveService} from './servicios/modificar-tipo-recurso-comunitario-resolve.service';
-import {CrearTipoRecursoComunitarioComponent} from './componentes/tipo-recurso-comunitario/crear-tipo-recurso-comunitario/crear-tipo-recurso-comunitario.component';
+import {CrearTipoRecursoComunitarioComponent} from './components/recursos/tipo-recurso-comunitario/crear-tipo-recurso-comunitario/crear-tipo-recurso-comunitario.component';
 import {ListaTiposModalidadesPacientesComponent} from './componentes/tipo-modalidad-paciente/lista-tipos-modalidades-pacientes/lista-tipos-modalidades-pacientes.component';
 import {ListaTiposModalidadesPacientesResolveService} from './servicios/lista-tipos-modalidades-pacientes-resolve.service';
 import {ModificarTipoModalidadPacienteComponent} from './componentes/tipo-modalidad-paciente/modificar-tipo-modalidad-paciente/modificar-tipo-modalidad-paciente.component';
@@ -43,11 +43,11 @@ import {ModificarPersonaComponent} from './componentes/persona/modificar-persona
 import {ModificarPersonaResolveService} from './servicios/modificar-persona-resolve.service';
 import {CrearPersonaComponent} from './componentes/persona/crear-persona/crear-persona.component';
 import {ModificarCentroSanitarioResolveService} from './servicios/modificar-centro-sanitario-resolve.service';
-import {ListaRecursosComunitariosComponent} from './componentes/recurso-comunitario/lista-recursos-comunitarios/lista-recursos-comunitarios.component';
+import {ListaRecursosComunitariosComponent} from './components/recursos/recurso-comunitario/lista-recursos-comunitarios/lista-recursos-comunitarios.component';
 import {ListaRecursosComunitariosResolveService} from './servicios/lista-recursos-comunitarios-resolve.service';
-import {ModificarRecursoComunitarioComponent} from './componentes/recurso-comunitario/modificar-recurso-comunitario/modificar-recurso-comunitario.component';
+import {ModificarRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/modificar-recurso-comunitario/modificar-recurso-comunitario.component';
 import {ModificarRecursoComunitarioResolveService} from './servicios/modificar-recurso-comunitario-resolve.service';
-import {CrearRecursoComunitarioComponent} from './componentes/recurso-comunitario/crear-recurso-comunitario/crear-recurso-comunitario.component';
+import {CrearRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/crear-recurso-comunitario/crear-recurso-comunitario.component';
 import {PantallaLoginComponent} from './componentes/pantalla-login/pantalla-login.component';
 import {ListaRelacionTerminalRecursosComunitariosResolveService} from "./servicios/relacion-terminal-recurso-comunitario/lista-relacion-terminal-recursos-comunitarios-resolve.service";
 import {
@@ -231,6 +231,10 @@ import { NuevoTipoAgendaComponent } from './componentes/tipo-agenda/nuevo-tipo-a
 import { DetallesTipoAgendaComponent } from './componentes/tipo-agenda/detalles-tipo-agenda/detalles-tipo-agenda.component';
 import { DetallesTipoAgendaResolveService } from './servicios/detalles-tipo-agenda-resolve.service';
 import { AgendaComponent } from './componentes/agenda/lista-agenda/agenda.component';
+import {VerRecursoComponent} from "./components/recursos/recurso-comunitario/ver-recurso/ver-recurso.component";
+
+
+
 import {
   CrearPersonaContactoComponent
 } from "./componentes/personas-contacto/crear-persona-contacto/crear-persona-contacto.component";
@@ -248,7 +252,6 @@ const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
   {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
   {path: 'recurso-comunitarios-personales', canActivate: [AuthGuard], component: RecursosComunitariosPersonalesComponent},
-
   {
     path: 'usuarios',
     component: ListaUsersComponent,
@@ -525,6 +528,14 @@ const routes: Routes = [
     },
     resolve: {
       tipos_recursos_comunitarios: ListaTiposRecursosComunitariosResolveService
+    }
+  },
+  {
+    path: 'recursos_comunitarios/ver_recursos/:id',
+    component: VerRecursoComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
     }
   },
   {
