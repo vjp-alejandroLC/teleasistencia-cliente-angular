@@ -34,7 +34,7 @@ export class CargaRecursosComunitariosAlarmaService {
     return this.http.delete<IRecursosComunitariosAlarma> (this.URL_SERVER_RECURSOS_COMUNITARIOS_ALARMA + '/' + recursosComunitariosAlarma.id);
   }
   tiposRecursosComunitarios(): Observable<IClasificacioRecurso[]>{
-    return this.http.get< IClasificacioRecurso[]> (this.URL_SERVER_TIPOS_COMUNITARIOS);
+    return this.http.get<IClasificacioRecurso[]> (this.URL_SERVER_TIPOS_COMUNITARIOS);
   }
 
 

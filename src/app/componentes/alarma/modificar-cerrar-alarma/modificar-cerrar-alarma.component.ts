@@ -136,4 +136,5 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
     return this.alarma.id_terminal.numero_terminal
   }
 
+
 }

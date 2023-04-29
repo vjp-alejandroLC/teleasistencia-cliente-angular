@@ -243,6 +243,9 @@ import {
 } from "./componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {environment} from "../environments/environment";
+import {
+  ClasificacionRecursoscomunitariosResolveService
+} from "./servicios/cerrar-alarma/clasificacion-recursoscomunitarios-resolve.service";
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
   {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
@@ -939,6 +942,7 @@ const routes: Routes = [
     },
     resolve: {
       alarma: ModificarAlarmaResolveService,
+      clas_recursos: ClasificacionRecursoscomunitariosResolveService
     }
   },
   {
