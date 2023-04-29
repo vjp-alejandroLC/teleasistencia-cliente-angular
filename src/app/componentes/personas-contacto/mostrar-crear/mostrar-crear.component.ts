@@ -28,7 +28,7 @@ export class MostrarCrearComponent implements OnInit {
   mostrarGuardar = true;
   mostrarEditar = false;
   @Input() indice: number;
-  @Input() idPaciente: number;
+   idPaciente: number;
   idRelacion: number;
   submitted = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
@@ -38,6 +38,7 @@ export class MostrarCrearComponent implements OnInit {
   public persona: IPersona | any;
   public formulario: FormGroup | any;
   public relacionBorrar : IRelacionPacientePersona |any;
+
   constructor(private route: ActivatedRoute, private router: Router, private  formBuilder: FormBuilder,private cargaPersonas: CargaPersonaService, private cargaDireccion: CargaDireccionService, private cargaPacientes: CargaPacienteService, private cargaRelacion: CargaRelacionPacientePersonaService) {
   }
 
@@ -135,6 +136,7 @@ export class MostrarCrearComponent implements OnInit {
 
 
   crearRelacionPacientePersona(){
+    console.log(this.cargaPersonas.idPersonaCreada);
     this.relacionPacientePersona = {
       'telefono': this.formulario.get('telefono_fijo').value,
       'nombre': this.formulario.get('nombre').value,

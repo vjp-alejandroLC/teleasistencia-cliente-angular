@@ -97,35 +97,50 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-check mb-3">
-              <span>¿LLaves de la vivienda/casa? *</span>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="tiene_llaves_vivienda_true"
-                       name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda">
-                <label class="form-check-label" for="tiene_llaves_vivienda_true">Sí</label>
+              <span>¿LLaves de la vivienda? *</span>
+              <div class="row mt-2">
+                <div class="col-6">
+                  <div class="form-check form-check-inline">
+                    <input class="btn-check" type="radio" id="tiene_llaves_vivienda_true"
+                           name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda">
+                    <label class="btn btn-success min50w" for="tiene_llaves_vivienda_true">Sí</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-check form-check-inline mb-2">
+                    <input class="btn-check" type="radio" id="tiene_llaves_vivienda_false"
+                           name="tiene_llaves_vivienda" [value]="false" formControlName="tiene_llaves_vivienda">
+                    <label class="btn btn-success min50w" for="tiene_llaves_vivienda_false">No</label>
+                  </div>
+                </div>
               </div>
-              <div class="form-check form-check-inline mb-2">
-                <input class="form-check-input" type="radio" id="tiene_llaves_vivienda_false"
-                       name="tiene_llaves_vivienda" [value]="false" formControlName="tiene_llaves_vivienda">
-                <label class="form-check-label " for="tiene_llaves_vivienda_false">No</label>
-              </div>
+
+
             </div>
           </div>
           <div class="col-md-6">
-
-            <span>¿Es conviviente? *</span>
-
             <div class="form-check mb-3">
 
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="es_conviviente_true"
-                       name="es_conviviente" [value]="true" formControlName="es_conviviente">
-                <label class="form-check-label" for="es_conviviente_true">Sí</label>
+            <span>¿Es conviviente? *</span>
+            <div class="row mt-2" >
+              <div class="col-6">
+
+                <div class="form-check form-check-inline">
+                  <input class="btn-check"  type="radio" id="es_conviviente_true"
+                         name="es_conviviente" [value]="true" formControlName="es_conviviente">
+                  <label class="btn btn-success min50w" for="es_conviviente_true">Sí</label>
+                </div>
               </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="es_conviviente_false"
-                       name="es_conviviente" [value]="false" formControlName="es_conviviente">
-                <label class="form-check-label" for="es_conviviente_false">No</label>
+              <div class="col-6">
+                <div class="form-check form-check-inline">
+                  <input class="btn-check" type="radio" id="es_conviviente_false"
+                         name="es_conviviente" [value]="false" formControlName="es_conviviente">
+                  <label class="btn btn-success min50w" for="es_conviviente_false">No</label>
+                </div>
               </div>
+            </div>
+
+
             </div>
           </div>
         </div>
@@ -151,7 +166,7 @@
 
         <button type="submit" class="btn btn-outline-success m-1"
                 [disabled]="formulario.invalid"  *ngIf="mostrarGuardar" >
-          Guardar
+          Guardar contacto
         </button>
       </form>
       <button class="btn btn-danger m-1" (click)="borrarRelacion()" *ngIf="mostrarEditar" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -166,18 +181,23 @@
 
 
     <ng-container #contenedorCrear></ng-container> <!-- Contenedor usado para el mostrar-creera -->
-  </div>
+
+
+      </div>
+  <div class="mr-2">
     <button class="btn btn-outline-success m-2">
       Continuar
     </button>
     <button (click)="crearHtml() "  class="btn btn-success m-2">
-      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="20" fill="currentColor" class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
-        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
-      </svg>
+      <i class="fa-solid fa-circle-plus" style="width: 50px"></i>
+
     </button>
     <button class="btn btn-outline-warning m-2">
       Volver
     </button>
+  </div>
+
+
 
 
 </main>

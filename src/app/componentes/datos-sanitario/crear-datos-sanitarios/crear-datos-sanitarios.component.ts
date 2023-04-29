@@ -18,6 +18,8 @@ import {environment} from "../../../../environments/environment";
 import {CargaRecursoComunitarioService} from "../../../services/recursos/carga-recurso-comunitario.service";
 import {IPaciente} from "../../../interfaces/i-paciente";
 import {CargaPacienteService} from "../../../servicios/paciente/carga-paciente.service";
+import {TipoRecursoComunitario} from "../../../clases/tipo-recurso-comunitario";
+import {CargaPersonaService} from "../../../servicios/carga-persona.service";
 
 @Component({
   selector: 'app-crear-datos-sanitarios',
@@ -25,8 +27,9 @@ import {CargaPacienteService} from "../../../servicios/paciente/carga-paciente.s
   styleUrls: ['./crear-datos-sanitarios.component.scss']
 })
 export class CrearDatosSanitariosComponent implements OnInit {
-  edit = false;
-  mostrar = false;
+  edit: boolean = false;
+  mostrar: boolean = false;
+  mostrarCrear: boolean = false;
   id = 0;
   public recurso_comunitario: IRecursoComunitario |any;
   public tipos_recursos_comunitarios: ITipoRecursoComunitario[] | any;
@@ -38,8 +41,18 @@ export class CrearDatosSanitariosComponent implements OnInit {
   public recursosMostrados: IRecursoComunitario[];
   public arrayRelaciones: IRelacionTerminalRecursoComunitarios [] = [];
   public pacientes: IPaciente[] | any;
+  public mostrarTabla = false;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,private route: ActivatedRoute, private titleService: Title, private router: Router, private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService, private cargaRelacionTerminal: CargaTerminalesService, private cargaTiposRecursos: CargaTipoRecursoComunitarioService, private formBuilder: FormBuilder, private cargaDireccion: CargaDireccionService, private cargaRecurso: CargaRecursoComunitarioService, private cargaPacientes: CargaPacienteService) { }
+
+  public idRecurso: number;
+
+
+
+  public idPaciente: number;
+  public recursoMostrar: IRecursoComunitario | any;
+
+
+  constructor(private cargaPersonas: CargaPersonaService,private componentFactoryResolver: ComponentFactoryResolver,private route: ActivatedRoute, private titleService: Title, private router: Router, private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService, private cargaRelacionTerminal: CargaTerminalesService, private cargaTiposRecursos: CargaTipoRecursoComunitarioService, private formBuilder: FormBuilder, private cargaDireccion: CargaDireccionService, private cargaRecurso: CargaRecursoComunitarioService, private cargaPacientes: CargaPacienteService) { }
 
   ngOnInit(): void {
     this.relacion_terminal_recurso = new RelacionTerminalRecursoComunitarios();
@@ -72,6 +85,14 @@ export class CrearDatosSanitariosComponent implements OnInit {
   }
 
 
+
+  desactivado() {
+    return (this.formulario.value.recurso == '') || (this.formulario.value.recurso == null);
+
+    this.crearFormulario();
+  }
+
+
   crearFormulario(){
       this.formulario = this.formBuilder.group(
 
@@ -84,6 +105,19 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
         }
       )
+  }
+
+
+
+  seleccionarId(){
+    this.cargaRecurso.idRecursoVer = this.idRecurso;
+    this.cargaRecurso.getRecursoComunitario(this.cargaRecurso.idRecursoVer).subscribe(
+      recurso => {
+        this.recursoMostrar = recurso;
+        console.log(this.recursoMostrar.nombre)
+
+      }
+    )
   }
 
 
@@ -110,6 +144,8 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
       }
     )
+    this.mostrarTabla = true;
+    console.log(this.cargaPersonas.idPersonaCreada);
 
   }
 
@@ -138,9 +174,6 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
 
 
-verRecursos(){
-    this.mostrar = !this.mostrar;
-}
 
 actualizarNuss(){
       this.cargaPacientes.modificarNUSS(this.formulario.get('pacientes').value, this.formulario.get('nuss').value).subscribe(

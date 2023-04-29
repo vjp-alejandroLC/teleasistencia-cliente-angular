@@ -22,8 +22,8 @@ import {MostrarCrearComponent} from "../mostrar-crear/mostrar-crear.component";
 })
 export class CrearPersonaContactoComponent implements OnInit {
   @ViewChild('contenedorCrear', { read: ViewContainerRef }) container: ViewContainerRef; //Hace referencia al componente hijo y al contenedor del padre mediante un contenedor
-  @Input() idPaciente = 1;
 
+  idPaciente: number;
 
   indicesCrear = 2; //Comienzo con el primero indice
   maximoComponentes = 6; //Maximo numero de componentes que crea al darle al boton de crearHTML()
@@ -49,6 +49,7 @@ export class CrearPersonaContactoComponent implements OnInit {
 
 
 ngOnInit() {
+
   this.crearFormulario();
   this.relacionPacientePersona = new RelacionPacientePersona();
 
@@ -142,6 +143,7 @@ crearFormulario(){
   }
 
 crearRelacion(){
+  console.log(this.cargaPersonas.idPersonaCreada);
 
   this.relacionPacientePersona = {
           'telefono': this.formulario.get('telefono_fijo').value,
@@ -196,7 +198,7 @@ crearHtml(){ //Creo el HTML con FactoryResolvver, que sirve para poder crear dif
         this.borrarComponente(componenteReferenciado); //Borro el componente desde el que hace referencia
         for (const componente of this.componentesCreados) { //Recorremos todo el array generado y cambiamos el indice
 
-          if ( componente.instance.indice > indiceTomado  ){ //Este if compara el indice tomado con los demas, si es superiore, resta
+          if ( componente.instance.indice > indiceTomado  ){ //Este if compara el indice tomado con los demas, si es superiore, resta a los que sean superiores al mismo
             componente.instance.indice--;
 
           }

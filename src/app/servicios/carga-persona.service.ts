@@ -12,6 +12,7 @@ import {environment} from "../../environments/environment";
 export class CargaPersonaService {
   private urlBase = environment.urlBase;
   private URL_SERVER_PERSONAS = this.urlBase + 'persona';
+   idPersonaCreada: number;
 
   constructor(private http: HttpClient) {
   }

@@ -150,6 +150,7 @@ export class CrearPersonaComponent implements OnInit {
     this.cargaPersonas.nuevaPersona(persona).subscribe(
       e => {
         console.log("id" + e.id);
+        this.cargaPersonas.idPersonaCreada = e.id;
         this.id = e.id;
         this.nuevaDireccion();
         this.alertExito()
