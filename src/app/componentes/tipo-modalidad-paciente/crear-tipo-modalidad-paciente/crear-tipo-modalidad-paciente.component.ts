@@ -22,11 +22,10 @@ export class CrearTipoModalidadPacienteComponent implements OnInit {
   public formulario: FormGroup;
 
 
-  constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposModalidadesPacientes: CargaTipoModalidadPacienteService, private router: Router, private formBuilder: FormBuilder) {
+  constructor( private route: ActivatedRoute, private cargaTiposModalidadesPacientes: CargaTipoModalidadPacienteService, private router: Router, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Nuevo tipo modalidad paciente');
     this.buildForm();  //Formularios reactivos
 
   }

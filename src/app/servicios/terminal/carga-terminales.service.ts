@@ -20,7 +20,7 @@ export class CargaTerminalesService {
       return this.http.get<ITerminal>(this.URL_SERVER_TERMINAL + '/' + idTerminal)
     }
     modificarTerminal(terminal: ITerminal): Observable<ITerminal> {
-      return this.http.put<ITerminal>(this.URL_SERVER_TERMINAL + '/' + terminal.id, terminal)
+      return this.http.patch<ITerminal>(this.URL_SERVER_TERMINAL + '/' + terminal.id, terminal)
     }
     nuevoTerminal(terminal: ITerminal): Observable<ITerminal> {
       return this.http.post<ITerminal>(this.URL_SERVER_TERMINAL, terminal)

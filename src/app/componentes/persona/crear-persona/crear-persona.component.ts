@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IDireccion} from '../../../interfaces/i-direccion';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CargaPersonaService} from '../../../servicios/carga-persona.service';
@@ -13,6 +13,7 @@ import {IPersona} from "../../../interfaces/i-persona";
 import {ITerminal} from "../../../interfaces/i-terminal";
 import {IPaciente} from "../../../interfaces/i-paciente";
 import {CargaTipoModalidadPacienteService} from "../../../servicios/carga-tipo-modalidad-paciente.service";
+import {Title} from "@angular/platform-browser";
 
 
 @Component({
@@ -71,6 +72,7 @@ export class CrearPersonaComponent implements OnInit {
   ngOnInit(): void {
     this.tipos_personas = this.route.snapshot.data['tipos_personas'];
     this.buildForm();  //Formularios reactivos
+
   }
 
 
@@ -193,13 +195,32 @@ export class CrearPersonaComponent implements OnInit {
       e => {
         this.paciente = e;
         this.terminal.id_titular = this.paciente.id; // Asocio el id del usuari al terminal creado en el paso anterior.
-        this.alertExito();
-        console.log('id del paciente recien creado' + e.id)
         this.crearPaciente.idPaciente = e.id;
+
+
       },
       error => {
         console.log(error);
       },
+      () => {
+        let modify;
+        modify = {
+          id: this.terminal.id,
+          id_titular: this.paciente.id
+        }
+
+        console.log(modify);
+
+        this.crearTerminal.modificarTerminal(modify).subscribe(
+          () => {
+            this.alertExito();
+          },
+          () => {
+            console.log("el id del terminal era " + this.terminal.id)
+            this.alertError();
+          }
+        )
+      }
     );
   }
 

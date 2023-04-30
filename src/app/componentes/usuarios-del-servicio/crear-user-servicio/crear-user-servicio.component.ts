@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-crear-user-servicio',
@@ -9,10 +10,11 @@ export class CrearUserServicioComponent implements OnInit {
 
   public idPaciente: number;
 
-  constructor() {
+  constructor(private title:Title) {
   }
 
   ngOnInit(): void {
+    this.title.setTitle('Crear usuarios del servicio')
   }
 
 

@@ -9,6 +9,7 @@ import {environment} from "../../../../environments/environment";
 import {TipoModalidadPaciente} from "../../../clases/tipo-modalidad-paciente";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
+import {CargaTerminalesService} from "../../../servicios/terminal/carga-terminales.service";
 
 @Component({
   selector: 'app-crear-tipo-vivienda',
@@ -31,7 +32,8 @@ export class CrearViviendaComponent implements OnInit {
               private router: Router,
               private cargaVivienda: CargaViviendaService,
               private formBuilder: FormBuilder,
-              private paciente: CargaPacienteService
+              private paciente: CargaPacienteService,
+              private terminal: CargaTerminalesService,
   ) {
   }
 
@@ -51,30 +53,16 @@ export class CrearViviendaComponent implements OnInit {
     });
   }
 
-  pruebaId() {
-    console.log(" Esta es la id que me llega desde el padre " + this.paciente.idPaciente);
-  }
-
-
   nuevaVivienda(): void {
 
+    let datos:{
+          numero_terminal:"",
 
-    this.vivienda = {
-      nombre: this.formulario.value.nombre,
-      acceso_vivienda: this.formulario.value.text_area,
-      otros_datos_vivienda: this.formulario.value.text_area2,
     }
 
-    this.cargaVivienda.nuevaVivienda(this.vivienda).subscribe(
-      e => {
-        this.alertExito()
-        this.actualizarViviendas()
-      },
-      error => {
-        this.alertError()
-      },
-    );
+
   }
+
 
 
   mostratCrearTipo() {
