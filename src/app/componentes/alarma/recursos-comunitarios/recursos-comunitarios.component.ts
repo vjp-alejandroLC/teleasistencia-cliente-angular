@@ -24,6 +24,9 @@ export class RecursosComunitariosComponent implements OnInit {
   @Input() idTerminal: number;
   public listaTiposExistentes:  IClasificacioRecurso[]=[];
   public formulario: FormGroup;
+  public clas_recurso_comunitario: any;
+  public id_recurso_comunitario: number;
+  public recurso_comunitario_nombre: string;
   public listaRecursosTerminal: IRelacionTerminalRecursoComunitarios[];
   constructor(private elementRef:ElementRef,private formBuilder: FormBuilder,private route: ActivatedRoute,private cargarResursos: CargaRecursosComunitariosAlarmaService,private cargaRecursosTerminal: CargaRelacionTerminalRecursosComunitariosService) { }
 
@@ -44,6 +47,7 @@ export class RecursosComunitariosComponent implements OnInit {
         this.anadirCamposForm()
 
       })
+    console.log("Terminal "+this.idTerminal)
   }
       tiposContieneTerminal(){
           for (let i = 0; i<this.listaRecursosTerminal.length;i++) {
@@ -73,7 +77,9 @@ export class RecursosComunitariosComponent implements OnInit {
     }
     //Transforma los tipos de recursos en minusculas para que se puedan usar sus datos en las demas funciones
     minusculas(texto:string){
-      return texto.toLowerCase();
+      let procesado;
+      procesado = texto.replace(/\s+/g, '')
+      return procesado.toLowerCase();
     }
     //Funcion para deshabilitar botones cuando los campos esten vacios
     botonDes(valor){
@@ -84,14 +90,40 @@ export class RecursosComunitariosComponent implements OnInit {
       }
     }
     subirPost(campo: any){
+    this.clas_recurso_comunitario = campo;
+    this.id_recurso_comunitario = this.formulario.get(this.minusculas(this.clas_recurso_comunitario)).value;
     let post = {
       id_alarma: this.alarma.id,
-      id_recurso_comunitario:this.formulario.get(this.minusculas(campo)).value,
+      id_recurso_comunitario:this.id_recurso_comunitario,
       fecha_registro:"2021-05-22",
       persona:"Emilio Pera",
       acuerdo_alcanzado:"LLamar por la tarde"
     }
+    this.pintarNombre();
       console.log(post);
+    }
+    //Funcion para pintar debajo del select el servicio seleccionado
+    pintarNombre(){
+      this.extraerNombre();
+      let nuevoLi = document.createElement("li");
+      nuevoLi.textContent = this.recurso_comunitario_nombre;
+      document.getElementById(this.minusculas(this.clas_recurso_comunitario)).appendChild(nuevoLi);
+
+    }
+    //Busqueda del nombre segun la id del recurso
+    extraerNombre(){
+    let enc = false;
+    let i = 0;
+      while((i<this.listaRecursosTerminal.length)&&(!enc)){
+        console.log("RECURSOS TERMINAL")
+        console.log(this.listaRecursosTerminal[i].id_recurso_comunitario.id)
+        if(this.listaRecursosTerminal[i].id_recurso_comunitario.id == this.id_recurso_comunitario){
+          this.recurso_comunitario_nombre = this.listaRecursosTerminal[i].id_recurso_comunitario.nombre;
+          console.log("NOMBRE: "+this.recurso_comunitario_nombre)
+          enc = true
+        }
+        i++;
+      }
     }
 
 

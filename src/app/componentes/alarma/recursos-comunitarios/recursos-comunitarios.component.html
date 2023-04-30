@@ -2,7 +2,7 @@
 <form [formGroup]="formulario">
 <div class="row" *ngFor="let tipo of this.listaTiposExistentes;let i = index">
       <div class="row m-0">
-        <label>{{tipo?.nombre}}</label>
+        <h6>{{tipo?.nombre}}</h6>
         <div class="col-12 col-sm-10 p-0">
           <ng-select  formControlName="{{minusculas(tipo?.nombre)}}">
             <ng-container *ngFor="let recurso of this.listaRecursosTerminal">
@@ -16,8 +16,10 @@
           <button class="btn btn-success botonOperacion" [disabled]="botonDes(tipo?.nombre)" type="button" (click)="subirPost(tipo?.nombre)"><i class="fa fa-solid fa-plus"></i></button>
         </div>
       </div>
-      <div class="row mb-2" id="container">
-        <div>sdjhfjhs</div>
+      <div class="row m-0 ">
+        <ul id="{{minusculas(tipo?.nombre)}}">
+
+        </ul>
       </div>
   </div>
 </form>

@@ -41,32 +41,24 @@
                 <div><button class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#nivel2" type="button">Nivel 2</button></div>
               </div>
               <div class="col-8 p-0 collapse" id="nivel2">
+                <form [formGroup]="formPersona">
                 <div class="row m-0">
+                  <h6>Personas de Contacto</h6>
                   <div class="col-12 col-sm-10 p-0">
-                  <ng-select>
-                    <ng-option selected>Open this select menu</ng-option>
+                  <ng-select formControlName="persona">
+                    <ng-option *ngFor="let persona of this.listaPersonas" [value]="persona?.id" >{{persona?.nombre}} {{persona?.apellidos}}</ng-option>
                   </ng-select>
                   </div>
                   <div class="col-12 col-sm-2 p-0">
-                  <button class="btn btn-success botonOperacion" type="button"><i class="fa fa-solid fa-plus"></i></button>
+                  <button class="btn btn-success botonOperacion" type="button" (click)="subirPost()" [disabled]="botonDes()" ><i class="fa fa-solid fa-plus"></i></button>
                   </div>
-                </div>
-                <div class="row mb-2">
-                  <div>sdjhfjhs</div>
                 </div>
                 <div class="row m-0">
-                  <div class="col-12 col-sm-10 p-0">
-                    <ng-select>
-                      <ng-option selected>Open this select menu</ng-option>
-                    </ng-select>
-                  </div>
-                  <div class="col-12 col-sm-2 p-0">
-                    <button class="btn btn-success botonOperacion" type="button"><i class="fa fa-solid fa-plus"></i></button>
-                  </div>
+                  <ul id="personas">
+
+                  </ul>
                 </div>
-                <div class="row mb-2">
-                  <div>sdjhfjhs</div>
-                </div>
+                </form>
               </div>
             </div>
             <div class="row form-group">
@@ -82,16 +74,13 @@
             <textarea class="form-control" id="observaciones1" rows="7" formControlName="observaciones"></textarea>
           </div>
           <button [disabled]="this.formInf.invalid"  type="submit" class="btn btn-outline-success m-1">
-            Guardar
-          </button>
-          <button type="button" class="btn btn-outline-warning m-1">
-            Nueva Agenda
+            Guardar y Nueva Agenda
           </button>
         </form>
       </div>
 <!-- PARTE DERECHA DE LA PAGINA -->
       <div class="col-12 col-xl-6">
-    <h1 class="component-title" >Modificar Alarma {{idAlarma}}</h1>
+    <h1 class="component-title" >Información Alarma {{idAlarma}}</h1>
     <form #modificarAlarmaForm="ngForm">
 
       <div class="form-group mb-3">
@@ -122,7 +111,6 @@
         <input type="text" name="tipoAlarma" id="tipoAlarma" class="form-control" disabled
                required maxlength="500" value="{{alarma.id_tipo_alarma.nombre}}" >
       </div>
-
       <div class="form-group mb-3 left ">
         <label for="fechaCreacion" class="form-label">Fecha de creación: </label>
         <input type="text" name="fechaCreacion" id="fechaCreacion" class="form-control" disabled
@@ -139,27 +127,6 @@
           </div>
         </div>
       </div>
-            <div class="form-group mb-3">
-      <label for="observaciones" class="form-label">Observaciones</label>
-      <textarea [(ngModel)]="alarma.observaciones" name="observaciones" id="observaciones" class="form-control" required></textarea>
-
-      </div>
-
-      <div class="form-group mb-3">
-      <label for="resumen" class="form-label">Resumen</label>
-      <textarea [(ngModel)]="alarma.resumen" name="resumen" id="resumen" class="form-control" required></textarea>
-      </div>
-
-
-
-      <button type="submit" class="btn btn-outline-success m-1" (click)="modificarAlarma()"
-              [disabled]="!modificarAlarmaForm.form.valid">
-        Cerrar Alarma
-      </button>
-      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/alarmas']">
-        Volver
-      </button>
-
     </form>
       </div>
       </div>

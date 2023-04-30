@@ -25,7 +25,7 @@ export class CargaPersonaContactoAlarmaService {
     return this.http.put<IPersonaContactoAlarma>(this.URL_SERVER_PERSONA_CONTACTO_ALARMA+ '/' + personaContactoAlarma.id, personaContactoAlarma);
   }
 
-  nuevaPersonaContactoAlarma(personaContactoAlarma: IPersonaContactoAlarma): Observable<IPersonaContactoAlarma> {
+  nuevaPersonaContactoAlarma(personaContactoAlarma: any): Observable<IPersonaContactoAlarma> {
     return this.http.post<IPersonaContactoAlarma> (this.URL_SERVER_PERSONA_CONTACTO_ALARMA, personaContactoAlarma);
   }
 
