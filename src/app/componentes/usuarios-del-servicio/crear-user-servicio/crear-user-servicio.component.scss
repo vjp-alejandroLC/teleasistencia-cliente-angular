@@ -2,10 +2,4 @@
 .formularios{
   border-top: 2mm ridge rgba(188, 174, 191, 0.6);
 }
-.form-container {
-  height: auto;
-  transition: height 500ms cubic-bezier(0.4, 0.0, 0.2, 1);
-}
-.form-container.cerrado {
-  height: 0;
-}
+

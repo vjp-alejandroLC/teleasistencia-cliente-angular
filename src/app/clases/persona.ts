@@ -10,8 +10,6 @@ export class Persona implements IPersona {
   sexo: string;
   telefono_fijo: string;
   telefono_movil: string;
-  tipo_modalidad_paciente:string;
-  SAD:string;
   localidad: string;
   provincia: string;
   direccion: string;

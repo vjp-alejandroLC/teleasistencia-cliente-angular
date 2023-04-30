@@ -9,7 +9,5 @@ export interface IPersona {
   sexo: string;
   telefono_fijo: string;
   telefono_movil: string;
-  tipo_modalidad_paciente:string,
-  SAD:string,
   id_direccion: IDireccion;
 }
