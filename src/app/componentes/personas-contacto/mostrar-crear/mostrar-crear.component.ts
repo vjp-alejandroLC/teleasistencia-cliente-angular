@@ -12,7 +12,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CargaPersonaService} from "../../../servicios/carga-persona.service";
 import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
 import {IDireccion} from "../../../interfaces/i-direccion";
-import {CargaPacienteService} from "../../../servicios/paciente/carga-paciente.service";
+import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
 import {IPaciente} from "../../../interfaces/i-paciente";
 import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-persona";
 
@@ -28,7 +28,7 @@ export class MostrarCrearComponent implements OnInit {
   mostrarGuardar = true;
   mostrarEditar = false;
   @Input() indice: number;
-   idPaciente: number;
+  idPaciente: number;
   idRelacion: number;
   submitted = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
@@ -38,6 +38,12 @@ export class MostrarCrearComponent implements OnInit {
   public persona: IPersona | any;
   public formulario: FormGroup | any;
   public relacionBorrar : IRelacionPacientePersona |any;
+  opcion = false;
+  opcion2 = true;
+
+  //EXPRESION REGULAR
+  readonly REGEX_NOMBREAPELLIDOS = /^[A-Z][a-zA-Z]*( [A-Z][a-zA-Z]*)*$/;
+
 
   constructor(private route: ActivatedRoute, private router: Router, private  formBuilder: FormBuilder,private cargaPersonas: CargaPersonaService, private cargaDireccion: CargaDireccionService, private cargaPacientes: CargaPacienteService, private cargaRelacion: CargaRelacionPacientePersonaService) {
   }
@@ -59,6 +65,20 @@ export class MostrarCrearComponent implements OnInit {
     this.onBorrarComponente.emit(); //Emito borrarComponente para avisar al padre que borraré el componente
 
   }
+  elegirOpcion(elegirBoolean){
+    if (elegirBoolean){
+      this.opcion = true;
+    }else{
+      this.opcion = false;
+    }
+  }
+  elegirOpcion2(elegirBoolean){
+    if (elegirBoolean){
+      this.opcion2 = true;
+    }else{
+      this.opcion2 = false;
+    }
+  }
 
 
   borrarRelacion(){
@@ -69,7 +89,7 @@ export class MostrarCrearComponent implements OnInit {
         () => {
           this.cargaRelacion.eliminarRelacionPacientePersona(this.relacionBorrar).subscribe(
             () =>{
-              this.alertExito();
+              this.alertBorrarRecurso();
 
             }, error => console.log(error),
             () =>{
@@ -94,7 +114,7 @@ export class MostrarCrearComponent implements OnInit {
       'prioridad': this.formulario.get('prioridad').value,
       'es_conviviente': this.formulario.get('es_conviviente').value,
       'tiempo_domicilio' : this.formulario.get('tiempo_domicilio').value,
-      'id_paciente': this.idPaciente
+      'id_paciente': this.cargaPacientes.idPaciente
 
     }
     this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
@@ -105,7 +125,7 @@ export class MostrarCrearComponent implements OnInit {
         this.cargaRelacion.modificarRelacion(this.relacionBorrar.id,this.relacionPacientePersona).subscribe( //Paso la id usada + el formulario entero para cambiar todo el objeto
           () =>{
 
-            this.alertExito();
+            this.alertEditarRecurso();
 
           }, error => console.log(error),
           () =>{
@@ -120,8 +140,8 @@ export class MostrarCrearComponent implements OnInit {
 
   crearFormulario(){
     this.formulario = this.formBuilder.group({
-      nombre: ['',[Validators.required,Validators.maxLength(200)]],
-      apellidos: ['',[Validators.required,Validators.maxLength(200)]],
+      nombre: ['',[Validators.required,Validators.maxLength(200),Validators.pattern(this.REGEX_NOMBREAPELLIDOS)]],
+      apellidos: ['',[Validators.required,Validators.maxLength(200),Validators.pattern(this.REGEX_NOMBREAPELLIDOS)]],
       telefono_fijo: ['',[Validators.required,Validators.maxLength(200),Validators.pattern("^((\\\\+91-?)|0)?[0-9]{9}$")]],
       tipo_relacion:['',[Validators.required]],
       tiene_llaves_vivienda: ['', [Validators.required]],
@@ -148,7 +168,7 @@ export class MostrarCrearComponent implements OnInit {
       'prioridad': this.formulario.get('prioridad').value,
       'es_conviviente': this.formulario.get('es_conviviente').value,
       'tiempo_domicilio' : this.formulario.get('tiempo_domicilio').value,
-      'id_paciente': this.idPaciente
+      'id_paciente': this.cargaPacientes.idPaciente
 
     }
 
@@ -213,6 +233,26 @@ export class MostrarCrearComponent implements OnInit {
       title: environment.fraseErrorCrear
     })
   }
+  //Toast para el Alert indicando que la operación fue borrada de forma exitosa
+  alertEditarRecurso() :void {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      //El tiempo que permanece la alerta, se obtiene mediante una variable global en environment.ts
+      timer: environment.timerToast,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: environment.fraseModificar,
+    })
+  }
 
   get nombre(){
     return this.formulario.get('nombre') as FormControl;
@@ -237,5 +277,25 @@ export class MostrarCrearComponent implements OnInit {
 
   get form() {
     return this.formulario.controls;
+  }
+  //Toast para el Alert indicando que la operación fue borrada de forma exitosa
+  alertBorrarRecurso() :void {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      //El tiempo que permanece la alerta, se obtiene mediante una variable global en environment.ts
+      timer: environment.timerToast,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: environment.fraseEliminarRecurso,
+    })
   }
 }

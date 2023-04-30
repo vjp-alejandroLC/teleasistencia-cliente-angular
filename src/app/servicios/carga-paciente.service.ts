@@ -30,5 +30,12 @@ export class CargaPacienteService {
   nuevoPaciente(paciente: IPaciente): Observable<IPaciente> {
     return this.http.post<IPaciente>(this.URL_SERVER_PACIENTE, paciente)
   }
+  modificarNUSS(pacienteID : number, nuss: string): Observable<IPaciente> { //Recibe el id + el String y cambia el NUSS
+    let numeroSS =
+      {
+        "numero_seguridad_social": nuss
+      }
+    return this.http.patch<IPaciente>(this.URL_SERVER_PACIENTE + '/' + pacienteID, numeroSS)
+  }
 
 }

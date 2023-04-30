@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-md-4">
             <div class="form-group mb-3">
-              <label for="nombre" class="form-label">Nombre *</label>
+              <label for="nombre" class="form-label">Nombre <span class="obligatorios">*</span></label>
               <input type="text" name="nombre" id="nombre" class="form-control"
                      formControlName="nombre" placeholder="Nombre">
               <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
@@ -21,7 +21,7 @@
           </div>
           <div class="col-md-4">
             <div class="form-group mb-3">
-              <label for="apellidos" class="form-label">Apellido *</label>
+              <label for="apellidos" class="form-label">Apellido <span class="obligatorios">*</span></label>
               <input type="text" name="apellidos" id="apellidos" class="form-control"
                      formControlName="apellidos" placeholder="Apellidos">
               <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-secondary" role="alert">
@@ -35,7 +35,7 @@
             </div></div>
           <div class="col-md-4">
             <div class="form-group mb-3">
-              <label for="tipo_relacion" class="form-label">Tipo Relación *</label>
+              <label for="tipo_relacion" class="form-label">Tipo Relación <span class="obligatorios">*</span></label>
               <input type="text" name="tipo_relacion" id="tipo_relacion" class="form-control"
                      formControlName="tipo_relacion"  placeholder="Tipo de relación">
               <div *ngIf="tipo_relacion.invalid && (tipo_relacion.dirty || tipo_relacion.touched)" class="alert alert-secondary" role="alert">
@@ -52,7 +52,7 @@
         <div class="row">
           <div class="col-md-4">
             <div class="form-group mb-3">
-              <label for="prioridad" class="form-label">Prioridad *</label>
+              <label for="prioridad" class="form-label">Prioridad <span class="obligatorios">*</span></label>
               <input type="number" name="prioridad" id="prioridad" class="form-control"
                      formControlName="prioridad" placeholder="Prioridad">
               <div *ngIf="prioridad.invalid && (prioridad.dirty || prioridad.touched)"
@@ -65,7 +65,7 @@
           </div>
           <div class="col-md-4">
             <div class="form-group mb-3">
-              <label for="telefono_fijo" class="form-label">Telefono *</label>
+              <label for="telefono_fijo" class="form-label">Telefono <span class="obligatorios">*</span></label>
               <input type="text" name="telefono_fijo" id="telefono_fijo" class="form-control"
                      formControlName="telefono_fijo" placeholder="Telefono">
               <div *ngIf="telefono_fijo.invalid && (telefono_fijo.dirty || telefono_fijo.touched)" class="alert alert-secondary" role="alert">
@@ -80,9 +80,9 @@
           </div>
           <div class="col-md-4">
             <div class="form-group mb-3">
-              <label for="tiempo_domicilio" class="form-label">Tiempo domicilio *</label>
+              <label for="tiempo_domicilio" class="form-label">Tiempo domicilio <span class="obligatorios">*</span></label>
               <input type="number" name="tiempo_domicilio" id="tiempo_domicilio" class="form-control"
-                     formControlName="tiempo_domicilio" placeholder="">
+                     formControlName="tiempo_domicilio" placeholder="Tiempo domicilio">
               <div *ngIf="tiempo_domicilio.invalid && (tiempo_domicilio.dirty || tiempo_domicilio.touched)" class="alert alert-secondary" role="alert">
                 <div *ngIf="tiempo_domicilio.errors?.required; else elseBlock">
                   El tiempo en el domicilio es obligatorio
@@ -97,20 +97,20 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-check mb-3">
-              <span>¿LLaves de la vivienda? *</span>
+              <span>¿LLaves de la vivienda? <span class="obligatorios">*</span></span>
               <div class="row mt-2">
                 <div class="col-6">
                   <div class="form-check form-check-inline">
-                    <input class="btn-check" type="radio" id="tiene_llaves_vivienda_true"
+                    <input class="btn-check" type="radio" id="tiene_llaves_vivienda_true" (click)="elegirOpcion2(true)"
                            name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda">
-                    <label class="btn btn-success min50w" for="tiene_llaves_vivienda_true">Sí</label>
+                    <label class="btn btn-success min50w" for="tiene_llaves_vivienda_true" [ngClass]="opcion2? '':'opacity-50'">Sí</label>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="form-check form-check-inline mb-2">
-                    <input class="btn-check" type="radio" id="tiene_llaves_vivienda_false"
+                    <input class="btn-check" type="radio" id="tiene_llaves_vivienda_false" (click)="elegirOpcion2(false)"
                            name="tiene_llaves_vivienda" [value]="false" formControlName="tiene_llaves_vivienda">
-                    <label class="btn btn-success min50w" for="tiene_llaves_vivienda_false">No</label>
+                    <label class="btn btn-success min50w" for="tiene_llaves_vivienda_false" [ngClass]="opcion2? 'opacity-50':''">No</label>
                   </div>
                 </div>
               </div>
@@ -121,21 +121,21 @@
           <div class="col-md-6">
             <div class="form-check mb-3">
 
-            <span>¿Es conviviente? *</span>
+            <span>¿Es conviviente? <span class="obligatorios">*</span></span>
             <div class="row mt-2" >
               <div class="col-6">
 
                 <div class="form-check form-check-inline">
                   <input class="btn-check"  type="radio" id="es_conviviente_true"
-                         name="es_conviviente" [value]="true" formControlName="es_conviviente">
-                  <label class="btn btn-success min50w" for="es_conviviente_true">Sí</label>
+                         name="es_conviviente" [value]="true" formControlName="es_conviviente" (click)="elegirOpcion(true)">
+                  <label class="btn btn-success min50w" for="es_conviviente_true" [ngClass]="opcion? '':'opacity-50'">Sí</label>
                 </div>
               </div>
               <div class="col-6">
                 <div class="form-check form-check-inline">
                   <input class="btn-check" type="radio" id="es_conviviente_false"
-                         name="es_conviviente" [value]="false" formControlName="es_conviviente">
-                  <label class="btn btn-success min50w" for="es_conviviente_false">No</label>
+                         name="es_conviviente" [value]="false" formControlName="es_conviviente" (click)="elegirOpcion(false)">
+                  <label class="btn btn-success min50w" for="es_conviviente_false" [ngClass]="opcion? 'opacity-50':''">No</label>
                 </div>
               </div>
             </div>
@@ -147,7 +147,7 @@
 
         <div class="row">
           <div class="form-group mb-3">
-            <label for="disponibilidad" class="form-label">Disponibilidad *</label>
+            <label for="disponibilidad" class="form-label">Disponibilidad <span class="obligatorios">*</span></label>
             <textarea formControlName="disponibilidad" name="disponibilidad" id="disponibilidad" class="form-control"></textarea>
           </div>
 
@@ -155,7 +155,7 @@
         </div>
         <div class="row">
           <div class="form-group mb-3">
-            <label for="observaciones" class="form-label">Observaciones *</label>
+            <label for="observaciones" class="form-label">Observaciones <span class="obligatorios">*</span></label>
             <textarea formControlName="observaciones" name="observaciones" id="observaciones" class="form-control"></textarea>
           </div>
         </div>
@@ -169,11 +169,11 @@
           Guardar contacto
         </button>
       </form>
-      <button class="btn btn-danger m-1" (click)="borrarRelacion()" *ngIf="mostrarEditar" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+      <button class="btn btn-danger m-1" (click)="borrarRelacion()" *ngIf="mostrarEditar" ><svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
         <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
       </svg>
       </button>
-      <button class="btn btn-warning m-1" (click)="editarRelacion()" *ngIf="mostrarEditar"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+      <button class="btn btn-warning m-1" (click)="editarRelacion()" *ngIf="mostrarEditar"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
         <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
       </svg>
       </button>
@@ -184,18 +184,33 @@
 
 
       </div>
-  <div class="mr-2">
-    <button class="btn btn-outline-success m-2">
-      Continuar
-    </button>
-    <button (click)="crearHtml() "  class="btn btn-success m-2">
-      <i class="fa-solid fa-circle-plus" style="width: 50px"></i>
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-xl-6">
+      <div class="row">
+        <div class="col-4">
+          <button class="btn btn-outline-success mt-2" style="width: 140px;">
+            Continuar
+          </button>
+        </div>
+        <div class="col-4">
 
-    </button>
-    <button class="btn btn-outline-warning m-2">
-      Volver
-    </button>
-  </div>
+          <button (click)="crearHtml() "  class="btn btn-success mt-2" style="width: 140px;" >
+            <i class="fa-solid fa-circle-plus" ></i>
+          </button>
+        </div>
+        <div class="col-4">
+          <button class="btn btn-outline-secondary mt-2" style="width: 140px;">
+            Volver
+          </button>
+        </div>
+      </div>
+
+
+
+      </div>
+    </div>
+
+
 
 
 

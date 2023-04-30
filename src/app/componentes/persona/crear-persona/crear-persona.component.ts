@@ -166,6 +166,8 @@ export class CrearPersonaComponent implements OnInit {
     this.crearTerminal.nuevoTerminal(this.terminal).subscribe(
       e => {
         this.terminal = e;
+        this.crearTerminal.idTerminal = e.id;
+
         this.nuevoPaciente();
       },
       error => {
@@ -196,6 +198,8 @@ export class CrearPersonaComponent implements OnInit {
         this.alertExito();
         console.log('id del paciente recien creado' + e.id)
         this.crearPaciente.idPaciente = e.id;
+
+        console.log(this.crearPaciente.idPaciente);
       },
       error => {
         console.log(error);
