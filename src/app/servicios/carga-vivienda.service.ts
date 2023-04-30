@@ -32,6 +32,6 @@ export class CargaViviendaService {
   }
 
   borrarVivienda(vivienda: ITipoVivienda): Observable<ITipoVivienda> {
-    return this.http.delete<ITipoVivienda>(this.URL_SERVER_VIVIENDAS + '/' + vivienda.id);
+    return this.http.delete<ITipoVivienda>(this.URL_SERVER_VIVIENDAS + '/' + vivienda);
   }
 }

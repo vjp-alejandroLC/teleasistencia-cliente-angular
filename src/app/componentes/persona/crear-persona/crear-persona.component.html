@@ -42,7 +42,7 @@
             <div *ngIf="controles.expediente.invalid && (controles.expediente.dirty || controles.expediente.touched)"
                  class="alert alert-secondary" role="alert">
               <span *ngIf="controles.expediente.errors.required">El Expediente es obligatorio.</span>
-              <span *ngIf="controles.expediente.errors.pattern">El Expediente consta de 15 numeros.</span>
+              <span *ngIf="controles.expediente.errors.pattern">El Expediente consta de 4 numeros.</span>
 
             </div>
           </div>
@@ -223,7 +223,7 @@
       </app-crear-tipo-modalidad-paciente>
     </div>
 
-    <div class="col-12 col-xl-6 collapse collapse-horizontal" id="collapseWidthExample2">
+    <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="collapseWidthExample2">
       <app-modificar-tipo-modalidad-paciente
         (mostrarModificar)="this.mostrarModificar=$event"
         (modalidad_creada)="actualizarModalidades($event)"

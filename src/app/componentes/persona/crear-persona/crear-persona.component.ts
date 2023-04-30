@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IDireccion} from '../../../interfaces/i-direccion';
-import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CargaPersonaService} from '../../../servicios/carga-persona.service';
 import Swal from "sweetalert2";
@@ -28,12 +27,12 @@ export class CrearPersonaComponent implements OnInit {
   public dire: IDireccion | any;
   public formulario: FormGroup;
   public tipos_personas: TipoModalidadPaciente[];
-  public idPaciente: number;
   public mostrar: boolean = false;
   public mostrarModificar: boolean = false;
   public persona: IPersona | any;
   public terminal: ITerminal | any;
   public paciente: IPaciente | any;
+  public idPaciente: number;
 
 
   /* Constantes */
@@ -42,7 +41,7 @@ export class CrearPersonaComponent implements OnInit {
   readonly REGEX_MOVIL = /^[6|7]{1}[ ]*([0-9][ ]*){8}$/;
   readonly REGEX_FIJO = /^[9]{1}[ ]*([0-9][ ]*){8}$/;
   readonly REGEX_CP = /[0-9]+$/;
-  readonly REGEX_EXP = /^\d{15}$/;
+  readonly REGEX_EXP = /^\d{4}$/;
   readonly PLANTILLA_OBS = '- Otros Servicios: \n' +
     '- Datos de ocio: \n' +
     '- Servicio de Comidas:';
@@ -50,7 +49,6 @@ export class CrearPersonaComponent implements OnInit {
 
   /**
    * Constructor
-   * @param titleService
    * @param route
    * @param cargaPersonas
    * @param router
@@ -58,9 +56,9 @@ export class CrearPersonaComponent implements OnInit {
    * @param formBuilder
    * @param crearTerminal
    * @param crearPaciente
+   * @param modalidades
    */
-  constructor(private titleService: Title,
-              private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
               private cargaPersonas: CargaPersonaService,
               private router: Router,
               private cargaDirecciones: CargaDireccionService,
@@ -73,7 +71,6 @@ export class CrearPersonaComponent implements OnInit {
   ngOnInit(): void {
     this.tipos_personas = this.route.snapshot.data['tipos_personas'];
     this.buildForm();  //Formularios reactivos
-    this.titleService.setTitle('Crear nueva persona');
   }
 
 
@@ -146,7 +143,8 @@ export class CrearPersonaComponent implements OnInit {
 
     this.cargaPersonas.nuevaPersona(this.persona).subscribe(
       e => {
-        this.cargaPersonas.idPersonaCreada = e.id;
+        this.persona = e;
+        this.nuevoTerminal()
         this.alertExito()
       },
       error => {
@@ -168,7 +166,6 @@ export class CrearPersonaComponent implements OnInit {
     this.crearTerminal.nuevoTerminal(this.terminal).subscribe(
       e => {
         this.terminal = e;
-        console.log('idTerminal al crearlo' + e.id)
         this.nuevoPaciente();
       },
       error => {
@@ -195,13 +192,14 @@ export class CrearPersonaComponent implements OnInit {
     this.crearPaciente.nuevoPaciente(this.paciente).subscribe(
       e => {
         this.paciente = e;
-        console.log('id al crear paciente' + e.id)
-        this.terminal.id_titular = this.paciente.id;
+        this.terminal.id_titular = this.paciente.id; // Asocio el id del usuari al terminal creado en el paso anterior.
         this.alertExito();
+        console.log('id del paciente recien creado' + e.id)
+        this.crearPaciente.idPaciente = e.id;
       },
       error => {
         console.log(error);
-      }
+      },
     );
   }
 
@@ -341,7 +339,6 @@ export class CrearPersonaComponent implements OnInit {
 
   //FUNCION PARA REFRESACAR LOS TIPOS ADE ALARMA A TIEMPO REAL (SIN RECARGAR LA PAGINA)
   actualizarModalidades(id_tipo_modalidad = null) {
-    //peticion para refrescar los tipos de alarmas
     this.modalidades.getTiposModalidadesPacientes().subscribe(
       lista => {
         this.tipos_personas = lista;

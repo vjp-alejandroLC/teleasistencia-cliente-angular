@@ -62,7 +62,7 @@ import {
 import {RecursosComunitariosPersonalesComponent} from "./componentes/recursos-comunitarios-personales/recursos-comunitarios-personales.component";
 import {ListaTiposViviendaComponent} from "./componentes/tipo-vivienda/lista-tipos-vivienda/lista-tipos-vivienda.component";
 import {ListaViviendasResolveService} from "./servicios/lista-viviendas-resolve.service";
-import {CrearViviendaComponent} from "./componentes/tipo-vivienda/crear-tipo-vivienda/crear-vivienda.component";
+import {CrearViviendaComponent} from "./componentes/vivienda/crear-tipo-vivienda/crear-vivienda.component";
 import {ModificarTipoViviendaComponent} from "./componentes/tipo-vivienda/modificar-tipo-vivienda/modificar-tipo-vivienda.component";
 import {ListaTiposSituacionComponent} from "./componentes/tipo-situacion/lista-tipos-situacion/lista-tipos-situacion.component";
 import {ModificarViviendaResolveService} from "./servicios/modificar-vivienda-resolve.service";
@@ -1387,7 +1387,9 @@ const routes: Routes = [
       role:null
     },
     resolve:{
-      tipos_personas: ListaTiposModalidadesPacientesResolveService
+      tipos_personas: ListaTiposModalidadesPacientesResolveService,
+      tipos_viviendas:ListaViviendasResolveService
+
     },
   },
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},

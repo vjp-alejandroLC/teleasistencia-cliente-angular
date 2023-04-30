@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from "../../environments/environment";
@@ -10,7 +10,10 @@ import {IPaciente} from "../interfaces/i-paciente";
 export class CargaPacienteService {
   private urlBase = environment.urlBase;
   private URL_SERVER_PACIENTE = this.urlBase + 'paciente';
-  constructor(private http: HttpClient) { }
+  public idPaciente: number;
+
+  constructor(private http: HttpClient) {
+  }
 
   getPacientes(): Observable<IPaciente[]> {
     return this.http.get<IPaciente[]>(this.URL_SERVER_PACIENTE);

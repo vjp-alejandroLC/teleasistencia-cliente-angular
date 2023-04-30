@@ -83,7 +83,7 @@ import { FiltroBusquedaPipe } from './pipes/filtro-busqueda.pipe';
 import { ListaTiposViviendaComponent } from './componentes/tipo-vivienda/lista-tipos-vivienda/lista-tipos-vivienda.component';
 import { ListaTiposSituacionComponent } from './componentes/tipo-situacion/lista-tipos-situacion/lista-tipos-situacion.component';
 import { ItemTipoViviendaComponent } from './componentes/tipo-vivienda/item-tipo-vivienda/item-tipo-vivienda.component';
-import { CrearViviendaComponent } from './componentes/tipo-vivienda/crear-tipo-vivienda/crear-vivienda.component';
+import { CrearViviendaComponent } from './componentes/vivienda/crear-tipo-vivienda/crear-vivienda.component';
 import { ModificarTipoViviendaComponent } from './componentes/tipo-vivienda/modificar-tipo-vivienda/modificar-tipo-vivienda.component';
 import {CargaViviendaService} from "./servicios/carga-vivienda.service";
 import { ItemTipoSituacionComponent } from './componentes/tipo-situacion/item-tipo-situacion/item-tipo-situacion.component';
@@ -159,6 +159,7 @@ import { NgSelectModule} from "@ng-select/ng-select";
 import { CrearPersonaContactoComponent } from './componentes/personas-contacto/crear-persona-contacto/crear-persona-contacto.component';
 import { CrearDatosSanitariosComponent } from './componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component';
 import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-crear/mostrar-crear.component';
+import { NuevoTipoViviendaComponent } from './componentes/tipo-vivienda/nuevo-tipo-vivienda/nuevo-tipo-vivienda.component';
 
 
 @NgModule({
@@ -290,6 +291,7 @@ import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-c
     CrearPersonaContactoComponent,
     CrearDatosSanitariosComponent,
     MostrarCrearComponent,
+    NuevoTipoViviendaComponent,
   ],
   imports: [
     BrowserModule,
