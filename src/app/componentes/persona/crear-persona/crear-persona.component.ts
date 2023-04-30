@@ -168,6 +168,8 @@ export class CrearPersonaComponent implements OnInit {
     this.crearTerminal.nuevoTerminal(this.terminal).subscribe(
       e => {
         this.terminal = e;
+        this.crearTerminal.idTerminal = e.id;
+
         this.nuevoPaciente();
       },
       error => {
@@ -197,7 +199,7 @@ export class CrearPersonaComponent implements OnInit {
         this.terminal.id_titular = this.paciente.id; // Asocio el id del usuari al terminal creado en el paso anterior.
         this.crearPaciente.idPaciente = e.id;
 
-
+        console.log(this.crearPaciente.idPaciente);
       },
       error => {
         console.log(error);

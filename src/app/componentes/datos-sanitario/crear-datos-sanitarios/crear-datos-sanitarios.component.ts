@@ -17,8 +17,7 @@ import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {CargaRecursoComunitarioService} from "../../../services/recursos/carga-recurso-comunitario.service";
 import {IPaciente} from "../../../interfaces/i-paciente";
-import {CargaPacienteService} from "../../../servicios/paciente/carga-paciente.service";
-import {TipoRecursoComunitario} from "../../../clases/tipo-recurso-comunitario";
+import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
 import {CargaPersonaService} from "../../../servicios/carga-persona.service";
 
 @Component({
@@ -29,8 +28,7 @@ import {CargaPersonaService} from "../../../servicios/carga-persona.service";
 export class CrearDatosSanitariosComponent implements OnInit {
   edit: boolean = false;
   mostrar: boolean = false;
-  mostrarCrear: boolean = false;
-  id = 0;
+  id: number = 0;
   public recurso_comunitario: IRecursoComunitario |any;
   public tipos_recursos_comunitarios: ITipoRecursoComunitario[] | any;
   public relaciones_terminales: ITerminal[] | any;
@@ -42,17 +40,12 @@ export class CrearDatosSanitariosComponent implements OnInit {
   public arrayRelaciones: IRelacionTerminalRecursoComunitarios [] = [];
   public pacientes: IPaciente[] | any;
   public mostrarTabla = false;
-
-
   public idRecurso: number;
-
-
-
   public idPaciente: number;
   public recursoMostrar: IRecursoComunitario | any;
 
 
-  constructor(private cargaPersonas: CargaPersonaService,private componentFactoryResolver: ComponentFactoryResolver,private route: ActivatedRoute, private titleService: Title, private router: Router, private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService, private cargaRelacionTerminal: CargaTerminalesService, private cargaTiposRecursos: CargaTipoRecursoComunitarioService, private formBuilder: FormBuilder, private cargaDireccion: CargaDireccionService, private cargaRecurso: CargaRecursoComunitarioService, private cargaPacientes: CargaPacienteService) { }
+  constructor(private cargaPersonas: CargaPersonaService,private componentFactoryResolver: ComponentFactoryResolver,private route: ActivatedRoute, private titleService: Title, private router: Router, private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService, private cargaRelacionTerminal: CargaTerminalesService, private cargaTiposRecursos: CargaTipoRecursoComunitarioService, private formBuilder: FormBuilder, private cargaDireccion: CargaDireccionService, private cargaRecurso: CargaRecursoComunitarioService, private paciente: CargaPacienteService) { }
 
   ngOnInit(): void {
     this.relacion_terminal_recurso = new RelacionTerminalRecursoComunitarios();
@@ -75,7 +68,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
       },
       error => console.log(error),
     )
-    this.cargaPacientes.getPacientes().subscribe(
+    this.paciente.getPacientes().subscribe(
       pacientes => {
         this.pacientes = pacientes;
       }
@@ -89,7 +82,6 @@ export class CrearDatosSanitariosComponent implements OnInit {
   desactivado() {
     return (this.formulario.value.recurso == '') || (this.formulario.value.recurso == null);
 
-    this.crearFormulario();
   }
 
 
@@ -97,10 +89,8 @@ export class CrearDatosSanitariosComponent implements OnInit {
       this.formulario = this.formBuilder.group(
 
         {
-          pacientes: ['',[Validators.required]],
-          nuss: ['',[Validators.required]],
+          nuss: ['',[Validators.required,Validators.pattern("^\\d*\\.?\\d+$")]],
           recurso: ['',[Validators.required]],
-          relacion_terminal: ['',[Validators.required]],
           tiempo: ['', [Validators.required]]
 
         }
@@ -130,7 +120,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
       () =>{
 
         this.relacion_terminal_recurso = {
-          'id_terminal': this.formulario.get('relacion_terminal').value,
+          'id_terminal': this.cargaRelacionTerminal.idTerminal,
           'id_recurso_comunitario': this.recurso.id,
           'tiempo_estimado': this.formulario.get('tiempo').value
         }
@@ -145,7 +135,6 @@ export class CrearDatosSanitariosComponent implements OnInit {
       }
     )
     this.mostrarTabla = true;
-    console.log(this.cargaPersonas.idPersonaCreada);
 
   }
 
@@ -163,7 +152,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
         this.arrayRelaciones.splice(i,1);
         this.cargaRelacionTerminalRecursosComunitarios.eliminarRelacionRecurso(this.recursoBorrad).subscribe(
           () =>{
-            this.alertExito();
+           this.alertBorrarRecurso();
           }
         )
 
@@ -176,7 +165,9 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
 
 actualizarNuss(){
-      this.cargaPacientes.modificarNUSS(this.formulario.get('pacientes').value, this.formulario.get('nuss').value).subscribe(
+  console.log(this.paciente.idPaciente);
+
+  this.paciente.modificarNUSS(this.paciente.idPaciente, this.formulario.get('nuss').value).subscribe(
         () =>{
           this.alertExito();
         }
@@ -187,6 +178,10 @@ actualizarNuss(){
 
   get nombre(){
     return this.formulario.get('nombre') as FormControl;
+  }
+
+  get nuss(){
+    return this.formulario.get('nuss') as FormControl;
   }
 
   get telefono(){
@@ -236,6 +231,28 @@ actualizarNuss(){
     Toast.fire({
       icon: 'success',
       title: environment.fraseCrear,
+    })
+  }
+
+
+  //Toast para el Alert indicando que la operación fue borrada de forma exitosa
+  alertBorrarRecurso() :void {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      //El tiempo que permanece la alerta, se obtiene mediante una variable global en environment.ts
+      timer: environment.timerToast,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: environment.fraseEliminarRecurso,
     })
   }
   //Toast para el alert indicando que hubo algún error en la operación

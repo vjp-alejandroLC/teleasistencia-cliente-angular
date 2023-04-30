@@ -11,6 +11,7 @@ import {ITerminal} from "../../interfaces/i-terminal";
 export class CargaTerminalesService {
   private urlBase = environment.urlBase;
   private  URL_SERVER_TERMINAL = this.urlBase + 'terminal';
+  public idTerminal: number;
   constructor(private http:HttpClient) { }
 
     getTerminales(): Observable<ITerminal[]> {
