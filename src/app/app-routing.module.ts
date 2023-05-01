@@ -1389,7 +1389,8 @@ const routes: Routes = [
     resolve:{
       tipos_personas: ListaTiposModalidadesPacientesResolveService,
       tipos_viviendas:ListaViviendasResolveService,
-      tipos_situaciones: ListaSituacionesService
+      tipos_situaciones: ListaSituacionesService,
+      tipos_perifericos:ListaTiposAlarmasResolveService
 
     },
   },

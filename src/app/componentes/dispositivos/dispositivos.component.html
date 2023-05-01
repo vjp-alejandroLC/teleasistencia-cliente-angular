@@ -1,104 +1,243 @@
-<main class="p-0 m-0">
-  <div class="row d-flex justify-content-center">
-    <div class="col-12 col-xl-6">
-      <form [formGroup]="formulario">
-        <div class="row mb-3 form-group">
-          <div class="form-group">
-            <label for="fecha_alta" class="form-label text-start">Fecha de Alta <span
-              class="obligatorios">*</span></label>
-            <input type="date" name="fecha_alta " id="fecha_alta" class="form-control "
-                   max='{{getToday()}}'
-                   formControlName="fecha_alta">
-          </div>
-<!--          <div *ngIf="controles.fecha_nacimiento.errors?.fechaExcedida" class="alert alert-secondary" role="alert">-->
-<!--            <span>La fecha de nacimiento no puede ser mayor a la actual.</span>-->
-<!--          </div>-->
-        </div>
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-xl-6">
+    <form [formGroup]="formulario"
+          [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
 
-
-        <!-- comienzo tipos de situacion -->
-
-        <div class="row mb-3 form-group">
-          <label class="form-label text-start">Situaciones <span
+      <div class="row mb-3 form-group">
+        <div class="col-6">
+          <label for="fecha_alta" class="form-label text-start">Fecha de Alta <span
             class="obligatorios">*</span></label>
-          <div class="col-12 col-lg-9 pb-1 pb-lg-0">
-            <ng-select id="situaciones" formControlName="situaciones">
-              <ng-option *ngFor="let tipoSituacion of listaDeSituaciones; let i = index"
-                         [value]="tipoSituacion.id">{{tipoSituacion.nombre}}</ng-option>
-            </ng-select>
-          </div>
-          <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-success botonOperacion" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#situaciones" aria-expanded="false"
-                    aria-controls="situaciones">
-              <i class="fa-solid fa-circle-plus"></i>
-            </button>
-          </div>
-          <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-warning botonOperacion" id="des1" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#situaciones2" aria-expanded="false"
-                    aria-controls="situaciones2">
-              <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
-            </button>
-          </div>
-          <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-danger botonOperacion" id="des2" type="button">
-              <i class="fa fa-solid fa-trash"></i>
-            </button>
-          </div>
+          <input type="date" name="fecha_alta " id="fecha_alta" class="form-control "
+                 max='{{getToday()}}'
+                 formControlName="fecha_alta">
         </div>
-        <!-- Fin tipos de situacion -->
-
-        <!-- Comienzo Paneles editar tipos de situacion -->
-
-        <!-- Fin Paneles editar tipos de situacion -->
+      </div>
 
 
-        <!-- Comienzo Terminal y UCR -->
+      <!-- comienzo tipos de situacion -->
 
+      <div class="row mb-3 form-group">
+        <label class="form-label text-start">Situaciones <span
+          class="obligatorios">*</span></label>
+        <div class="col-12 col-lg-9 pb-1 pb-lg-0">
+          <ng-select id="situaciones" formControlName="situacion">
+            <ng-option *ngFor="let tipoSituacion of listaDeSituaciones; let i = index"
+                       [value]="tipoSituacion.id">{{tipoSituacion.nombre}}</ng-option>
+          </ng-select>
+        </div>
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-success botonOperacion" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#situaciones" aria-expanded="false"
+                  aria-controls="situaciones" (click)="mostratCrearTipo()">
+            <i class="fa-solid fa-circle-plus"></i>
+          </button>
+        </div>
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-warning botonOperacion" id="des1" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#situaciones2" aria-expanded="false"
+                  aria-controls="situaciones2" [disabled]="desactivado()">
+            <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+          </button>
+        </div>
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-danger botonOperacion" id="des2" type="button" (click)="modalConfirmacion()"
+                  [disabled]="desactivado()">
+            <i class="fa fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Fin tipos de situacion -->
+      <!-- Comienzo Paneles editar tipos de situacion -->
+
+      <!-- Fin Paneles editar tipos de situacion -->
+      <!-- Comienzo Terminal y UCR -->
+
+      <div class="row mb-3 form-group border-top p-3">
         <h3> Terminal y UCR</h3>
-        <div class="row mb-3 form-group">
-          <div class="col-6">
-            <div class="form-group">
-              <label for="numero_terminal" class="form-label text-start">Nº Terminal <span class="obligatorios">*</span></label>
-              <input type="text" name="numero_terminal" id="numero_terminal" class="form-control "
-                     placeholder="Nº Terminal" formControlName="numero_terminal">
-            </div>
-                        <div *ngIf="controles.numero_terminal.invalid && (controles.numero_terminal.dirty || controles.numero_terminal.touched)"
-                             class="alert alert-secondary"
-                             role="alert">
-                          <span *ngIf="controles.numero_terminal.errors.required">El numero del terminal es obligatorio.</span>
-                          <span *ngIf="controles.numero_terminal.errors.pattern">El numero del terminal no es válido.</span>
-                        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="numero_terminal" class="form-label text-start">Nº Terminal <span
+              class="obligatorios">*</span></label>
+            <input type="text" name="numero_terminal" id="numero_terminal" class="form-control "
+                   placeholder="Nº Terminal" formControlName="numero_terminal">
           </div>
-          <div class="col-6">
-            <div class="form-group">
-              <label for="modelo_terminal" class="form-label text-start">Modelo Terminal <span class="obligatorios">*</span></label>
-              <input type="text" name="modelo_terminal" id="modelo_terminal" class="form-control "
-                     placeholder="Modelo del Terminal" formControlName="numero_terminal">
-            </div>
-                      <div *ngIf="controles.modelo_terminal.invalid && (controles.numero_terminal.dirty || controles.numero_terminal.touched)"
-                           class="alert alert-secondary"
-                           role="alert">
-                        <span *ngIf="controles.modelo_terminal.errors.required">El modelo del terminal es obligatorio.</span>
-                        <span *ngIf="controles.modelo_terminal.errors.pattern">El modelo del terminal no es válido.</span>
-                      </div>
+          <div
+            *ngIf="controles.numero_terminal.invalid && (controles.numero_terminal.dirty || controles.numero_terminal.touched)"
+            class="alert alert-secondary"
+            role="alert">
+            <span *ngIf="controles.numero_terminal.errors.required">El numero del terminal es obligatorio.</span>
+            <span *ngIf="controles.numero_terminal.errors.pattern">El numero del terminal no es válido.</span>
           </div>
         </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="modelo_terminal" class="form-label text-start">Modelo Terminal <span
+              class="obligatorios">*</span></label>
+            <input type="text" name="modelo_terminal" id="modelo_terminal" class="form-control "
+                   placeholder="Modelo del Terminal" formControlName="numero_terminal">
+          </div>
+          <div
+            *ngIf="controles.modelo_terminal.invalid && (controles.numero_terminal.dirty || controles.numero_terminal.touched)"
+            class="alert alert-secondary"
+            role="alert">
+            <span *ngIf="controles.modelo_terminal.errors.required">El modelo del terminal es obligatorio.</span>
+            <span *ngIf="controles.modelo_terminal.errors.pattern">El modelo del terminal no es válido.</span>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3 form-group">
+        <div class="form-check mb-3 col-md-5">
+          <span>UCR Adicional <span class="obligatorios">*</span></span>
+          <div class="row mt-1">
+            <div class="col-5 form-check form-check-inline">
+              <input class="btn-check" type="radio" id="ucrTrue" (click)="elegirOpcion('1',true)"
+                     name="ucr" [value]="true" formControlName="ucr">
+              <label class="btn btn-success min50w" for="ucrTrue" [ngClass]="opcion? '':'opacity-50'">Sí</label>
+            </div>
+
+            <div class="col-5 form-check form-check-inline mb-2">
+              <input class="btn-check" type="radio" id="ucrFalse" (click)="elegirOpcion('1',false)"
+                     name="ucr" [value]="false" formControlName="ucr">
+              <label class="btn btn-success min50w" for="ucrFalse" [ngClass]="opcion? 'opacity-50':''">No</label>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Fin Terminal y UCR -->
+      <!-- Comienzo dispositivos Perifericos -->
+
+      <div class="row mb-3 form-group border-top p-1">
+        <h3> Perifericos </h3>
+        <div class="form-check mb-3 col-md-5">
+          <span>Perifericos <span class="obligatorios">*</span></span>
+          <div class="row mt-1">
+            <div class="col-5 form-check form-check-inline">
+              <input class="btn-check" type="radio" id="perifericoTrue" (click)="elegirOpcion('2',true)"
+                     name="tienePerifericos" [value]="true" formControlName="tienePerifericos">
+              <label class="btn btn-success min50w" for="perifericoTrue"
+                     [ngClass]="opcion2? '':'opacity-50'">Sí</label>
+            </div>
+
+            <div class="col-5 form-check form-check-inline mb-2">
+              <input class="btn-check" type="radio" id="perifericoFalse" (click)="elegirOpcion('2',false)"
+                     name="periferico" [value]="false" formControlName="periferico">
+              <label class="btn btn-success min50w" for="perifericoFalse"
+                     [ngClass]="opcion2? 'opacity-50':''">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- comienzo tipos de perifericos -->
+
+      <div class="row mb-3 form-group" *ngIf="opcion2">
+        <label class="form-label text-start">Tipo de Periférico <span
+          class="obligatorios">*</span></label>
+        <div class="col-12 col-lg-9 pb-1 pb-lg-0">
+          <ng-select id="tipoPeriferico" formControlName="tipoPeriferico">
+            <ng-option *ngFor="let tipoPeriferico of listaPerifericos; let i = index"
+                       [value]="tipoPeriferico.id">{{tipoPeriferico.nombre}}</ng-option>
+          </ng-select>
+        </div>
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-success botonOperacion" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#tipoPeriferico" aria-expanded="false"
+                  aria-controls="tipoPeriferico">
+            <i class="fa-solid fa-circle-plus"></i>
+          </button>
+        </div>
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-warning botonOperacion" id="tipoPerifericoMod" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#tipoPeriferico2" aria-expanded="false"
+                  aria-controls="tipoPeriferico2">
+            <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+          </button>
+        </div>
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-danger botonOperacion" id="tipoPerifericoDel" type="button">
+            <i class="fa fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Fin tipos de perifericos -->
+      <!-- Comienzo dispositivos Perifericos editar -->
+
+      <!-- fin dispositivos Perifericos editar -->
+      <!-- Fin dispositivos Perifericos -->
+      <!-- Comienzo Teleasistencia -->
+
+      <div class="row mb-3 form-group border-top p-1">
+        <h3> Teleasistencia </h3>
+        <div class="form-check mb-3 col-md-5">
+          <span>Teleasistencia <span class="obligatorios">*</span></span>
+          <div class="row mt-1">
+            <div class="col-5 form-check form-check-inline">
+              <input class="btn-check" type="radio" id="teleasistenciaTrue" (click)="elegirOpcion('3',true)"
+                     name="tieneTeleasistencia" [value]="true" formControlName="tieneTeleasistencia">
+              <label class="btn btn-success min50w" for="teleasistenciaTrue"
+                     [ngClass]="opcion3? '':'opacity-50'">Sí</label>
+            </div>
+
+            <div class="col-5 form-check form-check-inline mb-2">
+              <input class="btn-check" type="radio" id="teleasistenciaFalse" (click)="elegirOpcion('3',false)"
+                     name="tieneTeleasistencia" [value]="false" formControlName="tieneTeleasistencia">
+              <label class="btn btn-success min50w" for="teleasistenciaFalse"
+                     [ngClass]="opcion3? 'opacity-50':''">No</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- comienzo tipos de Teleasistencia -->
+
+      <div class="row mb-3 form-group" *ngIf="opcion3">
+        <label class="form-label text-start">Tipo de Teleasistencia <span
+          class="obligatorios">*</span></label>
+        <div class="col-12 col-lg-9 pb-1 pb-lg-0">
+          <ng-select id="tipoTeleasistencia" formControlName="tipoTeleasistencia">
+            <ng-option *ngFor="let tipoPeriferico of listaPerifericos; let i = index"
+                       [value]="tipoPeriferico.id">{{tipoPeriferico.nombre}}</ng-option>
+          </ng-select>
+        </div>
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-success botonOperacion" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#tipoTeleasistencia" aria-expanded="false"
+                  aria-controls="tipoTeleasistencia">
+            <i class="fa-solid fa-circle-plus"></i>
+          </button>
+        </div>
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-warning botonOperacion" id="tipoTeleasistenciaMod" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#tipoTeleasistencia2" aria-expanded="false"
+                  aria-controls="tipoTeleasistencia2">
+            <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+          </button>
+        </div>
+        <div class="col-4 col-lg-1  p-0">
+          <button class="btn btn-danger botonOperacion" id="tipoTeleasistenciaDel" type="button">
+            <i class="fa fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      <!-- fin Teleasistencia -->
+      <!-- Comienzo teleasistencia editar -->
+      <!-- fin teleasistencia editar -->
 
 
-        <!-- Fin Terminal y UCR -->
+      <button type="submit" class="btn btn-outline-success m-1">
+        Guardar
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1">
+        Volver
+      </button>
 
-
-        <button type="submit" class="btn btn-outline-success m-1">
-          Guardar
-        </button>
-        <button type="button" class="btn btn-outline-secondary m-1">
-          Volver
-        </button>
-
-      </form>
-    </div>
+    </form>
   </div>
-</main>
+
+
+
+  <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="situacion">
+    <app-crear-tipo-situacion (mostrar)="this.mostrar=$event">
+    </app-crear-tipo-situacion>
+  </div>
+</div>
 
