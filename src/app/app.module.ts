@@ -160,6 +160,7 @@ import { CrearPersonaContactoComponent } from './componentes/personas-contacto/c
 import { CrearDatosSanitariosComponent } from './componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component';
 import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-crear/mostrar-crear.component';
 import { NuevoTipoViviendaComponent } from './componentes/tipo-vivienda/nuevo-tipo-vivienda/nuevo-tipo-vivienda.component';
+import { DispositivosComponent } from './componentes/dispositivos/dispositivos.component';
 
 
 @NgModule({
@@ -292,6 +293,7 @@ import { NuevoTipoViviendaComponent } from './componentes/tipo-vivienda/nuevo-ti
     CrearDatosSanitariosComponent,
     MostrarCrearComponent,
     NuevoTipoViviendaComponent,
+    DispositivosComponent,
   ],
   imports: [
     BrowserModule,

@@ -13,7 +13,6 @@ import {IPersona} from "../../../interfaces/i-persona";
 import {ITerminal} from "../../../interfaces/i-terminal";
 import {IPaciente} from "../../../interfaces/i-paciente";
 import {CargaTipoModalidadPacienteService} from "../../../servicios/carga-tipo-modalidad-paciente.service";
-import {Title} from "@angular/platform-browser";
 
 
 @Component({
