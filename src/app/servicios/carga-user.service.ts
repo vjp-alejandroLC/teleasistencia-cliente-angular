@@ -29,7 +29,7 @@ export class CargaUserService {
     return this.http.put<IUsers>(this.URL_SERVER_USERS +'/' + user.id, user);
   }
 
-  nuevoUser(user: IUsers): Observable<IUsers> {
+  nuevoUser(user: FormData): Observable<IUsers> {
     return this.http.post<IUsers>(this.URL_SERVER_USERS, user);
   }
   eliminarUsuario(user:IUsers): Observable<IUsers> {

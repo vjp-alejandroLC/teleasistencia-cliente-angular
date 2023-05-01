@@ -51,7 +51,12 @@ export class CrearUserComponent implements OnInit {
   }
 
   nuevoUser(): void {
-    this.cargaUsers.nuevoUser(this.formCrearU.value).subscribe(
+    const myFormData = new FormData();
+    console.log(this.formCrearU)
+    for ( let key in  this.formCrearU.controls) {
+      myFormData.append(key, this.formCrearU.get(key).value);
+    }
+    this.cargaUsers.nuevoUser(myFormData).subscribe(
       e => {
         this.alertExito()
         this.router.navigate(['/usuarios']);
@@ -60,6 +65,12 @@ export class CrearUserComponent implements OnInit {
         this.alertError()
       }
     );
+  }
+  onFileChanged(event: any) {
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      this.formCrearU.controls.imagen.setValue(file)
+    }
   }
   //Toast para el Alert indicando que la operación fue exitosa
   alertExito() :void {
