@@ -26,6 +26,7 @@ export class NuevoAgendaComponent implements OnInit {
   submitted = false;
   mostrarNuevoTipo = false;
   mostrarEditarTipo = false;
+  guardarCrear = false;
 
   constructor(
     private titleService: Title,
@@ -45,6 +46,7 @@ export class NuevoAgendaComponent implements OnInit {
   }
 
   public crearForm() {
+    console.log(this.pacientes)
     this.nuevaAgenda = this.formBuilder.group({
       paciente: ['',[
         Validators.required
@@ -65,7 +67,16 @@ export class NuevoAgendaComponent implements OnInit {
         Validators.required,
         Validators.minLength(10)
       ]]
-    })
+    });
+    if (this.route.snapshot.paramMap.get('id') != null) {
+      let paciente = this.pacientes.find(paciente => paciente.id == Number(this.route.snapshot.paramMap.get('id')));
+      this.nuevaAgenda.get("paciente").setValue(paciente.id_persona.id);
+      this.obtenerExpediente();
+    }
+  }
+
+  cambiarNavigate() {
+    this.guardarCrear = true;
   }
 
   get form() {
@@ -99,8 +110,13 @@ export class NuevoAgendaComponent implements OnInit {
     }
     this.cargaAgendas.nuevoAgenda(this.agenda).subscribe(
       e => {
+        console.log(this.guardarCrear)
         this.alertExito();
-        this.router.navigate(['/agenda']);
+        if (this.guardarCrear) {
+          this.router.navigate(['/agenda/nueva' , this.agenda.id_paciente]);
+        } else {
+          this.router.navigate(['/agenda']);
+        }
       },
       error => {
         this.alertError();

@@ -41,22 +41,16 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
 
   // Carga de los datos al cargar el componente
   ngOnInit(): void {
+
     this.historico_agenda = new HistoricoAgenda();
     this.agendas = this.route.snapshot.data['agendas'];
     this.teleoperadores = this.route.snapshot.data['teleoperadores'];
     this.agenda = this.route.snapshot.data['agenda'];
     this.fecha_actual = new Date().toISOString().slice(0, 16);
-    this.cargaUserLogued.getProfile().subscribe(
-      (resp: IProfileUser[]) => {
-        this.teleoperador = resp[0];
-      },
-      error => {
-        this.alertError();
-      },
-      () => {
-        this.crearForm();
-      }
-    );
+    this.crearForm();
+  }
+
+  obtenerTeleoperador() {
   }
 
   //Método para obtener los valores del formulario
@@ -90,7 +84,6 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
   // Esta llamada se hace puesto que al hacer la petición de guardado de un nuevo histórico, queremos a su vez settear
   // la fecha de resolución de dicha agenda para que pase de estar en estado 'no-resuelta' a 'resuelta'.
   nuevoHistoricoAgenda() {
-    console.log(this.historico_agenda)
     this.cargaHistoricoAgenda.nuevoHistoricoAgenda(this.historico_agenda).subscribe(
       e => {
         this.modificarFechaResolucionAgenda();
@@ -173,36 +166,46 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
   }
 
   public crearForm() {
-    this.nuevoHistorico = this.formBuilder.group({
-      paciente: [this.agenda.id_paciente.id_persona.nombre + " " + this.agenda.id_paciente.id_persona.apellidos + " - " + this.agenda.id_paciente.id_persona.dni,[
-        Validators.required
-      ]],
-      movil_paciente: [this.agenda.id_paciente.id_persona.telefono_movil, [
-        Validators.required
-      ]],
-      tipo_agenda: [this.agenda.id_tipo_agenda.nombre, [
-        Validators.required
-      ]],
-      fecha_prevista: [ this.agenda.fecha_registro, [
-        Validators.required
-      ]],
-      observaciones: [this.agenda.observaciones, [
-        Validators.required,
-        Validators.minLength(10)
-      ]],
-      agenda: [this.agenda.id, [
-        Validators.required
-      ]],
-      teleoperador: [ this.teleoperador.id,[
-        Validators.required
-      ]],
-      fecha_llamada: [ this.fecha_actual, [
-        Validators.required
-      ]],
-      observaciones_historico: [ '', [
-        Validators.required,
-        Validators.minLength(10)
-      ]]
-    })
+      this.cargaUserLogued.getProfile().subscribe(
+      (resp) => {
+        this.teleoperador = resp[0];
+        this.nuevoHistorico.get("teleoperador").setValue(this.teleoperador.id);
+      },
+      error => {
+        this.alertError();
+      });
+      var fecha = new Date(this.agenda.fecha_prevista).toISOString().slice(0, 16);
+      this.nuevoHistorico = this.formBuilder.group({
+        paciente: [this.agenda.id_paciente.id_persona.nombre + " " + this.agenda.id_paciente.id_persona.apellidos + " - " + this.agenda.id_paciente.id_persona.dni,[
+          Validators.required
+        ]],
+        movil_paciente: [this.agenda.id_paciente.id_persona.telefono_movil, [
+          Validators.required
+        ]],
+        tipo_agenda: [this.agenda.id_tipo_agenda.nombre, [
+          Validators.required
+        ]],
+        fecha_prevista: [ fecha, [
+          Validators.required
+        ]],
+        observaciones: [this.agenda.observaciones, [
+          Validators.required,
+          Validators.minLength(10)
+        ]],
+        agenda: [this.agenda.id, [
+          Validators.required
+        ]],
+        teleoperador: [ '',[
+          Validators.required
+        ]],
+        fecha_llamada: [ this.fecha_actual, [
+          Validators.required
+        ]],
+        observaciones_historico: [ '', [
+          Validators.required,
+          Validators.minLength(10)
+        ]]
+      })
+    console.log(this.agenda.id_paciente.id_persona.nombre)
   }
 }

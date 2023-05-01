@@ -511,6 +511,17 @@ const routes: Routes = [
     }
   },
   {
+    path:'agenda/nueva/:id',
+    component: NuevoAgendaComponent,
+    canActivate: [LoginGuard],
+    resolve: {
+      agendas: ListaAgendaResolveService,
+      tipos_agenda: ListaTiposAgendaResolveService,
+      personas: ListaPersonasResolveService,
+      pacientes: ListaPacientesResolveService
+    }
+  },
+  {
     path: 'agenda/modificar/:id',
     component: ModificarAgendaComponent,
     canActivate: [LoginGuard],

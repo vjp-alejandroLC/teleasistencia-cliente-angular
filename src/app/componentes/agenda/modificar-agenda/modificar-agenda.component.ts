@@ -47,8 +47,7 @@ export class ModificarAgendaComponent implements OnInit {
   }
 
   public crearForm() {
-    this.agenda.fecha_prevista = new Date(this.agenda.fecha_prevista);
-    console.log(this.agenda.fecha_prevista)
+    var fecha = new Date(this.agenda.fecha_prevista).toISOString().slice(0, 16);
     this.modAgenda = this.formBuilder.group({
       paciente: [this.agenda.id_paciente.id,[
         Validators.required
@@ -62,7 +61,7 @@ export class ModificarAgendaComponent implements OnInit {
       importancia: [this.agenda.id_tipo_agenda.importancia, [
         Validators.required
       ]],
-      fecha_prevista: [ this.agenda.fecha_prevista, [
+      fecha_prevista: [ fecha, [
         Validators.required
       ]],
       observaciones: [this.agenda.observaciones, [

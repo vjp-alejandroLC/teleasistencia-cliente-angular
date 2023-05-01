@@ -99,6 +99,10 @@
             <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/agenda']">
               Volver
             </button>
+            <button type="submit" class="btn btn-outline-success m-1"
+                    [disabled]="nuevaAgenda.invalid" (click)="cambiarNavigate()">
+              Guardar y Crear Agenda
+            </button>
 
           </form>
         </div>

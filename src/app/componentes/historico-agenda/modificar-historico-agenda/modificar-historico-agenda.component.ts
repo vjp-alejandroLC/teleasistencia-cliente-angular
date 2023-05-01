@@ -49,19 +49,6 @@ export class ModificarHistoricoAgendaComponent implements OnInit {
     this.teleoperadores = this.route.snapshot.data['teleoperadores'];
     this.teleoperador = this.historico_agenda.id_teleoperador;
     this.paciente = this.historico_agenda.id_agenda.id_paciente;
-    console.log(this.paciente.id_persona)
-    this.paciente = this.cargaPersona.getPersona(this.paciente.id_persona).subscribe(
-      pers => {
-        this.paciente = pers;
-        console.log("realizado")
-      },
-      error => {
-        this.alertError();
-      },
-      () => {
-
-      }
-    );
     this.crearForm();
   }
 
@@ -133,9 +120,18 @@ export class ModificarHistoricoAgendaComponent implements OnInit {
   }
 
   private crearForm() {
-    console.log(this.paciente)
+    this.cargaPersona.getPersona(this.paciente.id_persona).subscribe(
+      pers => {
+        this.paciente = pers;
+        this.datosAgenda.get('paciente').setValue(this.paciente.nombre + ' ' + this.paciente.apellidos + " " + this.paciente.dni);
+        this.datosAgenda.get("movil_paciente").setValue(this.paciente.telefono_movil);
+      },
+      error => {
+        this.alertError();
+      }
+    );
     this.datosAgenda = this.formBuilder.group({
-      paciente: [ this.paciente,[
+      paciente: [ '',[
         Validators.required
       ]],
       movil_paciente: [ '', [
