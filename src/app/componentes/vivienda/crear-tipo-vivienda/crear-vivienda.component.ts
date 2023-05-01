@@ -55,14 +55,27 @@ export class CrearViviendaComponent implements OnInit {
 
   nuevaVivienda(): void {
 
-    let datos:{
-          numero_terminal:"",
+    let idTerminal = this.terminal.idTerminal;
+    let datos;
 
+    datos = {
+      id_titular: this.paciente.idPaciente,
+      modo_acceso_vivienda: this.formulario.value.text_area,
+      barreras_arquitectonicas: this.formulario.value.text_area2,
+      id_tipo_vivienda: this.formulario.value.nombre
     }
 
 
-  }
+    this.terminal.modificarTerminalPorId(idTerminal, datos).subscribe(
+      () => {
+        this.alertExito()
+      },
+      error => {
+        this.alertError()
+      }
+    )
 
+  }
 
 
   mostratCrearTipo() {

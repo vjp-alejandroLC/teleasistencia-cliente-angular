@@ -147,10 +147,11 @@ export class CrearPersonaComponent implements OnInit {
       e => {
         this.persona = e;
         this.nuevoTerminal()
-        this.alertExito()
+
       },
       error => {
-        this.alertError()
+        this.alertError();
+        console.log("Error al crear la persona -->" + error.message());
       }
     );
   }
@@ -173,7 +174,8 @@ export class CrearPersonaComponent implements OnInit {
         this.nuevoPaciente();
       },
       error => {
-        console.log(error);
+        this.alertError();
+        console.log("Error al crear el terminal --> " + error.message());
       }
     );
   }
@@ -181,6 +183,7 @@ export class CrearPersonaComponent implements OnInit {
 
   /* Método para crear un paciente nuevo asociado a una terminal */
   nuevoPaciente() {
+
     this.paciente = {
       id_terminal: this.terminal.id,
       id_persona: this.persona.id,
@@ -196,34 +199,36 @@ export class CrearPersonaComponent implements OnInit {
     this.crearPaciente.nuevoPaciente(this.paciente).subscribe(
       e => {
         this.paciente = e;
-        this.terminal.id_titular = this.paciente.id; // Asocio el id del usuari al terminal creado en el paso anterior.
         this.crearPaciente.idPaciente = e.id;
+        this.terminal.id_titular = e.id;
 
-        console.log(this.crearPaciente.idPaciente);
+        console.log(this.terminal)
+
+
+        this.alertExito() // Aquí damos el exito ya que seria la ultima petición encadenada.
       },
       error => {
-        console.log(error);
+        this.alertError();
+        console.log("Error al crear el paciente --> " + error.message())
       },
-      () => {
-        let modify;
-        modify = {
-          id: this.terminal.id,
-          id_titular: this.paciente.id
-        }
 
-        console.log(modify);
+      //Queda comentado hasta su revisión
 
-        this.crearTerminal.modificarTerminal(modify).subscribe(
-          () => {
-            this.alertExito();
-          },
-          () => {
-            console.log("el id del terminal era " + this.terminal.id)
-            this.alertError();
-          }
-        )
-      }
-    );
+      // () => {
+      //   this.crearTerminal.modificarTerminal(this.terminal).subscribe( //Lanzamos un update de la terminal con los datos del paciente.
+      //     () => {
+      //       console.log("exito al actualizar el terminal")
+      //     },
+      //     error => {
+      //       console.log("error al actualizar el terminal --> " + error.message());
+      //       this.alertError()
+      //
+      //     }
+      //   )
+      // }
+
+
+    )
   }
 
 
@@ -269,12 +274,12 @@ export class CrearPersonaComponent implements OnInit {
     console.log(this.formulario.value.tipos_personas)
     this.modalidades.eliminarTipoModalidadPaciente(this.formulario.value.tipos_personas).subscribe(
       e => {
-        //Si el elemento se ha borrado con exito, llama al método que muestra el alert de Exito
         this.alertExitoBorrar()
+
       },
       error => {
-        //Si ha habido algún error al eliminar el elemento, llama al método que muestra el alert de Error
         this.alertErrorBorrar()
+        console.log('Error al borrar modalidad de paciente -->' + error.message())
       },
       () => {
         this.actualizarModalidades();
@@ -366,9 +371,7 @@ export class CrearPersonaComponent implements OnInit {
       lista => {
         this.tipos_personas = lista;
         this.formulario.patchValue({tipos_personas: id_tipo_modalidad})
-      },
-      error => {
-      },
+      }
     );
   }
 
