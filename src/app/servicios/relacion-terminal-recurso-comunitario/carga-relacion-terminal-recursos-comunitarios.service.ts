@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {IRelacionTerminalRecursoComunitarios} from "../../interfaces/i-relacion-terminal-recurso-comunitarios";
 import {environment} from "../../../environments/environment";
+import {IRecursosComunitariosAlarma} from "../../interfaces/i-recursos-comunitarios-alarma";
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,9 @@ export class CargaRelacionTerminalRecursosComunitariosService {
   }
   eliminarRelacionRecurso(relacionRecurso: IRelacionTerminalRecursoComunitarios): Observable<IRelacionTerminalRecursoComunitarios> {
     return this.http.delete<IRelacionTerminalRecursoComunitarios>(this.URL_SERVER_RELACION_TERMINAL_RECURSOS_COMUNITARIOS + '/' + relacionRecurso.id)
+  }
+  getRecursosComunitarioClasificacion(idTerminal:number,idClas:number): Observable<IRelacionTerminalRecursoComunitarios[]> {
+    return this.http.get<IRelacionTerminalRecursoComunitarios[]>(this.URL_SERVER_RELACION_TERMINAL_RECURSOS_COMUNITARIOS + '?id_terminal=' + idTerminal+'&id_recurso_comunitario__id_tipos_recurso_comunitario__id_clasificacion_recurso_comunitario='+idClas);
   }
 }
 

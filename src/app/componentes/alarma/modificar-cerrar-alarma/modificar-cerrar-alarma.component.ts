@@ -14,6 +14,14 @@ import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-
 import {
   CargaPersonaContactoAlarmaService
 } from "../../../servicios/persona-contacto-alarma/carga-persona-contacto-alarma.service";
+import {IClasificacioRecurso} from "../../../interfaces/i-clasificacio-recurso";
+import {IRelacionTerminalRecursoComunitarios} from "../../../interfaces/i-relacion-terminal-recurso-comunitarios";
+import {
+  CargaRecursosComunitariosAlarmaService
+} from "../../../servicios/recursos-comunitarios-alarma/carga-recursos-comunitarios-alarma.service";
+import {
+  CargaRelacionTerminalRecursosComunitariosService
+} from "../../../servicios/relacion-terminal-recurso-comunitario/carga-relacion-terminal-recursos-comunitarios.service";
 
 
 @Component({
@@ -25,29 +33,40 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
   public alarma: IAlarma
   public idAlarma: number
   public paciente_ucr: Paciente
+  //FORMS
   public formInf: FormGroup;
+  public formPersona: FormGroup;
   public idTerminal: number;
   public idTerminalPersona: number;
-  public formPersona: FormGroup;
+  //PERSONA CONTACTO
   public listaPersonas: IRelacionPacientePersona[];
-  public nombre_persona: string;
+  //RECURSOS
+  public listaTiposExistentes:  IClasificacioRecurso[]=[];
+  public listaRecursosTerminal: IRelacionTerminalRecursoComunitarios[];
+  public tiposRecursos: IClasificacioRecurso[];
 
 
-
-  constructor(private route: ActivatedRoute,private cargaPersonaAlarma: CargaPersonaContactoAlarmaService,private cargarPersona:CargaRelacionPacientePersonaService, private titleService: Title,private formBuilder: FormBuilder, private router: Router, private cargarAlarmas: CargaAlarmaService) { }
+  constructor(private route: ActivatedRoute,
+              private cargaPersonaAlarma: CargaPersonaContactoAlarmaService,private cargarPersona:CargaRelacionPacientePersonaService,
+              private titleService: Title,private formBuilder: FormBuilder, private router: Router,
+              private cargarAlarmas: CargaAlarmaService,private cargarResursos: CargaRecursosComunitariosAlarmaService,
+              private cargaRecursosTerminal: CargaRelacionTerminalRecursosComunitariosService) { }
 
   ngOnInit(): void {
+    //PETICIONES
+    this.alarma = this.route.snapshot.data['alarma'];
+    this.idAlarma = this.route.snapshot.params['id'];
+    this.paciente_ucr = this.alarma.id_paciente_ucr
+    //FORMULARIO NIVEL 1
     this.formInf = this.formBuilder.group({
       observaciones:['',Validators.required],
       resumen:['',Validators.required],
     })
+    //FORMULARIO NIVEL 2
     this.formPersona = this.formBuilder.group({
-      persona:['']
+      persona:['',Validators.required]
     })
-    this.alarma = this.route.snapshot.data['alarma'];
-    this.idAlarma = this.route.snapshot.params['id'];
-    this.paciente_ucr = this.alarma.id_paciente_ucr
-
+    //SACAR ID DE TERMINAL
     if (this.alarma.id_terminal) {
       this.idTerminal = this.alarma.id_terminal.id;
       this.idTerminalPersona = this.alarma.id_terminal.id;
@@ -66,7 +85,21 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
         console.log(this.listaPersonas)
       }
     )
-    console.log(this.alarma)
+    //NIVEL 3
+    this.tiposRecursos = this.route.snapshot.data['clas_recursos']
+    //Hacemos get de los recursos segun el terminal de la alarma
+    this.cargaRecursosTerminal.getRelacionTerminal(this.idTerminal).subscribe(tipos=>{
+        this.listaRecursosTerminal = tipos;
+      },
+      error => {},
+      ()=>{
+        console.log(this.listaRecursosTerminal)
+        //Funcion para filtrar los tipos de recursos que tiene el terminal
+        this.tiposContieneTerminal();
+        //Funcion para crear en el formulario solo los campos que se necesiten
+        //this.anadirCamposForm()
+
+      })
 
   }
   //buscamos la opcion que coincida con el buscado para dejarla preseleccionada
@@ -164,55 +197,52 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
     return this.alarma.id_terminal.numero_terminal
   }
   //NIVEL 2
-  //Funcion para deshabilitar botones cuando los campos esten vacios
-  botonDes(){
-    if((this.formPersona.value.persona == '')||(this.formPersona.value.persona == null)){
-      return true;
-    }else{
-      return false;
-    }
-  }
   subirPost(){
     let datos=
     {
       id_alarma:this.idAlarma,
-      id_persona_contacto:this.formPersona.value.persona,
+      id_persona_contacto:this.formPersona.value.persona.id,
       fecha_registro:this.fechaActual()
     }
     this.cargaPersonaAlarma.nuevaPersonaContactoAlarma(datos).subscribe()
-    this.pintarNombre();
-
+    this.pintarNombre(this.formPersona.value.persona);
   }
   //Funcion para pintar debajo del select el servicio seleccionado
-  pintarNombre(){
-    this.extraerNombre();
+  pintarNombre(persona_contacto:IRelacionPacientePersona){
     let nuevoLi = document.createElement("li");
-    nuevoLi.textContent = "-> "+this.nombre_persona;
+    nuevoLi.textContent = persona_contacto.nombre+" "+persona_contacto.apellidos;
     document.getElementById("personas").appendChild(nuevoLi);
+    this.listaPersonas = this.listaPersonas.filter(persona => persona.id !== persona_contacto.id);
+    this.formPersona.get('persona').setValue(null);
 
-  }
-  //Busqueda del nombre segun la id de la persona
-  extraerNombre(){
-    let enc = false;
-    let i = 0;
-    while((i<this.listaPersonas.length)&&(!enc)){
-      console.log("Personas")
-      console.log(this.listaPersonas[i].id)
-      if(this.listaPersonas[i].id == this.formPersona.value.persona){
-        this.nombre_persona = this.listaPersonas[i].nombre;
-        console.log("NOMBRE: "+this.nombre_persona)
-        enc = true
-      }
-      i++;
-    }
   }
   fechaActual(){
     let fecha = new Date();
     let anio = fecha.getFullYear();
     let mes = fecha.getMonth() + 1;
     let dia = fecha.getDate();
-
     return`${anio}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+  }
+  //NIVEL 3
+  //Funcion para seleccionar la clasificacion de recursos que contiene la alarma
+  tiposContieneTerminal(){
+    for (let i = 0; i<this.listaRecursosTerminal.length;i++) {
+      for (let j = 0; j < this.tiposRecursos.length; j++) {
+        if (this.listaRecursosTerminal[i].id_recurso_comunitario.id_tipos_recurso_comunitario.id_clasificacion_recurso_comunitario.id == this.tiposRecursos[j].id) {
+          this.listaTiposExistentes.push(this.listaRecursosTerminal[i].id_recurso_comunitario.id_tipos_recurso_comunitario.id_clasificacion_recurso_comunitario);
+        }
+      }
+    }
+    this.eliminarDuplicados()
+  }
+  //Eliminar las clasificaciones de alarmas repetidas
+  eliminarDuplicados(){
+    var hash = {};
+    this.listaTiposExistentes = this.listaTiposExistentes.filter(function(current) {
+      var exists = !hash[current.id];
+      hash[current.id] = true;
+      return exists;
+    });
   }
 
 

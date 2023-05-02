@@ -41,22 +41,22 @@
                 <div><button class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#nivel2" type="button">Nivel 2</button></div>
               </div>
               <div class="col-8 p-0 collapse" id="nivel2">
-                <form [formGroup]="formPersona">
+                <form [formGroup]="formPersona" (submit)="subirPost()">
                 <div class="row m-0">
                   <h6>Personas de Contacto</h6>
                   <div class="col-12 col-sm-10 p-0">
                   <ng-select formControlName="persona">
-                    <ng-option *ngFor="let persona of this.listaPersonas" [value]="persona?.id" >{{persona?.nombre}} {{persona?.apellidos}}</ng-option>
+                    <ng-option *ngFor="let persona of this.listaPersonas" [value]="persona" >{{persona?.nombre}} {{persona?.apellidos}}</ng-option>
                   </ng-select>
                   </div>
                   <div class="col-12 col-sm-2 p-0">
-                  <button class="btn btn-success botonOperacion" type="button" (click)="subirPost()" [disabled]="botonDes()" ><i class="fa fa-solid fa-plus"></i></button>
+                  <button class="btn btn-success botonOperacion"  [disabled]="this.formPersona.invalid" ><i class="fa fa-solid fa-plus"></i></button>
                   </div>
-                </div>
                 <div class="row m-0">
                   <ul id="personas">
 
                   </ul>
+                </div>
                 </div>
                 </form>
               </div>
@@ -66,7 +66,9 @@
                 <div class="mb-5"><button class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#nivel3" type="button">Nivel 3</button></div>
               </div>
               <div class="col-8 p-0 collapse" id="nivel3">
-                <app-recursos-comunitarios [idTerminal]="this.idTerminal" ></app-recursos-comunitarios>
+                <div class="row" *ngFor="let tipo of this.listaTiposExistentes;let i = index">
+                  <app-tipos-recursos-comunitarios [idAlarma]="this.idAlarma" [terminal]="this.idTerminal" [clasificacion]="tipo"></app-tipos-recursos-comunitarios>
+                </div>
               </div>
             </div>
           <div class="form-group mb-5">

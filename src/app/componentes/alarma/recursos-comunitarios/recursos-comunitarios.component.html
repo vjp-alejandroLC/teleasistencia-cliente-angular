@@ -1,26 +1,4 @@
-<div>
-<form [formGroup]="formulario">
-<div class="row" *ngFor="let tipo of this.listaTiposExistentes;let i = index">
-      <div class="row m-0">
-        <h6>{{tipo?.nombre}}</h6>
-        <div class="col-12 col-sm-10 p-0">
-          <ng-select  formControlName="{{minusculas(tipo?.nombre)}}">
-            <ng-container *ngFor="let recurso of this.listaRecursosTerminal">
-              <ng-container *ngIf="recurso?.id_recurso_comunitario?.id_tipos_recurso_comunitario?.id_clasificacion_recurso_comunitario?.id == tipo?.id">
-              <ng-option [value]="recurso?.id_recurso_comunitario?.id">{{recurso?.id_recurso_comunitario?.nombre}}</ng-option>
-            </ng-container>
-            </ng-container>
-          </ng-select>
-        </div>
-        <div class="col-12 col-sm-2 p-0">
-          <button class="btn btn-success botonOperacion" [disabled]="botonDes(tipo?.nombre)" type="button" (click)="subirPost(tipo?.nombre)"><i class="fa fa-solid fa-plus"></i></button>
-        </div>
-      </div>
-      <div class="row m-0 ">
-        <ul id="{{minusculas(tipo?.nombre)}}">
 
-        </ul>
-      </div>
-  </div>
-</form>
+<div class="row" *ngFor="let tipo of this.listaTiposExistentes;let i = index">
+        <app-tipos-recursos-comunitarios [terminal]="this.idTerminal" [clasificacion]="tipo"></app-tipos-recursos-comunitarios>
 </div>
