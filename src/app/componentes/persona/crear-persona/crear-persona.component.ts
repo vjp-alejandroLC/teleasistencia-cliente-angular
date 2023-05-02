@@ -33,6 +33,7 @@ export class CrearPersonaComponent implements OnInit {
   public terminal: ITerminal | any;
   public paciente: IPaciente | any;
   public idPaciente: number;
+  public listaSexo: String[] = ['Hombre', 'Mujer'];
 
 
   /* Constantes */
@@ -98,7 +99,7 @@ export class CrearPersonaComponent implements OnInit {
         Validators.required,
         validacionFechaMaxima()
       ]],
-      sexo: ['Hombre', [Validators.required]],
+      sexo: ['', [Validators.required]],
       telefono_fijo: ['', [Validators.maxLength(12),
         Validators.pattern(this.REGEX_FIJO)]],
       telefono_movil: ['', [Validators.maxLength(12),
@@ -210,23 +211,6 @@ export class CrearPersonaComponent implements OnInit {
         this.alertError();
         console.log("Error al crear el paciente --> " + error.message())
       },
-
-      //Queda comentado hasta su revisión
-
-      // () => {
-      //   this.crearTerminal.modificarTerminal(this.terminal).subscribe( //Lanzamos un update de la terminal con los datos del paciente.
-      //     () => {
-      //       console.log("exito al actualizar el terminal")
-      //     },
-      //     error => {
-      //       console.log("error al actualizar el terminal --> " + error.message());
-      //       this.alertError()
-      //
-      //     }
-      //   )
-      // }
-
-
     )
   }
 
@@ -364,7 +348,6 @@ export class CrearPersonaComponent implements OnInit {
     this.mostrarModificar = !this.mostrarModificar;
   }
 
-  //FUNCION PARA REFRESACAR LOS TIPOS ADE ALARMA A TIEMPO REAL (SIN RECARGAR LA PAGINA)
   actualizarModalidades(id_tipo_modalidad = null) {
     this.modalidades.getTiposModalidadesPacientes().subscribe(
       lista => {

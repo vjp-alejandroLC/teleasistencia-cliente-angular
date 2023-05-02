@@ -19,10 +19,11 @@ import {IDireccion} from "../../../interfaces/i-direccion";
 
 export class CrearTipoModalidadPacienteComponent implements OnInit {
   @Output() mostrar = new EventEmitter;
+  @Output() refresco = new EventEmitter;
   public formulario: FormGroup;
 
 
-  constructor( private route: ActivatedRoute, private cargaTiposModalidadesPacientes: CargaTipoModalidadPacienteService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private route: ActivatedRoute, private cargaTiposModalidadesPacientes: CargaTipoModalidadPacienteService, private router: Router, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -48,6 +49,7 @@ export class CrearTipoModalidadPacienteComponent implements OnInit {
       e => {
         this.alertExito()
         this.mostrar.emit(!this.mostrar);
+        this.refresco.emit(e.id);
 
       },
       error => {

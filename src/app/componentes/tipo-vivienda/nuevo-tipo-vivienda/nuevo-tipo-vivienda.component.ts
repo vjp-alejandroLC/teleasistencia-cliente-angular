@@ -13,6 +13,7 @@ import {CargaViviendaService} from "../../../servicios/carga-vivienda.service";
 })
 export class NuevoTipoViviendaComponent implements OnInit {
   @Output() mostrar = new EventEmitter;
+  @Output() refresco = new EventEmitter;
   public formulario: FormGroup;
 
 
@@ -46,6 +47,7 @@ export class NuevoTipoViviendaComponent implements OnInit {
       e => {
         this.alertExito()
         this.mostrar.emit(!this.mostrar);
+        this.refresco.emit(e.id)
 
       },
       error => {

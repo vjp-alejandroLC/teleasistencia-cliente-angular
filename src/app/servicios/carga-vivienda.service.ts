@@ -23,7 +23,7 @@ export class CargaViviendaService {
     return this.http.get<ITipoVivienda>(this.URL_SERVER_VIVIENDAS + '/' + idVivienda);
   }
 
-  modificarTipoVivienda(tipoVivienda: ITipoVivienda): Observable<ITipoVivienda> {
+  modificarTipoVivienda(tipoVivienda: ITipoVivienda | any): Observable<ITipoVivienda> {
     return this.http.put<ITipoVivienda>(this.URL_SERVER_VIVIENDAS + '/' + tipoVivienda.id, tipoVivienda);
   }
 

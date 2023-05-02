@@ -28,7 +28,6 @@ export class ModificarTipoModalidadPacienteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Modificar tipo modalidad ' + this.idTipoModalidad);
     this.buscarTipoModalidad();
     this.formulario = this.formBuilder.group({
       nombre: [this.tipo_modalidad.nombre, [Validators.required]]
@@ -38,6 +37,7 @@ export class ModificarTipoModalidadPacienteComponent implements OnInit {
   modificarTipoModalidadPaciente(): void {
 
     let tipo_modalidad_paciente = {
+      id:this.tipo_modalidad.id,
       nombre: this.formulario.value.nombre
     }
 

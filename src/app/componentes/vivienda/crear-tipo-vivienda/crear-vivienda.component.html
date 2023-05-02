@@ -56,8 +56,18 @@
   </div>
 
   <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="vivienda">
-    <app-nuevo-tipo-vivienda (mostrar)="this.mostrar=$event">
+    <app-nuevo-tipo-vivienda (mostrar)="this.mostrar=$event" (refresco)="actualizarViviendas($event)">
     </app-nuevo-tipo-vivienda>
+  </div>
+
+  <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="vivienda2">
+    <app-modificar-tipo-vivienda
+      (mostrarModificar)="this.mostrarModificar=$event"
+      (vivienda_creada)="actualizarViviendas($event)"
+      *ngIf="this.mostrarModificar"
+      [listaViviendas]="listaViviendas"
+      [idVivienda]="formulario.value.nombre">
+    </app-modificar-tipo-vivienda>
   </div>
 </div>
 

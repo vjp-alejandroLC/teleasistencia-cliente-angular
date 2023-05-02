@@ -145,11 +145,10 @@ export class CrearViviendaComponent implements OnInit {
   private eliminarVivienda() {
     this.cargaVivienda.borrarVivienda(this.formulario.value.nombre).subscribe(
       e => {
-        //Si el elemento se ha borrado con exito, llama al método que muestra el alert de Exito
+        this.formulario.get('nombre').setValue('');
         this.alertExitoBorrar()
       },
       error => {
-        //Si ha habido algún error al eliminar el elemento, llama al método que muestra el alert de Error
         this.alertErrorBorrar()
       },
       () => {
@@ -210,7 +209,7 @@ export class CrearViviendaComponent implements OnInit {
     this.cargaVivienda.getViviendas().subscribe(
       lista => {
         this.listaViviendas = lista;
-        this.formulario.patchValue({tipo_vivienda: id_tipo_vivienda})
+        this.formulario.patchValue({tipo_vivienda: id_tipo_vivienda})   // asigna directamente en el select el tipo creado a tiempo real
       },
       error => {
       },
