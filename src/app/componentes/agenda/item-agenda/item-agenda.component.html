@@ -1,7 +1,7 @@
 <td>{{ prioridad }}</td>
-<td>{{ agenda.id_paciente.id_persona.nombre }}</td>
-<td>{{ agenda.id_paciente.id_persona.apellidos }}</td>
-<td>{{ agenda.id_tipo_agenda.nombre }}</td>
+<td>{{ agenda.id_paciente?.id_persona?.nombre }}</td>
+<td>{{ agenda.id_paciente?.id_persona?.apellidos }}</td>
+<td>{{ agenda.id_tipo_agenda?.nombre }}</td>
 <td>{{ n_expediente }}</td>
 <td>{{ agenda.fecha_prevista | date:'HH:mm' }}</td>
 <td>

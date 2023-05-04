@@ -112,7 +112,7 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
     this.cargaAgendaService.modificarAgenda(this.agenda).subscribe(
       e => {
         this.alertExito();
-        this.router.navigate(['/historico_agenda']);
+        this.router.navigate(['/agenda']);
       },
       error => {
         this.alertError();

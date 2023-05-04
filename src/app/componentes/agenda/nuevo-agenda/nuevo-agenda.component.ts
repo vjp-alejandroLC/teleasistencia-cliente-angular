@@ -46,7 +46,6 @@ export class NuevoAgendaComponent implements OnInit {
   }
 
   public crearForm() {
-    console.log(this.pacientes)
     this.nuevaAgenda = this.formBuilder.group({
       paciente: ['',[
         Validators.required
@@ -110,7 +109,6 @@ export class NuevoAgendaComponent implements OnInit {
     }
     this.cargaAgendas.nuevoAgenda(this.agenda).subscribe(
       e => {
-        console.log(this.guardarCrear)
         this.alertExito();
         if (this.guardarCrear) {
           this.router.navigate(['/agenda/nueva' , this.agenda.id_paciente]);
