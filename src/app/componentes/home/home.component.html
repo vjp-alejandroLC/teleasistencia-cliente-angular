@@ -137,28 +137,35 @@
       <div class="tecnologias" *ngFor="let convocatoria of desarrolladores">
         <div>
           <p class="tituloConvocatoria"><b>Convocatoria: {{convocatoria.convocatoria}}</b></p>
+          <div class="tab">
+            <ng-container *ngFor="let desarrollador of convocatoria.desarrolladores">
+              <button class="tablinks" (click)="abrirDesarrollador($event, desarrollador.nombre)">
+                <img class="imagenDesarrollador" [src]="desarrollador.desarrollador_tecnologias[0].id_desarrollador.imagen" />
+              </button>
+
+            </ng-container>
+          </div>
           <ng-container *ngFor="let desarrollador of convocatoria.desarrolladores">
-            <div class="divDesarrolladores container">
-              <div class="divTitulosDesarrollador">
-                <span>{{desarrollador.nombre}}</span><span>Tecnologías</span><span></span>
-              </div>
-              <div class="divImagenesDesarrollador">
-                <div ><img class="imagenDesarrollador" [src]="desarrollador.desarrollador_tecnologias[0].id_desarrollador.imagen" [title]="desarrollador.desarrollador_tecnologias[0].id_desarrollador.nombre" />
+            <div class="tabcontent <!--d-none-->" id="{{desarrollador.nombre}}">
+              <div class="container">
+                <div class="divTitulosDesarrollador">
+                  <span>{{desarrollador.nombre}}</span><span>Tecnologías</span><span></span>
                 </div>
-                <div class="divTecnologias" >
-                  <ng-container *ngFor="let tecnologia of desarrollador.desarrollador_tecnologias">
-                    <img class="imagenTecnologia" [src]="tecnologia.id_tecnologia.imagen" [title]="tecnologia.id_tecnologia.nombre"/>
-                  </ng-container>
+                <div class="divImagenesDesarrollador">
+                  <div ><img class="imagenDesarrollador" [src]="desarrollador.desarrollador_tecnologias[0].id_desarrollador.imagen" [title]="desarrollador.desarrollador_tecnologias[0].id_desarrollador.nombre" />
+                  </div>
+                  <div class="divTecnologias" >
+                    <ng-container *ngFor="let tecnologia of desarrollador.desarrollador_tecnologias">
+                      <img class="imagenTecnologia" [src]="tecnologia.id_tecnologia.imagen" [title]="tecnologia.id_tecnologia.nombre"/>
+                    </ng-container>
+                  </div>
                 </div>
-                <div>
-                  <img class="botonMas" src="./assets/verDescripcion.png" (click)="mostrarDescripcion($event)" title="Ver descripción"/>
+                <div class="parrafoDescripcionTecnologia" >
+                  <h2 class="tituloDescripcion">Descripción del Proyecto.</h2>
+                  <p>{{desarrollador.desarrollador_tecnologias[0].id_desarrollador.descripcion}}</p>
                 </div>
+                <hr>
               </div>
-              <div class="parrafoDescripcionTecnologia d-none" >
-                <h2 class="tituloDescripcion">Descripción del Proyecto.</h2>
-                <p>{{desarrollador.desarrollador_tecnologias[0].id_desarrollador.descripcion}}</p>
-              </div>
-              <hr>
             </div>
           </ng-container>
         </div>
