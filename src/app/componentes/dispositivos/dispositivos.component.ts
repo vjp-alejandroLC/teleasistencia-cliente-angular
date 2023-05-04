@@ -7,6 +7,8 @@ import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, 
 import {ITipoAlarma} from "../../interfaces/i-tipo-alarma";
 import Swal from "sweetalert2";
 import {environment} from "../../../environments/environment";
+import {IClasificacionAlarma} from "../../interfaces/i-clasificacion-alarma";
+import {CargaClasificacionAlarmaService} from "../../servicios/carga-clasificacion-alarma.service";
 
 @Component({
   selector: 'app-dispositivos',
@@ -17,11 +19,9 @@ export class DispositivosComponent implements OnInit {
 
   /*  Atributos  */
   public listaDeSituaciones: ITipoSituacion[];
+  public clasificacionAlarmas: IClasificacionAlarma[];
   public formulario: FormGroup;
   public opcion: boolean;
-  public opcion2: boolean;
-  public opcion3: boolean;
-  public listaPerifericos: ITipoAlarma[];
   public mostrar: boolean = false;
   public mostrarModificar: boolean = false;
 
@@ -36,8 +36,7 @@ export class DispositivosComponent implements OnInit {
 
   ngOnInit(): void {
     this.listaDeSituaciones = this.route.snapshot.data['tipos_situaciones'];
-    this.listaPerifericos = this.route.snapshot.data['tipos_perifericos'];
-
+    this.clasificacionAlarmas = this.route.snapshot.data['clasificaciones_alarmas'];
     this.buildForm();  //Formularios reactivos
   }
 
@@ -67,23 +66,8 @@ export class DispositivosComponent implements OnInit {
   }
 
   //Tiene UCR
-  elegirOpcion(eleccion, boolean) {
-    switch (eleccion) {
-      case '1': {
-        this.opcion = !!boolean;
-        break;
-      }
-      case '2': {
-        this.opcion2 = !!boolean;
-        break;
-      }
-      case '3': {
-        this.opcion3 = !!boolean;
-        break;
-      }
-      default : {
-      }
-    }
+  elegirOpcion(boolean) {
+    this.opcion = !!boolean;
   }
 
   //funciones paneles laterales
@@ -226,6 +210,7 @@ export class DispositivosComponent implements OnInit {
   }
 
 
+  protected readonly TipoSituacion = TipoSituacion;
 }
 
 export function validacionFechaMaxima(): ValidatorFn {

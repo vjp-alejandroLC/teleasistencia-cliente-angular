@@ -250,6 +250,7 @@ import {
 import {
   ListarelacionterminalrecursocomunitarioService
 } from "./servicios/listarelacionterminalrecursocomunitario.service";
+import {CargaTipoAlarmaService} from "./servicios/carga-tipo-alarma.service";
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
@@ -1394,7 +1395,9 @@ const routes: Routes = [
       datos_sanitario: ListarelacionterminalrecursocomunitarioService,
       tipos_viviendas:ListaViviendasResolveService,
       tipos_situaciones: ListaSituacionesService,
-      tipos_perifericos:ListaTiposAlarmasResolveService
+      tipos_perifericos:ListaTiposAlarmasResolveService,
+      tipos_alarmas: ListaTiposAlarmasResolveService,
+      clasificaciones_alarmas:ListaClasificacionesAlarmasResolveService
 
     },
   },
