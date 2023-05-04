@@ -25,7 +25,7 @@
           <div class="form-group">
             <label for="recurso" class="form-label">Recurso <span class="obligatorios">*</span></label>
             <ng-select id="recurso" name="recurso"
-                       formControlName="recurso" [(ngModel)]="idRecurso" (change)="seleccionarId()" >
+                       formControlName="recurso" (change)="seleccionarId($event)" >
               <ng-option class="form-select" *ngFor="let recurso of recursosMostrados,let i = index"
                          [value]="recurso.id">{{ recurso.nombre}} - {{recurso.id_tipos_recurso_comunitario.nombre}} - {{recurso.id_direccion.localidad}}</ng-option>
             </ng-select>

@@ -100,8 +100,8 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
 
   //Metodo usado para poder seleccionar la ID de nuestro recurso y que realice un GET para al darle al boton de Eye, aparezca la tarjeta.
-  seleccionarId(){
-    this.cargaRecurso.idRecursoVer = this.idRecurso;
+  seleccionarId(recursoId: any){
+    this.cargaRecurso.idRecursoVer = recursoId;
     this.cargaRecurso.getRecursoComunitario(this.cargaRecurso.idRecursoVer).subscribe(
       recurso => {
         this.recursoMostrar = recurso;
