@@ -247,6 +247,9 @@ import {environment} from "../environments/environment";
 import {
   CrearUserServicioComponent
 } from "./componentes/usuarios-del-servicio/crear-user-servicio/crear-user-servicio.component";
+import {
+  ListarelacionterminalrecursocomunitarioService
+} from "./servicios/listarelacionterminalrecursocomunitario.service";
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
@@ -1384,10 +1387,11 @@ const routes: Routes = [
     component: CrearUserServicioComponent,
     canActivate: [AuthGuard],
     data:{
-      role:null
+      role:[environment.admins]
     },
     resolve:{
       tipos_personas: ListaTiposModalidadesPacientesResolveService,
+      datos_sanitario: ListarelacionterminalrecursocomunitarioService,
       tipos_viviendas:ListaViviendasResolveService,
       tipos_situaciones: ListaSituacionesService,
       tipos_perifericos:ListaTiposAlarmasResolveService

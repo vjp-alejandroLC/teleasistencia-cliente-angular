@@ -47,6 +47,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
   constructor(private cargaPersonas: CargaPersonaService,private componentFactoryResolver: ComponentFactoryResolver,private route: ActivatedRoute, private titleService: Title, private router: Router, private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService, private cargaRelacionTerminal: CargaTerminalesService, private cargaTiposRecursos: CargaTipoRecursoComunitarioService, private formBuilder: FormBuilder, private cargaDireccion: CargaDireccionService, private cargaRecurso: CargaRecursoComunitarioService, private paciente: CargaPacienteService) { }
 
+  //Carga todas las peticiones GET para así mostrarlas en la página. Junto con la creación de una nueva terminal.
   ngOnInit(): void {
     this.relacion_terminal_recurso = new RelacionTerminalRecursoComunitarios();
     this.cargaRelacionTerminal.getTerminales().subscribe(
@@ -78,13 +79,13 @@ export class CrearDatosSanitariosComponent implements OnInit {
   }
 
 
-
+//Función que determina si se pulsa o no en el selector de Recursos. Si no se pulsa aparece con cierta opacidad.
   desactivado() {
     return (this.formulario.value.recurso == '') || (this.formulario.value.recurso == null);
 
   }
 
-
+  //Crea el formulario gracias a los formularios reactivos que uso.
   crearFormulario(){
       this.formulario = this.formBuilder.group(
 
@@ -98,7 +99,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
   }
 
 
-
+  //Metodo usado para poder seleccionar la ID de nuestro recurso y que realice un GET para al darle al boton de Eye, aparezca la tarjeta.
   seleccionarId(){
     this.cargaRecurso.idRecursoVer = this.idRecurso;
     this.cargaRecurso.getRecursoComunitario(this.cargaRecurso.idRecursoVer).subscribe(
@@ -111,7 +112,8 @@ export class CrearDatosSanitariosComponent implements OnInit {
   }
 
 
-
+  //Metodo que crea la relación Terminal-Recurso. Esta hace un GET de la ID del Recurso y lo guarda, creando luego la relacion y haciendo un POST con la nueva
+  //relacion. Trae como resultado un POST de Relacion Terminal. Este metodo tiene un booleano que hace que se muestre una tabla con todos las relaciones
   crearRelacion(){
     this.cargaRecurso.getRecursoComunitario(this.formulario.get('recurso').value).subscribe(
       recurso => {
@@ -138,10 +140,14 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
   }
 
+  //Ordena el array de recursos por tiempo de mayor a menor.
   ordenarPorTiempo(): void{
     this.arrayRelaciones.sort((a,b) => b.tiempo_estimado - a.tiempo_estimado);
   }
 
+
+  //Mando la ID del Recurso en específico junto con la posición y elimino el recurso en cuestión
+  //Me traigo primero la terminal para posteriormente borrarlo de mi array de arrayRelaciones y eliminar la relación.
   borrarRecurso(id: number, i: number) {
     this.cargaRelacionTerminalRecursosComunitarios.getRelacionTerminalRecursoComunitario(id).subscribe(
       terminal => {
@@ -163,9 +169,9 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
 
 
-
+  //Tomo la ID del Paciente generado de Datos Personales para así modificar luego el numero de Seguridad Social del Paciente.
+  //Trae como resultado un PATCH del NUSS
 actualizarNuss(){
-  console.log(this.paciente.idPaciente);
 
   this.paciente.modificarNUSS(this.paciente.idPaciente, this.formulario.get('nuss').value).subscribe(
         () =>{
@@ -175,7 +181,7 @@ actualizarNuss(){
 
 }
 
-
+//Estos GET sirven para así poder tomar el valor de los mismos del formulario en cuestión
   get nombre(){
     return this.formulario.get('nombre') as FormControl;
   }
@@ -210,7 +216,7 @@ actualizarNuss(){
     return this.formulario.get('tiempo') as FormControl;
   }
 
-
+//-------------------------------------------------------
 
 
   //Toast para el Alert indicando que la operación fue exitosa

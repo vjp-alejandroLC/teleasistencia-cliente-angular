@@ -62,13 +62,7 @@ ngOnInit() {
   this.crearFormulario();
   this.relacionPacientePersona = new RelacionPacientePersona();
 
-  this.pacientes = this.cargaPacientes.getPacientes().subscribe(
-    paciente => {
-        this.pacientes = paciente;
-    },
-    error => console.log(error),
-    () => console.log("Fin del observable")
-  )
+
 
 }
 
@@ -82,8 +76,8 @@ crearFormulario(){
     tiene_llaves_vivienda: ['', [Validators.required]],
     disponibilidad: ['',[Validators.required]],
     observaciones: ['',[Validators.required]],
-    prioridad: ['',[Validators.required]],
-    tiempo_domicilio: ['',[Validators.required]],
+    prioridad: ['',[Validators.required,Validators.pattern("^[0-9]+$")]],
+    tiempo_domicilio: ['',[Validators.required,Validators.pattern("^[0-9]+$")]],
     es_conviviente: ['',[Validators.required,Validators.maxLength(200)]]
   })
 
@@ -95,6 +89,7 @@ crearFormulario(){
 
 }
 
+//Esta funcion coloca una clase en el codigo HTML para ver cual ha escogido
 elegirOpcion(elegirBoolean){
     if (elegirBoolean){
       this.opcion = true;
@@ -109,6 +104,9 @@ elegirOpcion(elegirBoolean){
       this.opcion2 = false;
     }
   }
+
+  //Elimina la relación que se crea en la Relacion. Le mando la id de la Relacion generada y obtengo la relacion. Una vez hecho eso,
+  //le mnando la relacion llamando al metodo DELETE y me la realiza con exito.
   borrarRelacion(){
     this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
       relacion => {
@@ -143,7 +141,6 @@ elegirOpcion(elegirBoolean){
       'es_conviviente': this.formulario.get('es_conviviente').value,
       'tiempo_domicilio' : this.formulario.get('tiempo_domicilio').value,
       'id_paciente': this.cargaPacientes.idPaciente
-
     }
     this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
       relacion => {
@@ -167,8 +164,6 @@ elegirOpcion(elegirBoolean){
   }
 
 crearRelacion(){
-  console.log(this.cargaPersonas.idPersonaCreada);
-
   this.relacionPacientePersona = {
           'telefono': this.formulario.get('telefono_fijo').value,
           'nombre': this.formulario.get('nombre').value,
@@ -235,7 +230,7 @@ crearHtml(){ //Creo el HTML con FactoryResolvver, que sirve para poder crear dif
 
 
   } else {
-    alert("No se pueden crear más componentes")
+    this.alertNoContactos();
   }
 }
   borrarComponente(componenteUsado: any) { //Elimina el componente que elige el usuario con las clases de FactoryResolver
@@ -271,6 +266,25 @@ crearHtml(){ //Creo el HTML con FactoryResolvver, que sirve para poder crear dif
     Toast.fire({
       icon: 'success',
       title: environment.fraseCrear,
+    })
+  }
+  alertNoContactos() :void {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      //El tiempo que permanece la alerta, se obtiene mediante una variable global en environment.ts
+      timer: environment.timerToast,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'error',
+      title: environment.fraseContact
     })
   }
   //Toast para el alert indicando que hubo algún error en la operación

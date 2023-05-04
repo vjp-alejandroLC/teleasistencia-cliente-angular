@@ -1,4 +1,3 @@
-<main class="p-0 m-0">
   <div class="row d-flex justify-content-center">
     <div class="col-12 col-xl-6">
       <h3 class="mb-3">Contacto {{primerContacto}}</h3>
@@ -57,9 +56,13 @@
                      formControlName="prioridad" placeholder="Prioridad">
               <div *ngIf="prioridad.invalid && (prioridad.dirty || prioridad.touched)"
                    class="alert alert-secondary" role="alert">
-                <div *ngIf="prioridad.errors?.required">
+                <div *ngIf="prioridad.errors?.required; else elseBlock">
                   La prioridad de expediente es obligatorio
                 </div>
+                <ng-template #elseBlock>
+                  Introduzca una prioridad válida
+
+                </ng-template>
               </div>
             </div>
           </div>
@@ -94,56 +97,45 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
           <div class="col-md-6">
-            <div class="form-check mb-3">
-              <span>¿LLaves de la vivienda? <span class="obligatorios">*</span></span>
-              <div class="row mt-2">
-                <div class="col-6">
-                  <div class="form-check form-check-inline">
-                    <input class="btn-check" type="radio" id="tiene_llaves_vivienda_true" (click)="elegirOpcion2(true)"
-                           name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda">
+            <div class="row mb-3 form-group">
+              <div class="form-check mb-3">
+                <span>¿Llaves de la vivienda? <span class="obligatorios">*</span></span>
+                <div class="row mt-2 form-inline">
+                  <div class="col-6 mt-3 form-check">
+                    <input class="btn-check" type="radio" id="tiene_llaves_vivienda_true" (click)="elegirOpcion2(true)" name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda">
                     <label class="btn btn-success min50w" for="tiene_llaves_vivienda_true" [ngClass]="opcion2? '':'opacity-50'">Sí</label>
                   </div>
-                </div>
-                <div class="col-6">
-                  <div class="form-check form-check-inline mb-2">
-                    <input class="btn-check" type="radio" id="tiene_llaves_vivienda_false" (click)="elegirOpcion2(false)"
-                           name="tiene_llaves_vivienda" [value]="false" formControlName="tiene_llaves_vivienda">
+                  <div class="col-6 form-check mt-3">
+                    <input class="btn-check" type="radio" id="tiene_llaves_vivienda_false" (click)="elegirOpcion2(false)" name="tiene_llaves_vivienda" [value]="false" formControlName="tiene_llaves_vivienda">
                     <label class="btn btn-success min50w" for="tiene_llaves_vivienda_false" [ngClass]="opcion2? 'opacity-50':''">No</label>
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-check mb-3">
+            <div class="row mb-3 form-group">
+              <span class="p-0">¿Es conviviente? <span class="obligatorios">*</span></span>
+                <div class="row mt-2 form-inline">
+                  <div class="col-6 form-check mt-3">
 
-            <span>¿Es conviviente? <span class="obligatorios">*</span></span>
-            <div class="row mt-2" >
-              <div class="col-6">
-
-                <div class="form-check form-check-inline">
-                  <input class="btn-check"  type="radio" id="es_conviviente_true"
-                         name="es_conviviente" [value]="true" formControlName="es_conviviente" (click)="elegirOpcion(true)">
-                  <label class="btn btn-success min50w" for="es_conviviente_true" [ngClass]="opcion? '':'opacity-50'">Sí</label>
+                    <input class="btn-check"  type="radio" id="es_conviviente_true"
+                           name="es_conviviente" [value]="true" formControlName="es_conviviente" (click)="elegirOpcion(true)">
+                    <label class="btn btn-success min50w" for="es_conviviente_true" [ngClass]="opcion? '':'opacity-50'">Sí</label>
+                  </div>
+                  <div class="col-6 form-check mt-3">
+                    <input class="btn-check" type="radio" id="es_conviviente_false"
+                           name="es_conviviente" [value]="false" formControlName="es_conviviente" (click)="elegirOpcion(false)">
+                    <label class="btn btn-success min50w" for="es_conviviente_false" [ngClass]="opcion? 'opacity-50':''">No</label>
+                  </div>
                 </div>
-              </div>
-              <div class="col-6">
-                <div class="form-check form-check-inline">
-                  <input class="btn-check" type="radio" id="es_conviviente_false"
-                         name="es_conviviente" [value]="false" formControlName="es_conviviente" (click)="elegirOpcion(false)">
-                  <label class="btn btn-success min50w" for="es_conviviente_false" [ngClass]="opcion? 'opacity-50':''">No</label>
-                </div>
-              </div>
-            </div>
-
-
             </div>
           </div>
         </div>
+
+
 
         <div class="row">
           <div class="form-group mb-3">
@@ -161,58 +153,46 @@
         </div>
 
 
-
-
-
         <button type="submit" class="btn btn-outline-success m-1"
                 [disabled]="formulario.invalid"  *ngIf="mostrarGuardar" >
           Guardar contacto
         </button>
       </form>
-      <button class="btn btn-danger m-1" (click)="borrarRelacion()" *ngIf="mostrarEditar" ><svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-      </svg>
+      <button class="btn btn-danger m-1" (click)="borrarRelacion()" *ngIf="mostrarEditar" >
+        <i class="fa-solid fa-trash"></i>
       </button>
-      <button class="btn btn-warning m-1" (click)="editarRelacion()" *ngIf="mostrarEditar"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
-      </svg>
+      <button class="btn btn-warning m-1" (click)="editarRelacion()" *ngIf="mostrarEditar">
+        <i class="fa-solid fa-pencil"></i>
       </button>
     </div>
 
 
-    <ng-container #contenedorCrear></ng-container> <!-- Contenedor usado para el mostrar-creera -->
 
 
-      </div>
-  <div class="row d-flex justify-content-center">
+  </div>
+  <ng-container #contenedorCrear></ng-container> <!-- Contenedor usado para el mostrar-creera -->
+  <div class="row d-flex justify-content-center mt-2">
     <div class="col-12 col-xl-6">
-      <div class="row">
-        <div class="col-4">
-          <button class="btn btn-outline-success mt-2" style="width: 140px;">
-            Continuar
-          </button>
-        </div>
-        <div class="col-4">
+    <div class="row">
+      <div class="col-md-4 pr-0">
+        <button class="btn btn-outline-success botonOperacion2">
+          Continuar
+        </button>
+      </div>
+      <div class="col-md-4">
+        <button (click)="crearHtml() "  type="button" class="btn btn-success botonOperacion2" >
+          <i class="fa-solid fa-circle-plus" ></i>
+        </button>
+      </div>
+      <div class="col-md-4 pl-0">
+        <button class="btn btn-outline-secondary botonOperacion2">
+          Volver
+        </button>
 
-          <button (click)="crearHtml() "  class="btn btn-success mt-2" style="width: 140px;" >
-            <i class="fa-solid fa-circle-plus" ></i>
-          </button>
-        </div>
-        <div class="col-4">
-          <button class="btn btn-outline-secondary mt-2" style="width: 140px;">
-            Volver
-          </button>
-        </div>
       </div>
 
-
-
-      </div>
+</div>
     </div>
 
+  </div>
 
-
-
-
-
-</main>

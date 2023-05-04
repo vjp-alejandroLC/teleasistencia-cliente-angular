@@ -15,6 +15,8 @@ export const environment = {
   fraseModificar: 'Se ha modificado correctamente',
   //Frase del Toast al Crear Con Exito
   fraseCrear: 'Se ha creado Correctamente',
+  //Frase del Toast al no poder crear mas contactos
+  fraseContact: 'No se pueden crear más Contactos',
   //Frase al eliminar Recurso
   fraseEliminarRecurso: 'Se ha eliminado correctamente',
   //Frase de error al Eliminar del Toast

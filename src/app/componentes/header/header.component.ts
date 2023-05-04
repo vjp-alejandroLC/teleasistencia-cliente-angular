@@ -55,7 +55,6 @@ export class HeaderComponent implements OnInit, DoCheck {
           this.clasificacionRecursos = listaClasificacion;
         },
         error => console.log(error),
-        () => console.log('Fin de observable')
       )
     }
   }

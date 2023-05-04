@@ -2,7 +2,7 @@
   <div class="row d-flex justify-content-center">
     <div class="col-12 col-xl-6">
     <form [formGroup]="formulario" >
-      <div class="row">
+      <div class="row mb-3">
         <div class="col-12">
 
           <div class="form-group">
@@ -20,8 +20,8 @@
           </div>
         </div>
       </div>
-      <div class="row mb-2">
-        <div class="col-sm-8">
+      <div class="row mb-3">
+        <div class="col-sm-8 col-md-8 col-lg-7 col-xl-7">
           <div class="form-group">
             <label for="recurso" class="form-label">Recurso <span class="obligatorios">*</span></label>
             <ng-select id="recurso" name="recurso"
@@ -32,7 +32,7 @@
           </div>
         </div>
 
-        <div class="col-sm-4 col-md-2">
+        <div class="col-sm-4 col-md-4 col-lg-2 col-xl-2">
           <div class="form-group">
             <label for="tiempo" class="form-label">Tiempo(min)<span class="obligatorios">*</span></label>
             <input type="number" name="tiempo" id="tiempo" class="form-control"
@@ -46,16 +46,20 @@
             </div>
           </div>
         </div>
-        <div class="col-md-2 col-sm-12 d-flex align-items-start ">
+        <div class="col-md-12 col-lg-1 col-lg-3 col-sm-12 col-xl-3 d-flex align-items-start  ">
 
-          <button type="button" (click)="crearRelacion()" class="btn btn-success mt-4 botonOperacion" >
-            <i class="fa-solid fa-circle-plus" style="width: 20px"></i>
-          </button>
-          <button type="button" [disabled]="desactivado()"   data-bs-toggle="collapse" data-bs-target="#collapseWidthExample3" aria-expanded="false"
-                  aria-controls="collapseWidthExample3" class="btn btn-warning mt-4 botonOperacion" >
-            <i class="fa-solid fa-eye" style="width: 20px"></i>
-          </button>
+          <div class="col-6">
+            <button type="button" (click)="crearRelacion()" class="btn btn-success mt-4 botonOperacion p-0" >
+              <i class="fa-solid fa-circle-plus"></i>
+            </button>
+          </div>
+          <div class="col-6">
+            <button type="button" [disabled]="desactivado()"   data-bs-toggle="collapse" data-bs-target="#collapseWidthExample3" aria-expanded="false"
+                    aria-controls="collapseWidthExample3" class="btn btn-warning mt-4 botonOperacion p-0" >
+              <i class="fa-solid fa-eye"></i>
+            </button>
 
+          </div>
 
         </div>
 
@@ -63,7 +67,7 @@
 
 
 
-      <div class="row">
+      <div class="row mb-2">
         <div class="col-12">
           <button type="submit" class="btn btn-outline-success m-1" (click)="actualizarNuss()">
             Guardar
@@ -99,8 +103,8 @@
         </table>
       </div>
     </div>
-    <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="collapseWidthExample3">
-      <div class="card border-dark" style="max-width: 100%">
+    <div class="col-12 col-xl-6 collapse collapse-horizontal " id="collapseWidthExample3">
+      <div class="card border-dark d-flex align-items-center" style="max-width: 80%; margin: 0 auto">
         <div class="card-header bg-transparent border-dark">
          <b>{{recursoMostrar?.nombre}}</b>
         </div>

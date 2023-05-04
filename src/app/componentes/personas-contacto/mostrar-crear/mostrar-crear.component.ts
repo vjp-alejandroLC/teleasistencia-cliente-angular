@@ -156,7 +156,6 @@ export class MostrarCrearComponent implements OnInit {
 
 
   crearRelacionPacientePersona(){
-    console.log(this.cargaPersonas.idPersonaCreada);
     this.relacionPacientePersona = {
       'telefono': this.formulario.get('telefono_fijo').value,
       'nombre': this.formulario.get('nombre').value,
