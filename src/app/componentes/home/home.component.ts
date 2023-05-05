@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {CargaDesarrolladorTecnologiaService} from "../../servicios/carga-desarrollador-tecnologia.service";
-import {IConvocatoria} from "../../interfaces/i-desarrollador-tecnologia";
+import {IConvocatoria, IDesarrollador, IDesarrolladorTecnologia} from "../../interfaces/i-desarrollador-tecnologia";
 
 @Component({
   selector: 'app-home',
@@ -10,7 +10,11 @@ import {IConvocatoria} from "../../interfaces/i-desarrollador-tecnologia";
 })
 
 export class HomeComponent implements OnInit {
-  public desarrolladores: IConvocatoria[]
+  public desarrolladores: IConvocatoria[];
+
+  public alumnos: IDesarrolladorTecnologia[];
+
+  public profesores: IDesarrolladorTecnologia[];
 
   constructor(private titleService: Title, private cargaDesarrolladorTecnologia: CargaDesarrolladorTecnologiaService)  {
   }
@@ -20,6 +24,21 @@ export class HomeComponent implements OnInit {
     this.cargaDesarrolladorTecnologia.getDesarrolladorTecnologia().subscribe(
       e=>{
         this.desarrolladores = e;
+        var alumnos: IDesarrolladorTecnologia[];
+        var profesores: IDesarrolladorTecnologia[];
+        alumnos = [];
+        profesores = [];
+        this.desarrolladores.forEach(function(convocatoria) {
+          convocatoria.desarrolladores.forEach(function(desarrollador) {
+            if (desarrollador.es_profesor) {
+              profesores.push(desarrollador);
+            } else {
+              alumnos.push(desarrollador);
+            }
+          });
+        });
+        this.alumnos = alumnos;
+        this.profesores = profesores;
       }
     )
   }
