@@ -243,6 +243,8 @@ import {
 } from "./componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {environment} from "../environments/environment";
+import {ModificarPasswordComponent} from "./componentes/user/modificar-password/modificar-password.component";
+import {ModificarImagenComponent} from "./componentes/user/modificar-imagen/modificar-imagen.component";
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
   {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
@@ -764,6 +766,22 @@ const routes: Routes = [
     resolve: {
       user: ModificarUserResolveService
     }
+  },
+  {
+    path: 'usuarios/modificarPassword/:id',
+    component: ModificarPasswordComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+  },
+  {
+    path: 'usuarios/modificarImagen/:id',
+    component: ModificarImagenComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
   },
   {
     path: 'situaciones',
