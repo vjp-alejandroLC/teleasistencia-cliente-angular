@@ -4,11 +4,9 @@ import {CargaTipoSituacionService} from "../../servicios/carga-tipo-situacion.se
 import {ITipoSituacion} from "../../interfaces/i-tipo-situacion";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
-import {ITipoAlarma} from "../../interfaces/i-tipo-alarma";
 import Swal from "sweetalert2";
 import {environment} from "../../../environments/environment";
 import {IClasificacionAlarma} from "../../interfaces/i-clasificacion-alarma";
-import {CargaClasificacionAlarmaService} from "../../servicios/carga-clasificacion-alarma.service";
 
 @Component({
   selector: 'app-dispositivos',

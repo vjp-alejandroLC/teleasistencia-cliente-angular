@@ -1,4 +1,4 @@
-<div class="row d-flex justify-content-center">
+<div class="d-flex justify-content-center">
   <div class="col-12 col-xl-6">
     <form [formGroup]="formulario"
           [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
@@ -86,16 +86,16 @@
         </div>
       </div>
       <div class="row mb-3 form-group">
-        <div class="form-check mb-3 col-md-5">
+        <div class="form-check mb-3">
           <span>UCR Adicional <span class="obligatorios">*</span></span>
           <div class="row mt-1">
-            <div class="col-5 form-check form-check-inline">
+            <div class="col-auto form-check form-check-inline">
               <input class="btn-check" type="radio" id="ucrTrue" (click)="elegirOpcion(true)"
                      name="ucr" [value]="true" formControlName="ucr">
               <label class="btn btn-success min50w" for="ucrTrue" [ngClass]="opcion? '':'opacity-50'">Sí</label>
             </div>
 
-            <div class="col-5 form-check form-check-inline mb-2">
+            <div class="col-auto form-check form-check-inline mb-2">
               <input class="btn-check" type="radio" id="ucrFalse" (click)="elegirOpcion(false)"
                      name="ucr" [value]="false" formControlName="ucr">
               <label class="btn btn-success min50w" for="ucrFalse" [ngClass]="opcion? 'opacity-50':''">No</label>
@@ -106,7 +106,7 @@
       </div>
       <!-- Fin Terminal y UCR -->
 
-      <ng-container *ngFor="let tipoAlarma of clasificacionAlarmas; let i = index">
+      <ng-container  class="col-12 col-xl-6" *ngFor="let tipoAlarma of clasificacionAlarmas; let i = index">
         <app-mostrar-clasificacion-alarma [tipoPeticion]="tipoAlarma">
         </app-mostrar-clasificacion-alarma>
       </ng-container>
