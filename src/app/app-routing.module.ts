@@ -251,6 +251,9 @@ import {
   ListarelacionterminalrecursocomunitarioService
 } from "./servicios/listarelacionterminalrecursocomunitario.service";
 import {CargaTipoAlarmaService} from "./servicios/carga-tipo-alarma.service";
+import {
+  ModificarUserServicioComponent
+} from "./componentes/usuarios-del-servicio/modificar-user-servicio/modificar-user-servicio.component";
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
@@ -1400,6 +1403,24 @@ const routes: Routes = [
       clasificaciones_alarmas:ListaClasificacionesAlarmasResolveService
 
     },
+  },
+  {
+    path: 'modificar-user-servicio/editar',
+    component: ModificarUserServicioComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+    resolve: {
+      tipos_personas: ListaTiposModalidadesPacientesResolveService,
+      datos_sanitario: ListarelacionterminalrecursocomunitarioService,
+      tipos_viviendas:ListaViviendasResolveService,
+      tipos_situaciones: ListaSituacionesService,
+      tipos_perifericos:ListaTiposAlarmasResolveService,
+      tipos_alarmas: ListaTiposAlarmasResolveService,
+      clasificaciones_alarmas:ListaClasificacionesAlarmasResolveService
+
+    }
   },
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},
   {path: '**', redirectTo: '/inicio', pathMatch: 'full'}

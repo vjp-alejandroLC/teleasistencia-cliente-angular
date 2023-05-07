@@ -1,28 +1,28 @@
-
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-persona";
+import {IDireccion} from "../../../interfaces/i-direccion";
+import {IPaciente} from "../../../interfaces/i-paciente";
+import {IPersona} from "../../../interfaces/i-persona";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {RelacionPacientePersona} from "../../../clases/relacion-paciente-persona";
-import {IPersona} from '../../../interfaces/i-persona';
+import {CargaPersonaService} from "../../../servicios/carga-persona.service";
+import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
+import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
 import {
   CargaRelacionPacientePersonaService
 } from "../../../servicios/relacion-paciente-persona/carga-relacion-paciente-persona.service";
+import {RelacionPacientePersona} from "../../../clases/relacion-paciente-persona";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CargaPersonaService} from "../../../servicios/carga-persona.service";
-import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
-import {IDireccion} from "../../../interfaces/i-direccion";
-import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
-import {IPaciente} from "../../../interfaces/i-paciente";
-import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-persona";
 
 @Component({
-    selector: 'app-mostrar-crear',
-    templateUrl: './mostrar-crear.component.html',
-    styleUrls: ['./mostrar-crear.component.scss']
+  selector: 'app-mostrar-editar-contacto',
+  templateUrl: './mostrar-editar-contacto.component.html',
+  styleUrls: ['./mostrar-editar-contacto.component.scss']
 })
+export class MostrarEditarContactoComponent implements OnInit {
 
-export class MostrarCrearComponent implements OnInit {
+
 
   @Output() onBorrarComponente = new EventEmitter();
   mostrarGuardar = true;
@@ -82,23 +82,23 @@ export class MostrarCrearComponent implements OnInit {
 
 
   borrarRelacion(){
-      this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
-        relacion => {
-          this.relacionBorrar = relacion
-        }, error => console.log(error),
-        () => {
-          this.cargaRelacion.eliminarRelacionPacientePersona(this.relacionBorrar).subscribe(
-            () =>{
-              this.alertBorrarRecurso();
+    this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
+      relacion => {
+        this.relacionBorrar = relacion
+      }, error => console.log(error),
+      () => {
+        this.cargaRelacion.eliminarRelacionPacientePersona(this.relacionBorrar).subscribe(
+          () =>{
+            this.alertBorrarRecurso();
 
-            }, error => console.log(error),
-            () =>{
-              this.onBorrarComponente.emit(); //Emito borrarComponente para avisar al padre que borraré el componente
+          }, error => console.log(error),
+          () =>{
+            this.onBorrarComponente.emit(); //Emito borrarComponente para avisar al padre que borraré el componente
 
-            }
-          )
-        }
-      )
+          }
+        )
+      }
+    )
 
   }
 
@@ -305,3 +305,6 @@ export class MostrarCrearComponent implements OnInit {
     })
   }
 }
+
+
+

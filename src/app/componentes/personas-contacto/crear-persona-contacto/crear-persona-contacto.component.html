@@ -158,11 +158,12 @@
           Guardar contacto
         </button>
       </form>
-      <button class="btn btn-danger m-1" (click)="borrarRelacion()" *ngIf="mostrarEditar" >
-        <i class="fa-solid fa-trash"></i>
-      </button>
+
       <button class="btn btn-warning m-1" (click)="editarRelacion()" *ngIf="mostrarEditar">
-        <i class="fa-solid fa-pencil"></i>
+        Guardar contacto
+      </button>
+      <button class="btn btn-danger m-1" (click)="borrarRelacion()" *ngIf="mostrarEditar" >
+        Borrar contacto
       </button>
     </div>
 

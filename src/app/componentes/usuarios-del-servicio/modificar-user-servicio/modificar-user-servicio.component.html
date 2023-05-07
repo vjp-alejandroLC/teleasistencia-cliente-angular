@@ -1,0 +1,43 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Modificar Paciente</li>
+    </ol>
+  </nav>
+  <h1 class="component-title">Modificar Usuario del Servicio</h1>
+
+  <div class="row mb-4 mt-4">
+    <h2>Datos Personales</h2>
+    <div class="formularios m-auto col-10 form-container p-3">
+      <app-modificar-persona></app-modificar-persona>
+    </div>
+  </div>
+  <div class="row mb-4 mt-4">
+    <h2>Datos Sanitarios</h2>
+    <div class="formularios m-auto col-9  p-3">
+      <app-editar-datos-sanitario></app-editar-datos-sanitario>
+    </div>
+  </div>
+  <div class="row mb-4 mt-4">
+    <h2>Vivienda</h2>
+    <div class="formularios m-auto col-9 p-3">
+      <app-editar-tipo-vivienda></app-editar-tipo-vivienda>
+    </div>
+
+  </div>
+  <div class="row mb-4 mt-4">
+    <h2>Personas de Contacto</h2>
+    <div class="formularios m-auto col-9 p-3">
+      <app-editar-contacto></app-editar-contacto>
+    </div>
+  </div>
+  <div class="row mb-4 mt-4">
+    <h2>Dispositivos</h2>
+    <div class="formularios m-auto col-9 p-3">
+      <app-dispositivos></app-dispositivos>
+    </div>
+  </div>
+
+</main>

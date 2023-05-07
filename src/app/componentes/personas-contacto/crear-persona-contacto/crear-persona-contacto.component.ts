@@ -24,16 +24,15 @@ export class CrearPersonaContactoComponent implements OnInit {
   @ViewChild('contenedorCrear', { read: ViewContainerRef }) container: ViewContainerRef; //Hace referencia al componente hijo y al contenedor del padre mediante un contenedor
 
   idPaciente: number;
-
   indicesCrear = 2; //Comienzo con el primero indice
   maximoComponentes = 6; //Maximo numero de componentes que crea al darle al boton de crearHTML()
 
   idRelacion: number;
 
-  primerContacto = 1;
+  primerContacto = 1; //Numero que señala el primero formulario
 
-  mostrarGuardar = true;
-  mostrarEditar = false;
+  mostrarGuardar = true; //Booleano que sirve para poder no mostrar el boton de guardar contacto
+  mostrarEditar = false; //Booleano que sirve para mostrar los otros dos botones para editar o borrar el contacto
   submitted = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
   public direccion: IDireccion | any;
@@ -159,8 +158,6 @@ elegirOpcion(elegirBoolean){
         )
       }
     )
-
-
   }
 
 crearRelacion(){
@@ -194,41 +191,26 @@ crearRelacion(){
 crearHtml(){ //Creo el HTML con FactoryResolvver, que sirve para poder crear diferentes componentes segun desee
 
   if (this.indicesCrear < this.maximoComponentes) { //Si el indice es menor al maximo de componentes, genera el mismo
-
     const componente = this.componentFactoryResolver.resolveComponentFactory(MostrarCrearComponent); //Usa el componente de mostrarCrear para crear el componente
-
-    const componenteReferenciado = componente.create(this.container.injector); //Creo el componente justo en el contenedor
-
-
-    componenteReferenciado.instance.indice = this.indicesCrear; //Instancio el indice que se usará para mostrar el numero de contacto
-
-    componenteReferenciado.instance.idPaciente = this.cargaPacientes.idPaciente; //Instancia la id delPaciente a la hora de crear el componente
-
-    this.componentesCreados.push(componenteReferenciado); //Agregamos todos los componentes que vamos creando poco a poco
-
+    const componenteContacto = componente.create(this.container.injector); //Creo el componente justo en el contenedor
+    componenteContacto.instance.indice = this.indicesCrear; //Instancio el indice que se usará para mostrar el numero de contacto
+    componenteContacto.instance.idPaciente = this.cargaPacientes.idPaciente; //Instancia la id delPaciente a la hora de crear el componente
+    this.componentesCreados.push(componenteContacto); //Agregamos todos los componentes que vamos creando poco a poco
     this.indicesCrear++; //Aumento en 1 el indice a la hora de volver a crearlo de nuevo
-
-    this.container.insert(componenteReferenciado.hostView); //Inserto en el contenedor el componente a la que la vista hace referencia
-
-    componenteReferenciado.instance.onBorrarComponente.subscribe( //Hago el subscribe aqui ya que aquí creo el componente, solamente entra si le da al boton de borrar
+    this.container.insert(componenteContacto.hostView); //Inserto en el contenedor el componente a la que la vista hace referencia
+    componenteContacto.instance.onBorrarComponente.subscribe( //Hago el subscribe aqui ya que aquí creo el componente, solamente entra si le da al boton de borrar
       () => {
-        const indiceTomado = componenteReferenciado.instance.indice; //Tomo el indice que voy a borrar como constante
-        this.componentesCreados.splice(this.componentesCreados.indexOf(componenteReferenciado), 1); // Borramos el componente dado al boton
-        this.borrarComponente(componenteReferenciado); //Borro el componente desde el que hace referencia
+        const indiceTomado = componenteContacto.instance.indice; //Tomo el indice que voy a borrar como constante
+        this.componentesCreados.splice(this.componentesCreados.indexOf(componenteContacto), 1); // Borramos el componente dado al boton
+        this.borrarComponente(componenteContacto); //Borro el componente desde el que hace referencia
         for (const componente of this.componentesCreados) { //Recorremos todo el array generado y cambiamos el indice
-
           if ( componente.instance.indice > indiceTomado  ){ //Este if compara el indice tomado con los demas, si es superiore, resta a los que sean superiores al mismo
             componente.instance.indice--;
-
           }
         }
         this.indicesCrear--;
-
       }
     );
-
-
-
   } else {
     this.alertNoContactos();
   }

@@ -162,6 +162,11 @@ import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-c
 import { NuevoTipoViviendaComponent } from './componentes/tipo-vivienda/nuevo-tipo-vivienda/nuevo-tipo-vivienda.component';
 import { DispositivosComponent } from './componentes/dispositivos/dispositivos.component';
 import { MostrarClasificacionAlarmaComponent } from './componentes/mostrar-clasificacion-alarma/mostrar-clasificacion-alarma.component';
+import { ModificarUserServicioComponent } from './componentes/usuarios-del-servicio/modificar-user-servicio/modificar-user-servicio.component';
+import { EditarDatosSanitarioComponent } from './componentes/datos-sanitario/editar-datos-sanitario/editar-datos-sanitario.component';
+import { EditarTipoViviendaComponent } from './componentes/vivienda/editar-tipo-vivienda/editar-tipo-vivienda.component';
+import { EditarContactoComponent } from './componentes/personas-contacto/editar-contacto/editar-contacto.component';
+import { MostrarEditarContactoComponent } from './componentes/personas-contacto/mostrar-editar-contacto/mostrar-editar-contacto.component';
 
 
 @NgModule({
@@ -296,6 +301,12 @@ import { MostrarClasificacionAlarmaComponent } from './componentes/mostrar-clasi
     NuevoTipoViviendaComponent,
     DispositivosComponent,
     MostrarClasificacionAlarmaComponent,
+    ModificarUserServicioComponent,
+    EditarDatosSanitarioComponent,
+    ModificarPersonaComponent,
+    EditarTipoViviendaComponent,
+    EditarContactoComponent,
+    MostrarEditarContactoComponent,
   ],
   imports: [
     BrowserModule,

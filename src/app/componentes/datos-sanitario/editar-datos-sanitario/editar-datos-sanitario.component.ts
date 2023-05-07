@@ -1,7 +1,11 @@
 import {Component, ComponentFactoryResolver, OnInit} from '@angular/core';
 import {IRecursoComunitario} from "../../../interfaces/i-recurso-comunitario";
 import {ITipoRecursoComunitario} from "../../../interfaces/i-tipo-recurso-comunitario";
+import {ITerminal} from "../../../interfaces/i-terminal";
 import {IRelacionTerminalRecursoComunitarios} from "../../../interfaces/i-relacion-terminal-recurso-comunitarios";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {IPaciente} from "../../../interfaces/i-paciente";
+import {CargaPersonaService} from "../../../servicios/carga-persona.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {
@@ -9,27 +13,26 @@ import {
 } from "../../../servicios/relacion-terminal-recurso-comunitario/carga-relacion-terminal-recursos-comunitarios.service";
 import {CargaTerminalesService} from "../../../servicios/terminal/carga-terminales.service";
 import {CargaTipoRecursoComunitarioService} from "../../../services/recursos/carga-tipo-recurso-comunitario.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {RelacionTerminalRecursoComunitarios} from "../../../clases/relacion-terminal-recurso-comunitarios";
 import {CargaDireccionService} from "../../../servicios/carga-direccion.service";
+import {CargaRecursoComunitarioService} from "../../../services/recursos/carga-recurso-comunitario.service";
+import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
+import {RelacionTerminalRecursoComunitarios} from "../../../clases/relacion-terminal-recurso-comunitarios";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
-import {CargaRecursoComunitarioService} from "../../../services/recursos/carga-recurso-comunitario.service";
-import {IPaciente} from "../../../interfaces/i-paciente";
-import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
-import {CargaPersonaService} from "../../../servicios/carga-persona.service";
 
 @Component({
-  selector: 'app-crear-datos-sanitarios',
-  templateUrl: './crear-datos-sanitarios.component.html',
-  styleUrls: ['./crear-datos-sanitarios.component.scss']
+  selector: 'app-editar-datos-sanitario',
+  templateUrl: './editar-datos-sanitario.component.html',
+  styleUrls: ['./editar-datos-sanitario.component.scss']
 })
-export class CrearDatosSanitariosComponent implements OnInit {
+export class EditarDatosSanitarioComponent implements OnInit {
+
   edit: boolean = false;
   mostrar: boolean = false;
   id: number = 0;
   public recurso_comunitario: IRecursoComunitario |any;
   public tipos_recursos_comunitarios: ITipoRecursoComunitario[] | any;
+  public relaciones_terminales: ITerminal[] | any;
   public relacion_terminal_recurso : IRelacionTerminalRecursoComunitarios | any;
   public formulario: FormGroup | any;
   public recurso: IRecursoComunitario | any ;
@@ -38,6 +41,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
   public arrayRelaciones: IRelacionTerminalRecursoComunitarios [] = [];
   public pacientes: IPaciente[] | any;
   public mostrarTabla = false;
+  public idRecurso: number;
   public idPaciente: number;
   public recursoMostrar: IRecursoComunitario | any;
 
@@ -47,6 +51,18 @@ export class CrearDatosSanitariosComponent implements OnInit {
   //Carga todas las peticiones GET para así mostrarlas en la página. Junto con la creación de una nueva terminal.
   ngOnInit(): void {
     this.relacion_terminal_recurso = new RelacionTerminalRecursoComunitarios();
+    this.cargaRelacionTerminal.getTerminales().subscribe(
+      terminal => {
+        this.relaciones_terminales = terminal;
+      },
+      error => console.log(error),
+    );
+    this.cargaTiposRecursos.getTiposRecursosComunitarios().subscribe(
+      recursos => {
+        this.tipos_recursos_comunitarios = recursos;
+      },
+      error => console.log(error),
+    )
 
     this.cargaRecurso.getDatosSanitario(1).subscribe(
       recursos =>{
@@ -72,15 +88,15 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
   //Crea el formulario gracias a los formularios reactivos que uso.
   crearFormulario(){
-      this.formulario = this.formBuilder.group(
+    this.formulario = this.formBuilder.group(
 
-        {
-          nuss: ['',[Validators.required,Validators.pattern("^\\d*\\.?\\d+$")]],
-          recurso: ['',[Validators.required]],
-          tiempo: ['', [Validators.required,Validators.pattern("^[0-9]+$")]]
+      {
+        nuss: ['',[Validators.required,Validators.pattern("^\\d*\\.?\\d+$")]],
+        recurso: ['',[Validators.required]],
+        tiempo: ['', [Validators.required,Validators.pattern("^[0-9]+$")]]
 
-        }
-      )
+      }
+    )
   }
 
 
@@ -97,7 +113,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
         }
       )
     }else{
-          this.recursoMostrar = null;
+      this.recursoMostrar = null;
     }
 
   }
@@ -149,7 +165,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
         this.arrayRelaciones.splice(i,1);
         this.cargaRelacionTerminalRecursosComunitarios.eliminarRelacionRecurso(this.recursoBorrad).subscribe(
           () =>{
-           this.alertBorrarRecurso();
+            this.alertBorrarRecurso();
           }
         )
 
@@ -162,15 +178,15 @@ export class CrearDatosSanitariosComponent implements OnInit {
 
   //Tomo la ID del Paciente generado de Datos Personales para así modificar luego el numero de Seguridad Social del Paciente.
   //Trae como resultado un PATCH del NUSS
-actualizarNuss(){
+  actualizarNuss(){
 
-  this.paciente.modificarNUSS(this.paciente.idPaciente, this.formulario.get('nuss').value).subscribe(
-        () =>{
-          this.alertExito();
-        }
-      )
+    this.paciente.modificarNUSS(this.paciente.idPaciente, this.formulario.get('nuss').value).subscribe(
+      () =>{
+        this.alertExito();
+      }
+    )
 
-}
+  }
 
 //Estos GET sirven para así poder tomar el valor de los mismos del formulario en cuestión
   get nombre(){
@@ -272,4 +288,7 @@ actualizarNuss(){
     })
   }
 }
+
+
+
 
