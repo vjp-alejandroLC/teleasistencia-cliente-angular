@@ -246,6 +246,10 @@ import {environment} from "../environments/environment";
 import {
   ClasificacionRecursoscomunitariosResolveService
 } from "./servicios/cerrar-alarma/clasificacion-recursoscomunitarios-resolve.service";
+import {
+  RecursosEnAlarmaResolveService
+} from "./servicios/recursos-comunitarios-alarma/recursos-en-alarma-resolve.service";
+import {PersonasEnAlarmaResolveService} from "./servicios/persona-contacto-alarma/personas-en-alarma-resolve.service";
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
   {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
@@ -942,7 +946,9 @@ const routes: Routes = [
     },
     resolve: {
       alarma: ModificarAlarmaResolveService,
-      clas_recursos: ClasificacionRecursoscomunitariosResolveService
+      clas_recursos: ClasificacionRecursoscomunitariosResolveService,
+      recursos_en_alarma: RecursosEnAlarmaResolveService,
+      personas_en_alarma: PersonasEnAlarmaResolveService
     }
   },
   {

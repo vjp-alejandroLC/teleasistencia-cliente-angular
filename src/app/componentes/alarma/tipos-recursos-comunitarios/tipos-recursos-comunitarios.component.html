@@ -1,21 +1,24 @@
-<form [formGroup]="formAnadir" (submit)="subirPost(clasificacion?.nombre)" class="mb-3">
-  <div class="row m-0">
+<form [formGroup]="formAnadir" (submit)="subirPost()" class="mb-3">
+  <div class="row m-0" id="borrar">
   <h6>{{clasificacion?.nombre}}</h6>
-  <div class="col-12 col-sm-10 p-0">
-    <ng-select  formControlName="tipo_recurso">
-      <ng-container *ngFor="let recurso of this.tipo_recurso">
-          <ng-option [value]="recurso">{{recurso?.id_recurso_comunitario?.nombre}}</ng-option>
-        </ng-container>
-    </ng-select>
-  </div>
-  <div class="col-12 col-sm-2 p-0">
-    <button class="btn btn-success botonOperacion" [disabled]="this.formAnadir.invalid"  ><i class="fa fa-solid fa-plus"></i></button>
-  </div>
-    <div class="row m-0">
-      <ul id="{{minusculas(clasificacion?.nombre)}}">
-
-      </ul>
+    <ng-container *ngIf="this.alarma.estado_alarma =='Abierta'">
+        <div class="col-12 col-sm-10 p-0">
+          <ng-select  formControlName="tipo_recurso">
+            <ng-container *ngFor="let recurso of this.tipo_recurso">
+                <ng-option [value]="recurso">{{recurso?.id_recurso_comunitario?.nombre}}</ng-option>
+              </ng-container>
+          </ng-select>
+        </div>
+        <div class="col-12 col-sm-2 p-0">
+          <button class="btn btn-success botonOperacion" [disabled]="this.formAnadir.invalid"><i class="fa-solid fa-arrow-down"></i></button>
+        </div>
+    </ng-container>
+    <div class="m-0 p-0" id="{{this.minusculas(clasificacion?.nombre)}}">
+      <div class="row m-0 mb-1 mt-1 pt-1 pb-1 p-0 align-items-center bg-info borde" *ngFor="let recurso_alarma of this.recursos_en_alarma_filtrados2" id="{{this.minusculas(recurso_alarma?.id_recurso_comunitario.nombre)}}">
+        <div class="p-0" [ngClass]="this.alarma.estado_alarma =='Abierta'?'col-10':'col-12'" >{{recurso_alarma?.id_recurso_comunitario.nombre}}</div>
+        <div class="col-2 p-0" *ngIf="this.alarma.estado_alarma =='Abierta'"><button class="btn btn-danger" type="button" (click)="borrarRecurso(recurso_alarma,clasificacion?.nombre)"><i class="fa fa-solid fa-trash"></i></button></div>
+      </div>
     </div>
-  </div>
+    </div>
 </form>
 

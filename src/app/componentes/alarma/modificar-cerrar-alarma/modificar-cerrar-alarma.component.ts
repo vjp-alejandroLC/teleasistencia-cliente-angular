@@ -22,6 +22,7 @@ import {
 import {
   CargaRelacionTerminalRecursosComunitariosService
 } from "../../../servicios/relacion-terminal-recurso-comunitario/carga-relacion-terminal-recursos-comunitarios.service";
+import {IPersonaContactoAlarma} from "../../../interfaces/i-persona-contacto-alarma";
 
 
 @Component({
@@ -40,6 +41,7 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
   public idTerminalPersona: number;
   //PERSONA CONTACTO
   public listaPersonas: IRelacionPacientePersona[];
+  public personas_en_alarma: IPersonaContactoAlarma[];
   //RECURSOS
   public listaTiposExistentes:  IClasificacioRecurso[]=[];
   public listaRecursosTerminal: IRelacionTerminalRecursoComunitarios[];
@@ -53,14 +55,18 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
               private cargaRecursosTerminal: CargaRelacionTerminalRecursosComunitariosService) { }
 
   ngOnInit(): void {
+
     //PETICIONES
     this.alarma = this.route.snapshot.data['alarma'];
     this.idAlarma = this.route.snapshot.params['id'];
+    this.personas_en_alarma = this.route.snapshot.data['personas_en_alarma'];
+    console.log("PERSONAS EN ALARMA")
+    console.log(this.personas_en_alarma)
     this.paciente_ucr = this.alarma.id_paciente_ucr
     //FORMULARIO NIVEL 1
     this.formInf = this.formBuilder.group({
-      observaciones:['',Validators.required],
-      resumen:['',Validators.required],
+      observaciones:[this.alarma?.observaciones,Validators.required],
+      resumen:[this.alarma?.resumen,Validators.required],
     })
     //FORMULARIO NIVEL 2
     this.formPersona = this.formBuilder.group({
@@ -75,14 +81,14 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
       this.idTerminalPersona = this.alarma.id_paciente_ucr.id;
     }
     //PETICION GET PACIENTES DE CONTACTO
+    console.log(this.idTerminalPersona)
     this.cargarPersona.getRelacionPacientePersonaTerminal(this.idTerminalPersona).subscribe(
       lista =>{
         this.listaPersonas = lista;
+        this.filtrarPersonasRelacionPaciente()
       },
       error => {},
       ()=>{
-        console.log("Personas contacto:")
-        console.log(this.listaPersonas)
       }
     )
     //NIVEL 3
@@ -93,7 +99,7 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
       },
       error => {},
       ()=>{
-        console.log(this.listaRecursosTerminal)
+
         //Funcion para filtrar los tipos de recursos que tiene el terminal
         this.tiposContieneTerminal();
         //Funcion para crear en el formulario solo los campos que se necesiten
@@ -204,24 +210,50 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
       id_persona_contacto:this.formPersona.value.persona.id,
       fecha_registro:this.fechaActual()
     }
-    this.cargaPersonaAlarma.nuevaPersonaContactoAlarma(datos).subscribe()
-    this.pintarNombre(this.formPersona.value.persona);
+    this.cargaPersonaAlarma.nuevaPersonaContactoAlarma(datos).subscribe(()=>{
+      this.cargaPersonaAlarma.getPersonasEnAlarmaSegunId(this.alarma.id).subscribe(personas=>{
+          this.personas_en_alarma = personas;
+        },
+        error => {},
+        ()=>{
+          this.filtrarPersonasRelacionPaciente();
+          this.formPersona.get('persona').setValue(null);
+        })
+    })
   }
-  //Funcion para pintar debajo del select el servicio seleccionado
-  pintarNombre(persona_contacto:IRelacionPacientePersona){
-    let nuevoLi = document.createElement("li");
-    nuevoLi.textContent = persona_contacto.nombre+" "+persona_contacto.apellidos;
-    document.getElementById("personas").appendChild(nuevoLi);
-    this.listaPersonas = this.listaPersonas.filter(persona => persona.id !== persona_contacto.id);
-    this.formPersona.get('persona').setValue(null);
+  borrarPersona(objetoPersona:IPersonaContactoAlarma){
+    //ELIMINAR EL BLOQUE de PERSONA CORRESPONDIENTE
+    let contenedor = document.getElementById('personas');
+    contenedor.removeChild(document.getElementById(""+objetoPersona.id))
+    this.cargaPersonaAlarma.eliminarPersonaContactoAlarma(objetoPersona).subscribe(
+      ()=>{
+        this.cargaPersonaAlarma.getPersonasEnAlarmaSegunId(this.alarma.id).subscribe(personas=>{
+          this.personas_en_alarma = personas;
+          this.cargarPersona.getRelacionPacientePersonaTerminal(this.idTerminalPersona).subscribe(recursos=>{
+            this.listaPersonas = recursos;
+            //Se llama a esta funcion para filtrar los distintos campos del select
+            this.filtrarPersonasRelacionPaciente()
+          })
+        })
+      }
+    )
+  }
 
+  //Funcion que permite actualizar los valores del select segun los peticiones que se realicen.
+  filtrarPersonasRelacionPaciente(){
+    let arrayPersonasAlarma = this.personas_en_alarma;
+    for(let i = 0;i<arrayPersonasAlarma.length;i++){
+      this.listaPersonas = this.listaPersonas.filter(persona => persona.id !== arrayPersonasAlarma[i].id_persona_contacto.id)
+    }
   }
   fechaActual(){
     let fecha = new Date();
     let anio = fecha.getFullYear();
     let mes = fecha.getMonth() + 1;
     let dia = fecha.getDate();
-    return`${anio}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+    let hora =fecha.getHours();
+    let minutos =fecha.getMinutes();
+    return`${anio}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')} ${hora.toString().padStart(2,'0')}:${minutos.toString().padStart(2, '0')}`;
   }
   //NIVEL 3
   //Funcion para seleccionar la clasificacion de recursos que contiene la alarma

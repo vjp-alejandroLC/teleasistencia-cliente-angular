@@ -22,12 +22,15 @@ export class CargaRecursosComunitariosAlarmaService {
   getRecursoComunitarioAlarma(idRecursosComunitariosAlarma: number): Observable<IRecursosComunitariosAlarma> {
     return this.http.get<IRecursosComunitariosAlarma>(this.URL_SERVER_RECURSOS_COMUNITARIOS_ALARMA+ '/' + idRecursosComunitariosAlarma);
   }
+  getRecursoComunitarioAlarmaSegunId(idRecursosComunitariosAlarma: number): Observable<IRecursosComunitariosAlarma[]> {
+    return this.http.get<IRecursosComunitariosAlarma[]>(this.URL_SERVER_RECURSOS_COMUNITARIOS_ALARMA+ '?id_alarma=' + idRecursosComunitariosAlarma);
+  }
 
   modificarRecursosComunitariosAlarma(recursosComunitariosAlarma: IRecursosComunitariosAlarma): Observable<IRecursosComunitariosAlarma> {
     return this.http.put<IRecursosComunitariosAlarma>(this.URL_SERVER_RECURSOS_COMUNITARIOS_ALARMA+ '/' + recursosComunitariosAlarma.id, recursosComunitariosAlarma);
   }
 
-  nuevaRecursosComunitariosAlarma(recursosComunitariosAlarma: IRecursosComunitariosAlarma): Observable<IRecursosComunitariosAlarma> {
+  nuevaRecursosComunitariosAlarma(recursosComunitariosAlarma: any): Observable<IRecursosComunitariosAlarma> {
     return this.http.post<IRecursosComunitariosAlarma> (this.URL_SERVER_RECURSOS_COMUNITARIOS_ALARMA, recursosComunitariosAlarma);
   }
   eliminarRecursosComunitariosAlarma(recursosComunitariosAlarma: IRecursosComunitariosAlarma): Observable<IRecursosComunitariosAlarma> {
