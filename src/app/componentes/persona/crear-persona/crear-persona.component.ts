@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IDireccion} from '../../../interfaces/i-direccion';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CargaPersonaService} from '../../../servicios/carga-persona.service';
@@ -24,10 +24,12 @@ import {CargaTipoModalidadPacienteService} from "../../../servicios/carga-tipo-m
 export class CrearPersonaComponent implements OnInit {
 
   /*  Atributos  */
+  @Output() public plegar = new EventEmitter;
   public dire: IDireccion | any;
   public formulario: FormGroup;
   public tipos_personas: TipoModalidadPaciente[];
   public mostrar: boolean = false;
+  public plegado: boolean = false;
   public mostrarModificar: boolean = false;
   public persona: IPersona | any;
   public terminal: ITerminal | any;
@@ -202,9 +204,7 @@ export class CrearPersonaComponent implements OnInit {
         this.crearPaciente.idPaciente = e.id;
         this.terminal.id_titular = e.id;
 
-        console.log(this.terminal)
-
-
+        this.plegar.emit(!this.plegado);
         this.alertExito() // Aquí damos el exito ya que seria la ultima petición encadenada.
       },
       error => {
@@ -220,6 +220,10 @@ export class CrearPersonaComponent implements OnInit {
     this.crearPersona();
   }
 
+
+  contraer() {
+    this.plegado = !this.plegado;
+  }
 
   mostratCrearTipo() {
     this.mostrar = !this.mostrar;

@@ -1,43 +1,61 @@
 <main class="text-center row p-0 m-0 justify-content-center">
 
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Crear Paciente</li>
-      </ol>
-    </nav>
-    <h1 class="component-title">Crear Usuario del Servicio</h1>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Crear Paciente</li>
+    </ol>
+  </nav>
+  <h1 class="component-title">Crear Usuario del Servicio</h1>
 
-    <div class="row mb-4 mt-4">
-      <h2>Datos Personales</h2>
-      <div class="formularios m-auto col-10 form-container p-3">
-        <app-crear-persona></app-crear-persona>
+  <div class="row mb-4 mt-4 ">
+    <h2>Datos Personales</h2>
+    <div class="formularios m-auto col-10 form-container p-3">
+      <div class="collapse show" id="datosPersonales">
+        <app-crear-persona (plegar)="this.mostrar=$event">
+        </app-crear-persona>
       </div>
     </div>
-    <div class="row mb-4 mt-4">
-      <h2>Datos Sanitarios</h2>
-      <div class="formularios m-auto col-9  p-3">
-        <app-crear-datos-sanitarios></app-crear-datos-sanitarios>
-      </div>
-    </div>
-    <div class="row mb-4 mt-4">
-      <h2>Vivienda</h2>
-      <div class="formularios m-auto col-9 p-3">
-        <app-crear-tipo-vivienda></app-crear-tipo-vivienda>
-      </div>
+  </div>
 
-    </div>
-    <div class="row mb-4 mt-4">
-      <h2>Personas de Contacto</h2>
-      <div class="formularios m-auto col-9 p-3">
-        <app-crear-persona-contacto></app-crear-persona-contacto>
+  <div class="row mb-4 mt-4">
+    <h2>Datos Sanitarios</h2>
+    <div class="formularios m-auto col-10  p-3">
+      <div class="collapse" id="datosSanitarios">
+        <app-crear-datos-sanitarios (plegar)="this.mostrar=$event">
+        </app-crear-datos-sanitarios>
       </div>
     </div>
-    <div class="row mb-4 mt-4">
-      <h2>Dispositivos</h2>
-      <div class="formularios m-auto col-10 p-3 form-container">
-        <app-dispositivos></app-dispositivos>
-      </div>
-    </div>
+  </div>
 
+  <div class="row mb-4 mt-4">
+    <h2>Vivienda</h2>
+    <div class="formularios m-auto col-10 p-3">
+      <div class="collapse" id="viviendaForm">
+        <app-crear-tipo-vivienda (plegar)="this.mostrar=$event">
+        </app-crear-tipo-vivienda>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mt-4">
+    <h2>Personas de Contacto</h2>
+    <div class="formularios m-auto col-10 p-3">
+      <div class="collapse" id="personaContacto">
+        <app-crear-persona-contacto (plegar)="this.mostrar=$event">
+        </app-crear-persona-contacto>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mb-4 mt-4">
+    <h2>Dispositivos</h2>
+    <div class="formularios m-auto col-10 p-3 form-container">
+      <div class="collapse " id="dispositivosForm">
+        <app-dispositivos>
+        </app-dispositivos>
+      </div>
+    </div>
+  </div>
 </main>

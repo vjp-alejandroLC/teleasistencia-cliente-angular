@@ -69,7 +69,10 @@
 
       <div class="row mb-2">
         <div class="col-12">
-          <button type="submit" class="btn btn-outline-success m-1" (click)="actualizarNuss()">
+          <button type="submit" class="btn btn-outline-success m-1" (click)="actualizarNuss();contraer()"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#datosSanitarios,#viviendaForm" aria-expanded="false"
+                  aria-controls="datosPersonales">
             Guardar
           </button>
           <button type="button" class="btn btn-outline-secondary m-1" >

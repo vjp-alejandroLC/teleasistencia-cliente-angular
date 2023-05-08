@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 
 @Component({
@@ -9,6 +9,7 @@ import {Title} from "@angular/platform-browser";
 export class CrearUserServicioComponent implements OnInit {
 
   public idPaciente: number;
+  public mostrar: boolean = false;
 
   constructor(private title:Title) {
   }

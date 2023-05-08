@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ITipoVivienda} from "../../../interfaces/i-tipo-vivienda";
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -22,8 +22,10 @@ export class CrearViviendaComponent implements OnInit {
   public formulario: FormGroup;
   public mostrar: boolean = false;
   public mostrarModificar: boolean = false;
+  public plegado: boolean = false;
 
   @Input() idPaciente: number;
+  @Output() public plegar = new EventEmitter;
 
 
   /*Constantes*/
@@ -33,13 +35,16 @@ export class CrearViviendaComponent implements OnInit {
               private cargaVivienda: CargaViviendaService,
               private formBuilder: FormBuilder,
               private paciente: CargaPacienteService,
-              private terminal: CargaTerminalesService,
-  ) {
+              private terminal: CargaTerminalesService) {
   }
 
   ngOnInit(): void {
     this.listaViviendas = this.route.snapshot.data['tipos_viviendas'];
     this.buildForm();  //Formularios reactivos
+  }
+
+  contraer() {
+    this.plegado = !this.plegado;
   }
 
 
@@ -69,6 +74,8 @@ export class CrearViviendaComponent implements OnInit {
     this.terminal.modificarTerminalPorId(idTerminal, datos).subscribe(
       () => {
         this.alertExito()
+        this.plegar.emit(!this.plegado);
+
       },
       error => {
         this.alertError()
