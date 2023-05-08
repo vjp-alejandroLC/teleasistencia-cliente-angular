@@ -31,7 +31,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/.htaccess"
             ],
             "styles": [
               "node_modules/angular-calendar/css/angular-calendar.css",
@@ -103,7 +104,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/assets/.htaccess"
+              "src/.htaccess"
             ],
             "styles": [
               "node_modules/angular-calendar/css/angular-calendar.css",
