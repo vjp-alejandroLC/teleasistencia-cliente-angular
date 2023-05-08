@@ -10,6 +10,7 @@ import {CrearUserComponent} from './componentes/user/crear-user/crear-user.compo
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {HomeComponent} from './componentes/home/home.component';
 import {CargaUserService} from './servicios/carga-user.service';
 import {ItemClasificacionAlarmaComponent} from './componentes/clasificacion-alarma/item-clasificacion-alarma/item-clasificacion-alarma.component';
@@ -22,11 +23,11 @@ import {ModificarTipoCentroSanitarioComponent} from './componentes/tipo-centro-s
 import {CrearTipoCentroSanitarioComponent} from './componentes/tipo-centro-sanitario/crear-tipo-centro-sanitario/crear-tipo-centro-sanitario.component';
 import {CargaClasificacionAlarmaService} from './servicios/carga-clasificacion-alarma.service';
 import {CargaTipoCentroSanitarioService} from './servicios/carga-tipo-centro-sanitario.service';
-import {ListaTiposRecursosComunitariosComponent} from './componentes/tipo-recurso-comunitario/lista-tipos-recursos-comunitarios/lista-tipos-recursos-comunitarios.component';
-import {ItemTipoRecursoComunitarioComponent} from './componentes/tipo-recurso-comunitario/item-tipo-recurso-comunitario/item-tipo-recurso-comunitario.component';
-import {ModificarTipoRecursoComunitarioComponent} from './componentes/tipo-recurso-comunitario/modificar-tipo-recurso-comunitario/modificar-tipo-recurso-comunitario.component';
-import {CrearTipoRecursoComunitarioComponent} from './componentes/tipo-recurso-comunitario/crear-tipo-recurso-comunitario/crear-tipo-recurso-comunitario.component';
-import {CargaTipoRecursoComunitarioService} from './servicios/carga-tipo-recurso-comunitario.service';
+import {ListaTiposRecursosComunitariosComponent} from './components/recursos/tipo-recurso-comunitario/lista-tipos-recursos-comunitarios/lista-tipos-recursos-comunitarios.component';
+import {ItemTipoRecursoComunitarioComponent} from './components/recursos/tipo-recurso-comunitario/item-tipo-recurso-comunitario/item-tipo-recurso-comunitario.component';
+import {ModificarTipoRecursoComunitarioComponent} from './components/recursos/tipo-recurso-comunitario/modificar-tipo-recurso-comunitario/modificar-tipo-recurso-comunitario.component';
+import {CrearTipoRecursoComunitarioComponent} from './components/recursos/tipo-recurso-comunitario/crear-tipo-recurso-comunitario/crear-tipo-recurso-comunitario.component';
+import {CargaTipoRecursoComunitarioService} from './services/recursos/carga-tipo-recurso-comunitario.service';
 import {ListaTiposModalidadesPacientesComponent} from './componentes/tipo-modalidad-paciente/lista-tipos-modalidades-pacientes/lista-tipos-modalidades-pacientes.component';
 import {ItemTipoModalidadPacienteComponent} from './componentes/tipo-modalidad-paciente/item-tipo-modalidad-paciente/item-tipo-modalidad-paciente.component';
 import {ModificarTipoModalidadPacienteComponent} from './componentes/tipo-modalidad-paciente/modificar-tipo-modalidad-paciente/modificar-tipo-modalidad-paciente.component';
@@ -41,10 +42,10 @@ import {ListaCentrosSanitariosComponent} from './componentes/centro-sanitario/li
 import {ItemCentroSanitarioComponent} from './componentes/centro-sanitario/item-centro-sanitario/item-centro-sanitario.component';
 import {ModificarCentroSanitarioComponent} from './componentes/centro-sanitario/modificar-centro-sanitario/modificar-centro-sanitario.component';
 import {CrearCentroSanitarioComponent} from './componentes/centro-sanitario/crear-centro-sanitario/crear-centro-sanitario.component';
-import {ListaRecursosComunitariosComponent} from './componentes/recurso-comunitario/lista-recursos-comunitarios/lista-recursos-comunitarios.component';
-import {ItemResursoComunitarioComponent} from './componentes/recurso-comunitario/item-resurso-comunitario/item-resurso-comunitario.component';
-import {ModificarRecursoComunitarioComponent} from './componentes/recurso-comunitario/modificar-recurso-comunitario/modificar-recurso-comunitario.component';
-import {CrearRecursoComunitarioComponent} from './componentes/recurso-comunitario/crear-recurso-comunitario/crear-recurso-comunitario.component';
+import {ListaRecursosComunitariosComponent} from './components/recursos/recurso-comunitario/lista-recursos-comunitarios/lista-recursos-comunitarios.component';
+import {ItemResursoComunitarioComponent} from './components/recursos/recurso-comunitario/item-resurso-comunitario/item-resurso-comunitario.component';
+import {ModificarRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/modificar-recurso-comunitario/modificar-recurso-comunitario.component';
+import {CrearRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/crear-recurso-comunitario/crear-recurso-comunitario.component';
 import {ListaPersonasComponent} from './componentes/persona/lista-personas/lista-personas.component';
 import {ItemPersonaComponent} from './componentes/persona/item-persona/item-persona.component';
 import {ModificarPersonaComponent} from './componentes/persona/modificar-persona/modificar-persona.component';
@@ -56,7 +57,7 @@ import {CrearDireccionComponent} from './componentes/direccion/crear-direccion/c
 import {CargaDireccionService} from './servicios/carga-direccion.service';
 import {CargaCentroSanitarioService} from './servicios/carga-centro-sanitario.service';
 import {CargaPersonaService} from './servicios/carga-persona.service';
-import {CargaRecursoComunitarioService} from './servicios/carga-recurso-comunitario.service';
+import {CargaRecursoComunitarioService} from './services/recursos/carga-recurso-comunitario.service';
 import {PantallaLoginComponent} from './componentes/pantalla-login/pantalla-login.component';
 import {HeaderComponent} from './componentes/header/header.component';
 import {FooterComponent} from './componentes/footer/footer.component';
@@ -113,7 +114,6 @@ import {
   NuevoHistoricoAgendaComponent
 } from "./componentes/historico-agenda/nuevo-historico-agenda/nuevo-historico-agenda.component";
 import { ListaAlarmasComponent } from './componentes/alarma/lista-alarmas/lista-alarmas.component';
-import { CrearAlarmaUcrComponent } from './componentes/alarma/crear-alarma-ucr/crear-alarma-ucr.component';
 import { ModificarCerrarAlarmaComponent } from './componentes/alarma/modificar-cerrar-alarma/modificar-cerrar-alarma.component';
 import { ItemAlarmaComponent } from './componentes/alarma/item-alarma/item-alarma.component';
 import { ListaTerminalComponent } from './componentes/terminal/lista-terminal/lista-terminal.component';
@@ -127,10 +127,6 @@ import { CrearPacienteComponent } from './componentes/paciente/crear-paciente/cr
 import { ItemPacienteComponent } from './componentes/paciente/item-paciente/item-paciente.component';
 import { ListaPacienteComponent } from './componentes/paciente/lista-paciente/lista-paciente.component';
 import { ModificarPacienteComponent } from './componentes/paciente/modificar-paciente/modificar-paciente.component';
-import { ModificarRelacionPacientePersonaComponent } from './componentes/relacion-paciente-persona/modificar-relacion-paciente-persona/modificar-relacion-paciente-persona.component';
-import { ItemRelacionPacientePersonaComponent } from './componentes/relacion-paciente-persona/item-relacion-paciente-persona/item-relacion-paciente-persona.component';
-import { ListaRelacionPacientePersonaComponent } from './componentes/relacion-paciente-persona/lista-relacion-paciente-persona/lista-relacion-paciente-persona.component';
-import { CrearRelacionPacientePersonaComponent } from './componentes/relacion-paciente-persona/crear-relacion-paciente-persona/crear-relacion-paciente-persona.component';
 import { CrearCentroSanitarioAlarmaComponent } from './componentes/centro-sanitario-alarma/crear-centro-sanitario-alarma/crear-centro-sanitario-alarma.component';
 import { ModificarCentroSanitarioAlarmaComponent } from './componentes/centro-sanitario-alarma/modificar-centro-sanitario-alarma/modificar-centro-sanitario-alarma.component';
 import { ListaCentroSanitarioAlarmaComponent } from './componentes/centro-sanitario-alarma/lista-centro-sanitario-alarma/lista-centro-sanitario-alarma.component';
@@ -154,8 +150,12 @@ import { ListaRelacionUsuarioCentroComponent } from './componentes/relacion-usua
 import { ModificarTeleoperadorAlarmaComponent } from './componentes/alarma/modificar-teleoperador-alarma/modificar-teleoperador-alarma.component';
 import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-comunitarios-personales/recursos-comunitarios-personales.component';
 import { GruposComponent } from './componentes/grupos/grupos.component';
-import { CrearAlarmaTerminalComponent } from './componentes/alarma/crear-alarma-terminal/crear-alarma-terminal.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import { VerRecursoComponent } from './components/recursos/recurso-comunitario/ver-recurso/ver-recurso.component';
+import { CrearAlarmaComponent} from "./componentes/alarma/crear-alarma/crear-alarma.component";
+import { NgSelectModule} from "@ng-select/ng-select";
+import { CrearPersonaContactoComponent } from './componentes/personas-contacto/crear-persona-contacto/crear-persona-contacto.component';
+import { CrearDatosSanitariosComponent } from './componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component';
+import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-crear/mostrar-crear.component';
 
 
 @NgModule({
@@ -246,7 +246,6 @@ import {ReactiveFormsModule} from "@angular/forms";
     ModificarAgendaComponent,
     NuevoHistoricoAgendaComponent,
     ListaAlarmasComponent,
-    CrearAlarmaUcrComponent,
     ModificarCerrarAlarmaComponent,
     ItemAlarmaComponent,
     ListaTerminalComponent,
@@ -257,10 +256,6 @@ import {ReactiveFormsModule} from "@angular/forms";
     ItemPacienteComponent,
     ListaPacienteComponent,
     ModificarPacienteComponent,
-    ModificarRelacionPacientePersonaComponent,
-    ItemRelacionPacientePersonaComponent,
-    ListaRelacionPacientePersonaComponent,
-    CrearRelacionPacientePersonaComponent,
     CrearCentroSanitarioAlarmaComponent,
     ModificarCentroSanitarioAlarmaComponent,
     ListaCentroSanitarioAlarmaComponent,
@@ -283,13 +278,18 @@ import {ReactiveFormsModule} from "@angular/forms";
     ListaRelacionUsuarioCentroComponent,
     ModificarTeleoperadorAlarmaComponent,
     GruposComponent,
-    CrearAlarmaTerminalComponent,
+    VerRecursoComponent,
+    CrearAlarmaComponent,
+    CrearPersonaContactoComponent,
+    CrearDatosSanitariosComponent,
+    MostrarCrearComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    NgSelectModule,
     CommonModule,
     NgxPaginationModule,
     ReactiveFormsModule
