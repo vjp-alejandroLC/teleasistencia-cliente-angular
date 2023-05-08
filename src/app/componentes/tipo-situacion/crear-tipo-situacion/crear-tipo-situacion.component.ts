@@ -53,8 +53,8 @@ export class CrearTipoSituacionComponent implements OnInit {
 
     this.cargaSituacion.nuevoTipoSituacion(tipo_situacion).subscribe(
       e => {
-        this.alertExito()
         this.mostrar.emit(!this.mostrar);
+        this.alertExito()
       },
       error => {
         this.alertError()

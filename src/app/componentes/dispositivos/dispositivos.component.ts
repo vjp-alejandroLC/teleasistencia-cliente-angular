@@ -7,6 +7,12 @@ import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, 
 import Swal from "sweetalert2";
 import {environment} from "../../../environments/environment";
 import {IClasificacionAlarma} from "../../interfaces/i-clasificacion-alarma";
+import {CargaPacienteService} from "../../servicios/carga-paciente.service";
+import {CargaHistoricoTipoSituacionService} from "../../servicios/carga-historico-tipo-situacion.service";
+import {IPaciente} from "../../interfaces/i-paciente";
+import {CargarTerminalService} from "../../servicios/carga-terminal.service";
+import {ITerminal} from "../../interfaces/i-terminal";
+import {CargaTerminalesService} from "../../servicios/terminal/carga-terminales.service";
 
 @Component({
   selector: 'app-dispositivos',
@@ -22,12 +28,24 @@ export class DispositivosComponent implements OnInit {
   public opcion: boolean;
   public mostrar: boolean = false;
   public mostrarModificar: boolean = false;
+  public paciente: IPaciente;
+  public idPaciente: number;
+  public terminal: ITerminal;
+  public idTerminal: number;
+
+
+  /* Expresiones Regulares */
+
+  readonly REGEX_TER = /^\d{4,}$/;
 
 
   constructor(private situaciones: CargaTipoSituacionService,
               private router: Router,
               private route: ActivatedRoute,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private crearPaciente: CargaPacienteService,
+              private historicoSituacion: CargaHistoricoTipoSituacionService,
+              private cargaTerminal: CargaTerminalesService) {
 
 
   }
@@ -36,6 +54,7 @@ export class DispositivosComponent implements OnInit {
     this.listaDeSituaciones = this.route.snapshot.data['tipos_situaciones'];
     this.clasificacionAlarmas = this.route.snapshot.data['clasificaciones_alarmas'];
     this.buildForm();  //Formularios reactivos
+
   }
 
   /* formulario reactivo */
@@ -44,13 +63,9 @@ export class DispositivosComponent implements OnInit {
       fecha_alta: ['', [Validators.required,
         validacionFechaMaxima()]],
       situacion: ['', [Validators.required]],
-      numero_terminal: ['', [Validators.required]],
-      modelo_terminal: ['', [Validators.required]],
-      ucr: ['', [Validators.required]],
-      periferico: ['', [Validators.required]],
-      tienePerifericos: ['', [Validators.required]],
-      tieneTeleasistencia: ['', [Validators.required]],
-
+      numero_terminal: ['', [Validators.required, Validators.pattern(this.REGEX_TER)]],
+      modelo_terminal: ['', [Validators.required, Validators.pattern(this.REGEX_TER)]],
+      ucr: ['', [Validators.required]]
     });
   }
 
@@ -68,12 +83,93 @@ export class DispositivosComponent implements OnInit {
     this.opcion = !!boolean;
   }
 
+
+  subirDatos() {
+    this.idPaciente = this.crearPaciente.idPaciente;
+
+    this.modificarTerminal();
+    this.traerPaciente();
+  }
+
+  modificarTerminal() {
+    this.idTerminal = this.cargaTerminal.idTerminal;
+    let datos
+
+    datos = {
+      numero_terminal: this.formulario.value.numero_terminal,
+      modelo_terminal: this.formulario.value.modelo_terminal
+    }
+
+    this.cargaTerminal.modificarTerminalPorId(this.idTerminal, datos).subscribe(
+      () => {
+        this.alertExito()
+      },
+      error => {
+        this.alertError()
+      }, () => {
+
+        this.traerPaciente();
+
+      }
+    )
+
+  }
+
+  traerPaciente() {
+
+
+    this.crearPaciente.getPaciente(this.idPaciente).subscribe(
+      paciente => {
+        this.paciente = paciente;
+      }, error => {
+        console.log(error)
+      },
+      () => {
+        this.paciente.tiene_ucr = this.formulario.value.ucr;
+        this.crearPaciente.modificarPaciente(this.paciente).subscribe(
+          () => {
+          },
+          error => {
+            this.alertError()
+            console.log(error);
+          }
+        )
+        this.crearHistorico();
+      }
+    )
+  }
+
+
+  crearHistorico() {
+
+    let datos;
+
+    datos = {
+      fecha: this.formulario.value.fecha_alta,
+      id_tipo_situacion: {
+        nombre: this.formulario.value.situacion
+      },
+      id_terminal: this.paciente.id_terminal,
+    }
+
+    this.historicoSituacion.nuevoHistoricoTipoSituacion(datos).subscribe(
+      e => {
+        this.alertExito()
+      },
+      error => {
+        this.alertError()
+        console.log(error)
+      }
+    )
+  }
+
+
   //funciones paneles laterales
   desactivado() {
     return (this.formulario.value.situacion == '') || (this.formulario.value.situacion == null);
   }
 
-  mostratCrearTipo() {
+  mostrarCrearTipo() {
     this.mostrar = !this.mostrar;
   }
 

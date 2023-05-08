@@ -1,7 +1,7 @@
-<div class="d-flex justify-content-center">
+<div class="row d-flex justify-content-center">
   <div class="col-12 col-xl-6">
     <form [formGroup]="formulario"
-          [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
+          [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''" (submit)="subirDatos()">
 
       <div class="row mb-3 form-group">
         <div class="col-6">
@@ -27,8 +27,8 @@
         </div>
         <div class="col-4 col-lg-1  p-0">
           <button class="btn btn-success botonOperacion" type="button"
-                  data-bs-toggle="collapse" data-bs-target="#situaciones" aria-expanded="false"
-                  aria-controls="situaciones" (click)="mostratCrearTipo()">
+                  data-bs-toggle="collapse" data-bs-target="#situacion" aria-expanded="false"
+                  aria-controls="situacion" (click)="mostrarCrearTipo()">
             <i class="fa-solid fa-circle-plus"></i>
           </button>
         </div>
@@ -74,10 +74,10 @@
             <label for="modelo_terminal" class="form-label text-start">Modelo Terminal <span
               class="obligatorios">*</span></label>
             <input type="text" name="modelo_terminal" id="modelo_terminal" class="form-control "
-                   placeholder="Modelo del Terminal" formControlName="numero_terminal">
+                   placeholder="Modelo del Terminal" formControlName="modelo_terminal">
           </div>
           <div
-            *ngIf="controles.modelo_terminal.invalid && (controles.numero_terminal.dirty || controles.numero_terminal.touched)"
+            *ngIf="controles.modelo_terminal.invalid && (controles.modelo_terminal.dirty ||controles.modelo_terminal.touched)"
             class="alert alert-secondary"
             role="alert">
             <span *ngIf="controles.modelo_terminal.errors.required">El modelo del terminal es obligatorio.</span>
@@ -85,34 +85,37 @@
           </div>
         </div>
       </div>
-      <div class="row mb-3 form-group">
-        <div class="form-check mb-3">
-          <span>UCR Adicional <span class="obligatorios">*</span></span>
-          <div class="row mt-1">
-            <div class="col-auto form-check form-check-inline">
-              <input class="btn-check" type="radio" id="ucrTrue" (click)="elegirOpcion(true)"
-                     name="ucr" [value]="true" formControlName="ucr">
-              <label class="btn btn-success min50w" for="ucrTrue" [ngClass]="opcion? '':'opacity-50'">Sí</label>
-            </div>
 
-            <div class="col-auto form-check form-check-inline mb-2">
-              <input class="btn-check" type="radio" id="ucrFalse" (click)="elegirOpcion(false)"
-                     name="ucr" [value]="false" formControlName="ucr">
-              <label class="btn btn-success min50w" for="ucrFalse" [ngClass]="opcion? 'opacity-50':''">No</label>
-            </div>
+      <div class="row mt-2">
+        <div class="col-md-6">
+          <div class="row mb-3 form-group">
+            <span class="p-0">UCR Adicional <span class="obligatorios">*</span></span>
+            <div class="row mt-2 form-inline">
+              <div class="col-6 form-check mt-3">
 
+                <input class="btn-check" type="radio" id="ucrTrue" (click)="elegirOpcion(true)"
+                       name="ucr" [value]="true" formControlName="ucr">
+                <label class="btn btn-success min50w" for="ucrTrue" [ngClass]="opcion? '':'opacity-50'">Sí</label>
+              </div>
+              <div class="col-6 form-check mt-3">
+                <input class="btn-check" type="radio" id="ucrFalse" (click)="elegirOpcion(false)"
+                       name="ucr" [value]="false" formControlName="ucr">
+                <label class="btn btn-success min50w" for="ucrFalse" [ngClass]="opcion? 'opacity-50':''">No</label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
       <!-- Fin Terminal y UCR -->
 
-      <ng-container  class="col-12 col-xl-6" *ngFor="let tipoAlarma of clasificacionAlarmas; let i = index">
-        <app-mostrar-clasificacion-alarma [tipoPeticion]="tipoAlarma">
+      <ng-container *ngFor="let tipoAlarma of clasificacionAlarmas; let i = index">
+        <app-mostrar-clasificacion-alarma [tipoPeticion]="tipoAlarma" >
         </app-mostrar-clasificacion-alarma>
       </ng-container>
 
 
-      <button type="submit" class="btn btn-outline-success m-1">
+      <button type="submit" class="btn btn-outline-success m-1" (click)="subirDatos()" [disabled]="formulario.invalid">
         Guardar
       </button>
       <button type="button" class="btn btn-outline-secondary m-1">
@@ -124,7 +127,7 @@
 
 
   <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="situacion">
-    <app-crear-tipo-situacion (mostrar)="this.mostrar=$event">
+    <app-crear-tipo-situacion  (mostrar)="this.mostrar=$event">
     </app-crear-tipo-situacion>
   </div>
 </div>

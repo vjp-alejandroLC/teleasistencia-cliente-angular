@@ -7,6 +7,7 @@ export class Terminal implements ITerminal {
   numero_terminal: string;
   modo_acceso_vivienda: string;
   barreras_arquitectonicas: string;
+  modelo_terminal: string;
   id_titular: IPaciente;
   id_tipo_vivienda: ITipoVivienda;
 }

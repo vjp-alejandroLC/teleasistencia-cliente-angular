@@ -74,7 +74,6 @@ export class CrearViviendaComponent implements OnInit {
         this.alertError()
       }
     )
-
   }
 
 

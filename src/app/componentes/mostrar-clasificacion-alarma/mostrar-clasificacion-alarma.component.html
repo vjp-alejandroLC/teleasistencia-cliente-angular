@@ -1,8 +1,7 @@
 <div class="row mb-3">
   <form  [formGroup]="formulario">
-    <div class="form-group">
-      <label class="form-label text-start">{{tipoPeticion.nombre}} <span
-        class="obligatorios">*</span></label>
+    <div class="row mb-3 form-group">
+      <label class="form-label text-start">{{tipoPeticion.nombre}} <span class="obligatorios">*</span></label>
       <div class="col-12 col-lg-9 pb-1 pb-lg-0">
         <ng-select id="situaciones" formControlName="nombre">
           <ng-option *ngFor="let tipo of tipoFormulario; let i = index"
