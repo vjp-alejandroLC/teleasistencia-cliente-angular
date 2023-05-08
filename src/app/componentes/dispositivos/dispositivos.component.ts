@@ -34,7 +34,7 @@ export class DispositivosComponent implements OnInit {
   public idPaciente: number;
   public terminal: ITerminal;
   public idTerminal: number;
-
+  public plegado: boolean = false;
 
   /* Expresiones Regulares */
 
@@ -69,7 +69,7 @@ export class DispositivosComponent implements OnInit {
       situacion: ['', [Validators.required]],
       numero_terminal: ['', [Validators.required, Validators.pattern(this.REGEX_TER)]],
       modelo_terminal: ['', [Validators.required, Validators.pattern(this.REGEX_TER)]],
-      ucr: ['', [Validators.required]]
+      ucr: [false, [Validators.required]]
     });
   }
 
@@ -85,6 +85,10 @@ export class DispositivosComponent implements OnInit {
   //Tiene UCR
   elegirOpcion(boolean) {
     this.opcion = !!boolean;
+  }
+
+  contraer() {
+    this.plegado = !this.plegado;
   }
 
 

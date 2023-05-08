@@ -110,16 +110,23 @@
       <!-- Fin Terminal y UCR -->
 
       <ng-container *ngFor="let tipoAlarma of clasificacionAlarmas; let i = index">
-        <app-mostrar-clasificacion-alarma [tipoPeticion]="tipoAlarma" >
+        <app-mostrar-clasificacion-alarma [tipoPeticion]="tipoAlarma">
         </app-mostrar-clasificacion-alarma>
       </ng-container>
 
 
-      <button type="submit" class="btn btn-outline-success m-1" (click)="subirDatos()" [disabled]="formulario.invalid">
-        Guardar
+      <button type="submit" class="btn btn-outline-success m-1" (click)="subirDatos()" [disabled]="formulario.invalid"
+              [routerLink]="['/inicio']">
+        Guardar y salir
       </button>
-      <button type="button" class="btn btn-outline-secondary m-1">
+      <button type="button" class="btn btn-outline-secondary m-1"
+              data-bs-toggle="collapse"
+              data-bs-target="#personaContacto,#dispositivosForm" aria-expanded="false"
+              aria-controls="datosPersonales" (click)="contraer()">
         Volver
+      </button>
+      <button type="submit" class="btn btn-outline-success m-1" (click)="subirDatos()" [disabled]="formulario.invalid">
+        Guardar y Crear Agenda
       </button>
 
     </form>
@@ -127,7 +134,7 @@
 
 
   <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="situacion">
-    <app-crear-tipo-situacion  (mostrar)="this.mostrar=$event">
+    <app-crear-tipo-situacion (mostrar)="this.mostrar=$event">
     </app-crear-tipo-situacion>
   </div>
 </div>
