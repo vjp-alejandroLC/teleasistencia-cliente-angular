@@ -29,7 +29,7 @@ export class CargaTerminalesService {
   }
 
   modificarTerminalPorId(id:number,text:any): Observable<ITerminal> {
-    return this.http.put<ITerminal>(this.URL_SERVER_TERMINAL + '/' + id, text)
+    return this.http.patch<ITerminal>(this.URL_SERVER_TERMINAL + '/' + id, text)
   }
 
   nuevoTerminal(terminal: ITerminal): Observable<ITerminal> {

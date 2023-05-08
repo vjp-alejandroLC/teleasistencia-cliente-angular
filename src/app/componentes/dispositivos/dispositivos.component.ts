@@ -13,6 +13,8 @@ import {IPaciente} from "../../interfaces/i-paciente";
 import {CargarTerminalService} from "../../servicios/carga-terminal.service";
 import {ITerminal} from "../../interfaces/i-terminal";
 import {CargaTerminalesService} from "../../servicios/terminal/carga-terminales.service";
+import {CargaAlarmaService} from "../../servicios/alarmas/carga-alarma.service";
+import {CargaViviendaService} from "../../servicios/carga-vivienda.service";
 
 @Component({
   selector: 'app-dispositivos',
@@ -45,7 +47,9 @@ export class DispositivosComponent implements OnInit {
               private formBuilder: FormBuilder,
               private crearPaciente: CargaPacienteService,
               private historicoSituacion: CargaHistoricoTipoSituacionService,
-              private cargaTerminal: CargaTerminalesService) {
+              private cargaTerminal: CargaTerminalesService,
+              private cargaAlarma: CargaAlarmaService,
+              private cargaVivienda: CargaViviendaService) {
 
 
   }
@@ -86,81 +90,58 @@ export class DispositivosComponent implements OnInit {
 
   subirDatos() {
     this.idPaciente = this.crearPaciente.idPaciente;
-
-    this.modificarTerminal();
-    this.traerPaciente();
-  }
-
-  modificarTerminal() {
     this.idTerminal = this.cargaTerminal.idTerminal;
-    let datos
-
-    datos = {
-      numero_terminal: this.formulario.value.numero_terminal,
-      modelo_terminal: this.formulario.value.modelo_terminal
-    }
-
-    this.cargaTerminal.modificarTerminalPorId(this.idTerminal, datos).subscribe(
-      () => {
-        this.alertExito()
-      },
-      error => {
-        this.alertError()
-      }, () => {
-
-        this.traerPaciente();
-
-      }
-    )
-
-  }
-
-  traerPaciente() {
-
-
-    this.crearPaciente.getPaciente(this.idPaciente).subscribe(
-      paciente => {
-        this.paciente = paciente;
-      }, error => {
-        console.log(error)
-      },
-      () => {
-        this.paciente.tiene_ucr = this.formulario.value.ucr;
-        this.crearPaciente.modificarPaciente(this.paciente).subscribe(
-          () => {
-          },
-          error => {
-            this.alertError()
-            console.log(error);
-          }
-        )
-        this.crearHistorico();
-      }
-    )
-  }
-
-
-  crearHistorico() {
-
     let datos;
+    let datos2;
 
-    datos = {
-      fecha: this.formulario.value.fecha_alta,
-      id_tipo_situacion: {
-        nombre: this.formulario.value.situacion
-      },
-      id_terminal: this.paciente.id_terminal,
+    if (this.formulario.value.ucr == true) {
+      datos = {
+        estado_alarma: this.formulario.value.situacion,
+        fecha_registro: this.formulario.value.fecha_alta,
+        id_tipo_alarma: 10,
+        id_terminal: this.idTerminal,
+        id_paciente_ucr: this.idPaciente
+      }
+    } else {
+      datos = {
+        estado_alarma: this.formulario.value.situacion,
+        fecha_registro: this.formulario.value.fecha_alta,
+        id_tipo_alarma: 10,
+        id_terminal: this.idTerminal,
+      }
     }
 
-    this.historicoSituacion.nuevoHistoricoTipoSituacion(datos).subscribe(
-      e => {
+
+    console.log(datos)
+    this.cargaAlarma.nuevaAlarma(datos).subscribe(
+      alarma => {
+        this.alertExito()
+      },
+      error => {
+        console.log(error.message)
+        this.alertError()
+      }
+    )
+
+    datos2 = {
+      modelo_terminal: this.formulario.value.modelo_terminal,
+      numero_terminal: this.formulario.value.numero_terminal,
+      id_titular: this.idPaciente,
+      id_tipo_vivienda: this.cargaVivienda.idVivienda,
+    }
+
+    console.log(datos2)
+
+    this.cargaTerminal.modificarTerminalPorId(this.idPaciente, datos2).subscribe(
+      terminal => {
         this.alertExito()
       },
       error => {
         this.alertError()
-        console.log(error)
       }
     )
+
+
   }
 
 

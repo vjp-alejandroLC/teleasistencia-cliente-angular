@@ -54,7 +54,7 @@ export class CrearViviendaComponent implements OnInit {
   }
 
   nuevaVivienda(): void {
-
+    this.cargaVivienda.idVivienda = this.formulario.value.nombre;
     let idTerminal = this.terminal.idTerminal;
     let datos;
 

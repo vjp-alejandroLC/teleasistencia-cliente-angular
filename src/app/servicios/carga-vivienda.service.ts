@@ -11,6 +11,7 @@ import {environment} from "../../environments/environment";
 export class CargaViviendaService {
   private urlBase = environment.urlBase;
   private URL_SERVER_VIVIENDAS = this.urlBase + 'tipo_vivienda';
+  public idVivienda;
 
   constructor(private http: HttpClient) {
   }
