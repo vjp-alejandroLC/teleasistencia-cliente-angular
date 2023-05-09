@@ -31,7 +31,7 @@ export class CargaUsuariosDelServicioService {
     return this.http.post<any>(this.URL_SERVER_USER_SERVICE, usuario);
   }
 
-  borrarAgenda(idAgenda: number) {
-    return this.http.delete<any>(this.URL_SERVER_USER_SERVICE + '/' + idAgenda);
+  delUsuario(idUser: number) {
+    return this.http.delete<any>(this.URL_SERVER_USER_SERVICE + '/' + idUser);
   }
 }
