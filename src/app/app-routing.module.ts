@@ -244,7 +244,8 @@ import {
 import {AuthGuard} from "./guards/auth.guard";
 import {environment} from "../environments/environment";
 import {ModificarPasswordComponent} from "./componentes/user/modificar-password/modificar-password.component";
-import {ModificarImagenComponent} from "./componentes/user/modificar-imagen/modificar-imagen.component";
+import {ModificarPasswordUsuarioComponent} from "./componentes/botones-modificar/modificar-password-usuario/modificar-password-usuario.component";
+import {ModificarImagenUsuarioComponent} from "./componentes/botones-modificar/modificar-imagen-usuario/modificar-imagen-usuario.component";
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
   {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
@@ -776,8 +777,16 @@ const routes: Routes = [
     },
   },
   {
-    path: 'usuarios/modificarImagen/:id',
-    component: ModificarImagenComponent,
+    path: 'usuarios/modificarPasswordUsuario/:id',
+    component: ModificarPasswordUsuarioComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+  },
+  {
+    path: 'usuarios/modificarImagenUsuario/:id',
+    component: ModificarImagenUsuarioComponent,
     canActivate: [AuthGuard],
     data:{
       role:null

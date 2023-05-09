@@ -1,36 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import {IUsers} from "../../../interfaces/i-users";
 import {IGrupo} from "../../../interfaces/i-grupo";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {CargaUserService} from "../../../servicios/carga-user.service";
 import {CargaGrupoService} from "../../../servicios/carga-grupo.service";
+import {AuthService} from "../../../servicios/auth.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../../servicios/auth.service";
 
 @Component({
-  selector: 'app-modificar-password',
-  templateUrl: './modificar-password.component.html',
-  styleUrls: ['./modificar-password.component.scss']
+  selector: 'app-modificar-imagen-usuario',
+  templateUrl: './modificar-imagen-usuario.component.html',
+  styleUrls: ['./modificar-imagen-usuario.component.scss']
 })
-export class ModificarPasswordComponent implements OnInit {
+export class ModificarImagenUsuarioComponent implements OnInit {
   public user: IUsers;
   public idUser: number;
   public grupos: IGrupo[];
+  public img:string;
+  public imgNull:string
   public formModificarU: FormGroup;
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private cargaUsers: CargaUserService, private router: Router, private cargaGrupo : CargaGrupoService, private formBuilder: FormBuilder,private auth: AuthService) {
+  constructor(private route: ActivatedRoute, private titleService: Title, private cargaUsers: CargaUserService, private router: Router, private cargaGrupo : CargaGrupoService, private formBuilder: FormBuilder, private auth: AuthService) {
   }
 
   ngOnInit(): void {
+    this.user = this.route.snapshot.data['user'];
     this.idUser = this.route.snapshot.params['id'];
     this.titleService.setTitle('Modificar usuario ' + this.idUser);
 
+    const imagen=localStorage.getItem('img')
+    if(imagen==='null'){
+      this.imgNull=imagen
+    }else{
+      this.img= localStorage.getItem('img');
+    }
     this.formModificarU = this.formBuilder.group({
-      password: ['',Validators.required],
-      confirmpassword: ['',Validators.required,],
+      imagen: ['',Validators.required],
     });
   }
 
@@ -44,15 +52,21 @@ export class ModificarPasswordComponent implements OnInit {
     for ( let key in  this.formModificarU.controls) {
       myFormData.append(key, this.formModificarU.get(key).value);
     }
-    this.cargaUsers.modificarUser(myFormData,this.idUser).subscribe(
+    this.cargaUsers.modificarProfile(myFormData,this.idUser).subscribe(
       e => {
         this.alertExito()
-          this.router.navigate(['/usuarios']);
+        window.location.reload();
       },
       error => {
         this.alertError()
       }
     );
+  }
+  onFileChanged(event: any) {
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      this.formModificarU.controls.imagen.setValue(file)
+    }
   }
   //Toast para el Alert indicando que la operación fue exitosa
   alertExito() :void {
@@ -93,6 +107,4 @@ export class ModificarPasswordComponent implements OnInit {
       title: environment.fraseErrorModificar
     })
   }
-  //variable necesaria para ocultar/mostrar la contraseña
-  hide = false;
 }
