@@ -596,7 +596,7 @@ const routes: Routes = [
   {
     path:'agenda/nueva/:id',
     component: NuevoAgendaComponent,
-    canActivate: [LoginGuard],
+    canActivate: [AuthGuard],
     resolve: {
       agendas: ListaAgendaResolveService,
       tipos_agenda: ListaTiposAgendaResolveService,
