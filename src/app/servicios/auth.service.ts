@@ -22,11 +22,7 @@ export class AuthService {
 
 
   isLoggedIn(): boolean {
-    if (localStorage.getItem('token') != null) {
-      return true;
-    } else {
-      return false;
-    }
+    return localStorage.getItem('token') != null;
   }
 
   logout(): void {

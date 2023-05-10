@@ -1484,7 +1484,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'modificar-user-servicio/editar',
+    path: 'modificar-user-servicio/editar/:id',
     component: ModificarUserServicioComponent,
     canActivate: [AuthGuard],
     data: {
