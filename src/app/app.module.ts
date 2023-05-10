@@ -1,13 +1,11 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule, Title} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ListaUsersComponent} from './componentes/user/lista-users/lista-users.component';
 import {ItemUserComponent} from './componentes/user/item-user/item-user.component';
 import {ModificarUserComponent} from './componentes/user/modificar-user/modificar-user.component';
 import {CrearUserComponent} from './componentes/user/crear-user/crear-user.component';
-
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -63,9 +61,7 @@ import {HeaderComponent} from './componentes/header/header.component';
 import {FooterComponent} from './componentes/footer/footer.component';
 import {BotonesLoginComponent} from './componentes/botones-login/botones-login.component';
 import { AgendaComponent } from './componentes/agenda/lista-agenda/agenda.component';
-import {
-  ModificarHistoricoAgendaComponent
-} from "./componentes/historico-agenda/modificar-historico-agenda/modificar-historico-agenda.component";
+import {ModificarHistoricoAgendaComponent} from "./componentes/historico-agenda/modificar-historico-agenda/modificar-historico-agenda.component";
 import {ModificarAgendaComponent} from "./componentes/agenda/modificar-agenda/modificar-agenda.component";
 import { CommonModule } from '@angular/common';
 import { TipoAgendaComponent } from './componentes/tipo-agenda/lista-tipo-agenda/tipo-agenda.component';
@@ -73,10 +69,7 @@ import { ListaRelacionTerminalRecursosComunitariosComponent } from './componente
 import { ItemRelacionTerminalRecursosComunitariosComponent } from './componentes/relacion-terminal-recursos-comunitarios/item-relacion-terminal-recursos-comunitarios/item-relacion-terminal-recursos-comunitarios.component';
 import { CrearRelacionTerminalRecursosComunitariosComponent } from './componentes/relacion-terminal-recursos-comunitarios/crear-relacion-terminal-recursos-comunitarios/crear-relacion-terminal-recursos-comunitarios.component';
 import { ModificarRelacionTerminalRecursosComunitariosComponent } from './componentes/relacion-terminal-recursos-comunitarios/modificar-relacion-terminal-recursos-comunitarios/modificar-relacion-terminal-recursos-comunitarios.component';
-import {
-  CargaRelacionTerminalRecursosComunitariosService
-} from "./servicios/relacion-terminal-recurso-comunitario/carga-relacion-terminal-recursos-comunitarios.service";
-
+import {CargaRelacionTerminalRecursosComunitariosService} from "./servicios/relacion-terminal-recurso-comunitario/carga-relacion-terminal-recursos-comunitarios.service";
 import {NgxPaginationModule} from 'ngx-pagination';
 import {OrdenacionTablasService} from "./servicios/ordenacion-tablas.service";
 import { FiltroBusquedaPipe } from './pipes/filtro-busqueda.pipe';
@@ -110,9 +103,7 @@ import {CargaAgendaService} from "./servicios/carga-agenda.service";
 import { ItemAgendaComponent } from './componentes/agenda/item-agenda/item-agenda.component';
 import { ItemHistoricoAgendaComponent } from './componentes/historico-agenda/item-historico-agenda/item-historico-agenda.component';
 import { ListaHistoricoAgendaComponent } from './componentes/historico-agenda/lista-historico-agenda/lista-historico-agenda.component';
-import {
-  NuevoHistoricoAgendaComponent
-} from "./componentes/historico-agenda/nuevo-historico-agenda/nuevo-historico-agenda.component";
+import {NuevoHistoricoAgendaComponent} from "./componentes/historico-agenda/nuevo-historico-agenda/nuevo-historico-agenda.component";
 import { ListaAlarmasComponent } from './componentes/alarma/lista-alarmas/lista-alarmas.component';
 import { ModificarCerrarAlarmaComponent } from './componentes/alarma/modificar-cerrar-alarma/modificar-cerrar-alarma.component';
 import { ItemAlarmaComponent } from './componentes/alarma/item-alarma/item-alarma.component';
@@ -150,7 +141,6 @@ import { ListaRelacionUsuarioCentroComponent } from './componentes/relacion-usua
 import { ModificarTeleoperadorAlarmaComponent } from './componentes/alarma/modificar-teleoperador-alarma/modificar-teleoperador-alarma.component';
 import { RecursosComunitariosPersonalesComponent } from './componentes/recursos-comunitarios-personales/recursos-comunitarios-personales.component';
 import { GruposComponent } from './componentes/grupos/grupos.component';
-
 import { CrearUserServicioComponent } from './componentes/usuarios-del-servicio/crear-user-servicio/crear-user-servicio.component';
 import { ConsultarUsersServicioComponent } from './componentes/usuarios-del-servicio/consultar-users-servicio/consultar-users-servicio.component';
 import { VerRecursoComponent } from './components/recursos/recurso-comunitario/ver-recurso/ver-recurso.component';
@@ -167,7 +157,6 @@ import { EditarDatosSanitarioComponent } from './componentes/datos-sanitario/edi
 import { EditarTipoViviendaComponent } from './componentes/vivienda/editar-tipo-vivienda/editar-tipo-vivienda.component';
 import { EditarContactoComponent } from './componentes/personas-contacto/editar-contacto/editar-contacto.component';
 import { MostrarEditarContactoComponent } from './componentes/personas-contacto/mostrar-editar-contacto/mostrar-editar-contacto.component';
-
 
 @NgModule({
   declarations: [
@@ -289,8 +278,6 @@ import { MostrarEditarContactoComponent } from './componentes/personas-contacto/
     ListaRelacionUsuarioCentroComponent,
     ModificarTeleoperadorAlarmaComponent,
     GruposComponent,
-
-
     CrearUserServicioComponent,
     ConsultarUsersServicioComponent,
     VerRecursoComponent,

@@ -22,17 +22,13 @@ export class AuthGuard implements CanActivate {
     } else {
       return this.checkUserLogin(next, url);
     }
-
   }
-
   checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
 
     if (this.authService.isLoggedIn()) {
 
       if (route.data.role != null) {
         const userRole = this.authService.getRole();
-        console.log(userRole);
-        console.log(route.data.role[0]);
         if (route.data.role[0].indexOf(userRole) == -1) {
           this.router.navigate(['/inicio']);
           return false;
@@ -41,12 +37,8 @@ export class AuthGuard implements CanActivate {
       } else {
         return true;
       }
-
     }
-
     this.router.navigate(['/inicio']);
     return false;
   }
-
-
 }

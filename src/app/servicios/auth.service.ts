@@ -13,14 +13,13 @@ export class AuthService {
   }
 
   login(username, userlastname, role, img) {
-
-
     /***Apartado LocalStorage***/
     localStorage.setItem('username', username);
     localStorage.setItem('userlastname', userlastname);
     localStorage.setItem('role', role);
     localStorage.setItem('img', img);
   }
+
 
   isLoggedIn(): boolean {
     if (localStorage.getItem('token') != null) {

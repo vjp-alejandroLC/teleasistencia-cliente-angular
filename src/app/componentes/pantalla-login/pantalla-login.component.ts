@@ -69,8 +69,7 @@ export class PantallaLoginComponent implements OnInit{
             } else{
               this.img=resp[0].imagen.imagen
             }
-
-            this.auth.login(this.username,this.userlastname,this.grupo,this.img);
+            this.auth.login(this.username,this.userlastname,this.grupo,this.img);  // desde aqui hacemos toda la gestión del control de login
             //redirijimos al usuario al inicio
             this.router.navigate(['/inicio']);
           })
