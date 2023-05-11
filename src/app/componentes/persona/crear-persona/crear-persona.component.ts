@@ -204,7 +204,7 @@ export class CrearPersonaComponent implements OnInit {
         this.crearPaciente.idPaciente = e.id;
         this.terminal.id_titular = e.id;
 
-        this.plegar.emit(!this.plegado);
+        this.plegar.emit(false);
         this.alertExito() // Aquí damos el exito ya que seria la ultima petición encadenada.
       },
       error => {

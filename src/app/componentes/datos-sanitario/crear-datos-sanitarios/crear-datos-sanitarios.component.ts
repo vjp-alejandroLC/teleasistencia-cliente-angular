@@ -29,6 +29,8 @@ export class CrearDatosSanitariosComponent implements OnInit {
   mostrar: boolean = false;
   id: number = 0;
   @Output() public plegar = new EventEmitter;
+  @Output() public desplegar = new EventEmitter;
+
   public recurso_comunitario: IRecursoComunitario | any;
   public tipos_recursos_comunitarios: ITipoRecursoComunitario[] | any;
   public relacion_terminal_recurso: IRelacionTerminalRecursoComunitarios | any;
@@ -66,6 +68,10 @@ export class CrearDatosSanitariosComponent implements OnInit {
     this.crearFormulario();
   }
 
+  volver() {
+    this.plegado = !this.plegado;
+    this.desplegar.emit(true);
+  }
 
 //Función que determina si se pulsa o no en el selector de Recursos. Si no se pulsa aparece con cierta opacidad.
   desactivado() {

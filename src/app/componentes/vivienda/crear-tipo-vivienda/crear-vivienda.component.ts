@@ -26,6 +26,7 @@ export class CrearViviendaComponent implements OnInit {
 
   @Input() idPaciente: number;
   @Output() public plegar = new EventEmitter;
+  @Output() public desplegar = new EventEmitter;
 
 
   /*Constantes*/
@@ -45,6 +46,11 @@ export class CrearViviendaComponent implements OnInit {
 
   contraer() {
     this.plegado = !this.plegado;
+  }
+
+  volver() {
+    this.plegado = !this.plegado;
+    this.desplegar.emit(true);
   }
 
 

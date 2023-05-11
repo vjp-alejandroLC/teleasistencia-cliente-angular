@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TipoSituacion} from "../../clases/tipo-situacion";
 import {CargaTipoSituacionService} from "../../servicios/carga-tipo-situacion.service";
 import {ITipoSituacion} from "../../interfaces/i-tipo-situacion";
@@ -10,7 +10,6 @@ import {IClasificacionAlarma} from "../../interfaces/i-clasificacion-alarma";
 import {CargaPacienteService} from "../../servicios/carga-paciente.service";
 import {CargaHistoricoTipoSituacionService} from "../../servicios/carga-historico-tipo-situacion.service";
 import {IPaciente} from "../../interfaces/i-paciente";
-import {CargarTerminalService} from "../../servicios/carga-terminal.service";
 import {ITerminal} from "../../interfaces/i-terminal";
 import {CargaTerminalesService} from "../../servicios/terminal/carga-terminales.service";
 import {CargaAlarmaService} from "../../servicios/alarmas/carga-alarma.service";
@@ -35,6 +34,8 @@ export class DispositivosComponent implements OnInit {
   public terminal: ITerminal;
   public idTerminal: number;
   public plegado: boolean = false;
+  @Output() public desplegar = new EventEmitter;
+
 
   /* Expresiones Regulares */
 
@@ -89,6 +90,7 @@ export class DispositivosComponent implements OnInit {
 
   contraer() {
     this.plegado = !this.plegado;
+    this.desplegar.emit(true);
   }
 
 
@@ -144,8 +146,6 @@ export class DispositivosComponent implements OnInit {
         this.alertError()
       }
     )
-
-
 
 
   }

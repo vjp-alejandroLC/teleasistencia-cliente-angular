@@ -52,6 +52,7 @@ export class CrearPersonaContactoComponent implements OnInit {
   lista = [];
   public relacionBorrar: IRelacionPacientePersona | any;
   @Output() public plegar = new EventEmitter;
+  @Output() public desplegar = new EventEmitter;
 
 
   //EXPRESION REGULAR
@@ -179,15 +180,18 @@ export class CrearPersonaContactoComponent implements OnInit {
       persona => {
         this.idRelacion = persona.id;
         this.alertExito()
-        this.plegar.emit(!this.plegado);
-
       }
     )
   }
+
   contraer() {
     this.plegado = !this.plegado;
+    this.plegar.emit(!this.plegado);
   }
+  volver(){
+    this.desplegar.emit(true);
 
+  }
 
 
   crearHtml() { //Creo el HTML con FactoryResolvver, que sirve para poder crear diferentes componentes segun desee

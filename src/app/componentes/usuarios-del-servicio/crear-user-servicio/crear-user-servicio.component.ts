@@ -10,8 +10,18 @@ import {Title} from "@angular/platform-browser";
 export class CrearUserServicioComponent implements OnInit {
 
   public idPaciente: number;
-  public mostrar: boolean = false;
+  public mostrar: boolean = true;
+  public mostrar2: boolean = false;
+  public mostrar3: boolean = false;
+  public mostrar4: boolean = false;
+  public mostrar5: boolean = false;
 
+
+pruebas(evento){
+  console.log(evento)
+  this.mostrar=evento
+
+}
   constructor(private title: Title) {
   }
 

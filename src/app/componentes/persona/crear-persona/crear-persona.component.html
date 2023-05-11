@@ -231,10 +231,8 @@
     <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="collapseWidthExample2">
       <app-modificar-tipo-modalidad-paciente
         (mostrarModificar)="this.mostrarModificar=$event"
-        (modalidad_creada)="actualizarModalidades($event)"
-        *ngIf="this.mostrarModificar"
-        [listaTiposModalidad]="tipos_personas"
-        [idTipoModalidad]="formulario.value.tipos_personas">
+        (modalidad_creada)="actualizarModalidades($event)" *ngIf="this.mostrarModificar"
+        [listaTiposModalidad]="tipos_personas" [idTipoModalidad]="formulario.value.tipos_personas">
       </app-modificar-tipo-modalidad-paciente>
     </div>
   </div>

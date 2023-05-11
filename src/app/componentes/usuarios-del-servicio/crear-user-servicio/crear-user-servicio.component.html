@@ -1,4 +1,4 @@
-<main class="text-center row p-0 m-0 justify-content-center">
+<main class="row p-0 m-0 justify-content-center">
 
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -8,52 +8,75 @@
   </nav>
   <h1 class="component-title">Crear Usuario del Servicio</h1>
 
-  <div class="row mb-4 mt-4">
-    <h2>Datos Personales</h2>
-    <div class="formularios m-auto col-10 form-container p-3">
+  <div class="row mb-1 mt-1">
+    <h4 class="formularios d-flex align-items-center justify-content-between">
+      Datos Personales
+      <i class="fas fa-chevron-down" [ngClass]="{'fa-chevron-up': this.mostrar, 'fa-chevron-down': !this.mostrar}"></i>
+    </h4>
+    <div class="m-auto col-10 form-container p-3">
       <div class="collapse show" id="datosPersonales">
-        <app-crear-persona (plegar)="this.mostrar=$event">
+        <app-crear-persona (plegar)="pruebas($event);this.mostrar2=!this.mostrar2">
         </app-crear-persona>
       </div>
     </div>
   </div>
 
-  <div class="row mb-4 mt-4">
-    <h2>Datos Sanitarios</h2>
-    <div class="formularios m-auto col-10  p-3">
+  <div class="row mb-1 mt-1">
+    <h4 class="formularios d-flex align-items-center justify-content-between">
+      Datos Sanitarios
+      <i class="fas fa-chevron-down"
+         [ngClass]="{'fa-chevron-up': this.mostrar2, 'fa-chevron-down': !this.mostrar2}"></i>
+    </h4>
+    <div class="m-auto col-10  p-3">
       <div class="collapse" id="datosSanitarios">
-        <app-crear-datos-sanitarios (plegar)="this.mostrar=$event">
+        <app-crear-datos-sanitarios (plegar)="this.mostrar2=$event;this.mostrar3=!this.mostrar3"
+                                    (desplegar)="this.mostrar=$event;this.mostrar2=!this.mostrar2">
         </app-crear-datos-sanitarios>
       </div>
     </div>
   </div>
 
-  <div class="row mb-4 mt-4">
-    <h2>Vivienda</h2>
-    <div class="formularios m-auto col-10 p-3">
+  <div class="row mb-1 mt-1">
+    <h4 class="formularios d-flex align-items-center justify-content-between">
+      Vivienda
+      <i class="fas fa-chevron-down"
+         [ngClass]="{'fa-chevron-up': this.mostrar3, 'fa-chevron-down': !this.mostrar3}"></i>
+    </h4>
+    <div class="m-auto col-10 p-3">
       <div class="collapse" id="viviendaForm">
-        <app-crear-tipo-vivienda (plegar)="this.mostrar=$event">
+        <app-crear-tipo-vivienda (plegar)="this.mostrar3=$event;this.mostrar4=!this.mostrar4"
+                                 (desplegar)="this.mostrar2=$event;this.mostrar3=!this.mostrar3">
         </app-crear-tipo-vivienda>
       </div>
     </div>
   </div>
 
-  <div class="row mb-4 mt-4">
-    <h2>Personas de Contacto</h2>
-    <div class="formularios m-auto col-10 p-3">
+  <div class="row mb-1 mt-1">
+    <h4 class="formularios d-flex align-items-center justify-content-between">
+      Personas de Contacto
+      <i class="fas fa-chevron-down"
+         [ngClass]="{'fa-chevron-up': this.mostrar4, 'fa-chevron-down': !this.mostrar4}"></i>
+    </h4>
+    <div class="m-auto col-10 p-3">
       <div class="collapse" id="personaContacto">
-        <app-crear-persona-contacto (plegar)="this.mostrar=$event">
+        <app-crear-persona-contacto (plegar)="this.mostrar4=$event;this.mostrar5=!this.mostrar5"
+                                    (desplegar)="this.mostrar3=$event;this.mostrar4=!this.mostrar4">
         </app-crear-persona-contacto>
       </div>
     </div>
   </div>
 
 
-  <div class="row mb-4 mt-4">
-    <h2>Dispositivos</h2>
-    <div class="formularios m-auto col-10 p-3 form-container">
+  <div class="row mb-1 mt-1">
+    <h4 class="formularios d-flex align-items-center justify-content-between">
+      Dispositivos
+      <i class="fas fa-chevron-down"
+         [ngClass]="{'fa-chevron-up': this.mostrar5, 'fa-chevron-down': !this.mostrar5}"></i>
+    </h4>
+    <div class=" m-auto col-10 p-3 form-container">
       <div class="collapse " id="dispositivosForm">
-        <app-dispositivos>
+        <app-dispositivos
+          (desplegar)="this.mostrar4=$event;this.mostrar5=!this.mostrar5">
         </app-dispositivos>
       </div>
     </div>
