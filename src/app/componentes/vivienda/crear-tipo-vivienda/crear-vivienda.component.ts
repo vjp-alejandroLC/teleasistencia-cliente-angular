@@ -52,6 +52,7 @@ export class CrearViviendaComponent implements OnInit {
     this.plegado = !this.plegado;
     this.desplegar.emit(true);
   }
+
   refresco() {
     this.actualizarViviendas(this.formulario.value.nombre);
   }

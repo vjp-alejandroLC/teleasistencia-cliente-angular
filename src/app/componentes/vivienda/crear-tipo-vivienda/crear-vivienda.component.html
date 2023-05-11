@@ -68,12 +68,12 @@
     </form>
   </div>
 
-  <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="vivienda">
+  <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto text-center" id="vivienda">
     <app-nuevo-tipo-vivienda (mostrar)="this.mostrar=$event" (refresco)="actualizarViviendas($event)">
     </app-nuevo-tipo-vivienda>
   </div>
 
-  <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="vivienda2">
+  <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto text-center" id="vivienda2">
     <app-modificar-tipo-vivienda
       (mostrarModificar)="this.mostrarModificar=$event;refresco()"
       *ngIf="this.mostrarModificar"
