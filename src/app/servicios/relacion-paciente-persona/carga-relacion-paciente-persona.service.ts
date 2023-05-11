@@ -19,6 +19,10 @@ export class CargaRelacionPacientePersonaService {
     return this.http.get<IRelacionPacientePersona[]>(this.URL_SERVER_RELACION_PACIENTE_PERSONA);
   }
 
+  getRelacionesPacientePersonaPorPaciente(idPaciente:any): Observable<IRelacionPacientePersona[]> {
+    return this.http.get<IRelacionPacientePersona[]>(this.URL_SERVER_RELACION_PACIENTE_PERSONA + '?id_paciente=' +idPaciente);
+  }
+
   getRelacionPacientePersona(idRelacionPacientePersona: number): Observable<IRelacionPacientePersona> {
     return this.http.get<IRelacionPacientePersona>(this.URL_SERVER_RELACION_PACIENTE_PERSONA + '/' + idRelacionPacientePersona);
   }

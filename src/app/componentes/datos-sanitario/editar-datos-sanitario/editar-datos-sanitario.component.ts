@@ -34,19 +34,31 @@ export class EditarDatosSanitarioComponent implements OnInit {
   public tipos_recursos_comunitarios: ITipoRecursoComunitario[] | any;
   public relaciones_terminales: ITerminal[] | any;
   public relacion_terminal_recurso : IRelacionTerminalRecursoComunitarios | any;
-  public formulario: FormGroup | any;
+  public formularioDatos: FormGroup | any;
   public recurso: IRecursoComunitario | any ;
   public recursoBorrad: IRelacionTerminalRecursoComunitarios | any;
   public recursosMostrados: IRecursoComunitario[];
   public arrayRelaciones: IRelacionTerminalRecursoComunitarios [] = [];
   public pacientes: IPaciente[] | any;
   public mostrarTabla = false;
-  public idRecurso: number;
   public idPaciente: number;
   public recursoMostrar: IRecursoComunitario | any;
+  public pacienteEditar: IPaciente|any;
 
 
-  constructor(private cargaPersonas: CargaPersonaService,private componentFactoryResolver: ComponentFactoryResolver,private route: ActivatedRoute, private titleService: Title, private router: Router, private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService, private cargaRelacionTerminal: CargaTerminalesService, private cargaTiposRecursos: CargaTipoRecursoComunitarioService, private formBuilder: FormBuilder, private cargaDireccion: CargaDireccionService, private cargaRecurso: CargaRecursoComunitarioService, private paciente: CargaPacienteService) { }
+  constructor( private crearPaciente: CargaPacienteService
+               ,private cargaPersonas: CargaPersonaService,
+               private componentFactoryResolver: ComponentFactoryResolver,
+               private route: ActivatedRoute,
+               private titleService: Title,
+               private router: Router,
+               private cargaRelacionTerminalRecursosComunitarios: CargaRelacionTerminalRecursosComunitariosService,
+               private cargaRelacionTerminal: CargaTerminalesService,
+               private cargaTiposRecursos: CargaTipoRecursoComunitarioService,
+               private formBuilder: FormBuilder,
+               private cargaDireccion: CargaDireccionService,
+               private cargaRecurso: CargaRecursoComunitarioService,
+               private paciente: CargaPacienteService) { }
 
   //Carga todas las peticiones GET para así mostrarlas en la página. Junto con la creación de una nueva terminal.
   ngOnInit(): void {
@@ -76,19 +88,44 @@ export class EditarDatosSanitarioComponent implements OnInit {
       }
     )
 
+    this.crearPaciente.getPaciente(this.crearPaciente.idPacienteEditar).subscribe(
+      paciente =>{
+        this.pacienteEditar = paciente;
+        this.formularioDatos.patchValue({
+          nuss: this.pacienteEditar.numero_seguridad_social
+        })
+
+      }, error => console.log(error),
+      () => {
+        this.cargaRelacionTerminalRecursosComunitarios.getRelacionesTerminalesRecursosComunitarios().subscribe(
+          relacion =>{
+            this.alertExito(); //VER SI PUEDO TRAERME TODOS Y COMPARAR, SI ES LA MISMA ID LO METE EN EL ARRAY
+            for (const relac of relacion) {
+              if (relac.id_terminal.id == this.pacienteEditar.id_terminal.id){
+                this.arrayRelaciones.push(relac);
+
+              }
+            }
+            this.ordenarPorTiempo();
+          }
+        )
+      }
+
+    )
+
     this.crearFormulario();
   }
 
 
 //Función que determina si se pulsa o no en el selector de Recursos. Si no se pulsa aparece con cierta opacidad.
   desactivado() {
-    return (this.formulario.value.recurso == '') || (this.formulario.value.recurso == null);
+    return (this.formularioDatos.value.recurso == '') || (this.formularioDatos.value.recurso == null);
 
   }
 
   //Crea el formulario gracias a los formularios reactivos que uso.
   crearFormulario(){
-    this.formulario = this.formBuilder.group(
+    this.formularioDatos = this.formBuilder.group(
 
       {
         nuss: ['',[Validators.required,Validators.pattern("^\\d*\\.?\\d+$")]],
@@ -122,16 +159,16 @@ export class EditarDatosSanitarioComponent implements OnInit {
   //Metodo que crea la relación Terminal-Recurso. Esta hace un GET de la ID del Recurso y lo guarda, creando luego la relacion y haciendo un POST con la nueva
   //relacion. Trae como resultado un POST de Relacion Terminal. Este metodo tiene un booleano que hace que se muestre una tabla con todos las relaciones
   crearRelacion(){
-    this.cargaRecurso.getRecursoComunitario(this.formulario.get('recurso').value).subscribe(
+    this.cargaRecurso.getRecursoComunitario(this.formularioDatos.get('recurso').value).subscribe(
       recurso => {
         this.recurso = recurso;
       }, error => console.log(error),
       () =>{
 
         this.relacion_terminal_recurso = {
-          'id_terminal': this.cargaRelacionTerminal.idTerminal,
+          'id_terminal': this.pacienteEditar.id_terminal.id,
           'id_recurso_comunitario': this.recurso.id,
-          'tiempo_estimado': this.formulario.get('tiempo').value
+          'tiempo_estimado': this.formularioDatos.get('tiempo').value
         }
         this.cargaRelacionTerminalRecursosComunitarios.nuevaRelacionRecurso(this.relacion_terminal_recurso).subscribe(
           relacion =>{
@@ -180,7 +217,7 @@ export class EditarDatosSanitarioComponent implements OnInit {
   //Trae como resultado un PATCH del NUSS
   actualizarNuss(){
 
-    this.paciente.modificarNUSS(this.paciente.idPaciente, this.formulario.get('nuss').value).subscribe(
+    this.paciente.modificarNUSS(this.pacienteEditar.id, this.formularioDatos.get('nuss').value).subscribe(
       () =>{
         this.alertExito();
       }
@@ -190,37 +227,37 @@ export class EditarDatosSanitarioComponent implements OnInit {
 
 //Estos GET sirven para así poder tomar el valor de los mismos del formulario en cuestión
   get nombre(){
-    return this.formulario.get('nombre') as FormControl;
+    return this.formularioDatos.get('nombre') as FormControl;
   }
 
   get nuss(){
-    return this.formulario.get('nuss') as FormControl;
+    return this.formularioDatos.get('nuss') as FormControl;
   }
 
   get telefono(){
-    return this.formulario.get('telefono') as FormControl;
+    return this.formularioDatos.get('telefono') as FormControl;
 
   }
 
   get localidad(){
-    return this.formulario.get('localidad') as FormControl;
+    return this.formularioDatos.get('localidad') as FormControl;
   }
 
   get provincia(){
-    return this.formulario.get('provincia') as FormControl;
+    return this.formularioDatos.get('provincia') as FormControl;
   }
 
 
   get direccion(){
-    return this.formulario.get('direccion') as FormControl;
+    return this.formularioDatos.get('direccion') as FormControl;
   }
 
   get codigo_postal(){
-    return this.formulario.get('codigo_postal') as FormControl;
+    return this.formularioDatos.get('codigo_postal') as FormControl;
   }
 
   get tiempo(){
-    return this.formulario.get('tiempo') as FormControl;
+    return this.formularioDatos.get('tiempo') as FormControl;
   }
 
 //-------------------------------------------------------

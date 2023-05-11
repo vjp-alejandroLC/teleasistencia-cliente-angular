@@ -46,8 +46,8 @@ export class CrearPersonaContactoComponent implements OnInit {
   public pacientes: IPaciente[] | any;
   public paciente: IPaciente | any;
   private componentesCreados: any[] = []; // Generamos un array de componentes para guardarlos posteriormente
-  opcion = false;
-  opcion2 = false;
+  opcion = true;
+  opcion2 = true;
   public formulario: FormGroup | any;
   lista = [];
   public relacionBorrar: IRelacionPacientePersona | any;
@@ -58,7 +58,14 @@ export class CrearPersonaContactoComponent implements OnInit {
   //EXPRESION REGULAR
   readonly REGEX_NOMBREAPELLIDOS = /^[A-Z][a-zA-Z]*( [A-Z][a-zA-Z]*)*$/;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private cargaPersonas: CargaPersonaService, private cargaDireccion: CargaDireccionService, private cargaPacientes: CargaPacienteService, private cargaRelacion: CargaRelacionPacientePersonaService) {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+              private route: ActivatedRoute,
+              private router: Router,
+              private formBuilder: FormBuilder,
+              private cargaPersonas: CargaPersonaService,
+              private cargaDireccion: CargaDireccionService,
+              private cargaPacientes: CargaPacienteService,
+              private cargaRelacion: CargaRelacionPacientePersonaService) {
   }
 
 
@@ -73,16 +80,16 @@ export class CrearPersonaContactoComponent implements OnInit {
 
   crearFormulario() {
     this.formulario = this.formBuilder.group({
-      nombre: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(this.REGEX_NOMBREAPELLIDOS)]],
-      apellidos: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(this.REGEX_NOMBREAPELLIDOS)]],
-      telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern("^((\\\\+91-?)|0)?[0-9]{9}$")]],
-      tipo_relacion: ['', [Validators.required, Validators.pattern(this.REGEX_NOMBREAPELLIDOS)]],
-      tiene_llaves_vivienda: ['', [Validators.required]],
+      nombre: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
+      apellidos: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
+      telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_fijo)]],
+      tipo_relacion: ['', [Validators.required, Validators.pattern(environment.regex_name)]],
+      tiene_llaves_vivienda: [true, [Validators.required]],
       disponibilidad: ['', [Validators.required]],
       observaciones: ['', [Validators.required]],
       prioridad: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
       tiempo_domicilio: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
-      es_conviviente: ['', [Validators.required, Validators.maxLength(200)]]
+      es_conviviente: [true, [Validators.required, Validators.maxLength(200)]]
     })
 
   }

@@ -24,10 +24,15 @@
           </a>
         </li>
 
-        <li class="nav-item p-1 mr-1">
-          <a class="nav-link" id="navUsuarios" href="#" [routerLink]="['/usuarios_del_servicio/consultar']">
+        <li class="nav-item dropdown p-1 mr-1">
+          <a class="nav-link dropdown-toggle" id="navUsuarios"  data-bs-toggle="dropdown" aria-expanded="false" href="#">
             Usuarios del servicio
           </a>
+
+          <ul class="dropdown-menu" aria-labelledby="navUsuarios">
+              <li><a class="dropdown-item" [routerLink]="['/usuarios_del_servicio/consultar']">Consultar usuarios</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/usuarios_del_servicio/crear']">Crear nuevos usuarios</a></li>
+            </ul>
         </li>
 
 

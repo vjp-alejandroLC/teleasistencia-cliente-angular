@@ -1,6 +1,6 @@
 <div class="row d-flex justify-content-center">
   <div class="col-12 col-xl-6">
-    <form [formGroup]="formulario" (submit)="nuevaVivienda()"
+    <form [formGroup]="formularioVivienda" (submit)="nuevaVivienda()"
           [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
       <div class="row mb-3 form-group">
         <label for="nombre" class="form-label text-start">Tipo de Vivienda <span
@@ -45,7 +45,7 @@
         </div>
       </div>
       <button type="submit" class="btn btn-outline-success m-1"
-              [disabled]="formulario.invalid">
+              [disabled]="formularioVivienda.invalid">
         Guardar
       </button>
       <button type="button" class="btn btn-outline-secondary m-1">
@@ -66,7 +66,7 @@
       (vivienda_creada)="actualizarViviendas($event)"
       *ngIf="this.mostrarModificar"
       [listaViviendas]="listaViviendas"
-      [idVivienda]="formulario.value.nombre">
+      [idVivienda]="formularioVivienda.value.nombre">
     </app-modificar-tipo-vivienda>
   </div>
 </div>

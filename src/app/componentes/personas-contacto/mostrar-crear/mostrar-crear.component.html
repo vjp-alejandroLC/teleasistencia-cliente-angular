@@ -1,6 +1,6 @@
 <div class="row d-flex justify-content-center mt-5">
   <div class="col-12 col-xl-6 mt-3">
-    <h3 class="mb-3">Contacto {{indice}}</h3>
+    <h3 class="mb-3 text-center">Contacto {{indice}}</h3>
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()" id="formularioRelacion">
       <div class="row">
         <div class="col-md-4">
@@ -79,7 +79,7 @@
         </div>
         <div class="col-md-4">
           <div class="form-group mb-3">
-            <label for="tiempo_domicilio" class="form-label">Tiempo domicilio <span class="obligatorios">*</span></label>
+            <label for="tiempo_domicilio" class="form-label">Tiempo domicilio(min) <span class="obligatorios">*</span></label>
             <input type="number" name="tiempo_domicilio" id="tiempo_domicilio" class="form-control"
                    formControlName="tiempo_domicilio" placeholder="Tiempo domicilio">
             <div *ngIf="tiempo_domicilio.invalid && (tiempo_domicilio.dirty || tiempo_domicilio.touched)" class="alert alert-secondary" role="alert">
@@ -97,7 +97,7 @@
         <div class="col-md-6">
           <div class="row mb-3 form-group">
             <div class="form-check mb-3">
-              <span>¿Llaves de la vivienda? <span class="obligatorios">*</span></span>
+              <span class="text-center">¿Llaves de la vivienda? <span class="obligatorios">*</span></span>
               <div class="row mt-2 form-inline">
                 <div class="col-6 mt-3 form-check">
                   <input class="btn-check" type="radio" id="tiene_llaves_vivienda_true{{indice}}" (click)="elegirOpcion2(true)" name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda">
@@ -113,7 +113,7 @@
         </div>
         <div class="col-md-6">
           <div class="row mb-3 form-group">
-            <span>¿Es conviviente? <span class="obligatorios">*</span></span>
+            <span class="text-center">¿Es conviviente? <span class="obligatorios">*</span></span>
             <div class="row mt-2 form-inline">
               <div class="col-6 form-check mt-3">
 
@@ -149,23 +149,29 @@
       </div>
 
 
-      <button type="submit" class="btn btn-outline-success m-1"
-              [disabled]="formulario.invalid"  *ngIf="mostrarGuardar" >
-        Guardar contacto
-      </button>
-      <button type="submit" class="btn btn-outline-danger m-1"
-              (click)="borrarHTML()" *ngIf="mostrarGuardar"  >
-        Borrar contacto
-      </button>
+      <div class="text-center">
+        <button type="submit" class="btn btn-outline-success m-1"
+                [disabled]="formulario.invalid"  *ngIf="mostrarGuardar" >
+          Guardar contacto
+        </button>
+        <button type="submit" class="btn btn-outline-danger m-1"
+                (click)="borrarHTML()" *ngIf="mostrarGuardar"  >
+          Borrar contacto
+        </button>
+      </div>
+
     </form>
 
 
-    <button class="btn btn-outline-warning m-1 botonOperacion2" (click)="editarRelacion()" *ngIf="mostrarEditar">
-      Guardar contacto
-    </button>
-    <button class="btn btn-outline-danger m-1 botonOperacion2" (click)="borrarRelacion()" *ngIf="mostrarEditar" >
-      Borrar contacto
-    </button>
+    <div class="text-center">
+      <button class="btn btn-outline-success m-1 botonOperacion2" (click)="editarRelacion()" *ngIf="mostrarEditar">
+        Guardar contacto
+      </button>
+      <button class="btn btn-outline-danger m-1 botonOperacion2" (click)="borrarRelacion()" *ngIf="mostrarEditar" >
+        Borrar contacto
+      </button>
+    </div>
+
   </div>
 
   </div>

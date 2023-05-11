@@ -11,7 +11,7 @@ export class CargaPacienteService {
   private urlBase = environment.urlBase;
   private URL_SERVER_PACIENTE = this.urlBase + 'paciente';
   public idPaciente: number;
-
+  public idPacienteEditar:number;
   constructor(private http: HttpClient) {
   }
 

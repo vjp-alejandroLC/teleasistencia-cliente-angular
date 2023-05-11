@@ -7,6 +7,7 @@ import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
 import {CargaTerminalesService} from "../../../servicios/terminal/carga-terminales.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {IPaciente} from "../../../interfaces/i-paciente";
 
 @Component({
   selector: 'app-editar-tipo-vivienda',
@@ -16,9 +17,10 @@ import {environment} from "../../../../environments/environment";
 export class EditarTipoViviendaComponent implements OnInit {
   public vivienda: ITipoVivienda | any;
   public listaViviendas: ITipoVivienda[];
-  public formulario: FormGroup;
+  public formularioVivienda: FormGroup;
   public mostrar: boolean = false;
   public mostrarModificar: boolean = false;
+  public pacienteEditar: IPaciente|any;
 
   @Input() idPaciente: number;
 
@@ -42,7 +44,18 @@ export class EditarTipoViviendaComponent implements OnInit {
 
   /* formulario reactivo */
   private buildForm() {
-    this.formulario = this.formBuilder.group({
+
+    this.paciente.getPaciente(this.paciente.idPacienteEditar).subscribe(
+      paciente => {
+        this.pacienteEditar = paciente;
+        this.formularioVivienda.patchValue({
+          nombre: this.pacienteEditar.id_terminal.id_tipo_vivienda.nombre,
+          text_area: this.pacienteEditar.id_terminal.modo_acceso_vivienda,
+          text_area2: this.pacienteEditar.id_terminal.barreras_arquitectonicas
+        })
+      }
+      )
+    this.formularioVivienda = this.formBuilder.group({
       nombre: ['', [Validators.required],
       ],
       text_area: ['', [Validators.max(400)]],
@@ -52,18 +65,16 @@ export class EditarTipoViviendaComponent implements OnInit {
 
   nuevaVivienda(): void {
 
-    let idTerminal = this.terminal.idTerminal;
     let datos;
 
     datos = {
-      id_titular: this.paciente.idPaciente,
-      modo_acceso_vivienda: this.formulario.value.text_area,
-      barreras_arquitectonicas: this.formulario.value.text_area2,
-      id_tipo_vivienda: this.formulario.value.nombre
+      id_titular: this.pacienteEditar.id,
+      modo_acceso_vivienda: this.formularioVivienda.value.text_area,
+      barreras_arquitectonicas: this.formularioVivienda.value.text_area2,
+      id_tipo_vivienda: this.formularioVivienda.value.nombre
     }
 
-
-    this.terminal.modificarTerminalPorId(idTerminal, datos).subscribe(
+    this.terminal.modificarTerminalPorId(this.pacienteEditar.id_terminal.id, datos).subscribe(
       () => {
         this.alertExito()
       },
@@ -122,7 +133,7 @@ export class EditarTipoViviendaComponent implements OnInit {
   }
 
   desactivado() {
-    return (this.formulario.value.nombre == '') || (this.formulario.value.nombre == null);
+    return (this.formularioVivienda.value.nombre == '') || (this.formularioVivienda.value.nombre == null);
   }
 
   modalConfirmacion(): void {
@@ -140,9 +151,9 @@ export class EditarTipoViviendaComponent implements OnInit {
 
 
   private eliminarVivienda() {
-    this.cargaVivienda.borrarVivienda(this.formulario.value.nombre).subscribe(
+    this.cargaVivienda.borrarVivienda(this.formularioVivienda.value.nombre).subscribe(
       e => {
-        this.formulario.get('nombre').setValue('');
+        this.formularioVivienda.get('nombre').setValue('');
         this.alertExitoBorrar()
       },
       error => {
@@ -206,7 +217,7 @@ export class EditarTipoViviendaComponent implements OnInit {
     this.cargaVivienda.getViviendas().subscribe(
       lista => {
         this.listaViviendas = lista;
-        this.formulario.patchValue({tipo_vivienda: id_tipo_vivienda})   // asigna directamente en el select el tipo creado a tiempo real
+        this.formularioVivienda.patchValue({tipo_vivienda: id_tipo_vivienda})   // asigna directamente en el select el tipo creado a tiempo real
       },
       error => {
       },

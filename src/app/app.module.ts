@@ -157,6 +157,8 @@ import { EditarDatosSanitarioComponent } from './componentes/datos-sanitario/edi
 import { EditarTipoViviendaComponent } from './componentes/vivienda/editar-tipo-vivienda/editar-tipo-vivienda.component';
 import { EditarContactoComponent } from './componentes/personas-contacto/editar-contacto/editar-contacto.component';
 import { MostrarEditarContactoComponent } from './componentes/personas-contacto/mostrar-editar-contacto/mostrar-editar-contacto.component';
+import { CrearEditarContactoComponent } from './componentes/personas-contacto/crear-editar-contacto/crear-editar-contacto.component';
+import { DispositivosEditarComponent } from './componentes/dispositivos-editar/dispositivos-editar.component';
 
 @NgModule({
   declarations: [
@@ -294,6 +296,8 @@ import { MostrarEditarContactoComponent } from './componentes/personas-contacto/
     EditarTipoViviendaComponent,
     EditarContactoComponent,
     MostrarEditarContactoComponent,
+    CrearEditarContactoComponent,
+    DispositivosEditarComponent,
   ],
   imports: [
     BrowserModule,

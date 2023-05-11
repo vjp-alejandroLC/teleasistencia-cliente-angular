@@ -30,6 +30,7 @@ export class MostrarEditarContactoComponent implements OnInit {
   @Input() indice: number;
   idPaciente: number;
   idRelacion: number;
+  public relacionEditar: IRelacionPacientePersona;
   submitted = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
   public direccion: IDireccion | any;
@@ -45,7 +46,13 @@ export class MostrarEditarContactoComponent implements OnInit {
   readonly REGEX_NOMBREAPELLIDOS = /^[A-Z][a-zA-Z]*( [A-Z][a-zA-Z]*)*$/;
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private  formBuilder: FormBuilder,private cargaPersonas: CargaPersonaService, private cargaDireccion: CargaDireccionService, private cargaPacientes: CargaPacienteService, private cargaRelacion: CargaRelacionPacientePersonaService) {
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private  formBuilder: FormBuilder,
+              private cargaPersonas: CargaPersonaService,
+              private cargaDireccion: CargaDireccionService,
+              private cargaPacientes: CargaPacienteService,
+              private cargaRelacion: CargaRelacionPacientePersonaService) {
   }
 
   ngOnInit() {
@@ -56,15 +63,25 @@ export class MostrarEditarContactoComponent implements OnInit {
         this.pacientes = paciente;
       },
       error => console.log(error),
-      () => console.log("Fin del observable")
     )
+    this.formulario.patchValue({
+      nombre: this.relacionEditar.nombre,
+      apellidos: this.relacionEditar.apellidos,
+      telefono_fijo: this.relacionEditar.telefono,
+      tipo_relacion: this.relacionEditar.tipo_relacion,
+      tiene_llaves_vivienda: this.relacionEditar.tiene_llaves_vivienda,
+      disponibilidad: this.relacionEditar.disponibilidad,
+      observaciones: this.relacionEditar.observaciones,
+      prioridad: this.relacionEditar.prioridad,
+      tiempo_domicilio: this.relacionEditar.tiempo_domicilio,
+      es_conviviente: this.relacionEditar.es_conviviente
+
+    })
+
+
 
   }
 
-  borrarHTML(){
-    this.onBorrarComponente.emit(); //Emito borrarComponente para avisar al padre que borraré el componente
-
-  }
   elegirOpcion(elegirBoolean){
     if (elegirBoolean){
       this.opcion = true;
@@ -82,7 +99,7 @@ export class MostrarEditarContactoComponent implements OnInit {
 
 
   borrarRelacion(){
-    this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
+    this.cargaRelacion.getRelacionPacientePersona(this.relacionEditar.id).subscribe(
       relacion => {
         this.relacionBorrar = relacion
       }, error => console.log(error),
@@ -114,42 +131,31 @@ export class MostrarEditarContactoComponent implements OnInit {
       'prioridad': this.formulario.get('prioridad').value,
       'es_conviviente': this.formulario.get('es_conviviente').value,
       'tiempo_domicilio' : this.formulario.get('tiempo_domicilio').value,
-      'id_paciente': this.cargaPacientes.idPaciente
+      'id_paciente': this.cargaPacientes.idPacienteEditar
 
     }
-    this.cargaRelacion.getRelacionPacientePersona(this.idRelacion).subscribe(
-      relacion => {
-        this.relacionBorrar = relacion
-      }, error => console.log(error),
-      () => {
-        this.cargaRelacion.modificarRelacion(this.relacionBorrar.id,this.relacionPacientePersona).subscribe( //Paso la id usada + el formulario entero para cambiar todo el objeto
+        this.cargaRelacion.modificarRelacion(this.relacionEditar.id,this.relacionPacientePersona).subscribe( //Paso la id usada + el formulario entero para cambiar todo el objeto
           () =>{
 
             this.alertEditarRecurso();
 
           }, error => console.log(error),
-          () =>{
-
-          }
         )
-      }
-    )
-
 
   }
 
   crearFormulario(){
     this.formulario = this.formBuilder.group({
-      nombre: ['',[Validators.required,Validators.maxLength(200),Validators.pattern(this.REGEX_NOMBREAPELLIDOS)]],
-      apellidos: ['',[Validators.required,Validators.maxLength(200),Validators.pattern(this.REGEX_NOMBREAPELLIDOS)]],
-      telefono_fijo: ['',[Validators.required,Validators.maxLength(200),Validators.pattern("^((\\\\+91-?)|0)?[0-9]{9}$")]],
-      tipo_relacion:['',[Validators.required,Validators.pattern(this.REGEX_NOMBREAPELLIDOS)]],
-      tiene_llaves_vivienda: ['', [Validators.required]],
-      disponibilidad: ['',[Validators.required]],
-      observaciones: ['',[Validators.required]],
-      prioridad: ['',[Validators.required,Validators.pattern("^[0-9]+$")]],
-      tiempo_domicilio: ['',[Validators.required,Validators.pattern("^[0-9]+$")]],
-      es_conviviente: ['',[Validators.required,Validators.maxLength(200)]]
+      nombre: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
+      apellidos: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
+      telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_fijo)]],
+      tipo_relacion: ['', [Validators.required, Validators.pattern(environment.regex_name)]],
+      tiene_llaves_vivienda: [true, [Validators.required]],
+      disponibilidad: ['', [Validators.required]],
+      observaciones: ['', [Validators.required]],
+      prioridad: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
+      tiempo_domicilio: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
+      es_conviviente: [true, [Validators.required, Validators.maxLength(200)]]
     })
 
 
@@ -162,30 +168,6 @@ export class MostrarEditarContactoComponent implements OnInit {
 
 
 
-  crearRelacionPacientePersona(){
-    this.relacionPacientePersona = {
-      'telefono': this.formulario.get('telefono_fijo').value,
-      'nombre': this.formulario.get('nombre').value,
-      'apellidos': this.formulario.get('apellidos').value,
-      'tipo_relacion': this.formulario.get('tipo_relacion').value,
-      'tiene_llaves_viviendas': this.formulario.get('tiene_llaves_vivienda').value,
-      'disponibilidad': this.formulario.get('disponibilidad').value,
-      'observaciones': this.formulario.get('observaciones').value,
-      'prioridad': this.formulario.get('prioridad').value,
-      'es_conviviente': this.formulario.get('es_conviviente').value,
-      'tiempo_domicilio' : this.formulario.get('tiempo_domicilio').value,
-      'id_paciente': this.cargaPacientes.idPaciente
-
-    }
-
-    this.cargaRelacion.nuevaRelacionPacientePersona(this.relacionPacientePersona).subscribe(
-      persona =>{
-        this.idRelacion = persona.id; //Guardo la iD del form ya creada
-        this.alertExito()
-      }
-    )
-
-  }
 
 
 
@@ -197,7 +179,7 @@ export class MostrarEditarContactoComponent implements OnInit {
     }
     this.mostrarGuardar = false;
     this.mostrarEditar = true;
-    this.crearRelacionPacientePersona();
+    this.editarRelacion();
   }
 
   //Toast para el Alert indicando que la operación fue exitosa

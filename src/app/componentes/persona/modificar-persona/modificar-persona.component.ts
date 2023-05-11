@@ -35,7 +35,9 @@ export class ModificarPersonaComponent implements OnInit {
   public paciente: IPaciente | any;
   public idPaciente: number;
   public listaSexo: String[] = ['Hombre', 'Mujer'];
-
+  public pacienteEditar: IPaciente|any;
+  public personaEditar: IPersona |any;
+  public name: string|any;
 
   /* Constantes */
   readonly REGEX_NAME = /^[A-Z][a-zA-ZÀ-ÿ- ]+$/;
@@ -73,6 +75,36 @@ export class ModificarPersonaComponent implements OnInit {
   ngOnInit(): void {
     this.tipos_personas = this.route.snapshot.data['tipos_personas'];
     this.buildForm();  //Formularios reactivos
+
+    this.crearPaciente.getPaciente(this.crearPaciente.idPacienteEditar).subscribe(
+    paciente =>{
+      this.pacienteEditar = paciente;
+      console.log("PACIENTE: " +this.pacienteEditar);
+      this.cargaPersonas.getPersona(this.pacienteEditar.id_persona.id).subscribe(
+        persona => {
+          this.personaEditar = persona;
+          this.formulario.patchValue({
+            nombre: this.personaEditar.nombre,
+            apellidos: this.personaEditar.apellidos,
+            expediente: this.pacienteEditar.numero_expediente,
+            dni: this.personaEditar.dni,
+            fecha_nacimiento: this.personaEditar.fecha_nacimiento,
+            sexo: this.personaEditar.sexo,
+            telefono_fijo: this.personaEditar.telefono_fijo,
+            telefono_movil: this.personaEditar.telefono_movil,
+            localidad: this.personaEditar.id_direccion.localidad,
+            provincia: this.personaEditar.id_direccion.provincia,
+            direccion: this.personaEditar.id_direccion.direccion,
+            codigo_postal: this.personaEditar.id_direccion.codigo_postal,
+            tipos_personas: this.pacienteEditar.id_tipo_modalidad_paciente.nombre
+
+
+          })
+        }
+      )
+    }, error => console.log(error)
+
+  )
 
   }
 
@@ -144,7 +176,7 @@ export class ModificarPersonaComponent implements OnInit {
       }
     }
 
-    this.cargaPersonas.nuevaPersona(this.persona).subscribe(
+    this.cargaPersonas.modificarPersona(this.persona,this.pacienteEditar.id_persona.id).subscribe(
       e => {
         this.persona = e;
         this.nuevoTerminal()
@@ -160,14 +192,13 @@ export class ModificarPersonaComponent implements OnInit {
   /* Método para crear Terminales */
   private nuevoTerminal() {
     this.terminal = {
-      numero_terminal: "",
-      id_titular: null,
-      id_tipo_vivienda: null,
-      modo_acceso_vivienda: "",
-      barreras_arquitectonicas: ""
+      numero_terminal: this.pacienteEditar.id_terminal.numero_terminal,
+      id_titular: this.pacienteEditar.id_terminal.id_titular.id,
+      id_tipo_vivienda: this.pacienteEditar.id_terminal.id_tipo_vivienda.id,
+      modo_acceso_vivienda: this.pacienteEditar.id_terminal.modo_acceso_vivienda,
+      barreras_arquitectonicas: this.pacienteEditar.id_terminal.barreras_arquitectonicas
     }
-
-    this.crearTerminal.nuevoTerminal(this.terminal).subscribe(
+    this.crearTerminal.modificarTerminalPorId(this.pacienteEditar.id_terminal.id, this.terminal).subscribe(
       e => {
         this.terminal = e;
         this.crearTerminal.idTerminal = e.id;
@@ -186,18 +217,17 @@ export class ModificarPersonaComponent implements OnInit {
   nuevoPaciente() {
 
     this.paciente = {
-      id_terminal: this.terminal.id,
-      id_persona: this.persona.id,
-      tiene_ucr: false,
+      id_terminal: this.pacienteEditar.id_terminal.id,
+      id_persona: this.pacienteEditar.id_persona.id,
+      tiene_ucr: this.pacienteEditar.tiene_ucr,
       numero_expediente: this.formulario.value.expediente,
-      numero_seguridad_social: "",
-      prestacion_otros_servicios_sociales: "",
+      numero_seguridad_social: this.pacienteEditar.numero_seguridad_social,
+      prestacion_otros_servicios_sociales: this.pacienteEditar.prestacion_otros_servicios_sociales,
       observaciones_medicas: this.formulario.value.text_area,
-      intereses_y_actividades: "",
+      intereses_y_actividades: this.pacienteEditar.intereses_y_actividades,
       id_tipo_modalidad_paciente: this.formulario.value.tipos_personas
     }
-
-    this.crearPaciente.nuevoPaciente(this.paciente).subscribe(
+    this.crearPaciente.modificarPaciente(this.pacienteEditar).subscribe(
       e => {
         this.paciente = e;
         this.crearPaciente.idPaciente = e.id;
