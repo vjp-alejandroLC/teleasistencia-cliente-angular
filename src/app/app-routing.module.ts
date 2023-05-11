@@ -327,6 +327,7 @@ import {
 import {
   CargaUsuariosDelServicioResolveService
 } from "./servicios/usuarios-del-servicio/carga-usuarios-del-servicio-resolve.service";
+import {DispositivosComponent} from "./componentes/dispositivos/dispositivos.component";
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
@@ -1512,6 +1513,26 @@ const routes: Routes = [
       usuarios_del_servicio:CargaUsuariosDelServicioResolveService
     }
   },
+  {
+    path: 'pruebas',
+    component: DispositivosComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: null
+    },
+    resolve: {
+      tipos_personas: ListaTiposModalidadesPacientesResolveService,
+      datos_sanitario: ListarelacionterminalrecursocomunitarioService,
+      tipos_viviendas: ListaViviendasResolveService,
+      tipos_situaciones: ListaSituacionesService,
+      tipos_perifericos: ListaTiposAlarmasResolveService,
+      tipos_alarmas: ListaTiposAlarmasResolveService,
+      clasificaciones_alarmas: ListaClasificacionesAlarmasResolveService
+
+    }
+  },
+
+
   {path: '', redirectTo: '/inicio', pathMatch: 'full'},
   {path: '**', redirectTo: '/inicio', pathMatch: 'full'}
 ];

@@ -48,20 +48,22 @@
           <textarea formControlName="text_area2" name="text_area" id="text_area2" class="form-control"></textarea>
         </div>
       </div>
-      <button type="submit" class="btn btn-outline-success m-1"
-              [disabled]="formulario.invalid"
-              data-bs-toggle="collapse"
-              data-bs-target="#viviendaForm,#personaContacto" aria-expanded="false"
-              aria-controls="datosPersonales" (click)="contraer()">
-        Guardar
-      </button>
-      <button type="button" class="btn btn-outline-secondary m-1"
-              (click)="volver()"
-              data-bs-toggle="collapse"
-              data-bs-target="#viviendaForm ,#datosSanitarios" aria-expanded="false"
-              aria-controls="datosPersonales">
-        Volver
-      </button>
+      <div class="text-center">
+        <button type="submit" class="btn btn-outline-success m-1"
+                [disabled]="formulario.invalid"
+                data-bs-toggle="collapse"
+                data-bs-target="#viviendaForm,#personaContacto" aria-expanded="false"
+                aria-controls="datosPersonales" (click)="contraer()">
+          Guardar
+        </button>
+        <button type="button" class="btn btn-outline-secondary m-1"
+                (click)="volver()"
+                data-bs-toggle="collapse"
+                data-bs-target="#viviendaForm ,#datosSanitarios" aria-expanded="false"
+                aria-controls="datosPersonales">
+          Volver
+        </button>
+      </div>
 
     </form>
   </div>

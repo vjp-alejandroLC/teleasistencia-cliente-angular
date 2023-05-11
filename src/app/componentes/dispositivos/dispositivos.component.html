@@ -4,6 +4,7 @@
           [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''" (submit)="subirDatos()">
 
       <div class="row mb-3 form-group">
+        <h3> Terminal y UCR</h3>
         <div class="col-6">
           <label for="fecha_alta" class="form-label text-start">Fecha de Alta <span
             class="obligatorios">*</span></label>
@@ -53,7 +54,6 @@
       <!-- Comienzo Terminal y UCR -->
 
       <div class="row mb-3 form-group border-top p-3">
-        <h3> Terminal y UCR</h3>
         <div class="col-6">
           <div class="form-group">
             <label for="numero_terminal" class="form-label text-start">Nº Terminal <span
@@ -114,20 +114,22 @@
         </app-mostrar-clasificacion-alarma>
       </ng-container>
 
-
-      <button type="submit" class="btn btn-outline-success m-1" (click)="subirDatos()" [disabled]="formulario.invalid"
-              [routerLink]="['/inicio']">
-        Guardar y salir
-      </button>
-      <button type="submit" class="btn btn-outline-success m-1" (click)="subirDatos()" [disabled]="formulario.invalid">
-        Guardar y Crear Agenda
-      </button>
-      <button type="button" class="btn btn-outline-secondary m-1"
-              data-bs-toggle="collapse"
-              data-bs-target="#personaContacto,#dispositivosForm" aria-expanded="false"
-              aria-controls="datosPersonales" (click)="contraer()">
-        Volver
-      </button>
+      <div class="text-center">
+        <button type="submit" class="btn btn-outline-success m-1" (click)="subirDatos()" [disabled]="formulario.invalid"
+                [routerLink]="['/inicio']">
+          Guardar y salir
+        </button>
+        <button type="submit" class="btn btn-outline-success m-1" (click)="subirDatos()"
+                [disabled]="formulario.invalid">
+          Guardar y Crear Agenda
+        </button>
+        <button type="button" class="btn btn-outline-secondary m-1"
+                data-bs-toggle="collapse"
+                data-bs-target="#personaContacto,#dispositivosForm" aria-expanded="false"
+                aria-controls="datosPersonales" (click)="contraer()">
+          Volver
+        </button>
+      </div>
     </form>
   </div>
 

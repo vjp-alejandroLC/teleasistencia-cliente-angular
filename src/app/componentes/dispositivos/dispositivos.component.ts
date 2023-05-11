@@ -70,7 +70,7 @@ export class DispositivosComponent implements OnInit {
       situacion: ['', [Validators.required]],
       numero_terminal: ['', [Validators.required, Validators.pattern(this.REGEX_TER)]],
       modelo_terminal: ['', [Validators.required, Validators.pattern(this.REGEX_TER)]],
-      ucr: [false, [Validators.required]]
+      ucr: [true, [Validators.required]]
     });
   }
 

@@ -14,7 +14,6 @@ import {ITerminal} from "../../../interfaces/i-terminal";
 import {IPaciente} from "../../../interfaces/i-paciente";
 import {CargaTipoModalidadPacienteService} from "../../../servicios/carga-tipo-modalidad-paciente.service";
 
-
 @Component({
   selector: 'app-crear-persona',
   templateUrl: './crear-persona.component.html',
@@ -39,12 +38,7 @@ export class CrearPersonaComponent implements OnInit {
 
 
   /* Constantes */
-  readonly REGEX_NAME = /^[A-Za-z][a-zA-ZÀ-ÿ- ]+$/;
-  readonly REGEX_DNI = /^([0-9]{8})([A-Z])$/;
-  readonly REGEX_MOVIL = /^[6|7]{1}[ ]*([0-9][ ]*){8}$/;
-  readonly REGEX_FIJO = /^[9]{1}[ ]*([0-9][ ]*){8}$/;
-  readonly REGEX_CP = /^\d{5}$/;
-  readonly REGEX_EXP = /^\d{4,}$/;
+
   readonly PLANTILLA_OBS = '- Otros Servicios: \n' +
     '- Datos de ocio: \n' +
     '- Servicio de Comidas:';
@@ -68,7 +62,8 @@ export class CrearPersonaComponent implements OnInit {
               private formBuilder: FormBuilder,
               private crearTerminal: CargaTerminalesService,
               private crearPaciente: CargaPacienteService,
-              private modalidades: CargaTipoModalidadPacienteService) {
+              private modalidades: CargaTipoModalidadPacienteService
+              ) {
   }
 
   ngOnInit(): void {
@@ -84,18 +79,18 @@ export class CrearPersonaComponent implements OnInit {
       nombre: ['', [Validators.required,
         Validators.maxLength(200),
         Validators.minLength(2),
-        Validators.pattern(this.REGEX_NAME)],
+        Validators.pattern(environment.regex_name)],
       ],
       apellidos: ['', [Validators.required,
         Validators.maxLength(200),
         Validators.minLength(2),
-        Validators.pattern(this.REGEX_NAME)],
+        Validators.pattern(environment.regex_name)],
       ],
       expediente: ['', [Validators.required,
-        Validators.pattern(this.REGEX_EXP)]],
+        Validators.pattern(environment.regex_exp)]],
       dni: ['', [Validators.required,
         Validators.maxLength(9),
-        Validators.pattern(this.REGEX_DNI)],
+        Validators.pattern(environment.regex_dni)],
       ],
       fecha_nacimiento: ['', [
         Validators.required,
@@ -103,9 +98,9 @@ export class CrearPersonaComponent implements OnInit {
       ]],
       sexo: ['', [Validators.required]],
       telefono_fijo: ['', [Validators.maxLength(12),
-        Validators.pattern(this.REGEX_FIJO)]],
+        Validators.pattern(environment.regex_fijo)]],
       telefono_movil: ['', [Validators.maxLength(12),
-        Validators.pattern(this.REGEX_MOVIL)]],
+        Validators.pattern(environment.regex_movil)]],
       localidad: ['', [Validators.required,
         Validators.maxLength(200)]],
       provincia: ['', [Validators.required,
@@ -115,7 +110,7 @@ export class CrearPersonaComponent implements OnInit {
       codigo_postal: ['', [Validators.required,
         Validators.maxLength(5),
         Validators.minLength(5),
-        Validators.pattern(this.REGEX_CP)]],
+        Validators.pattern(environment.regex_cp)]],
       tipos_personas: ['', [Validators.required]],
       text_area: [this.PLANTILLA_OBS, [Validators.max(250)]]
     });

@@ -34,10 +34,20 @@ export const environment = {
   urlWebsocket: 'ws://localhost:8000/ws/socket-server/',
   urlBase: 'http://localhost:8000/api-rest/',
   urlToken: 'http://localhost:8000/api/token/',
-  
+
   //Control de roles
   admins:['supervisor','administrador','profesor'],
   
+  //Expresiones regulares para validaciones:
+  regex_name: /^[A-Za-z][a-zA-ZÀ-ÿ- ]+$/, //nombres y apellidos
+  regex_dni:/^([0-9]{8})([A-Z])$/,
+  regex_movil:/^[6|7]{1}[ ]*([0-9][ ]*){8}$/, //teléfonos moviles
+  regex_fijo:/^[9]{1}[ ]*([0-9][ ]*){8}$/, // teléfonos fijos
+  regex_cp:/^\d{5}$/, //codigo postal
+  regex_exp:/^\d{4,}$/, // expediente paciente
+
+
+
   //sobrenombre y version de la pagina
   subdominio: {
     nombre:'CRT',
