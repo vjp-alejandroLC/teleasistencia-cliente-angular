@@ -24,7 +24,11 @@ export class ModificarTipoModalidadPacienteComponent implements OnInit {
   public tipo_modalidad: any;
 
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private cargaTiposModalidadesPacientes: CargaTipoModalidadPacienteService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private route: ActivatedRoute,
+              private titleService: Title,
+              private cargaTiposModalidadesPacientes: CargaTipoModalidadPacienteService,
+              private router: Router,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {

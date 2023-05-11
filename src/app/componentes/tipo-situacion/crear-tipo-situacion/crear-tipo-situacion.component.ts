@@ -15,6 +15,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class CrearTipoSituacionComponent implements OnInit {
   @Output() mostrar = new EventEmitter;
+  @Output() refresco = new EventEmitter;
+
   public formulario: FormGroup;
 
   constructor(private route: ActivatedRoute,
@@ -54,6 +56,7 @@ export class CrearTipoSituacionComponent implements OnInit {
     this.cargaSituacion.nuevoTipoSituacion(tipo_situacion).subscribe(
       e => {
         this.mostrar.emit(!this.mostrar);
+        this.refresco.emit(e.id);
         this.alertExito()
       },
       error => {

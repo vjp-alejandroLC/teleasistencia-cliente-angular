@@ -23,7 +23,7 @@
         <div class="col-12 col-lg-9 pb-1 pb-lg-0">
           <ng-select id="situaciones" formControlName="situacion">
             <ng-option *ngFor="let tipoSituacion of listaDeSituaciones; let i = index"
-                       [value]="tipoSituacion.nombre">{{tipoSituacion.nombre}}</ng-option>
+                       [value]="tipoSituacion.id">{{tipoSituacion.nombre}}</ng-option>
           </ng-select>
         </div>
         <div class="col-4 col-lg-1  p-0">
@@ -35,8 +35,8 @@
         </div>
         <div class="col-4 col-lg-1  p-0">
           <button class="btn btn-warning botonOperacion" id="des1" type="button"
-                  data-bs-toggle="collapse" data-bs-target="#situaciones2" aria-expanded="false"
-                  aria-controls="situaciones2" [disabled]="desactivado()">
+                  data-bs-toggle="collapse" data-bs-target="#situacion2" aria-expanded="false"
+                  aria-controls="situacion2"  (click)="mostrarEditarTipo()" [disabled]="desactivado()">
             <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
           </button>
         </div>
@@ -134,9 +134,17 @@
     </form>
   </div>
 
-  <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="situacion">
-    <app-crear-tipo-situacion (mostrar)="this.mostrar=$event">
+  <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto text-center" id="situacion">
+    <app-crear-tipo-situacion (mostrar)="this.mostrar=$event" (refresco)="actualizarTiposSituaciones($event)">
     </app-crear-tipo-situacion>
+  </div>
+
+  <div  class="col-12 col-xl-6 collapse collapse-horizontal m-auto text-center" id="situacion2">
+      <app-modificar-tipo-situacion
+        (mostrarModificar)="this.mostrarModificar=$event;refresco()"
+        *ngIf="this.mostrarModificar"
+        [listaTiposSituaciones]="listaDeSituaciones" [idTipoSituacion]="formulario.value.situacion">
+      </app-modificar-tipo-situacion>
   </div>
 </div>
 
