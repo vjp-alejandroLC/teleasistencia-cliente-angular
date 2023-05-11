@@ -193,7 +193,7 @@ export class CrearPersonaContactoComponent implements OnInit {
 
   contraer() {
     this.plegado = !this.plegado;
-    this.plegar.emit(!this.plegado);
+    this.plegar.emit(false);
   }
   volver(){
     this.desplegar.emit(true);

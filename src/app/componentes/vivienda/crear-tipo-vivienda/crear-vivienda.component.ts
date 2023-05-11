@@ -80,7 +80,7 @@ export class CrearViviendaComponent implements OnInit {
     this.terminal.modificarTerminalPorId(idTerminal, datos).subscribe(
       () => {
         this.alertExito()
-        this.plegar.emit(!this.plegado);
+        this.plegar.emit(false);
 
       },
       error => {

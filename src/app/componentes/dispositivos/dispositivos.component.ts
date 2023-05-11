@@ -26,7 +26,7 @@ export class DispositivosComponent implements OnInit {
   public listaDeSituaciones: ITipoSituacion[];
   public clasificacionAlarmas: IClasificacionAlarma[];
   public formulario: FormGroup;
-  public opcion: boolean;
+  public opcion: boolean=true;
   public mostrar: boolean = false;
   public mostrarModificar: boolean = false;
   public paciente: IPaciente;

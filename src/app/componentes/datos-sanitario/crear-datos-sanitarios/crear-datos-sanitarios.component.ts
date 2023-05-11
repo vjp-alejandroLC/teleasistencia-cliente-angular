@@ -173,7 +173,7 @@ export class CrearDatosSanitariosComponent implements OnInit {
     this.paciente.modificarNUSS(this.paciente.idPaciente, this.formulario.get('nuss').value).subscribe(
       () => {
         this.alertExito();
-        this.plegar.emit(!this.plegado);
+        this.plegar.emit(false);
       }
     )
 

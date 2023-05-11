@@ -37,7 +37,7 @@ export const environment = {
 
   //Control de roles
   admins:['supervisor','administrador','profesor'],
-  
+
   //Expresiones regulares para validaciones:
   regex_name: /^[A-Za-z][a-zA-ZÀ-ÿ- ]+$/, //nombres y apellidos
   regex_dni:/^([0-9]{8})([A-Z])$/,
