@@ -37,10 +37,6 @@ export class DispositivosComponent implements OnInit {
   @Output() public desplegar = new EventEmitter;
 
 
-  /* Expresiones Regulares */
-
-  readonly REGEX_TER = /^\d{4,}$/;
-
 
   constructor(private situaciones: CargaTipoSituacionService,
               private router: Router,
@@ -68,8 +64,8 @@ export class DispositivosComponent implements OnInit {
       fecha_alta: ['', [Validators.required,
         validacionFechaMaxima()]],
       situacion: ['', [Validators.required]],
-      numero_terminal: ['', [Validators.required, Validators.pattern(this.REGEX_TER)]],
-      modelo_terminal: ['', [Validators.required, Validators.pattern(this.REGEX_TER)]],
+      numero_terminal: ['', [Validators.required, Validators.pattern(environment.regex_ter)]],
+      modelo_terminal: ['', [Validators.required, Validators.pattern(environment.regex_ter)]],
       ucr: [true, [Validators.required]]
     });
   }

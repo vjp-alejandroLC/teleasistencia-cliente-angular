@@ -54,7 +54,7 @@ export const environment = {
   regex_fijo:/^[9]{1}[ ]*([0-9][ ]*){8}$/, // teléfonos fijos
   regex_cp:/^\d{5}$/, //codigo postal
   regex_exp:/^\d{4,}$/, // expediente paciente
-
+  regex_ter:/^\d{4,}$/, //Terminales
 
   //subdominio y version de la pagina
   subdominio: {

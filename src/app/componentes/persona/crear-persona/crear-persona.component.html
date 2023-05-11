@@ -225,15 +225,15 @@
         </div>
       </form>
     </div>
-    <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="collapseWidthExample">
+    <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto text-center" id="collapseWidthExample">
       <app-crear-tipo-modalidad-paciente (mostrar)="this.mostrar=$event" (refresco)="actualizarModalidades($event)">
       </app-crear-tipo-modalidad-paciente>
     </div>
 
-    <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="collapseWidthExample2">
+    <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto text-center" id="collapseWidthExample2">
       <app-modificar-tipo-modalidad-paciente
-        (mostrarModificar)="this.mostrarModificar=$event"
-        (modalidad_creada)="actualizarModalidades($event)" *ngIf="this.mostrarModificar"
+        (mostrarModificar)="this.mostrarModificar=$event;refresco()"
+        *ngIf="this.mostrarModificar"
         [listaTiposModalidad]="tipos_personas" [idTipoModalidad]="formulario.value.tipos_personas">
       </app-modificar-tipo-modalidad-paciente>
     </div>

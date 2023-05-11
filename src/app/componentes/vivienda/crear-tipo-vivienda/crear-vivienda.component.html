@@ -75,8 +75,7 @@
 
   <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="vivienda2">
     <app-modificar-tipo-vivienda
-      (mostrarModificar)="this.mostrarModificar=$event"
-      (vivienda_creada)="actualizarViviendas($event)"
+      (mostrarModificar)="this.mostrarModificar=$event;refresco()"
       *ngIf="this.mostrarModificar"
       [listaViviendas]="listaViviendas"
       [idVivienda]="formulario.value.nombre">

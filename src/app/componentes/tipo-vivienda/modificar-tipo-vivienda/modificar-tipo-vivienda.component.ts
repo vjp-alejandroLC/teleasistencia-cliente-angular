@@ -17,7 +17,6 @@ export class ModificarTipoViviendaComponent implements OnInit {
   @Output() public mostrarModificar = new EventEmitter;
   @Input() public listaViviendas: ITipoModalidadPaciente[];
   @Input() public idVivienda: number;
-  @Output() public vivienda_creada = new EventEmitter;
 
   public formulario: FormGroup;
   public tipo_vivienda: ITipoVivienda;
@@ -43,6 +42,7 @@ export class ModificarTipoViviendaComponent implements OnInit {
     }
     this.cargaViviendas.modificarTipoVivienda(vivienda).subscribe(
       e => {
+        this.mostrarModificar.emit(!this.mostrarModificar);
         this.alertExito()
       },
       error => {

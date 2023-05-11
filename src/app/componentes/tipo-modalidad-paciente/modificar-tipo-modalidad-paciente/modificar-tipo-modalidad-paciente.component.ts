@@ -18,7 +18,7 @@ export class ModificarTipoModalidadPacienteComponent implements OnInit {
   @Output() public mostrarModificar = new EventEmitter;
   @Input() public listaTiposModalidad: ITipoModalidadPaciente[];
   @Input() public idTipoModalidad: number;
-  @Output() public modalidad_creada = new EventEmitter;
+
 
   public formulario: FormGroup;
   public tipo_modalidad: any;
@@ -37,7 +37,7 @@ export class ModificarTipoModalidadPacienteComponent implements OnInit {
   modificarTipoModalidadPaciente(): void {
 
     let tipo_modalidad_paciente = {
-      id:this.tipo_modalidad.id,
+      id: this.tipo_modalidad.id,
       nombre: this.formulario.value.nombre
     }
 

@@ -63,7 +63,7 @@ export class CrearPersonaComponent implements OnInit {
               private crearTerminal: CargaTerminalesService,
               private crearPaciente: CargaPacienteService,
               private modalidades: CargaTipoModalidadPacienteService
-              ) {
+  ) {
   }
 
   ngOnInit(): void {
@@ -253,7 +253,6 @@ export class CrearPersonaComponent implements OnInit {
   }
 
   private eliminarTipoModalidad() {
-    console.log(this.formulario.value.tipos_personas)
     this.modalidades.eliminarTipoModalidadPaciente(this.formulario.value.tipos_personas).subscribe(
       e => {
         this.alertExitoBorrar()
@@ -345,6 +344,10 @@ export class CrearPersonaComponent implements OnInit {
 
   mostrarEditarTipo() {
     this.mostrarModificar = !this.mostrarModificar;
+  }
+
+  refresco() {
+    this.actualizarModalidades(this.formulario.value.tipos_personas);
   }
 
   actualizarModalidades(id_tipo_modalidad = null) {
