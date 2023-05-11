@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { CargaAlarmaService } from "../../../servicios/alarmas/carga-alarma.service";
@@ -48,6 +48,7 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
   public tiposRecursos: IClasificacioRecurso[];
 
 
+
   constructor(private route: ActivatedRoute,
               private cargaPersonaAlarma: CargaPersonaContactoAlarmaService,private cargarPersona:CargaRelacionPacientePersonaService,
               private titleService: Title,private formBuilder: FormBuilder, private router: Router,
@@ -60,8 +61,6 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
     this.alarma = this.route.snapshot.data['alarma'];
     this.idAlarma = this.route.snapshot.params['id'];
     this.personas_en_alarma = this.route.snapshot.data['personas_en_alarma'];
-    console.log("PERSONAS EN ALARMA")
-    console.log(this.personas_en_alarma)
     this.paciente_ucr = this.alarma.id_paciente_ucr
     //FORMULARIO NIVEL 1
     this.formInf = this.formBuilder.group({
@@ -81,7 +80,6 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
       this.idTerminalPersona = this.alarma.id_paciente_ucr.id;
     }
     //PETICION GET PACIENTES DE CONTACTO
-    console.log(this.idTerminalPersona)
     this.cargarPersona.getRelacionPacientePersonaTerminal(this.idTerminalPersona).subscribe(
       lista =>{
         this.listaPersonas = lista;

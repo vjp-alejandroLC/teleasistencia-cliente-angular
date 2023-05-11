@@ -1,7 +1,7 @@
-<form [formGroup]="formAnadir" (submit)="subirPost()" class="mb-3">
-  <div class="row m-0" id="borrar">
+<form [formGroup]="formAnadir" (submit)="subirPost()" class="mb-3" class="border-0">
+  <div class="row  m-0" id="borrar">
   <h6>{{clasificacion?.nombre}}</h6>
-    <ng-container *ngIf="this.alarma.estado_alarma =='Abierta'">
+    <ng-container *ngIf="this.alarma?.estado_alarma =='Abierta'">
         <div class="col-12 col-sm-10 p-0">
           <ng-select  formControlName="tipo_recurso">
             <ng-container *ngFor="let recurso of this.tipo_recurso">
@@ -14,9 +14,11 @@
         </div>
     </ng-container>
     <div class="m-0 p-0" id="{{this.minusculas(clasificacion?.nombre)}}">
-      <div class="row m-0 mb-1 mt-1 pt-1 pb-1 p-0 align-items-center bg-info borde" *ngFor="let recurso_alarma of this.recursos_en_alarma_filtrados2" id="{{this.minusculas(recurso_alarma?.id_recurso_comunitario.nombre)}}">
-        <div class="p-0" [ngClass]="this.alarma.estado_alarma =='Abierta'?'col-10':'col-12'" >{{recurso_alarma?.id_recurso_comunitario.nombre}}</div>
-        <div class="col-2 p-0" *ngIf="this.alarma.estado_alarma =='Abierta'"><button class="btn btn-danger" type="button" (click)="borrarRecurso(recurso_alarma,clasificacion?.nombre)"><i class="fa fa-solid fa-trash"></i></button></div>
+      <div class="row m-0 mb-1 mt-1 p-2 align-items-center justify-content-center borde "
+           *ngFor="let recurso_alarma of this.recursos_en_alarma"
+           id="{{this.minusculas(recurso_alarma?.id_recurso_comunitario?.nombre)}}">
+        <div class="p-0" [ngClass]="this.alarma?.estado_alarma =='Abierta'?'col-9 col-sm-10 textoIzq':'col-12 textoCent'" >{{recurso_alarma?.id_recurso_comunitario?.nombre}}</div>
+        <div class="col-3 col-sm-2  p-0" *ngIf="this.alarma?.estado_alarma =='Abierta'"><button class="btn btn-danger boton" type="button" (click)="borrarRecurso(recurso_alarma,clasificacion?.nombre)"><i class="fa fa-solid fa-trash"></i></button></div>
       </div>
     </div>
     </div>
