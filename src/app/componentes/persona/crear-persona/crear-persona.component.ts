@@ -43,7 +43,7 @@ export class CrearPersonaComponent implements OnInit {
   readonly REGEX_DNI = /^([0-9]{8})([A-Z])$/;
   readonly REGEX_MOVIL = /^[6|7]{1}[ ]*([0-9][ ]*){8}$/;
   readonly REGEX_FIJO = /^[9]{1}[ ]*([0-9][ ]*){8}$/;
-  readonly REGEX_CP = /[0-9]+$/;
+  readonly REGEX_CP = /^\d{5}$/;
   readonly REGEX_EXP = /^\d{4,}$/;
   readonly PLANTILLA_OBS = '- Otros Servicios: \n' +
     '- Datos de ocio: \n' +
