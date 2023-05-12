@@ -226,4 +226,13 @@ export class NuevoAgendaComponent implements OnInit {
     this.tipo_agenda = this.tipos_agenda.find(tipo => tipo.id == this.nuevaAgenda.get('tipo_agenda').value);
     this.nuevaAgenda.get('importancia').setValue(this.tipo_agenda.importancia);
   }
+
+  //Funcion para deshabilitar botones (EDITAR Y BORRAR TIPO AGENDA)
+  botonDes(){
+    if((this.nuevaAgenda.get("tipo_agenda").value == '')||(this.nuevaAgenda.get("tipo_agenda").value == null)){
+      return true;
+    }else{
+      return false;
+    }
+  }
 }
