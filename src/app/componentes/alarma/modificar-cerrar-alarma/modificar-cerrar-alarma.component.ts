@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component,OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { CargaAlarmaService } from "../../../servicios/alarmas/carga-alarma.service";
@@ -16,12 +16,6 @@ import {
 } from "../../../servicios/persona-contacto-alarma/carga-persona-contacto-alarma.service";
 import {IClasificacioRecurso} from "../../../interfaces/i-clasificacio-recurso";
 import {IRelacionTerminalRecursoComunitarios} from "../../../interfaces/i-relacion-terminal-recurso-comunitarios";
-import {
-  CargaRecursosComunitariosAlarmaService
-} from "../../../servicios/recursos-comunitarios-alarma/carga-recursos-comunitarios-alarma.service";
-import {
-  CargaRelacionTerminalRecursosComunitariosService
-} from "../../../servicios/relacion-terminal-recurso-comunitario/carga-relacion-terminal-recursos-comunitarios.service";
 import {IPersonaContactoAlarma} from "../../../interfaces/i-persona-contacto-alarma";
 
 
@@ -43,8 +37,6 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
   public listaPersonas: IRelacionPacientePersona[];
   public personas_en_alarma: IPersonaContactoAlarma[];
   //RECURSOS
-  public listaTiposExistentes:  IClasificacioRecurso[]=[];
-  public listaRecursosTerminal: IRelacionTerminalRecursoComunitarios[];
   public tiposRecursos: IClasificacioRecurso[];
 
 
@@ -52,8 +44,7 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private cargaPersonaAlarma: CargaPersonaContactoAlarmaService,private cargarPersona:CargaRelacionPacientePersonaService,
               private titleService: Title,private formBuilder: FormBuilder, private router: Router,
-              private cargarAlarmas: CargaAlarmaService,private cargarResursos: CargaRecursosComunitariosAlarmaService,
-              private cargaRecursosTerminal: CargaRelacionTerminalRecursosComunitariosService) { }
+              private cargarAlarmas: CargaAlarmaService) { }
 
   ngOnInit(): void {
 
@@ -91,19 +82,7 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
     )
     //NIVEL 3
     this.tiposRecursos = this.route.snapshot.data['clas_recursos']
-    //Hacemos get de los recursos segun el terminal de la alarma
-    this.cargaRecursosTerminal.getRelacionTerminal(this.idTerminal).subscribe(tipos=>{
-        this.listaRecursosTerminal = tipos;
-      },
-      error => {},
-      ()=>{
 
-        //Funcion para filtrar los tipos de recursos que tiene el terminal
-        this.tiposContieneTerminal();
-        //Funcion para crear en el formulario solo los campos que se necesiten
-        //this.anadirCamposForm()
-
-      })
 
   }
   //buscamos la opcion que coincida con el buscado para dejarla preseleccionada
@@ -253,27 +232,5 @@ export class ModificarCerrarAlarmaComponent implements OnInit {
     let minutos =fecha.getMinutes();
     return`${anio}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')} ${hora.toString().padStart(2,'0')}:${minutos.toString().padStart(2, '0')}`;
   }
-  //NIVEL 3
-  //Funcion para seleccionar la clasificacion de recursos que contiene la alarma
-  tiposContieneTerminal(){
-    for (let i = 0; i<this.listaRecursosTerminal.length;i++) {
-      for (let j = 0; j < this.tiposRecursos.length; j++) {
-        if (this.listaRecursosTerminal[i].id_recurso_comunitario.id_tipos_recurso_comunitario.id_clasificacion_recurso_comunitario.id == this.tiposRecursos[j].id) {
-          this.listaTiposExistentes.push(this.listaRecursosTerminal[i].id_recurso_comunitario.id_tipos_recurso_comunitario.id_clasificacion_recurso_comunitario);
-        }
-      }
-    }
-    this.eliminarDuplicados()
-  }
-  //Eliminar las clasificaciones de alarmas repetidas
-  eliminarDuplicados(){
-    var hash = {};
-    this.listaTiposExistentes = this.listaTiposExistentes.filter(function(current) {
-      var exists = !hash[current.id];
-      hash[current.id] = true;
-      return exists;
-    });
-  }
-
 
 }

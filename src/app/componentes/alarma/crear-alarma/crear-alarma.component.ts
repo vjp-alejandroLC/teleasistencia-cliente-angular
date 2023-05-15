@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Alarma} from "../../../clases/alarma";
 import {TipoAlarma} from "../../../clases/tipo-alarma";
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -8,7 +7,7 @@ import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {Terminal} from "../../../clases/terminal";
 import {Paciente} from "../../../clases/paciente";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CargaTipoAlarmaService} from "../../../servicios/carga-tipo-alarma.service";
 
 @Component({
@@ -60,15 +59,11 @@ export class CrearAlarmaComponent implements OnInit {
         id_tipo_alarma: this.formCrearA.value.tipos_alarma,
         id_terminal: this.formCrearA.value.id_terminal
       }
-      console.log("TERMINAL: ");
-      console.log(data);
     }else{
       data = {
         id_tipo_alarma: this.formCrearA.value.tipos_alarma,
         id_paciente_ucr: this.formCrearA.value.id_paciente_ucr
       }
-      console.log("PACIENTE: ");
-      console.log(data);
     }
     this.cargaAlarma.nuevaAlarma(data).subscribe(
       e => {
@@ -221,12 +216,6 @@ export class CrearAlarmaComponent implements OnInit {
       lista => {
         this.tipos_alarmas = lista;
         this.formCrearA.patchValue({tipos_alarma:id_tipo_alarma})
-          console.log("Entra");
-
-      },
-      error => {},
-      ()=>{
-        console.log("CAMPO TIPO"+this.formCrearA.value.tipos_alarma)
       });
   }
 }

@@ -137,9 +137,9 @@ export class HeaderComponent implements OnInit, DoCheck {
             Swal.fire({
               html: '<h3>¡Atención! Nueva alarma desde ' + this.comprobarProcedencia(this.alarmaAModificar) + '<h3>' +
                 '<p class="left">Identificador de alarma: ' + this.alarmaAModificar.id + '</p>' +
+                '<p class="left"> Tipo de alarma: ' + this.alarmaAModificar.id_tipo_alarma.nombre + ' ('+this.alarmaAModificar.id_tipo_alarma.id_clasificacion_alarma.nombre+')'+'</p>' +
                 '<p class="left">' + this.comprobarProcedenciaTitular(this.alarmaAModificar) + '</p>' +
-                '<p class="left"> Tipo de alarma: ' + this.alarmaAModificar.id_tipo_alarma.nombre + '</p>' +
-                '<p class="left"> Telefono: ' + this.obtenerTelefonoMovil() + '</p>' +
+                '<p class="left"> Nº Telefono: ' + this.obtenerTelefonoMovil() + '</p>' +
                 '<p class="left">¿Desea Asignarse esta alarma?</p>',
               showCancelButton: true,
               confirmButtonText: 'Aceptar',
@@ -219,8 +219,8 @@ export class HeaderComponent implements OnInit, DoCheck {
 
     //si no ese null el terminal devolvemos  su numero y el titular del mismo
     if (msg.id_terminal)
-      return 'Titular: ' + msg.id_terminal.id_titular.id_persona.nombre + ' ' + msg.id_terminal.id_titular.id_persona.apellidos + '' +
-        '\nTerminal ' + msg.id_terminal.numero_terminal
+      return 'Titular: ' + msg.id_terminal.id_titular.id_persona.nombre + ' ' + msg.id_terminal.id_titular.id_persona.apellidos /*+ '' +
+        '\nTerminal ' + msg.id_terminal.numero_terminal*/
   }
 
   comprobarProcedencia(msg)
@@ -233,7 +233,7 @@ export class HeaderComponent implements OnInit, DoCheck {
 
     //si no ese null devolvemos terminal
     if (msg.id_terminal)
-      return 'Terminal'
+      return 'Terminal '+msg.id_terminal.numero_terminal
   }
 
 

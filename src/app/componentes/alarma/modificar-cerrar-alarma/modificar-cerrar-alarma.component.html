@@ -37,7 +37,7 @@
                       </ng-select>
                       </div>
                       <div class="col-12 col-sm-2 p-0">
-                      <button class="btn btn-success botonOperacion"  [disabled]="this.formPersona.invalid"><i class="fa-solid fa-arrow-down"></i></button>
+                      <button class="btn btn-info botonOperacion"  [disabled]="this.formPersona.invalid"><i class="fa-solid fa-arrow-down"></i></button>
                       </div>
                   </ng-container>
                   <div class="m-0 p-0" id="personas">
@@ -55,7 +55,7 @@
                 <div><button class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#nivel3" type="button">Nivel 3</button></div>
               </div>
               <div class="col-8 p-0 collapse" id="nivel3">
-                <div class="row mb-4" *ngFor="let tipo of this.listaTiposExistentes;let i = index">
+                <div class="row mb-4" *ngFor="let tipo of this.tiposRecursos;let i = index">
                   <app-tipos-recursos-comunitarios [alarma]="this.alarma" [terminal]="this.idTerminal" [clasificacion]="tipo"></app-tipos-recursos-comunitarios>
                 </div>
               </div>
@@ -82,7 +82,7 @@
       <input type="text" name="nombre" id="nombre" class="form-control" disabled
              required maxlength="500" value="{{obtenerNombre()}}" >
   </div>
-      <div *ngIf="alarma.id_terminal" class="form-group mb-3">
+      <div *ngIf="alarma?.id_terminal" class="form-group mb-3">
       <label for="nombre1" class="form-label">Terminal: </label>
       <input type="text" name="nombre" id="nombre1" class="form-control" disabled
              required maxlength="500" value="{{obtenerTerminal()}}" >
@@ -101,17 +101,17 @@
       <div class="form-group mb-3 left ">
         <label for="tipoAlarma" class="form-label">Tipo de alarma: </label>
         <input type="text" name="tipoAlarma" id="tipoAlarma" class="form-control" disabled
-               required maxlength="500" value="{{alarma.id_tipo_alarma.nombre}}" >
+               required maxlength="500" value="{{alarma?.id_tipo_alarma?.nombre}}" >
       </div>
       <div class="form-group mb-3 left ">
         <label for="fechaCreacion" class="form-label">Fecha de creación: </label>
         <input type="text" name="fechaCreacion" id="fechaCreacion" class="form-control" disabled
-               required maxlength="500" value="{{alarma.fecha_registro | date :'dd/MM/YYYY'}}" >
+               required maxlength="500" value="{{alarma?.fecha_registro | date :'dd/MM/YYYY'}}" >
       </div>
       <div class="form-group mb-3">
         <label for="estado_alarma" class="form-label">Estado Alarma: </label>
         <input type="text" name="estado_alarma" id="estado_alarma" class="form-control" disabled
-               required maxlength="500" value="{{alarma.estado_alarma}}">
+               required maxlength="500" value="{{alarma?.estado_alarma}}">
       </div>
     </form>
       </div>

@@ -956,6 +956,8 @@ const routes: Routes = [
     },
     resolve: {
       alarma: ModificarAlarmaResolveService,
+      clas_recursos: ClasificacionRecursoscomunitariosResolveService,
+      personas_en_alarma: PersonasEnAlarmaResolveService
     }
   },
   {

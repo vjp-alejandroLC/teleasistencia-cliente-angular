@@ -5,7 +5,6 @@ import { Title } from '@angular/platform-browser';
 import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.service";
 import {AuthService} from "../../../servicios/auth.service";
 import {CargaAlarmaService} from "../../../servicios/alarmas/carga-alarma.service";
-import {IAgenda} from "../../../interfaces/i-agenda";
 import {IAlarma} from "../../../interfaces/i-alarma";
 
 
@@ -54,7 +53,6 @@ export class ListaAlarmasComponent implements OnInit {
         this.inputFechaBusqueda = event;
         if (e) {
           this.alarmasDelDia = datos;
-          console.log(fechaSeparada[1]);
           this.fecha = + fechaSeparada[2] + ' de '
             + this.getNombreMesActualizarFecha(fechaSeparada[1]) + ' de '
             + fechaSeparada[0];
@@ -65,11 +63,7 @@ export class ListaAlarmasComponent implements OnInit {
           }
         }
         document.getElementById("campoBusqueda").focus();
-      },
-      error => {
-        console.log(error);
-      }
-    );
+      });
   }
   // Método para conseguir el nombre del mes usando el número que nos devuelve la función getMonth()
   getNombreMes (numMes: number) {
@@ -159,4 +153,5 @@ export class ListaAlarmasComponent implements OnInit {
     }
     return mes;
   }
+
 }

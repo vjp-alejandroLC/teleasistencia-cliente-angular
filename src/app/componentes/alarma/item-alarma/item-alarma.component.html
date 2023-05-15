@@ -7,7 +7,7 @@
 <td>{{ obtenerTerminal()}}</td>
 <td>{{ obtenerNombre()  }}</td>
 <td>
-  <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/alarmas/modificar', alarma.id]">
+  <button type="submit" class="btn btn-outline-secondary btn-modify m-1" [routerLink]="['/alarmas/modificar', alarma.id]">
     <ng-container *ngIf="alarma.estado_alarma == 'Cerrada'; else bloqueB">
       <i class="fa fa-eye"></i>
     </ng-container>
