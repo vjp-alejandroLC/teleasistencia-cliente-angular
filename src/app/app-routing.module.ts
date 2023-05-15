@@ -1469,10 +1469,10 @@ const routes: Routes = [
   {
     path: 'usuarios_del_servicio/crear',
     component: CrearUserServicioComponent,
-    canActivate: [AuthGuard],
-    data: {
-      role: [environment.admins]
-    },
+    // canActivate: [AuthGuard],
+    // data: {
+    //   role: [environment.admins]
+    // },
     resolve: {
       tipos_personas: ListaTiposModalidadesPacientesResolveService,
       datos_sanitario: ListarelacionterminalrecursocomunitarioService,
@@ -1515,10 +1515,6 @@ const routes: Routes = [
   {
     path: 'pruebas',
     component: DispositivosComponent,
-    canActivate: [AuthGuard],
-    data: {
-      role: null
-    },
     resolve: {
       tipos_personas: ListaTiposModalidadesPacientesResolveService,
       datos_sanitario: ListarelacionterminalrecursocomunitarioService,

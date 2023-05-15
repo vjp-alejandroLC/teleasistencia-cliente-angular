@@ -14,6 +14,7 @@ import {ITerminal} from "../../interfaces/i-terminal";
 import {CargaTerminalesService} from "../../servicios/terminal/carga-terminales.service";
 import {CargaAlarmaService} from "../../servicios/alarmas/carga-alarma.service";
 import {CargaViviendaService} from "../../servicios/carga-vivienda.service";
+import {AuthService} from "../../servicios/auth.service";
 
 @Component({
   selector: 'app-dispositivos',
@@ -26,7 +27,7 @@ export class DispositivosComponent implements OnInit {
   public listaDeSituaciones: ITipoSituacion[];
   public clasificacionAlarmas: IClasificacionAlarma[];
   public formulario: FormGroup;
-  public opcion: boolean=true;
+  public opcion: boolean = true;
   public mostrar: boolean = false;
   public mostrarModificar: boolean = false;
   public paciente: IPaciente;
@@ -34,8 +35,8 @@ export class DispositivosComponent implements OnInit {
   public terminal: ITerminal;
   public idTerminal: number;
   public plegado: boolean = false;
+  public isAdmin: boolean;
   @Output() public desplegar = new EventEmitter;
-
 
 
   constructor(private situaciones: CargaTipoSituacionService,
@@ -46,7 +47,8 @@ export class DispositivosComponent implements OnInit {
               private historicoSituacion: CargaHistoricoTipoSituacionService,
               private cargaTerminal: CargaTerminalesService,
               private cargaAlarma: CargaAlarmaService,
-              private cargaVivienda: CargaViviendaService) {
+              private cargaVivienda: CargaViviendaService,
+              private auth: AuthService) {
 
 
   }
@@ -55,6 +57,7 @@ export class DispositivosComponent implements OnInit {
     this.listaDeSituaciones = this.route.snapshot.data['tipos_situaciones'];
     this.clasificacionAlarmas = this.route.snapshot.data['clasificaciones_alarmas'];
     this.buildForm();  //Formularios reactivos
+    this.isAdmin = this.auth.isAdmin();
 
   }
 

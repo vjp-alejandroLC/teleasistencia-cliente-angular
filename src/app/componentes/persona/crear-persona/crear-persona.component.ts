@@ -34,6 +34,7 @@ export class CrearPersonaComponent implements OnInit {
   public terminal: ITerminal | any;
   public paciente: IPaciente | any;
   public idPaciente: number;
+  public idPersona: number;
   public listaSexo: String[] = ['Hombre', 'Mujer'];
 
 
@@ -122,7 +123,7 @@ export class CrearPersonaComponent implements OnInit {
   }
 
   /* Método para crear personas.*/
-  private crearPersona() {
+  private crearPersona   () {
 
     this.persona = {
       nombre: this.formulario.value.nombre,
@@ -178,6 +179,69 @@ export class CrearPersonaComponent implements OnInit {
   }
 
 
+  //codigo clonado
+  private modificarPersona() {
+
+    this.persona = {
+      nombre: this.formulario.value.nombre,
+      apellidos: this.formulario.value.apellidos,
+      dni: this.formulario.value.dni,
+      fecha_nacimiento: this.formulario.value.fecha_nacimiento,
+      sexo: this.formulario.value.sexo,
+      telefono_fijo: this.formulario.value.telefono_fijo,
+      telefono_movil: this.formulario.value.telefono_movil,
+      id_direccion: {
+        localidad: this.formulario.value.localidad,
+        provincia: this.formulario.value.provincia,
+        direccion: this.formulario.value.direccion,
+        codigo_postal: this.formulario.value.codigo_postal
+      }
+    }
+
+    this.cargaPersonas.modificarPersona(this.persona, this.persona.id).subscribe(
+      e => {
+        this.persona = e;
+
+      },
+      error => {
+        this.alertError();
+        console.log("Error al crear la persona -->" + error.message());
+      }
+    );
+  }
+
+  /* Método para crear un paciente nuevo asociado a una terminal */
+  modificarPaciente() {
+
+    this.paciente = {
+      id_terminal: this.terminal.id,
+      id_persona: this.persona.id,
+      tiene_ucr: false,
+      numero_expediente: this.formulario.value.expediente,
+      numero_seguridad_social: "",
+      prestacion_otros_servicios_sociales: "",
+      observaciones_medicas: this.formulario.value.text_area,
+      intereses_y_actividades: "",
+      id_tipo_modalidad_paciente: this.formulario.value.tipos_personas
+    }
+
+    this.crearPaciente.modificarPaciente(this.paciente).subscribe(
+      e => {
+        this.paciente = e;
+        this.crearPaciente.idPaciente = e.id;
+        this.terminal.id_titular = e.id;
+
+        this.plegar.emit(false);
+        this.alertExito() // Aquí damos el exito ya que seria la ultima petición encadenada.
+      },
+      error => {
+        this.alertError();
+        console.log("Error al crear el paciente --> " + error.message())
+      },
+    )
+  }
+
+
   /* Método para crear un paciente nuevo asociado a una terminal */
   nuevoPaciente() {
 
@@ -212,7 +276,14 @@ export class CrearPersonaComponent implements OnInit {
 
   /* Función que crea todas las entidades (Persona , Paciente, Terminal, Direccion) */
   nuevoUsuarioServicio(): void {
-    this.crearPersona();
+
+    if (this.persona.id)       {
+      this.modificarPersona();
+    } else {
+      this.crearPersona();
+    }
+
+
   }
 
 
