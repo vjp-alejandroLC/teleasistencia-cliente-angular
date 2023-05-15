@@ -22,6 +22,7 @@ import {CargaTipoModalidadPacienteService} from "../../../servicios/carga-tipo-m
   styleUrls: ['./modificar-persona.component.scss']
 })
 
+
 export class ModificarPersonaComponent implements OnInit {
 
   /*  Atributos  */

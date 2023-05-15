@@ -2,6 +2,7 @@
   <div class="row d-flex justify-content-center">
     <div class="col-12 col-xl-6">
       <form [formGroup]="formulario" (submit)="nuevoUsuarioServicio()"
+
             [ngClass]="this.mostrar || this.mostrarModificar ? 'inactiveForm':''">
         <div class="row mb-4">
           <div class="col-4">
