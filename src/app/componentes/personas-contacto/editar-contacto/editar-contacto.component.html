@@ -4,7 +4,9 @@
     <div class="row">
       <div class="col-md-4 pr-0">
         <div class="text-center">
-          <button class="btn btn-outline-success botonOperacion2">
+          <button class="btn btn-outline-success botonOperacion2"  data-bs-toggle="collapse"
+                  data-bs-target="#personaContacto,#dispositivosForm" aria-expanded="false"
+                  aria-controls="datosPersonales" (click)="contraer()">
             Guardar
           </button>
         </div>
@@ -21,7 +23,11 @@
 
       <div class="col-md-4 pl-0">
         <div class="text-center">
-          <button class="btn btn-outline-secondary botonOperacion2">
+          <button class="btn btn-outline-secondary botonOperacion2"
+                  (click)="volver()"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#viviendaForm ,#personaContacto" aria-expanded="false"
+                  aria-controls="datosPersonales">>
             Volver
           </button>
 

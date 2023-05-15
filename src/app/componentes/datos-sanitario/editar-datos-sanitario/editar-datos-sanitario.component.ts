@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, OnInit} from '@angular/core';
+import {Component, ComponentFactoryResolver, EventEmitter, OnInit, Output} from '@angular/core';
 import {IRecursoComunitario} from "../../../interfaces/i-recurso-comunitario";
 import {ITipoRecursoComunitario} from "../../../interfaces/i-tipo-recurso-comunitario";
 import {ITerminal} from "../../../interfaces/i-terminal";
@@ -28,6 +28,10 @@ import {environment} from "../../../../environments/environment";
 export class EditarDatosSanitarioComponent implements OnInit {
 
   edit: boolean = false;
+  @Output() public plegar = new EventEmitter;
+  @Output() public desplegar = new EventEmitter;
+  public plegado: boolean = false;
+
   mostrar: boolean = false;
   id: number = 0;
   public recurso_comunitario: IRecursoComunitario |any;
@@ -258,6 +262,13 @@ export class EditarDatosSanitarioComponent implements OnInit {
 
   get tiempo(){
     return this.formularioDatos.get('tiempo') as FormControl;
+  }
+
+
+
+  volver() {
+    this.plegado = !this.plegado;
+    this.desplegar.emit(true);
   }
 
 //-------------------------------------------------------

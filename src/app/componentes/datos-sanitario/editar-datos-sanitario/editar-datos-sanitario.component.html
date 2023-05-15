@@ -70,10 +70,16 @@
         <div class="row mb-2">
           <div class="col-12">
             <div class="text-center">
-              <button type="submit" class="btn btn-outline-success m-1" (click)="actualizarNuss()">
+              <button type="submit" class="btn btn-outline-success m-1" (click)="actualizarNuss()"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#datosSanitarios,#viviendaForm" aria-expanded="false"
+                      aria-controls="datosPersonales">>
                 Guardar
               </button>
-              <button type="button" class="btn btn-outline-secondary m-1" >
+              <button type="button" class="btn btn-outline-secondary m-1" (click)="volver()"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#datosPersonales ,#datosSanitarios" aria-expanded="false"
+                      aria-controls="datosPersonales">>
                 Volver
               </button>
             </div>

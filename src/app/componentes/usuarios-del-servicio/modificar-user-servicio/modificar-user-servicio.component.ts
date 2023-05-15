@@ -10,6 +10,20 @@ import { ActivatedRoute } from '@angular/router'; // Importar
 export class ModificarUserServicioComponent implements OnInit {
 
 
+  public idPaciente: number;
+  public mostrar: boolean = true;
+  public mostrar2: boolean = false;
+  public mostrar3: boolean = false;
+  public mostrar4: boolean = false;
+  public mostrar5: boolean = false;
+
+
+  pruebas(evento){
+    console.log(evento)
+    this.mostrar=evento
+
+  }
+
   constructor(private cargaPacientes: CargaPacienteService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {

@@ -215,8 +215,16 @@
           </div>
         </div>
 
-        <button [disabled]="formulario.invalid" type="submit" class="btn btn-outline-success m-1">Guardar</button>
-        <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/inicio']">Volver</button>
+        <div class="text-center">
+          <button [disabled]="formulario.invalid" type="submit" class="btn btn-outline-success m-1 "
+                  (click)="contraer()"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#datosPersonales ,#datosSanitarios" aria-expanded="false"
+                  aria-controls="datosPersonales">Guardar</button>
+          <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/inicio']">Volver</button>
+
+        </div>
+
 
       </form>
     </div>
@@ -228,7 +236,6 @@
     <div class="col-12 col-xl-6 collapse collapse-horizontal m-auto" id="collapseWidthExample2">
       <app-modificar-tipo-modalidad-paciente
         (mostrarModificar)="this.mostrarModificar=$event"
-        (modalidad_creada)="actualizarModalidades($event)"
         *ngIf="this.mostrarModificar"
         [listaTiposModalidad]="tipos_personas"
         [idTipoModalidad]="formulario.value.tipos_personas">

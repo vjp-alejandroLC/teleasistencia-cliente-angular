@@ -1,4 +1,12 @@
-import {Component, ComponentFactoryResolver, ViewChild, ViewContainerRef, AfterViewInit} from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  ViewChild,
+  ViewContainerRef,
+  AfterViewInit,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import {IDireccion} from "../../../interfaces/i-direccion";
 import {IPaciente} from "../../../interfaces/i-paciente";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -24,10 +32,11 @@ export class EditarContactoComponent implements AfterViewInit {
   @ViewChild('contenedorEditar', { read: ViewContainerRef }) container: ViewContainerRef; //Hace referencia al componente hijo y al contenedor del padre mediante un contenedor
 
   idPaciente: number;
-
+  public plegado: boolean = false;
   indicesCrear = 1; //Comienzo con el primero indice
   maximoComponentes : number = 5; //Maximo numero de componentes que crea al darle al boton de crearHTML()
-
+  @Output() public plegar = new EventEmitter;
+  @Output() public desplegar = new EventEmitter;
   public direccion: IDireccion | any;
   public pacientes: IPaciente[] | any;
   public paciente: IPaciente | any;
@@ -69,8 +78,15 @@ ngAfterViewInit(): void{ //Metodo que hace que haga lo que me pida cuando u ncom
   }
 
 
+  contraer() {
+    this.plegado = !this.plegado;
+    this.plegar.emit(false);
+  }
+  volver(){
+    this.desplegar.emit(true);
 
-  CrearEditarContactoComponent
+  }
+
 
 
   crearOtroFormulario(){ //Creo el HTML con FactoryResolvver, que sirve para poder crear diferentes componentes segun desee

@@ -1499,7 +1499,6 @@ const routes: Routes = [
       tipos_perifericos: ListaTiposAlarmasResolveService,
       tipos_alarmas: ListaTiposAlarmasResolveService,
       clasificaciones_alarmas: ListaClasificacionesAlarmasResolveService
-
     }
   },
   {

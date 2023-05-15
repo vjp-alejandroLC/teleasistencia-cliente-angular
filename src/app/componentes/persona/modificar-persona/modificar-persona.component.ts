@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IDireccion} from '../../../interfaces/i-direccion';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CargaPersonaService} from '../../../servicios/carga-persona.service';
@@ -25,6 +25,7 @@ import {CargaTipoModalidadPacienteService} from "../../../servicios/carga-tipo-m
 export class ModificarPersonaComponent implements OnInit {
 
   /*  Atributos  */
+  @Output() public plegar = new EventEmitter;
   public dire: IDireccion | any;
   public formulario: FormGroup;
   public tipos_personas: TipoModalidadPaciente[];
@@ -38,6 +39,8 @@ export class ModificarPersonaComponent implements OnInit {
   public pacienteEditar: IPaciente|any;
   public personaEditar: IPersona |any;
   public name: string|any;
+  public plegado: boolean = false;
+
 
   /* Constantes */
   readonly REGEX_NAME = /^[A-Z][a-zA-ZÀ-ÿ- ]+$/;
@@ -79,7 +82,7 @@ export class ModificarPersonaComponent implements OnInit {
     this.crearPaciente.getPaciente(this.crearPaciente.idPacienteEditar).subscribe(
     paciente =>{
       this.pacienteEditar = paciente;
-      console.log("PACIENTE: " +this.pacienteEditar);
+      console.log("PACIENTE: " +this.pacienteEditar.id);
       this.cargaPersonas.getPersona(this.pacienteEditar.id_persona.id).subscribe(
         persona => {
           this.personaEditar = persona;
@@ -156,6 +159,9 @@ export class ModificarPersonaComponent implements OnInit {
   get controles() {
     return this.formulario.controls;
   }
+  contraer() {
+    this.plegado = !this.plegado;
+  }
 
   /* Método para crear personas.*/
   private crearPersona() {
@@ -175,7 +181,6 @@ export class ModificarPersonaComponent implements OnInit {
         codigo_postal: this.formulario.value.codigo_postal
       }
     }
-
     this.cargaPersonas.modificarPersona(this.persona,this.pacienteEditar.id_persona.id).subscribe(
       e => {
         this.persona = e;

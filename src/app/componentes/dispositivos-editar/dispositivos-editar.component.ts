@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ITipoSituacion} from "../../interfaces/i-tipo-situacion";
 import {IClasificacionAlarma} from "../../interfaces/i-clasificacion-alarma";
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
@@ -22,6 +22,8 @@ import {environment} from "../../../environments/environment";
 export class DispositivosEditarComponent implements OnInit {
 
   /*  Atributos  */
+  @Output() public desplegar = new EventEmitter;
+
   public listaDeSituaciones: ITipoSituacion[];
   public clasificacionAlarmas: IClasificacionAlarma[];
   public formulario: FormGroup;
@@ -83,6 +85,13 @@ export class DispositivosEditarComponent implements OnInit {
     });
   }
 
+  refresco() {
+    this.actualizarTiposSituaciones(this.formulario.value.tipos_personas);
+  }
+
+  mostrarEditarTipo() {
+    this.mostrarModificar = !this.mostrarModificar;
+  }
 
   getToday() {
     return new Date().toISOString().split("T")[0];
@@ -99,7 +108,9 @@ export class DispositivosEditarComponent implements OnInit {
 
   contraer() {
     this.plegado = !this.plegado;
+    this.desplegar.emit(true);
   }
+
 
 
   subirDatos() {
@@ -184,15 +195,13 @@ export class DispositivosEditarComponent implements OnInit {
 
   private eliminarTipoSituacion() {
 
-    console.log("tipo situacion -->" + this.formulario.value.situacion)
 
     this.situaciones.eliminarTipoSituacion(this.formulario.value.situacion).subscribe(
       e => {
-        //Si el elemento se ha borrado con exito, llama al método que muestra el alert de Exito
+        this.formulario.get('situacion').setValue('');
         this.alertExitoBorrar()
       },
       error => {
-        //Si ha habido algún error al eliminar el elemento, llama al método que muestra el alert de Error
         this.alertErrorBorrar()
       },
       () => {

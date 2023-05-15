@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ITipoVivienda} from "../../../interfaces/i-tipo-vivienda";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -15,12 +15,15 @@ import {IPaciente} from "../../../interfaces/i-paciente";
   styleUrls: ['./editar-tipo-vivienda.component.scss']
 })
 export class EditarTipoViviendaComponent implements OnInit {
+  @Output() public plegar = new EventEmitter;
+  @Output() public desplegar = new EventEmitter;
   public vivienda: ITipoVivienda | any;
   public listaViviendas: ITipoVivienda[];
   public formularioVivienda: FormGroup;
   public mostrar: boolean = false;
   public mostrarModificar: boolean = false;
   public pacienteEditar: IPaciente|any;
+  public plegado: boolean = false;
 
   @Input() idPaciente: number;
 
@@ -39,6 +42,13 @@ export class EditarTipoViviendaComponent implements OnInit {
   ngOnInit(): void {
     this.listaViviendas = this.route.snapshot.data['tipos_viviendas'];
     this.buildForm();  //Formularios reactivos
+  }
+  contraer() {
+    this.plegado = !this.plegado;
+  }
+  volver() {
+    this.plegado = !this.plegado;
+    this.desplegar.emit(true);
   }
 
 
