@@ -29,11 +29,15 @@
 
           <div class="form-group mb-3 row">
             <label for="importancia" class="form-label">Importancia</label>
-            <ng-select name="importancia" id="importancia" formControlName="importancia" class="form-select" required>
-              <ng-option *ngFor="let importancia of importanciaArray; let i = index" [value]="importancia">
-                {{importancia}}
-              </ng-option>
-            </ng-select>
+            <div class="row p-0 m-0">
+              <div class="p-0 pb-1 pb-lg-0 w-100">
+                <ng-select name="importancia" id="importancia" formControlName="importancia" required>
+                  <ng-option *ngFor="let importancia of importanciaArray; let i = index" [value]="importancia">
+                    {{importancia}}
+                  </ng-option>
+                </ng-select>
+              </div>
+            </div>
             <div *ngIf="form.importancia.invalid && (form.importancia.dirty || form.importancia.touched)" class="alert alert-secondary" role="alert">
               <div *ngIf="form.importancia.errors?.required">
                 El campo importancia es obligatorio.

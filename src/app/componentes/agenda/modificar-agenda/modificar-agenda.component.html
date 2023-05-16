@@ -11,14 +11,14 @@
     <form [formGroup]="modAgenda" (ngSubmit)="onSubmit()">
 
       <div class="form-group mb-3 row">
-        <div class="col-6">
+        <div class="col-6 p-0">
           <label for="idPaciente" class="form-label">Paciente</label>
-          <select name="idPaciente" id="idPaciente"
-                  formControlName="paciente" (change)="obtenerExpediente()" class="form-select" required>
-            <option class="agenda_option" *ngFor="let paciente of pacientes" [value]="paciente.id">
+          <ng-select name="idPaciente" id="idPaciente"
+                  formControlName="paciente" (change)="obtenerExpediente()" required>
+            <ng-option class="agenda_option" *ngFor="let paciente of pacientes" [value]="paciente.id">
               {{paciente.id_persona.nombre + ' ' + paciente.id_persona.apellidos}}
-            </option>
-          </select>
+            </ng-option>
+          </ng-select>
           <div *ngIf="form.paciente.invalid && (form.paciente.dirty || form.paciente.touched)" class="alert alert-secondary" role="alert">
             <div *ngIf="form.paciente.errors?.required">
               El campo paciente es obligatorio.
@@ -27,7 +27,7 @@
         </div>
         <div class="col-4 ms-auto">
           <div class="row">
-            <label for="n_expediente" class="form-label">Nº Expediente</label>
+            <label for="n_expediente" class="form-label p-0">Nº Expediente</label>
           </div>
           <div class="row">
             <input type="text" class="form-control" id="n_expediente" name="n_expediente"
@@ -42,13 +42,16 @@
       </div>
 
       <div class="form-group mb-3 row">
-        <label for="id_tipo_agenda" class="form-label">Tipo agenda</label>
-        <select name="id_tipo_agenda" id="id_tipo_agenda" formControlName="tipo_agenda" required (change)="obtenerImportancia()">
-          <option class="agenda_option" *ngFor="let tipo_agenda of tipos_agenda; let i = index" [value]="tipo_agenda.id">
-            {{ agenda.id_tipo_agenda.id === tipo_agenda.id ? optionSelected(i) : "" }}
-            {{tipo_agenda.nombre}}
-          </option>
-        </select>
+        <label for="id_tipo_agenda" class="form-label p-0">Tipo agenda</label>
+        <div class="row p-0 m-0">
+          <div class="p-0 pb-1 pb-lg-0 w-100">
+            <ng-select name="id_tipo_agenda" id="id_tipo_agenda" formControlName="tipo_agenda" required (change)="obtenerImportancia()">
+              <ng-option class="agenda_option" *ngFor="let tipo_agenda of tipos_agenda; let i = index" [value]="tipo_agenda.id">
+                {{tipo_agenda.nombre}}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
         <div *ngIf="form.tipo_agenda.invalid && (form.tipo_agenda.dirty || form.tipo_agenda.touched)" class="alert alert-secondary" role="alert">
           <div *ngIf="form.tipo_agenda.errors?.required">
             El campo tipo de agenda es obligatorio.
@@ -57,7 +60,7 @@
       </div>
 
       <div class="form-group mb-3 row">
-        <label for="importanciaSelect" class="form-label">Importancia</label>
+        <label for="importanciaSelect" class="form-label p-0">Importancia</label>
         <input name="importanciaSelect" id="importanciaSelect" formControlName="importancia" class="form-control" disabled>
         <div *ngIf="form.importancia.invalid && (form.importancia.dirty || form.importancia.touched)" class="alert alert-secondary" role="alert">
           <div *ngIf="form.importancia.errors?.required">

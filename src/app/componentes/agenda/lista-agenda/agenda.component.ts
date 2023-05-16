@@ -46,6 +46,12 @@ export class AgendaComponent implements OnInit {
   }
 
   ordenarAgendas(a:IAgenda, b:IAgenda ): number {
+    if (a.id_tipo_agenda == null) {
+      return -1;
+    }
+    if (b.id_tipo_agenda == null) {
+      return 1;
+    }
     if((a.fecha_resolucion != null && b.fecha_resolucion === null)) {
       return 1;
     }

@@ -192,7 +192,7 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
           Validators.required,
           Validators.minLength(10)
         ]],
-        agenda: [this.agenda.id, [
+        agenda: [this.agenda.id + " - " + this.agenda.id_tipo_agenda.nombre, [
           Validators.required
         ]],
         teleoperador: [ '',[
@@ -206,6 +206,5 @@ export class NuevoHistoricoAgendaComponent implements OnInit {
           Validators.minLength(10)
         ]]
       })
-    console.log(this.agenda.id_paciente.id_persona.nombre)
   }
 }

@@ -48,6 +48,15 @@ export class ModificarAgendaComponent implements OnInit {
 
   public crearForm() {
     var fecha = new Date(this.agenda.fecha_prevista).toISOString().slice(0, 16);
+    if (this.agenda.id_tipo_agenda == null) {
+      var tipo: ITipoAgenda = {
+        id: this.tipos_agenda[0].id,
+        nombre: "",
+        codigo: "",
+        importancia: ""
+      }
+      this.agenda.id_tipo_agenda = tipo;
+    }
     this.modAgenda = this.formBuilder.group({
       paciente: [this.agenda.id_paciente.id,[
         Validators.required

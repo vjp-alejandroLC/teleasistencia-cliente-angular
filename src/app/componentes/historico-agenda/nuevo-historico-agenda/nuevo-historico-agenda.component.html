@@ -52,13 +52,8 @@
 
       <div class="form-group mb-3">
         <label for="id_agenda" class="form-label">Agenda</label>
-        <select name="id_agenda" id="id_agenda" formControlName="agenda" disabled
+        <input name="id_agenda" id="id_agenda" formControlName="agenda" disabled
                 class="form-select" required>
-          <option class="agenda_id_option" *ngFor="let agendaObj of agendas; let i = index" [value]="agendaObj.id">
-            {{ agenda.id === agendaObj.id ? optionSelected(i) : "" }}
-            {{ agendaObj.id + ' - ' + agendaObj.id_tipo_agenda.nombre}}
-          </option>
-        </select>
         <div *ngIf="form.agenda.invalid && (form.agenda.dirty || form.agenda.touched)" class="alert alert-secondary" role="alert">
           <div *ngIf="form.agenda.errors?.required">
             El campo agenda es obligatorio.

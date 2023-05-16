@@ -30,7 +30,6 @@ export class ItemAgendaComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.prioridad = this.agenda.id_tipo_agenda.importancia;
     this.n_expediente = this.agenda.id_paciente.numero_expediente;
   }
 
@@ -114,5 +113,14 @@ export class ItemAgendaComponent implements OnInit {
         this.router.navigate(['/historico_agenda/modificar', historico_agenda.id]);
       },
     )
+  }
+
+  //Funcion para deshabilitar botón para crear histórico
+  botonDes(){
+    if((this.agenda.id_tipo_agenda == '')||(this.agenda.id_tipo_agenda == null)){
+      return true;
+    }else{
+      return false;
+    }
   }
 }
