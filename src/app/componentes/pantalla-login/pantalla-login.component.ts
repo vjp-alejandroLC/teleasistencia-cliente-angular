@@ -26,6 +26,7 @@ export class PantallaLoginComponent implements OnInit{
   public username:string;
   public userlastname:string;
   public grupo:string;
+  public id:number;
 
   public img:string
 
@@ -60,6 +61,7 @@ export class PantallaLoginComponent implements OnInit{
         this.profileService.getProfile()
           .subscribe((resp:IProfileUser[])=>{
             console.log(resp)
+            this.id=resp[0].id
             this.username=resp[0].first_name
             this.userlastname=resp[0].last_name
             this.grupo=resp[0].groups[0].name
@@ -70,7 +72,7 @@ export class PantallaLoginComponent implements OnInit{
               this.img=resp[0].imagen.imagen
             }
 
-            this.auth.login(this.username,this.userlastname,this.grupo,this.img);
+            this.auth.login(this.id,this.username,this.userlastname,this.grupo,this.img);
             //redirijimos al usuario al inicio
             this.router.navigate(['/inicio']);
           })
