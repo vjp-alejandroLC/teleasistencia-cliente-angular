@@ -618,6 +618,17 @@ const routes: Routes = [
     }
   },
   {
+    path:'agenda/nueva/:id',
+    component: NuevoAgendaComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      agendas: ListaAgendaResolveService,
+      tipos_agenda: ListaTiposAgendaResolveService,
+      personas: ListaPersonasResolveService,
+      pacientes: ListaPacientesResolveService
+    }
+  },
+  {
     path: 'agenda/modificar/:id',
     component: ModificarAgendaComponent,
     canActivate: [AuthGuard],
