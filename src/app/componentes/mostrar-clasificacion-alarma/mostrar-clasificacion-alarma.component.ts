@@ -9,6 +9,7 @@ import {
 } from "../../servicios/dispositivos-auxiliares-terminal/carga-dispositivos-auxiliares-terminal.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../environments/environment";
+import {IDispositivosAuxiliaresTerminal} from "../../interfaces/i-dispositivos-auxiliares-terminal";
 
 @Component({
   selector: 'app-mostrar-clasificacion-alarma',
@@ -20,6 +21,7 @@ export class MostrarClasificacionAlarmaComponent implements OnInit {
   @Input() tipoPeticion: any;
   public tipoFormulario: ITipoAlarma[];
   public formulario: FormGroup;
+  public dispositivosAuxiliares: IDispositivosAuxiliaresTerminal;
   @Output() resultadoEleccion: any;
 
   constructor(private route: ActivatedRoute,
@@ -38,7 +40,7 @@ export class MostrarClasificacionAlarmaComponent implements OnInit {
 
   private buildForm() {
     this.formulario = this.formBuilder.group({
-      nombre: ['', [Validators.required]]
+      datos: ['', [Validators.required]]
     });
   }
 
@@ -66,22 +68,40 @@ export class MostrarClasificacionAlarmaComponent implements OnInit {
     )
   }
 
+  pruebas(cosa) {
+    console.log(cosa);
+  }
 
-  postAux() {
-    console.log("id terminal" + this.terminal.idTerminal);
-    console.log("id alarma" + this.formulario.value.nombre)
+  postAux(hola) {
     let aux;
     aux = {
-      id_terminal: this.terminal.idTerminal,
-      id_tipo_alarma: this.formulario.value.nombre
+      //id_terminal: this.terminal.idTerminal,
+      id_terminal: 2,
+      id_tipo_alarma: this.formulario.value.datos.id
     }
     this.auxiliares.nuevoDispositivoAuxiliarTerminal(aux).subscribe(
       aux => {
+        console.log('Tipo peticion'+this.tipoPeticion.nombre)
+        this.auxiliares.getDispositivos(aux.id_terminal.id,this.tipoPeticion.id).subscribe(
+          e => {
+            console.log(e)
+            this.dispositivosAuxiliares = e
+          },
+          error => {
+            console.log(aux.id_tipo_alarma)
+            console.log(aux.id_terminal)
+          },
+          () => {
+
+          },
+        )
+
         this.alertExito();
       },
       error => {
         this.alertError();
-        console.log(error)
+        console.log(aux.id_tipo_alarma)
+        console.log(aux.id_terminal);
       }
     )
   }

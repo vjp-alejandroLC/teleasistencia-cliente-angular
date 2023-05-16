@@ -10,7 +10,7 @@
   </div>
 </header>
 
-<nav *ngIf="isLoggedIn && isAdmin" class="navbar navbar-expand-lg navbar-light bg-light"
+<nav *ngIf="isLoggedIn" class="navbar navbar-expand-lg navbar-light bg-light"
      aria-label="Tenth navbar example">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09"
@@ -20,7 +20,7 @@
 
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample09">
       <ul class="navbar-nav px-5" id="ulPrincipal1">
-        <li class="nav p-1 mr-1">
+        <li class="nav p-1 mr-1" *ngIf="this.auth.isAdmin">
           <a class="nav-link" href="#" [routerLink]="['/usuarios']" data-bs-toggle="dropdown" aria-expanded="false">
             Usuarios del sistema
           </a>
@@ -55,11 +55,6 @@
         <li class="nav p-1 mr-1">
           <a class="nav-link" href="#" [routerLink]="['/alarmas']">
             Alarmas
-          </a>
-        </li>
-        <li class="nav p-1 mr-1 ">
-          <a class="nav-link" href="#" [routerLink]="['/']">
-            Copia de seguridad
           </a>
         </li>
       </ul>

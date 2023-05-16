@@ -104,49 +104,21 @@ export class DispositivosComponent implements OnInit {
     this.idPaciente = this.crearPaciente.idPaciente;
     this.idTerminal = this.cargaTerminal.idTerminal;
     let datos;
-    let datos2;
 
-    if (this.formulario.value.ucr == true) {
-      datos = {
-        estado_alarma: this.formulario.value.situacion,
-        fecha_registro: this.formulario.value.fecha_alta,
-        id_tipo_alarma: 10,
-        id_terminal: this.idTerminal,
-        id_paciente_ucr: this.idPaciente
-      }
-    } else {
-      datos = {
-        estado_alarma: this.formulario.value.situacion,
-        fecha_registro: this.formulario.value.fecha_alta,
-        id_tipo_alarma: 10,
-        id_terminal: this.idTerminal,
-      }
-    }
-
-
-    console.log(datos)
-    this.cargaAlarma.nuevaAlarma(datos).subscribe(
-      alarma => {
-        this.alertExito()
-      },
-      error => {
-        console.log(error.message)
-        this.alertError()
-      }
-    )
-
-    datos2 = {
+    datos = {
       modelo_terminal: this.formulario.value.modelo_terminal,
       numero_terminal: this.formulario.value.numero_terminal,
       id_titular: this.idPaciente,
       id_tipo_vivienda: this.cargaVivienda.idVivienda,
+      id_tipo_situacion: this.formulario.value.situacion,
+      fecha_tipo_situacion: this.formulario.value.fecha_alta
     }
 
-    console.log(datos2)
+    console.log(datos);
+    console.log(this.cargaTerminal.idTerminal);
 
-    this.cargaTerminal.modificarTerminalPorId(this.idPaciente, datos2).subscribe(
+    this.cargaTerminal.modificarTerminalPorId(this.cargaTerminal.idTerminal, datos).subscribe(
       terminal => {
-        this.alertExito()
       },
       error => {
         this.alertError()
@@ -154,6 +126,20 @@ export class DispositivosComponent implements OnInit {
     )
 
 
+    this.crearPaciente.getPaciente(this.idPaciente).subscribe(
+      pac => {
+        console.log("paciente actualizado")
+        pac.tiene_ucr = this.formulario.value.ucr;
+        this.crearPaciente.modificarPaciente(pac).subscribe(
+          () => {
+            this.alertExito()
+          },
+          error => {
+            this.alertError()
+          }
+        )
+      }
+    )
   }
 
 

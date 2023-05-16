@@ -1,9 +1,9 @@
-<td> {{ paciente.id_persona?.nombre}} {{paciente.id_persona?.apellidos}}</td>
-<td> {{ paciente.id_tipo_modalidad_paciente.nombre}}</td>
-<td> {{ paciente.id_persona.id_direccion.localidad}}</td>
-<td> {{ paciente.observaciones_medicas}}</td>
-<td> {{ paciente.prestacion_otros_servicios_sociales}}</td>
-<td> todavia no se que poner aqui</td>
+<td> {{ paciente?.id_persona?.nombre}} {{paciente?.id_persona?.apellidos}}</td>
+<td> {{ paciente?.id_tipo_modalidad_paciente?.nombre}}</td>
+<td> {{ paciente?.id_persona?.id_direccion.localidad}}</td>
+<td> {{ paciente?.observaciones_medicas}}</td>
+<td> {{ paciente?.prestacion_otros_servicios_sociales}}</td>
+<td> {{ paciente?.id_terminal?.id_tipo_situacion?.nombre}}</td>
 <td>
   <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/modificar-user-servicio/editar/', paciente.id]">
     <i class="fa fa-pen"></i>

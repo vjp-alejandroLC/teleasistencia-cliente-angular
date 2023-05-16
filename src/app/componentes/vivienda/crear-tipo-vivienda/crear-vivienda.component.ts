@@ -10,6 +10,7 @@ import {TipoModalidadPaciente} from "../../../clases/tipo-modalidad-paciente";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
 import {CargaTerminalesService} from "../../../servicios/terminal/carga-terminales.service";
+import {AuthService} from "../../../servicios/auth.service";
 
 @Component({
   selector: 'app-crear-tipo-vivienda',
@@ -23,6 +24,7 @@ export class CrearViviendaComponent implements OnInit {
   public mostrar: boolean = false;
   public mostrarModificar: boolean = false;
   public plegado: boolean = false;
+  public isAdmin: boolean;
 
   @Input() idPaciente: number;
   @Output() public plegar = new EventEmitter;
@@ -36,12 +38,14 @@ export class CrearViviendaComponent implements OnInit {
               private cargaVivienda: CargaViviendaService,
               private formBuilder: FormBuilder,
               private paciente: CargaPacienteService,
-              private terminal: CargaTerminalesService) {
+              private terminal: CargaTerminalesService,
+              private auth: AuthService) {
   }
 
   ngOnInit(): void {
     this.listaViviendas = this.route.snapshot.data['tipos_viviendas'];
     this.buildForm();  //Formularios reactivos
+    this.isAdmin = this.auth.isAdmin();
   }
 
   contraer() {
