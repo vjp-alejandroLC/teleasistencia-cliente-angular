@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit, DoCheck {
   }
 
   //Toast para el Alert indicando que la operación fue exitosa
-  alertExito()
+  alertExito(texto:string)
     :
     void {
     const Toast = Swal.mixin({
@@ -88,7 +88,7 @@ export class HeaderComponent implements OnInit, DoCheck {
 
     Toast.fire({
       icon: 'success',
-      title: environment.fraseAlarmaAceptada,
+      title: texto,
     })
   }
 
@@ -120,6 +120,7 @@ export class HeaderComponent implements OnInit, DoCheck {
                 any
   ):
     void {
+
     //obtenemos el usuario logeado
     this.profileService.getProfile()
       .subscribe((resp: IProfileUser[]) => {
@@ -131,12 +132,14 @@ export class HeaderComponent implements OnInit, DoCheck {
             this.accion = msg['action']
             //asignamos el valor de alarma a otra variable
             this.alarmaAModificar = msg['alarma']
+
             //iniciamos el modal mostrando la id y comprobando la procedencia de la alarma
             Swal.fire({
               html: '<h3>¡Atención! Nueva alarma desde ' + this.comprobarProcedencia(this.alarmaAModificar) + '<h3>' +
                 '<p class="left">Identificador de alarma: ' + this.alarmaAModificar.id + '</p>' +
+                '<p class="left"> Tipo de alarma: ' + this.alarmaAModificar.id_tipo_alarma.nombre + ' ('+this.alarmaAModificar.id_tipo_alarma.id_clasificacion_alarma.nombre+')'+'</p>' +
                 '<p class="left">' + this.comprobarProcedenciaTitular(this.alarmaAModificar) + '</p>' +
-                '<p class="left"> Tipo de alarma: ' + this.alarmaAModificar.id_tipo_alarma.nombre + '</p>' +
+                '<p class="left"> Nº Telefono: ' + this.obtenerTelefonoMovil() + '</p>' +
                 '<p class="left">¿Desea Asignarse esta alarma?</p>',
               showCancelButton: true,
               confirmButtonText: 'Aceptar',
@@ -151,6 +154,14 @@ export class HeaderComponent implements OnInit, DoCheck {
         }
       )
 
+  }
+  obtenerTelefonoMovil() {
+    //si existe paciente ucr devolvemos el telefono moviul
+    if (this.alarmaAModificar.id_paciente_ucr) {
+      return  this.alarmaAModificar.id_paciente_ucr.id_persona.telefono_movil
+    }
+    // en otro caso devolvemos el telefono movil asociado al terminal
+    return this.alarmaAModificar.id_terminal.id_titular.id_persona.telefono_movil
   }
 
   // con este metodo se asigna el teleoperador a la alarma y con el servicio se
@@ -188,7 +199,12 @@ export class HeaderComponent implements OnInit, DoCheck {
     // si una alarma fue asignada ya se cierra el modal
     if (msg['action'] == 'alarm_assignment') {
       Swal.close()
-      this.alertExito()
+      this.alertExito(environment.fraseAlarmaAceptada)
+    }
+    // si una alarma fue asignada ya se cierra el modal
+    if (msg['action'] == 'alarm_auto_resolve') {
+      Swal.close()
+      this.alertExito(environment.fraseCerrarAlarmaVoluntario)
     }
   }
 
@@ -203,8 +219,8 @@ export class HeaderComponent implements OnInit, DoCheck {
 
     //si no ese null el terminal devolvemos  su numero y el titular del mismo
     if (msg.id_terminal)
-      return 'Titular: ' + msg.id_terminal.id_titular.id_persona.nombre + ' ' + msg.id_terminal.id_titular.id_persona.apellidos + '' +
-        '\nTerminal ' + msg.id_terminal.numero_terminal
+      return 'Titular: ' + msg.id_terminal.id_titular.id_persona.nombre + ' ' + msg.id_terminal.id_titular.id_persona.apellidos /*+ '' +
+        '\nTerminal ' + msg.id_terminal.numero_terminal*/
   }
 
   comprobarProcedencia(msg)
@@ -217,7 +233,7 @@ export class HeaderComponent implements OnInit, DoCheck {
 
     //si no ese null devolvemos terminal
     if (msg.id_terminal)
-      return 'Terminal'
+      return 'Terminal '+msg.id_terminal.numero_terminal
   }
 
 

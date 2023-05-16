@@ -157,6 +157,8 @@ import { CrearPersonaContactoComponent } from './componentes/personas-contacto/c
 import { CrearDatosSanitariosComponent } from './componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component';
 import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-crear/mostrar-crear.component';
 
+import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-recursos-comunitarios/tipos-recursos-comunitarios.component';
+
 
 @NgModule({
   declarations: [
@@ -283,6 +285,7 @@ import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-c
     CrearPersonaContactoComponent,
     CrearDatosSanitariosComponent,
     MostrarCrearComponent,
+    TiposRecursosComunitariosComponent,
   ],
   imports: [
     BrowserModule,
