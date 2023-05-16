@@ -244,6 +244,10 @@ import {
 import {AuthGuard} from "./guards/auth.guard";
 import {environment} from "../environments/environment";
 import {ItemRecursoComunitarioComponent} from "./components/recursos/recurso-comunitario/item-recurso-comunitario/item-recurso-comunitario.component";
+import {
+  ClasificacionRecursoscomunitariosResolveService
+} from "./servicios/cerrar-alarma/clasificacion-recursoscomunitarios-resolve.service";
+import {PersonasEnAlarmaResolveService} from "./servicios/persona-contacto-alarma/personas-en-alarma-resolve.service";
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
   {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
@@ -959,6 +963,8 @@ const routes: Routes = [
     },
     resolve: {
       alarma: ModificarAlarmaResolveService,
+      clas_recursos: ClasificacionRecursoscomunitariosResolveService,
+      personas_en_alarma: PersonasEnAlarmaResolveService
     }
   },
   {
@@ -970,6 +976,8 @@ const routes: Routes = [
     },
     resolve: {
       alarma: ModificarAlarmaResolveService,
+      clas_recursos: ClasificacionRecursoscomunitariosResolveService,
+      personas_en_alarma: PersonasEnAlarmaResolveService
     }
   },
   {
