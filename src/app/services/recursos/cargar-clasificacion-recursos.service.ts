@@ -15,4 +15,8 @@ export class CargarClasificacionRecursosService {
   getClasificacionRecursosComunitarios(): Observable<IClasificacioRecurso[]> {
     return this.http.get<IClasificacioRecurso[]>(this.URL);
   }
+
+  getClasificacionRecursoComunitario(id: number): Observable<IClasificacioRecurso[]> {
+    return this.http.get<IClasificacioRecurso[]>(this.URL+'/'+id);
+  }
 }
