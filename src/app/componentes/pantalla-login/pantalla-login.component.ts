@@ -27,7 +27,6 @@ export class PantallaLoginComponent implements OnInit{
   public username:string;
   public userlastname:string;
   public grupo:string;
-  public id:number;
 
   public img:string
 
