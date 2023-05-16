@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ITipoRecursoComunitario} from '../../../../interfaces/i-tipo-recurso-comunitario';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -6,6 +6,7 @@ import {CargaTipoRecursoComunitarioService} from '../../../../services/recursos/
 import {TipoRecursoComunitario} from '../../../../clases/tipo-recurso-comunitario';
 import Swal from "sweetalert2";
 import {environment} from "../../../../../environments/environment";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -15,27 +16,77 @@ import {environment} from "../../../../../environments/environment";
 })
 
 export class CrearTipoRecursoComunitarioComponent implements OnInit {
-  public tipo_recurso_comunitario: ITipoRecursoComunitario;
+  public tipo_recurso_comunitario: ITipoRecursoComunitario | any;
+  public tipos_recursos: ITipoRecursoComunitario[];
+  public formCrearTipo: FormGroup;
+  public id = this.route.snapshot.params['id'];
+  @Output () mostrar = new EventEmitter;
 
-  constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposRecursosComunitarios: CargaTipoRecursoComunitarioService, private router: Router) {
+
+  constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposRecursosComunitarios: CargaTipoRecursoComunitarioService,
+              private router: Router, private formBuilder: FormBuilder,
+              private cargaTipoRecursosComunitarios: CargaTipoRecursoComunitarioService) {
   }
-
+  /*
+   * Se creoa el formulario con sus respectivas validaciones
+   * al cargar la página
+   */
   ngOnInit(): void {
-    this.titleService.setTitle('Nuevo tipo recurso comunitario');
-    this.tipo_recurso_comunitario = new TipoRecursoComunitario();
+
+    this.formCrearTipo = this.formBuilder.group({
+      nombre: ['',Validators.maxLength(200)]
+    })
   }
 
   nuevoTipoRecursoComunitario(): void {
+    let idClasificacion = Number(this.id) // Utilizo el Number() para cambiar el valor de la id que hay en la url
+
+    /*
+    * Con la variable this.tipo_recurso_comunitario que es de tipo ITipoRecursoComunitario
+    * La relleno tanto con el dato del formulario como con la id para especificar de que calsificación de recurso es*/
+    this.tipo_recurso_comunitario = {
+      nombre: this.formCrearTipo.controls['nombre'].value,
+      id_clasificacion_recurso_comunitario: idClasificacion
+    }
+
     this.cargaTiposRecursosComunitarios.nuevoTipoRecursoComunitario(this.tipo_recurso_comunitario).subscribe(
       e => {
+        this.mostrar.emit(!this.mostrar);
+        this.actualizarTipoRecurso();
         this.alertExito()
-        this.router.navigate(['/tipos_recursos_comunitarios']);
       },
       error => {
         this.alertError()
       }
     );
   }
+
+  // Esta funcion es utilizada para volver a cargar los tipos de recursos (sin recargar la página)
+  actualizarTipoRecurso(){
+    this.route.paramMap.subscribe(params => {
+      this.id = +params.get('id');
+    });
+
+    //Peticion para refrescar los tipos de recursos
+    this.cargaTipoRecursosComunitarios.getTipoRecursoComunitarioClasificacion(this.id).subscribe(
+      lista => {
+        this.tipos_recursos = lista;
+        this.formCrearTipo.patchValue({tipos_recurso:this.id})
+      },
+      error => {}
+    );
+  }
+
+  // Este método nos retornará los controladores del formulario formCrearTipo
+  get valorForm(){
+    return this.formCrearTipo.controls;
+  }
+
+  //Este método se ejecutará al pulsar en volver para hacer desaparecer el formulario para crear un tipo de recurso
+  mostrarCrearTipo(){
+    this.mostrar.emit(!this.mostrar);
+  }
+
   //Toast para el Alert indicando que la operación fue exitosa
   alertExito() :void {
     const Toast = Swal.mixin({

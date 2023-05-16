@@ -1,4 +1,11 @@
 <div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios']">Recursos comunitarios</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Ver recurso comunitario</li>
+    </ol>
+  </nav>
   <div class="titulo">
     <h1>Recurso Comunitario: {{recurso_comunitario.id}}</h1>
   </div>
