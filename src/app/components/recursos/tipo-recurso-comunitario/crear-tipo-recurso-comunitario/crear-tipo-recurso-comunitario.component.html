@@ -1,34 +1,27 @@
-<main class="text-center row p-0 m-0 justify-content-center">
-<div class="container">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/tipos_recursos_comunitarios']">Tipos de recursos comunitarios</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Crear tipo de recurso comunitario</li>
-    </ol>
-  </nav>
-  <h1 class="component-title">Crear nuevo tipo recurso comunitario</h1>
-  <form #nuevoTipoRecursoComunitarioForm="ngForm">
+<h1 class="component-title">Crear nuevo tipo recurso comunitario</h1>
+<!-- Al enviar el resultado del formulario se ejecutará el POST del nuevo Tipo de recurso -->
+<form [formGroup]="formCrearTipo" (ngSubmit)="nuevoTipoRecursoComunitario()" class="border-left">
 
-    <div class="form-group mb-3">
-      <label for="nombre" class="form-label">Nombre</label>
-      <input type="text" name="nombre" id="nombre" class="form-control"
-             required maxlength="200" [(ngModel)]="tipo_recurso_comunitario.nombre" #nombre="ngModel">
-      <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
-        <div *ngIf="nombre.errors?.required">
-          El nombre es obligatorio
-        </div>
+  <div class="form-group mb-3">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input type="text" name="nombre" id="nombre" class="form-control" formControlName="nombre">
+    <!--Mostrará este mensaje si se cumplen las especificaciones-->
+    <div *ngIf="valorForm.nombre.invalid && (valorForm.nombre.dirty || valorForm.nombre.touched)" class="alert alert-secondary" role="alert">
+      <div *ngIf="valorForm.nombre.errors?.required">
+        El nombre es obligatorio
       </div>
     </div>
+  </div>
 
-    <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoTipoRecursoComunitario()"
-            [disabled]="!nuevoTipoRecursoComunitarioForm.form.valid">
-      Crear
-    </button>
-    <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/tipos_recursos_comunitarios']">
-      Volver
-    </button>
+  <button type="submit" class="btn btn-outline-success m-1" data-bs-toggle="collapse"
+          data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"
+          [disabled]="this.formCrearTipo.invalid"
+          (click)="actualizarTipoRecurso()">
+    Guardar
+  </button>
+  <!--Con este botón se podrá volver al crear recurso comunitario-->
+  <button type="button" class="btn btn-outline-secondary m-1" (click)="mostrarCrearTipo()" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+    Volver
+  </button>
 
-  </form>
-</div>
-</main>
+</form>

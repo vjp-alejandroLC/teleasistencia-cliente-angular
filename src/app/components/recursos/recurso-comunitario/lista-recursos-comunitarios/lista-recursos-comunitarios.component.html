@@ -6,7 +6,7 @@
         <li class="breadcrumb-item active" aria-current="page">Recursos comunitarios</li>
       </ol>
     </nav>
-    <h1 class="component-title">Recursos</h1>
+    <h1 class="component-title">Recursos {{clasificacion?.nombre}}</h1>
     <div class="m-2 row">
 
       <div class="col-8 d-flex justify-content-end">
@@ -14,8 +14,8 @@
           <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
         </div>
       </div>
-
-      <div class="col-4 d-flex justify-content-end" [routerLink]="['/recursos_comunitarios/nuevo']">
+      <!-- Con la id cojo la clasificación de recurso comunitario -->
+      <div class="col-4 d-flex justify-content-end" [routerLink]="['/recursos_comunitarios/nuevo',id]">
         <button class="btn btn-success">Crear Recursos</button>
       </div>
     </div>
@@ -35,7 +35,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let recurso of recursos_comunitarios | filtroBusqueda: inputBusqueda" item-resurso-comunitario [recurso_comunitario]="recurso">
+        <!--El ngFor es utilizado para recorrer los recursos e ir mostrandolos utilizando el item-recurso-comunitario-->
+        <tr *ngFor="let recurso of recursos_comunitarios | filtroBusqueda: inputBusqueda" item-recurso-comunitario [recurso_comunitario]="recurso">
         </tr>
         </tbody>
       </table>
