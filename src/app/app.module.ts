@@ -43,7 +43,7 @@ import {ItemCentroSanitarioComponent} from './componentes/centro-sanitario/item-
 import {ModificarCentroSanitarioComponent} from './componentes/centro-sanitario/modificar-centro-sanitario/modificar-centro-sanitario.component';
 import {CrearCentroSanitarioComponent} from './componentes/centro-sanitario/crear-centro-sanitario/crear-centro-sanitario.component';
 import {ListaRecursosComunitariosComponent} from './components/recursos/recurso-comunitario/lista-recursos-comunitarios/lista-recursos-comunitarios.component';
-import {ItemResursoComunitarioComponent} from './components/recursos/recurso-comunitario/item-resurso-comunitario/item-resurso-comunitario.component';
+import {ItemRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/item-recurso-comunitario/item-recurso-comunitario.component';
 import {ModificarRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/modificar-recurso-comunitario/modificar-recurso-comunitario.component';
 import {CrearRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/crear-recurso-comunitario/crear-recurso-comunitario.component';
 import {ListaPersonasComponent} from './componentes/persona/lista-personas/lista-personas.component';
@@ -157,6 +157,8 @@ import { CrearPersonaContactoComponent } from './componentes/personas-contacto/c
 import { CrearDatosSanitariosComponent } from './componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component';
 import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-crear/mostrar-crear.component';
 
+import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-recursos-comunitarios/tipos-recursos-comunitarios.component';
+
 
 @NgModule({
   declarations: [
@@ -191,7 +193,7 @@ import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-c
     ModificarCentroSanitarioComponent,
     CrearCentroSanitarioComponent,
     ListaRecursosComunitariosComponent,
-    ItemResursoComunitarioComponent,
+    ItemRecursoComunitarioComponent,
     ModificarRecursoComunitarioComponent,
     CrearRecursoComunitarioComponent,
     ListaPersonasComponent,
@@ -283,6 +285,7 @@ import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-c
     CrearPersonaContactoComponent,
     CrearDatosSanitariosComponent,
     MostrarCrearComponent,
+    TiposRecursosComunitariosComponent,
   ],
   imports: [
     BrowserModule,
