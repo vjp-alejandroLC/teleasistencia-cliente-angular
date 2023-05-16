@@ -16,7 +16,7 @@ export class AuthService {
 
 
     /***Apartado LocalStorage***/
-    localStorage.setItem('id',id)
+    localStorage.setItem('id', id)
     localStorage.setItem('username', username);
     localStorage.setItem('userlastname', userlastname);
     localStorage.setItem('role', role);
@@ -33,7 +33,7 @@ export class AuthService {
 
   logout(): void {
     this.isLogin = false;
-
+    localStorage.removeItem('id');
     localStorage.removeItem('token');
     localStorage.removeItem('img');
     localStorage.removeItem('username');
