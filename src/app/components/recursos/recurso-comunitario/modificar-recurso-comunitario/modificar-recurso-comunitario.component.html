@@ -3,12 +3,12 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios']">Recursos comunitarios</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios/listar/',id]">Recursos comunitarios</a></li>
       <li class="breadcrumb-item active" aria-current="page">Modificar recurso comunitario</li>
     </ol>
   </nav>
   <h1 class="component-title">Modificar datos recurso comunitario {{idRecursoComunitario}}</h1>
-  <form [formGroup]="editarRecurso" (ngSubmit)="onSubmit()">
+  <form [formGroup]="editarRecurso">
     <div class="form-group mb-3">
       <label for="nombre" class="form-label">Nombre</label>
       <input type="text" name="nombre" id="nombre" class="form-control" value="{{recurso_comunitario.nombre}}" formControlName="nombre">
@@ -51,7 +51,7 @@
       <input type="text" name="codigo_postal" id="codigo_postal" class="form-control" value="{{direccion.codigo_postal}}" formControlName="cd">
     </div>
 
-    <button type="submit" class="btn btn-outline-success m-1">
+    <button type="submit" class="btn btn-outline-success m-1" (click)="modificarRecursoComunitario()">
       Guardar
     </button>
     <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/recursos_comunitarios']">

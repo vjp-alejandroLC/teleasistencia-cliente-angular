@@ -32,6 +32,4 @@ export class CargaAlarmaService {
       return this.http.delete<IAlarma> (this.URL_SERVER_ALARMA +'/'+ alarma.id);
     }
 
-
-
 }

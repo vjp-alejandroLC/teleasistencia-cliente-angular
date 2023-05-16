@@ -43,7 +43,7 @@ import {ItemCentroSanitarioComponent} from './componentes/centro-sanitario/item-
 import {ModificarCentroSanitarioComponent} from './componentes/centro-sanitario/modificar-centro-sanitario/modificar-centro-sanitario.component';
 import {CrearCentroSanitarioComponent} from './componentes/centro-sanitario/crear-centro-sanitario/crear-centro-sanitario.component';
 import {ListaRecursosComunitariosComponent} from './components/recursos/recurso-comunitario/lista-recursos-comunitarios/lista-recursos-comunitarios.component';
-import {ItemResursoComunitarioComponent} from './components/recursos/recurso-comunitario/item-resurso-comunitario/item-resurso-comunitario.component';
+import {ItemRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/item-recurso-comunitario/item-recurso-comunitario.component';
 import {ModificarRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/modificar-recurso-comunitario/modificar-recurso-comunitario.component';
 import {CrearRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/crear-recurso-comunitario/crear-recurso-comunitario.component';
 import {ListaPersonasComponent} from './componentes/persona/lista-personas/lista-personas.component';
@@ -191,7 +191,7 @@ import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-c
     ModificarCentroSanitarioComponent,
     CrearCentroSanitarioComponent,
     ListaRecursosComunitariosComponent,
-    ItemResursoComunitarioComponent,
+    ItemRecursoComunitarioComponent,
     ModificarRecursoComunitarioComponent,
     CrearRecursoComunitarioComponent,
     ListaPersonasComponent,

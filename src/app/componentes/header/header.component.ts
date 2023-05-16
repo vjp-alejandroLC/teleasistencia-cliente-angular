@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit, DoCheck {
         error: err => console.log(err), // Called if at any point WebSocket API signals some kind of error.
         complete: () => console.log('complete') // Called when connection is closed (for whatever reason).
       })
+
       // Utilizamos un GET para cargar la clasificacion de los recursos
       this.cargarClasificacion.getClasificacionRecursosComunitarios().subscribe(
         listaClasificacion => {
