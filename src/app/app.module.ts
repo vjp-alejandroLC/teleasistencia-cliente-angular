@@ -156,6 +156,9 @@ import { NgSelectModule} from "@ng-select/ng-select";
 import { CrearPersonaContactoComponent } from './componentes/personas-contacto/crear-persona-contacto/crear-persona-contacto.component';
 import { CrearDatosSanitariosComponent } from './componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component';
 import { MostrarCrearComponent } from './componentes/personas-contacto/mostrar-crear/mostrar-crear.component';
+import { ModificarPasswordComponent } from './componentes/user/modificar-password/modificar-password.component';
+import { ModificarImagenUsuarioComponent } from './componentes/botones-modificar/modificar-imagen-usuario/modificar-imagen-usuario.component';
+import { ModificarPasswordUsuarioComponent } from './componentes/botones-modificar/modificar-password-usuario/modificar-password-usuario.component';
 
 import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-recursos-comunitarios/tipos-recursos-comunitarios.component';
 
@@ -285,6 +288,9 @@ import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-r
     CrearPersonaContactoComponent,
     CrearDatosSanitariosComponent,
     MostrarCrearComponent,
+    ModificarPasswordComponent,
+    ModificarImagenUsuarioComponent,
+    ModificarPasswordUsuarioComponent,
     TiposRecursosComunitariosComponent,
   ],
   imports: [
