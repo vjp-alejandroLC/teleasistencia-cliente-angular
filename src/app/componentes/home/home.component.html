@@ -140,7 +140,7 @@
           <div class="tab">
             <ng-container *ngFor="let desarrollador of profesores">
               <button class="tablinks" (click)="abrirDesarrollador($event, desarrollador.nombre)">
-                <img class="imagenDesarrollador" src="favicon.ico" />
+                <img class="imagenDesarrollador" [src]="desarrollador.imagen" />
               </button>
             </ng-container>
           </div>
