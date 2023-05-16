@@ -282,3 +282,22 @@
     </div>
   </div>
 </nav>
+
+<div *ngIf="!cookiesAceptadas" class="modal modal-alert d-flex align-items-center py-10" tabindex="-1" role="dialog"
+     id="modalChoice">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-body p-4 text-center">
+        <h5 class="mb-0">Politicas de Cookies</h5>
+        <p class="mb-0 mt-3">Usamos cookies para mejorar su experiencia de navegación en nuestra web y para analizar el tráfico en nuestra web.</p>
+      </div>
+      <div class="modal-footer flex-nowrap p-0">
+        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 p-1 rounded-0 border-right"
+                (click)="aceptarCookies()"><strong>Aceptar</strong></button>
+        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 p-1 rounded-0"
+                data-bs-dismiss="modal" (click)="aceptarCookies()">Rechazar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

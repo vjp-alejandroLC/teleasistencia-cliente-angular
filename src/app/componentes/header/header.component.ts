@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit, DoCheck {
   public grupoTeleoperador: string;
   public clasificacionRecursos: IClasificacioRecurso[] | []; // Esta variable la utilizaremos para obtener la clasificacion de recursos que mostraremos en el apartado de Recursos
 
+  public cookiesAceptadas: boolean;
 
   isAdmin: boolean;
 
@@ -58,15 +59,14 @@ export class HeaderComponent implements OnInit, DoCheck {
         () => console.log('Fin de observable')
       )
     }
+    this.cookiesAceptadas=true; //esto desactiva el popput de cookies
   }
-
   //Compruebo si esta login para ocultar el navbar
 
   ngDoCheck():
     void {
     this.isLoggedIn = this.auth.isLoggedIn()
     this.isAdmin = this.auth.isAdmin();
-
   }
 
   //Toast para el Alert indicando que la operación fue exitosa
@@ -220,5 +220,8 @@ export class HeaderComponent implements OnInit, DoCheck {
       return 'Terminal'
   }
 
+  aceptarCookies(): void{
+    this.cookiesAceptadas=true;
+  }
 
 }
