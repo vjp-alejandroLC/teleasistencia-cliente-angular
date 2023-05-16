@@ -243,6 +243,7 @@ import {
 } from "./componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {environment} from "../environments/environment";
+import {ItemRecursoComunitarioComponent} from "./components/recursos/recurso-comunitario/item-recurso-comunitario/item-recurso-comunitario.component";
 import {
   ClasificacionRecursoscomunitariosResolveService
 } from "./servicios/cerrar-alarma/clasificacion-recursoscomunitarios-resolve.service";
@@ -495,8 +496,19 @@ const routes: Routes = [
       tipos_centros_sanitarios: ListaTiposCentrosSanitariosResolveService
     }
   },
-  {
+  /*{
     path: 'recursos_comunitarios',
+    component: ListaRecursosComunitariosComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+    resolve: {
+      recursos_comunitarios: ListaRecursosComunitariosResolveService
+    }
+  },*/
+  {
+    path: 'recursos_comunitarios/listar/:id',
     component: ListaRecursosComunitariosComponent,
     canActivate: [AuthGuard],
     data:{
@@ -519,7 +531,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'recursos_comunitarios/nuevo',
+    path: 'recursos_comunitarios/nuevo/:id', // Va a ser un nuevo recurso pero de la clasificación específica
     component: CrearRecursoComunitarioComponent,
     canActivate: [AuthGuard],
     data:{
@@ -532,6 +544,14 @@ const routes: Routes = [
   {
     path: 'recursos_comunitarios/ver_recursos/:id',
     component: VerRecursoComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    }
+  },
+  {
+    path: 'recursos_comunitarios/borrado/:id',
+    component:ItemRecursoComunitarioComponent,
     canActivate: [AuthGuard],
     data:{
       role:null

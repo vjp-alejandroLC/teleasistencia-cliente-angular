@@ -179,6 +179,7 @@ export class CrearAlarmaComponent implements OnInit {
       title: environment.fraseErrorEliminar
     })
   }
+
   modalConfirmacion(): void {
     Swal.fire({
       title: '¿Está seguro que desea eliminar este tipo de alarma?',

@@ -32,12 +32,13 @@
 
 
         <li class="nav-item dropdown p-1  mr-1">
-          <a class="nav-link dropdown-toggle" id="navRecursos" data-bs-toggle="dropdown" aria-expanded="false" href="#" [routerLink]="['/']">
+          <a class="nav-link dropdown-toggle" id="navRecursos" data-bs-toggle="dropdown" aria-expanded="false" href="#">
             Recursos
           </a>
           <ul class="dropdown-menu" aria-labelledby="navRecursos">
             <li *ngFor="let clasificacion of clasificacionRecursos">
-              <a class="dropdown-item" [routerLink]="['/recursos_comunitarios']">{{clasificacion.nombre}}</a>
+              <a class="dropdown-item" [routerLink]="['/recursos_comunitarios/listar/',clasificacion.id]">{{clasificacion.nombre}}</a>
+              <!-- En el routerLink tiene que estar el id de la clasificacion del recurso-->
             </li>
           </ul>
         </li>
