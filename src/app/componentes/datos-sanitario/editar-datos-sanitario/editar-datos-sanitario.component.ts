@@ -292,7 +292,7 @@ export class EditarDatosSanitarioComponent implements OnInit {
 
     Toast.fire({
       icon: 'success',
-      title: environment.fraseCrear,
+      title: environment.fraseModificar,
     })
   }
 
