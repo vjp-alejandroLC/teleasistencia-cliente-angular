@@ -9,13 +9,13 @@
               <label for="nuss" class="form-label">NUSS <span class="obligatorios">*</span></label>
               <input type="text" name="nuss" id="nuss" class="form-control" formControlName="nuss">
               <div *ngIf="nuss.invalid && (nuss.dirty || nuss.touched)"
-                   class="alert alert-secondary" role="alert">
-                <div *ngIf="nuss.errors?.required">
+                   class="alert alert-secondary text-center" role="alert">
+                <span *ngIf="nuss.errors?.required">
                   El NUSS es obligatorio
-                </div>
-                <div *ngIf="nuss.errors?.pattern">
+                </span>
+                <span *ngIf="nuss.errors?.pattern">
                   El NUSS no es válido
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -40,9 +40,9 @@
                      formControlName="tiempo"
               >
               <div *ngIf="tiempo.invalid && (tiempo.dirty || tiempo.touched)"
-                   class="alert alert-secondary" role="alert">
+                   class="alert alert-secondary text-center" role="alert">
                 <div *ngIf="tiempo.errors?.required; else elseBlock">
-                  El tiempo es obligatorio
+                  Introduzca un tiempo valido
                 </div>
                 <ng-template #elseBlock>
                   Introduzca un tiempo valido

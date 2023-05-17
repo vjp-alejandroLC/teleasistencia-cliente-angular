@@ -8,7 +8,7 @@
             <label for="nombre" class="form-label">Nombre <span class="obligatorios">*</span></label>
             <input type="text" name="nombre" id="nombre" class="form-control"
                    formControlName="nombre" placeholder="Nombre">
-            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary" role="alert">
+            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-secondary text-center" role="alert">
               <div *ngIf="nombre.errors?.required; else elseBlock">
                 El nombre es obligatorio
               </div>
@@ -23,7 +23,7 @@
             <label for="apellidos" class="form-label">Apellido <span class="obligatorios">*</span></label>
             <input type="text" name="apellidos" id="apellidos" class="form-control"
                    formControlName="apellidos" placeholder="Apellidos">
-            <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-secondary"
+            <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-secondary text-center"
                  role="alert">
               <div *ngIf="apellidos.errors?.required; else elseBlock">
                 El apellido es obligatorio
@@ -40,7 +40,7 @@
             <input type="text" name="tipo_relacion" id="tipo_relacion" class="form-control"
                    formControlName="tipo_relacion" placeholder="Tipo de relación">
             <div *ngIf="tipo_relacion.invalid && (tipo_relacion.dirty || tipo_relacion.touched)"
-                 class="alert alert-secondary" role="alert">
+                 class="alert alert-secondary text-center" role="alert">
               <div *ngIf="tipo_relacion.errors?.required; else elseBlock">
                 El tipo de relacion es obligatoria
               </div>
@@ -58,7 +58,7 @@
             <input type="number" name="prioridad" id="prioridad" class="form-control"
                    formControlName="prioridad" placeholder="Prioridad">
             <div *ngIf="prioridad.invalid && (prioridad.dirty || prioridad.touched)"
-                 class="alert alert-secondary" role="alert">
+                 class="alert alert-secondary text-center" role="alert">
               <div *ngIf="prioridad.errors?.required; else elseBlock">
                 La prioridad de expediente es obligatorio
               </div>
@@ -75,7 +75,7 @@
             <input type="text" name="telefono_fijo" id="telefono_fijo" class="form-control"
                    formControlName="telefono_fijo" placeholder="Telefono">
             <div *ngIf="telefono_fijo.invalid && (telefono_fijo.dirty || telefono_fijo.touched)"
-                 class="alert alert-secondary" role="alert">
+                 class="alert alert-secondary text-center" role="alert">
               <div *ngIf="telefono_fijo.errors?.required; else elseBlock">
                 El telefono es obligatorio
               </div>
@@ -92,7 +92,7 @@
             <input type="number" name="tiempo_domicilio" id="tiempo_domicilio" class="form-control"
                    formControlName="tiempo_domicilio" placeholder="Tiempo domicilio">
             <div *ngIf="tiempo_domicilio.invalid && (tiempo_domicilio.dirty || tiempo_domicilio.touched)"
-                 class="alert alert-secondary" role="alert">
+                 class="alert alert-secondary text-center" role="alert">
               <div *ngIf="tiempo_domicilio.errors?.required; else elseBlock">
                 El tiempo en el domicilio es obligatorio
               </div>
@@ -109,7 +109,7 @@
             <div class="form-check mb-3">
               <span class="text-center">¿Llaves de la vivienda? <span class="obligatorios">*</span></span>
               <div class="row mt-2 form-inline">
-                <div class="col-6 mt-3 form-check">
+                <div class="col-6 mt-3 form-check text-center">
                   <input class="btn-check" type="radio" id="tiene_llaves_vivienda_true" (click)="elegirOpcion2(true)"
                          name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda">
                   <label class="btn btn-success min50w" for="tiene_llaves_vivienda_true"
@@ -129,7 +129,8 @@
           <div class="row mb-3 form-group">
             <span class="p-0 text-center">¿Es conviviente? <span class="obligatorios">*</span></span>
             <div class="row mt-2 form-inline">
-              <div class="col-6 form-check mt-3">
+              <div class="col-6 form-check mt-3 text-center">
+
 
                 <input class="btn-check" type="radio" id="es_conviviente_true"
                        name="es_conviviente" [value]="true" formControlName="es_conviviente"
@@ -167,21 +168,21 @@
         </div>
       </div>
 
-
       <div class="text-center">
-        <button type="submit" class="btn btn-outline-success m-1"
+        <button type="submit" class="btn btn-outline-success m-1 botonOperacion3"
                 [disabled]="formulario.invalid" *ngIf="mostrarGuardar">
           Guardar contacto
         </button>
       </div>
 
+
     </form>
 
     <div class="text-center">
-      <button class="btn btn-outline-success m-1" (click)="editarRelacion()" *ngIf="mostrarEditar">
+      <button class="btn btn-outline-success m-1 botonOperacion2" (click)="editarRelacion()" *ngIf="mostrarEditar">
         Guardar contacto
       </button>
-      <button class="btn btn-outline-danger m-1" (click)="borrarRelacion()" *ngIf="mostrarEditar">
+      <button class="btn btn-outline-danger m-1 botonOperacion2" (click)="borrarRelacion()" *ngIf="mostrarEditar">
         Borrar contacto
       </button>
     </div>
@@ -195,18 +196,26 @@
   <div class="col-12 col-xl-6">
     <div class="row">
       <div class="col-md-4 pr-0">
+        <div class="text-center">
+
         <button class="btn btn-outline-success botonOperacion2" data-bs-toggle="collapse"
                 data-bs-target="#personaContacto,#dispositivosForm" aria-expanded="false"
                 aria-controls="datosPersonales" (click)="contraer()">
           Continuar
         </button>
+        </div>
       </div>
       <div class="col-md-4">
+        <div class="text-center">
+
         <button (click)="crearHtml() " type="button" class="btn btn-success botonOperacion2">
           <i class="fa-solid fa-circle-plus"></i>
         </button>
+        </div>
       </div>
       <div class="col-md-4 pl-0">
+        <div class="text-center">
+
         <button class="btn btn-outline-secondary botonOperacion2"
                 (click)="volver()"
                 data-bs-toggle="collapse"
@@ -214,7 +223,7 @@
                 aria-controls="datosPersonales">
           Volver
         </button>
-
+        </div>
       </div>
 
     </div>

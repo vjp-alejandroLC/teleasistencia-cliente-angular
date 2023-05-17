@@ -81,7 +81,7 @@ export class EditarTipoViviendaComponent implements OnInit {
       id_titular: this.pacienteEditar.id,
       modo_acceso_vivienda: this.formularioVivienda.value.text_area,
       barreras_arquitectonicas: this.formularioVivienda.value.text_area2,
-      id_tipo_vivienda: this.formularioVivienda.value.nombre
+      id_tipo_vivienda: this.formularioVivienda.value.id
     }
 
     this.terminal.modificarTerminalPorId(this.pacienteEditar.id_terminal.id, datos).subscribe(
@@ -118,7 +118,7 @@ export class EditarTipoViviendaComponent implements OnInit {
 
     Toast.fire({
       icon: 'success',
-      title: environment.fraseCrear,
+      title: environment.fraseModificar,
     })
   }
 

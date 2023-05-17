@@ -265,7 +265,9 @@ export class EditarDatosSanitarioComponent implements OnInit {
     return this.formularioDatos.get('tiempo') as FormControl;
   }
 
-
+  contraer() {
+    this.plegado = !this.plegado;
+  }
 
   volver() {
     this.plegado = !this.plegado;
