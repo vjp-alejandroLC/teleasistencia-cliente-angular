@@ -329,6 +329,14 @@ import {
 } from "./servicios/usuarios-del-servicio/carga-usuarios-del-servicio-resolve.service";
 import {DispositivosComponent} from "./componentes/dispositivos/dispositivos.component";
 
+import {ModificarPasswordComponent} from "./componentes/user/modificar-password/modificar-password.component";
+import {ModificarPasswordUsuarioComponent} from "./componentes/botones-modificar/modificar-password-usuario/modificar-password-usuario.component";
+import {ModificarImagenUsuarioComponent} from "./componentes/botones-modificar/modificar-imagen-usuario/modificar-imagen-usuario.component";
+import {ItemRecursoComunitarioComponent} from "./components/recursos/recurso-comunitario/item-recurso-comunitario/item-recurso-comunitario.component";
+import {
+  ClasificacionRecursoscomunitariosResolveService
+} from "./servicios/cerrar-alarma/clasificacion-recursoscomunitarios-resolve.service";
+import {PersonasEnAlarmaResolveService} from "./servicios/persona-contacto-alarma/personas-en-alarma-resolve.service";
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
   {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
@@ -583,12 +591,23 @@ const routes: Routes = [
       tipos_centros_sanitarios: ListaTiposCentrosSanitariosResolveService
     }
   },
-  {
+  /*{
     path: 'recursos_comunitarios',
     component: ListaRecursosComunitariosComponent,
     canActivate: [AuthGuard],
     data: {
       role: null
+    },
+    resolve: {
+      recursos_comunitarios: ListaRecursosComunitariosResolveService
+    }
+  },*/
+  {
+    path: 'recursos_comunitarios/listar/:id',
+    component: ListaRecursosComunitariosComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
     },
     resolve: {
       recursos_comunitarios: ListaRecursosComunitariosResolveService
@@ -607,7 +626,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'recursos_comunitarios/nuevo',
+    path: 'recursos_comunitarios/nuevo/:id', // Va a ser un nuevo recurso pero de la clasificación específica
     component: CrearRecursoComunitarioComponent,
     canActivate: [AuthGuard],
     data: {
@@ -623,6 +642,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       role: null
+    }
+  },
+  {
+    path: 'recursos_comunitarios/borrado/:id',
+    component:ItemRecursoComunitarioComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
     }
   },
   {
@@ -678,6 +705,17 @@ const routes: Routes = [
     data: {
       role: null
     },
+    resolve: {
+      agendas: ListaAgendaResolveService,
+      tipos_agenda: ListaTiposAgendaResolveService,
+      personas: ListaPersonasResolveService,
+      pacientes: ListaPacientesResolveService
+    }
+  },
+  {
+    path:'agenda/nueva/:id',
+    component: NuevoAgendaComponent,
+    canActivate: [AuthGuard],
     resolve: {
       agendas: ListaAgendaResolveService,
       tipos_agenda: ListaTiposAgendaResolveService,
@@ -858,6 +896,30 @@ const routes: Routes = [
     }
   },
   {
+    path: 'usuarios/modificarPassword/:id',
+    component: ModificarPasswordComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+  },
+  {
+    path: 'usuarios/modificarPasswordUsuario/:id',
+    component: ModificarPasswordUsuarioComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+  },
+  {
+    path: 'usuarios/modificarImagenUsuario/:id',
+    component: ModificarImagenUsuarioComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+  },
+  {
     path: 'situaciones',
     component: ListaTiposSituacionComponent,
     canActivate: [AuthGuard],
@@ -1031,6 +1093,8 @@ const routes: Routes = [
     },
     resolve: {
       alarma: ModificarAlarmaResolveService,
+      clas_recursos: ClasificacionRecursoscomunitariosResolveService,
+      personas_en_alarma: PersonasEnAlarmaResolveService
     }
   },
   {
@@ -1042,6 +1106,8 @@ const routes: Routes = [
     },
     resolve: {
       alarma: ModificarAlarmaResolveService,
+      clas_recursos: ClasificacionRecursoscomunitariosResolveService,
+      personas_en_alarma: PersonasEnAlarmaResolveService
     }
   },
   {

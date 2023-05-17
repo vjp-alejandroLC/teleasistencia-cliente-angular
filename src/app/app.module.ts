@@ -41,7 +41,7 @@ import {ItemCentroSanitarioComponent} from './componentes/centro-sanitario/item-
 import {ModificarCentroSanitarioComponent} from './componentes/centro-sanitario/modificar-centro-sanitario/modificar-centro-sanitario.component';
 import {CrearCentroSanitarioComponent} from './componentes/centro-sanitario/crear-centro-sanitario/crear-centro-sanitario.component';
 import {ListaRecursosComunitariosComponent} from './components/recursos/recurso-comunitario/lista-recursos-comunitarios/lista-recursos-comunitarios.component';
-import {ItemResursoComunitarioComponent} from './components/recursos/recurso-comunitario/item-resurso-comunitario/item-resurso-comunitario.component';
+import {ItemRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/item-recurso-comunitario/item-recurso-comunitario.component';
 import {ModificarRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/modificar-recurso-comunitario/modificar-recurso-comunitario.component';
 import {CrearRecursoComunitarioComponent} from './components/recursos/recurso-comunitario/crear-recurso-comunitario/crear-recurso-comunitario.component';
 import {ListaPersonasComponent} from './componentes/persona/lista-personas/lista-personas.component';
@@ -159,7 +159,10 @@ import { EditarContactoComponent } from './componentes/personas-contacto/editar-
 import { MostrarEditarContactoComponent } from './componentes/personas-contacto/mostrar-editar-contacto/mostrar-editar-contacto.component';
 import { CrearEditarContactoComponent } from './componentes/personas-contacto/crear-editar-contacto/crear-editar-contacto.component';
 import { DispositivosEditarComponent } from './componentes/dispositivos-editar/dispositivos-editar.component';
-
+import { ModificarPasswordComponent } from './componentes/user/modificar-password/modificar-password.component';
+import { ModificarImagenUsuarioComponent } from './componentes/botones-modificar/modificar-imagen-usuario/modificar-imagen-usuario.component';
+import { ModificarPasswordUsuarioComponent } from './componentes/botones-modificar/modificar-password-usuario/modificar-password-usuario.component';
+import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-recursos-comunitarios/tipos-recursos-comunitarios.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -193,7 +196,7 @@ import { DispositivosEditarComponent } from './componentes/dispositivos-editar/d
     ModificarCentroSanitarioComponent,
     CrearCentroSanitarioComponent,
     ListaRecursosComunitariosComponent,
-    ItemResursoComunitarioComponent,
+    ItemRecursoComunitarioComponent,
     ModificarRecursoComunitarioComponent,
     CrearRecursoComunitarioComponent,
     ListaPersonasComponent,
@@ -298,6 +301,10 @@ import { DispositivosEditarComponent } from './componentes/dispositivos-editar/d
     MostrarEditarContactoComponent,
     CrearEditarContactoComponent,
     DispositivosEditarComponent,
+    ModificarPasswordComponent,
+    ModificarImagenUsuarioComponent,
+    ModificarPasswordUsuarioComponent,
+    TiposRecursosComunitariosComponent,
   ],
   imports: [
     BrowserModule,

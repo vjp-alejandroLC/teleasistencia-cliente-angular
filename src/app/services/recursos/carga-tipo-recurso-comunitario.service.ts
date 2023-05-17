@@ -26,10 +26,16 @@ export class CargaTipoRecursoComunitarioService {
     return this.http.put<ITipoRecursoComunitario>(this.URL_SERVER_TIPOS_RECURSOS_COMUNITARIOS + '/' + tipoRecursoComunitario.id, tipoRecursoComunitario);
   }
 
-  nuevoTipoRecursoComunitario(tipoRecursoComunitario: ITipoRecursoComunitario): Observable<ITipoRecursoComunitario> {
+  nuevoTipoRecursoComunitario(tipoRecursoComunitario: any): Observable<ITipoRecursoComunitario> {
     return this.http.post<ITipoRecursoComunitario>(this.URL_SERVER_TIPOS_RECURSOS_COMUNITARIOS, tipoRecursoComunitario);
   }
-  eliminarTipoRecursoComunitario(tipoRecursoComunitario: ITipoRecursoComunitario): Observable<ITipoRecursoComunitario>{
-    return this.http.delete<ITipoRecursoComunitario>(this.URL_SERVER_TIPOS_RECURSOS_COMUNITARIOS + '/'+ tipoRecursoComunitario.id);
+
+  eliminarTipoRecursoComunitario(tipoRecursoComunitario: any): Observable<ITipoRecursoComunitario>{
+    return this.http.delete<ITipoRecursoComunitario>(this.URL_SERVER_TIPOS_RECURSOS_COMUNITARIOS + '/'+ tipoRecursoComunitario);
   }
+
+  getTipoRecursoComunitarioClasificacion(id: any): Observable<ITipoRecursoComunitario[]>{
+    return this.http.get<ITipoRecursoComunitario[]>(this.URL_SERVER_TIPOS_RECURSOS_COMUNITARIOS + '?id_clasificacion_recurso_comunitario=' + id);
+  }
+
 }

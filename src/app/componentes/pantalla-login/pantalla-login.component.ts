@@ -23,6 +23,7 @@ import {AuthService} from "../../servicios/auth.service";
 export class PantallaLoginComponent implements OnInit{
   public login: ILogin;
   public estaLogin: boolean;
+  public id:number;
   public username:string;
   public userlastname:string;
   public grupo:string;
@@ -41,12 +42,8 @@ export class PantallaLoginComponent implements OnInit{
   ngOnInit(): void {
     this.titleService.setTitle('Login');
     this.login = new Login();
-  }
-
-  ngDoCheck(): void {
     this.estaLogin = this.auth.isLoggedIn();
   }
-
 
   //hago la peticion post de login añadiendo los datos del formulario
   //Si los datos son correctos solicito el token y lo grabo en localstorage
@@ -60,6 +57,7 @@ export class PantallaLoginComponent implements OnInit{
         this.profileService.getProfile()
           .subscribe((resp:IProfileUser[])=>{
             console.log(resp)
+            this.id=resp[0].id
             this.username=resp[0].first_name
             this.userlastname=resp[0].last_name
             this.grupo=resp[0].groups[0].name
@@ -69,7 +67,7 @@ export class PantallaLoginComponent implements OnInit{
             } else{
               this.img=resp[0].imagen.imagen
             }
-            this.auth.login(this.username,this.userlastname,this.grupo,this.img);  // desde aqui hacemos toda la gestión del control de login
+            this.auth.login(this.id,this.username,this.userlastname,this.grupo,this.img);  // desde aqui hacemos toda la gestión del control de login
             //redirijimos al usuario al inicio
             this.router.navigate(['/inicio']);
           })
@@ -89,10 +87,11 @@ export class PantallaLoginComponent implements OnInit{
 
   hacerLogout(): void {
     this.auth.logout();
+    this.estaLogin = this.auth.isLoggedIn();
     this.router.navigate(['/login']);
   }
-
-
+  //variable necesaria para ocultar/mostrar la contraseña
+  hide = false;
 
 
 
