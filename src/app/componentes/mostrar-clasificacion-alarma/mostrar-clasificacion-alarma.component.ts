@@ -21,7 +21,7 @@ export class MostrarClasificacionAlarmaComponent implements OnInit {
   @Input() tipoPeticion: any;
   public tipoFormulario: ITipoAlarma[];
   public formulario: FormGroup;
-  public dispositivosAuxiliares: IDispositivosAuxiliaresTerminal;
+  public dispositivosAuxiliares: IDispositivosAuxiliaresTerminal[];
   @Output() resultadoEleccion: any;
 
   constructor(private route: ActivatedRoute,
@@ -64,6 +64,9 @@ export class MostrarClasificacionAlarmaComponent implements OnInit {
       },
       error => {
         console.log(error)
+      },
+      () => {
+
       }
     )
   }
@@ -72,26 +75,24 @@ export class MostrarClasificacionAlarmaComponent implements OnInit {
     console.log(cosa);
   }
 
-  postAux(hola) {
+  postAux() {
     let aux;
     aux = {
-      //id_terminal: this.terminal.idTerminal,
-      id_terminal: 2,
+      id_terminal: this.terminal.idTerminal,
       id_tipo_alarma: this.formulario.value.datos.id
     }
     this.auxiliares.nuevoDispositivoAuxiliarTerminal(aux).subscribe(
       aux => {
-        console.log('Tipo peticion'+this.tipoPeticion.nombre)
-        this.auxiliares.getDispositivos(aux.id_terminal.id,this.tipoPeticion.id).subscribe(
+        this.auxiliares.getDispositivos(aux.id_terminal.id, this.tipoPeticion.id).subscribe(
           e => {
-            console.log(e)
             this.dispositivosAuxiliares = e
           },
           error => {
-            console.log(aux.id_tipo_alarma)
-            console.log(aux.id_terminal)
+            this.alertError()
           },
           () => {
+            this.filtrar()
+            this.formulario.get('datos').setValue(null);
 
           },
         )
@@ -104,6 +105,40 @@ export class MostrarClasificacionAlarmaComponent implements OnInit {
         console.log(aux.id_terminal);
       }
     )
+  }
+
+  borrarRecurso(objeto: IDispositivosAuxiliaresTerminal, id: string) {
+    console.log(id)
+    let contenedor = document.getElementById(id);
+    console.log(objeto.id_tipo_alarma.nombre)
+    contenedor.removeChild(document.getElementById(objeto.id_tipo_alarma.nombre)) // Aqui borramos el bloque del elemento que acabamos de borrar
+    this.auxiliares.eliminarDispositivoAuxiliarTerminal(objeto).subscribe(
+      oj => {
+        this.auxiliares.getDispositivos(objeto.id_terminal.id, this.tipoPeticion.id).subscribe(
+          e => {
+            this.dispositivosAuxiliares = e;
+
+
+            this.clasificacion.getTipoAlarmaPorClasificacion(this.tipoPeticion.id).subscribe(
+              peticion => {
+                this.tipoFormulario = peticion;
+                this.filtrar();
+              },
+              error => {
+                this.alertError();
+              },
+            )
+          }
+        )
+      }
+    )
+  }
+
+
+  filtrar() {
+    for (let i = 0; i < this.dispositivosAuxiliares.length; i++) {
+      this.tipoFormulario = this.tipoFormulario.filter(aux => aux.id !== this.dispositivosAuxiliares[i].id_tipo_alarma.id)/// filtrado de los elementos ya seleccionados debajo del ngSelect para que no aparezcan como seleccionables.
+    }
   }
 
 

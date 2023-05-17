@@ -1,17 +1,17 @@
 <td> {{ paciente?.id_persona?.nombre}} {{paciente?.id_persona?.apellidos}}</td>
 <td> {{ paciente?.id_tipo_modalidad_paciente?.nombre}}</td>
 <td> {{ paciente?.id_persona?.id_direccion.localidad}}</td>
-<td> {{ paciente?.observaciones_medicas}}</td>
+<td class="reducirCaja" title="{{paciente?.observaciones_medicas}}}"> {{ paciente?.observaciones_medicas}}</td>
 <td> {{ paciente?.prestacion_otros_servicios_sociales}}</td>
 <td> {{ paciente?.id_terminal?.id_tipo_situacion?.nombre}}</td>
 <td>
   <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/modificar-user-servicio/editar/', paciente.id]">
-    <i class="fa fa-pen"></i>
+    <i class="fas fa-user-edit"></i>
   </button>
   <button type="button" class="btn btn-delete m-1" (click)="modalConfirmacion()"
   ><i class="fa fa-trash"></i></button>
-  <button type="button" class="btn btn-warning m-1">
-    <i class="fa-solid fa-eye"></i>
+  <button type="button" class="btn btn-outline-secondary btn-modify m-1">
+    <i class="fa fa-eye"></i>
   </button>
 </td>
 
