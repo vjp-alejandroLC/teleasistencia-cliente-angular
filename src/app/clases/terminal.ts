@@ -10,4 +10,6 @@ export class Terminal implements ITerminal {
   modelo_terminal: string;
   id_titular: IPaciente;
   id_tipo_vivienda: ITipoVivienda;
+  id_tipo_situacion: number;
+  fecha_tipo_situacion: Date;
 }

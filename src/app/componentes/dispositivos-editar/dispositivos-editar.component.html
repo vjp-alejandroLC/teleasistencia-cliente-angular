@@ -111,18 +111,14 @@
       <!-- Fin Terminal y UCR -->
 
       <ng-container *ngFor="let tipoAlarma of clasificacionAlarmas; let i = index">
-        <app-mostrar-clasificacion-alarma [tipoPeticion]="tipoAlarma">
-        </app-mostrar-clasificacion-alarma>
+        <app-edit-mostrar-clasificacion-alarma [tipoPeticion]="tipoAlarma">
+        </app-edit-mostrar-clasificacion-alarma>
       </ng-container>
 
       <div class="text-center">
         <button type="submit" class="btn btn-outline-success m-1" (click)="subirDatos()" [disabled]="formulario.invalid"
                 [routerLink]="['/inicio']">
           Guardar y salir
-        </button>
-        <button type="submit" class="btn btn-outline-success m-1" (click)="subirDatos()"
-                [disabled]="formulario.invalid">
-          Guardar y Crear Agenda
         </button>
         <button type="button" class="btn btn-outline-secondary m-1"
                 data-bs-toggle="collapse"

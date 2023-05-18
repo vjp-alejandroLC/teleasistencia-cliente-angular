@@ -66,11 +66,13 @@ export class DispositivosEditarComponent implements OnInit {
     this.crearPaciente.getPaciente(this.crearPaciente.idPacienteEditar).subscribe(
       paciente => {
         this.formulario.patchValue({
+          fecha_alta: paciente.id_terminal.fecha_tipo_situacion,
+          situacion: paciente.id_terminal.id_titular.id_terminal.id_tipo_situacion,
           numero_terminal: paciente.id_terminal.numero_terminal,
           modelo_terminal: paciente.id_terminal.modelo_terminal,
           ucr: paciente.tiene_ucr
         })
-        this.idTerminal = paciente.id_terminal.id;
+        this.terminal = paciente.id_terminal;
         this.idVivienda = paciente.id_terminal.id_tipo_vivienda.id;
 
       }
@@ -115,54 +117,41 @@ export class DispositivosEditarComponent implements OnInit {
 
   subirDatos() {
     this.idPaciente = this.crearPaciente.idPacienteEditar;
-    console.log("TERMINAL:" +this.idTerminal);
+    console.log("TERMINAL:" +this.terminal.id);
     let datos;
-    let datos2;
-
-    if (this.formulario.value.ucr == true) {
-      datos = {
-        estado_alarma: this.formulario.value.situacion,
-        fecha_registro: this.formulario.value.fecha_alta,
-        id_tipo_alarma: 10,
-        id_terminal: this.idTerminal,
-        id_paciente_ucr: this.crearPaciente.idPacienteEditar
-      }
-    } else {
-      datos = {
-        estado_alarma: this.formulario.value.situacion,
-        fecha_registro: this.formulario.value.fecha_alta,
-        id_tipo_alarma: 10,
-        id_terminal: this.idTerminal,
-      }
-    }
-
-
-    console.log(datos)
-    this.cargaAlarma.nuevaAlarma(datos).subscribe(
-      alarma => {
-        this.alertExito()
-      },
-      error => {
-        console.log(error.message)
-        this.alertError()
-      }
-    )
-
-    datos2 = {
+    datos = {
       modelo_terminal: this.formulario.value.modelo_terminal,
       numero_terminal: this.formulario.value.numero_terminal,
       id_titular: this.crearPaciente.idPacienteEditar,
-      id_tipo_vivienda: this.idVivienda
+      id_tipo_vivienda: this.terminal.id_tipo_vivienda.id,
+      id_tipo_situacion: this.formulario.value.situacion,
+      fecha_tipo_situacion: this.formulario.value.fecha_alta
     }
 
-    console.log("DATOS "+datos2)
 
-    this.cargaTerminal.modificarTerminalPorId(this.idTerminal, datos2).subscribe(
+
+    this.cargaTerminal.modificarTerminalPorId(this.terminal.id, datos).subscribe(
       terminal => {
         this.alertExito()
       },
       error => {
         this.alertError()
+      }
+    )
+
+    this.crearPaciente.getPaciente(this.crearPaciente.idPacienteEditar).subscribe(
+      pac => {
+        console.log(pac.id +" id del paciente a modificar")
+        console.log("paciente actualizado"+ this.formulario.value.ucr)
+        pac.tiene_ucr = this.formulario.value.ucr;
+        this.crearPaciente.modificarPaciente(pac).subscribe(
+          () => {
+            this.alertExito()
+          },
+          error => {
+            this.alertError()
+          }
+        )
       }
     )
 

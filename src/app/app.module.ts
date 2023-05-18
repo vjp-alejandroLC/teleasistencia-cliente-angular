@@ -163,6 +163,7 @@ import { ModificarPasswordComponent } from './componentes/user/modificar-passwor
 import { ModificarImagenUsuarioComponent } from './componentes/botones-modificar/modificar-imagen-usuario/modificar-imagen-usuario.component';
 import { ModificarPasswordUsuarioComponent } from './componentes/botones-modificar/modificar-password-usuario/modificar-password-usuario.component';
 import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-recursos-comunitarios/tipos-recursos-comunitarios.component';
+import { EditMostrarClasificacionAlarmaComponent } from './componentes/edit-mostrar-clasificacion-alarma/edit-mostrar-clasificacion-alarma.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -305,6 +306,7 @@ import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-r
     ModificarImagenUsuarioComponent,
     ModificarPasswordUsuarioComponent,
     TiposRecursosComunitariosComponent,
+    EditMostrarClasificacionAlarmaComponent,
   ],
   imports: [
     BrowserModule,
