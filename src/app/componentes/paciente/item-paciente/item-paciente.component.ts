@@ -7,6 +7,11 @@ import {CargaPacienteService} from "../../../servicios/paciente/carga-paciente.s
 import {
   CargaUsuariosDelServicioService
 } from "../../../servicios/usuarios-del-servicio/carga-usuarios-del-servicio.service";
+import {DispositivosAuxiliaresTerminal} from "../../../clases/dispositivos-auxiliares-terminal";
+import {
+  CargaDispositivosAuxiliaresTerminalService
+} from "../../../servicios/dispositivos-auxiliares-terminal/carga-dispositivos-auxiliares-terminal.service";
+import {IDispositivosAuxiliaresTerminal} from "../../../interfaces/i-dispositivos-auxiliares-terminal";
 
 @Component({
   selector: 'app-item-paciente, [app-item-paciente]',
@@ -16,19 +21,34 @@ import {
 export class ItemPacienteComponent implements OnInit {
 
   @Input() public paciente: Paciente;
+  public hayDispositivos: boolean = false;
+  public listaDispositivos: IDispositivosAuxiliaresTerminal[] | any;
 
-  constructor(private router: Router, private cargaUsuarios: CargaUsuariosDelServicioService) {
+  constructor(private router: Router,
+              private cargaUsuarios: CargaUsuariosDelServicioService,
+              private auxiliares: CargaDispositivosAuxiliaresTerminalService) {
   }
 
   ngOnInit(): void {
+    this.tieneDispositivos()
   }
 
-  comprobarUcr(): string {
-    if (this.paciente.tiene_ucr == true) {
-      return 'Sí'
-    }
-    return 'No'
+
+  tieneDispositivos() {
+    this.auxiliares.getDispositivosAuxiliaresAsociadosTerminal(this.paciente.id_terminal.id).subscribe(
+      dispositivos => {
+        this.listaDispositivos = dispositivos;
+      },
+      error => {
+      },
+      () => {
+        if (this.listaDispositivos.length>0) {
+          this.hayDispositivos = true
+        }
+      }
+    )
   }
+
 
   //Toast para el Alert indicando que la operación fue exitosa
   alertExito(): void {

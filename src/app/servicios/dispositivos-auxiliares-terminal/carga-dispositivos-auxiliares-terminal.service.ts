@@ -26,6 +26,12 @@ export class CargaDispositivosAuxiliaresTerminalService {
     return this.http.get<IDispositivosAuxiliaresTerminal[]>(this.URL_SERVER_DISPOSITIVOS_AUXILIARES_TERMINAL+ '?id_terminal=' + idDispositivosAuxiliaresTerminal+'&id_tipo_alarma__id_clasificacion_alarma='+id);
   }
 
+  getDispositivosAuxiliaresAsociadosTerminal(idDispositivosAuxiliaresTerminal: any): Observable<IDispositivosAuxiliaresTerminal> {
+    return this.http.get<IDispositivosAuxiliaresTerminal>(this.URL_SERVER_DISPOSITIVOS_AUXILIARES_TERMINAL+ '?id_terminal=' + idDispositivosAuxiliaresTerminal);
+  }
+
+
+
 
 
   modificarDispositivoAuxiliarTerminal(dispositivosAuxiliaresTerminal: IDispositivosAuxiliaresTerminal): Observable<IDispositivosAuxiliaresTerminal> {
