@@ -44,10 +44,6 @@ export class PantallaLoginComponent implements OnInit{
     this.titleService.setTitle('Login');
     this.login = new Login();
     this.estaLogin = this.auth.isLoggedIn();
-    //  Comprobamos si el ws esta conectado, si no lo esta. lo conectamos
-    if(this.conexionWS.noEstaWsConectado()){
-      this.conexionWS.conectar();
-    }
   }
 
   //hago la peticion post de login añadiendo los datos del formulario
@@ -74,6 +70,10 @@ export class PantallaLoginComponent implements OnInit{
             }
 
             this.auth.login(this.id,this.username,this.userlastname,this.grupo,this.img);
+            //  Comprobamos si el ws esta conectado, si no lo esta. lo conectamos
+            if(this.conexionWS.noEstaWsConectado()){
+              this.conexionWS.conectar();
+            }
             //redirijimos al usuario al inicio
             this.router.navigate(['/inicio']);
           })
