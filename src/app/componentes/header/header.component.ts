@@ -33,25 +33,33 @@ export class HeaderComponent implements OnInit, DoCheck {
     //comprobamos si hay usuario logeado
     if (this.auth.isLoggedIn()) {
       this.conexionWS.conectar();
+      this.cargar_clasificacion();
 
-      // Utilizamos un GET para cargar la clasificacion de los recursos
-      this.cargarClasificacion.getClasificacionRecursosComunitarios().subscribe(
-        listaClasificacion => {
-          this.clasificacionRecursos = listaClasificacion;
-        },
-        error => console.log(error),
-        () => console.log('Fin de observable')
-      )
     }
     this.cookiesAceptadas=true; //esto desactiva el popput de cookies
   }
   //Compruebo si esta login para ocultar el navbar
 
-  ngDoCheck():
-    void {
-    this.isLoggedIn = this.auth.isLoggedIn()
-    this.isAdmin = this.auth.isAdmin();
+  ngDoCheck():void {
+      let lastisLoggedIn = this.isLoggedIn;
+      this.isLoggedIn = this.auth.isLoggedIn();
+      this.isAdmin = this.auth.isAdmin();
+      if (!lastisLoggedIn && this.isLoggedIn){
+        this.cargar_clasificacion();
+      }
   }
+
+
+  cargar_clasificacion (): void{
+    // Utilizamos un GET para cargar la clasificacion de los recursos
+    this.cargarClasificacion.getClasificacionRecursosComunitarios().subscribe(
+      listaClasificacion => {
+        this.clasificacionRecursos = listaClasificacion;
+      },
+      error => console.log(error),
+      () => console.log('Fin de observable')
+    )}
+
 
   aceptarCookies(): void{
     this.cookiesAceptadas=true;
