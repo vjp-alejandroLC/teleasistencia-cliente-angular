@@ -677,7 +677,6 @@ const routes: Routes = [
     },
     resolve: {
       agendas: ListaTodasAgendasResolveService,
-      teleoperadores: ListaUsersResolveService,
       agenda: DetallesAgendaResolveService
     }
   },
