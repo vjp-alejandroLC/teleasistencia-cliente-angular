@@ -103,8 +103,6 @@ export class EditarDatosSanitarioComponent implements OnInit {
       () => {
         this.cargaRelacionTerminalRecursosComunitarios.getRelacionesTerminalesRecursosComunitarios().subscribe(
           relacion =>{
-            this.alertExito(); //VER SI PUEDO TRAERME TODOS Y COMPARAR, SI ES LA MISMA ID LO METE EN EL ARRAY
-            console.log("RELACION: " +this.pacienteEditar.id);
             for (const relac of relacion) {
               if (relac.id_terminal.id == this.pacienteEditar.id_terminal.id){
                 this.arrayRelaciones.push(relac);

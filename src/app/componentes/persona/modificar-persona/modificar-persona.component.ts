@@ -83,7 +83,6 @@ export class ModificarPersonaComponent implements OnInit {
     this.crearPaciente.getPaciente(this.crearPaciente.idPacienteEditar).subscribe(
     paciente =>{
       this.pacienteEditar = paciente;
-      console.log("PACIENTE: " +this.pacienteEditar.id);
       this.cargaPersonas.getPersona(this.pacienteEditar.id_persona.id).subscribe(
         persona => {
           this.personaEditar = persona;
@@ -239,7 +238,6 @@ export class ModificarPersonaComponent implements OnInit {
         this.crearPaciente.idPaciente = e.id;
         this.terminal.id_titular = e.id;
 
-        console.log(this.terminal)
 
 
         this.alertExito() // Aquí damos el exito ya que seria la ultima petición encadenada.
