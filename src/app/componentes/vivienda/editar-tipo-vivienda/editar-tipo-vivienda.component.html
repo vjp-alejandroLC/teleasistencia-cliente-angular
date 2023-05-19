@@ -44,6 +44,7 @@
           <textarea formControlName="text_area2" name="text_area" id="text_area2" class="form-control"></textarea>
         </div>
       </div>
+      <input type="hidden" formControlName="idTipo">
 
       <div class="text-center">
         <button type="submit" class="btn btn-outline-success m-1"
@@ -75,7 +76,7 @@
       (mostrarModificar)="this.mostrarModificar=$event"
       *ngIf="this.mostrarModificar"
       [listaViviendas]="listaViviendas"
-      [idVivienda]="formularioVivienda.value.nombre">
+      [idVivienda]="formularioVivienda.value.idTipo">
     </app-modificar-tipo-vivienda>
   </div>
 </div>

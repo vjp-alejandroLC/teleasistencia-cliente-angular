@@ -186,6 +186,7 @@
               <ng-option *ngFor="let tipo_persona of tipos_personas; let i = index"
                          [value]="tipo_persona.id">{{tipo_persona.nombre}}</ng-option>
             </ng-select>
+            <input type="hidden" formControlName="idTipo">
           </div>
           <div class="col-4 col-lg-1  p-0">
             <button class="btn btn-success botonOperacion" type="button"
@@ -239,7 +240,7 @@
         (mostrarModificar)="this.mostrarModificar=$event"
         *ngIf="this.mostrarModificar"
         [listaTiposModalidad]="tipos_personas"
-        [idTipoModalidad]="formulario.value.tipos_personas">
+        [idTipoModalidad]="formulario.value.id_tipo">
       </app-modificar-tipo-modalidad-paciente>
     </div>
   </div>

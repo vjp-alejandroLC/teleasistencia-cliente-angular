@@ -99,8 +99,8 @@ export class ModificarPersonaComponent implements OnInit {
             provincia: this.personaEditar.id_direccion.provincia,
             direccion: this.personaEditar.id_direccion.direccion,
             codigo_postal: this.personaEditar.id_direccion.codigo_postal,
-            tipos_personas: this.pacienteEditar.id_tipo_modalidad_paciente.nombre
-
+            tipos_personas: this.pacienteEditar.id_tipo_modalidad_paciente.nombre,
+            id_tipo: this.pacienteEditar.id_tipo_modalidad_paciente.id
 
           })
         }
@@ -151,6 +151,7 @@ export class ModificarPersonaComponent implements OnInit {
         Validators.minLength(5),
         Validators.pattern(this.REGEX_CP)]],
       tipos_personas: ['', [Validators.required]],
+      id_tipo:[''],
       text_area: [this.PLANTILLA_OBS, [Validators.max(250)]]
     });
   }

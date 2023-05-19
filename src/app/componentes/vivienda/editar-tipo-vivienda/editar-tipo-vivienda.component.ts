@@ -61,7 +61,8 @@ export class EditarTipoViviendaComponent implements OnInit {
         this.formularioVivienda.patchValue({
           nombre: this.pacienteEditar.id_terminal.id_tipo_vivienda.nombre,
           text_area: this.pacienteEditar.id_terminal.modo_acceso_vivienda,
-          text_area2: this.pacienteEditar.id_terminal.barreras_arquitectonicas
+          text_area2: this.pacienteEditar.id_terminal.barreras_arquitectonicas,
+          idTipo: this.pacienteEditar.id_terminal.id_tipo_vivienda.id
         })
       }
       )
@@ -69,7 +70,8 @@ export class EditarTipoViviendaComponent implements OnInit {
       nombre: ['', [Validators.required],
       ],
       text_area: ['', [Validators.max(400)]],
-      text_area2: ['', [Validators.max(400)]]
+      text_area2: ['', [Validators.max(400)]],
+      idTipo:['']
     });
   }
 
