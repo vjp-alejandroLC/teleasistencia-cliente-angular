@@ -4,10 +4,7 @@ import {webSocket} from 'rxjs/webSocket';
 import Swal from "sweetalert2";
 import {Alarma} from "../../clases/alarma";
 import {CargaAlarmaService} from "../../servicios/alarmas/carga-alarma.service";
-import {catchError} from "rxjs/operators";
-import {of} from "rxjs";
 import {Router} from "@angular/router";
-import {ModificarAlarmaResolveService} from "../../servicios/alarmas/modificar-alarma-resolve.service";
 import {ProfileService} from "../../servicios/profile.service";
 import {IProfileUser} from "../../interfaces/i-profile-user";
 import {IClasificacioRecurso} from "../../interfaces/i-clasificacio-recurso";
@@ -50,25 +47,31 @@ export class HeaderComponent implements OnInit, DoCheck {
         error: err => console.log(err), // Called if at any point WebSocket API signals some kind of error.
         complete: () => console.log('complete') // Called when connection is closed (for whatever reason).
       })
-
-      // Utilizamos un GET para cargar la clasificacion de los recursos
-      this.cargarClasificacion.getClasificacionRecursosComunitarios().subscribe(
-        listaClasificacion => {
-          this.clasificacionRecursos = listaClasificacion;
-        },
-        error => console.log(error),
-        () => console.log('Fin de observable')
-      )
+      this.cargar_clasificacion();
     }
     this.cookiesAceptadas=true; //esto desactiva el popput de cookies
   }
   //Compruebo si esta login para ocultar el navbar
 
-  ngDoCheck():
-    void {
-    this.isLoggedIn = this.auth.isLoggedIn()
-    this.isAdmin = this.auth.isAdmin();
+  ngDoCheck():void {
+      let lastisLoggedIn = this.isLoggedIn;
+      this.isLoggedIn = this.auth.isLoggedIn();
+      this.isAdmin = this.auth.isAdmin();
+      if (!lastisLoggedIn && this.isLoggedIn){
+        this.cargar_clasificacion();
+      }
   }
+
+  cargar_clasificacion (): void{
+    // Utilizamos un GET para cargar la clasificacion de los recursos
+    this.cargarClasificacion.getClasificacionRecursosComunitarios().subscribe(
+      listaClasificacion => {
+        this.clasificacionRecursos = listaClasificacion;
+      },
+      error => console.log(error),
+      () => console.log('Fin de observable')
+    )}
+
 
   //Toast para el Alert indicando que la operación fue exitosa
   alertExito(texto:string)
