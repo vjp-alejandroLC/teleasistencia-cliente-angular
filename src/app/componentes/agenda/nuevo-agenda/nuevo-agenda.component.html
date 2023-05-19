@@ -19,10 +19,10 @@
                   <label for="paciente" class="form-label col-12 text-start p-0">Nombre y Apellidos</label>
                 </div>
                 <div class="row col-12 p-0 pb-1 pb-lg-0">
-                  <ng-select id="paciente" name="paciente"
+                  <ng-select id="paciente" name="paciente" class="p-0"
                           formControlName="paciente" required (change)="obtenerExpediente()">
                     <ng-option *ngFor="let paciente of pacientes"
-                            [value]="paciente.id_persona.id">{{ paciente.id_persona.nombre }} {{ paciente.id_persona.apellidos }}</ng-option>
+                            [value]="paciente?.id_persona.id">{{ paciente?.id_persona.nombre }} {{ paciente?.id_persona.apellidos }}</ng-option>
                   </ng-select>
                 </div>
               </div>
