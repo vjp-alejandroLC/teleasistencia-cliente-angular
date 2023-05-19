@@ -134,7 +134,8 @@ export class MostrarEditarContactoComponent implements OnInit {
       'id_paciente': this.cargaPacientes.idPacienteEditar
 
     }
-        this.cargaRelacion.modificarRelacion(this.relacionEditar.id,this.relacionPacientePersona).subscribe( //Paso la id usada + el formulario entero para cambiar todo el objeto
+        this.cargaRelacion.modificarRelacion(this.relacionEditar.id,this.relacionPacientePersona).subscribe(
+          //Paso la id usada + el formulario entero para cambiar todo el objeto
           () =>{
 
             this.alertEditarRecurso();

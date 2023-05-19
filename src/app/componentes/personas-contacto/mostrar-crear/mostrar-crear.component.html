@@ -106,21 +106,19 @@
       <div class="row mt-2">
         <div class="col-md-6">
           <div class="row mb-3 form-group">
-            <div class="form-check mb-3">
-              <span class="text-center">¿Llaves de la vivienda? <span class="obligatorios">*</span></span>
-              <div class="row mt-2 form-inline">
-                <div class="col-6 mt-3 form-check text-center">
-                  <input class="btn-check" type="radio" id="tiene_llaves_vivienda_true{{indice}}" (click)="elegirOpcion2(true)"
-                         name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda">
-                  <label class="btn btn-success min50w" for="tiene_llaves_vivienda_true{{indice}}"
-                         [ngClass]="opcion2? '':'opacity-50'">Sí</label>
-                </div>
-                <div class="col-6 form-check mt-3">
-                  <input class="btn-check" type="radio" id="tiene_llaves_vivienda_false{{indice}}" (click)="elegirOpcion2(false)"
-                         name="tiene_llaves_vivienda" [value]="false" formControlName="tiene_llaves_vivienda">
-                  <label class="btn btn-success min50w" for="tiene_llaves_vivienda_false{{indice}}"
-                         [ngClass]="opcion2? 'opacity-50':''">No</label>
-                </div>
+            <span class=" p-0 text-center">¿Llaves de la vivienda? <span class="obligatorios">*</span></span>
+            <div class="row mt-2 form-inline">
+              <div class="col-6 mt-3 form-check text-center">
+                <input class="btn-check" type="radio" id="tiene_llaves_vivienda_true{{indice}}" (click)="elegirOpcion2(true)"
+                       name="tiene_llaves_vivienda" [value]="true" formControlName="tiene_llaves_vivienda">
+                <label class="btn btn-success min50w" for="tiene_llaves_vivienda_true{{indice}}"
+                       [ngClass]="opcion2? '':'opacity-50'">Sí</label>
+              </div>
+              <div class="col-6 form-check mt-3 text-center">
+                <input class="btn-check" type="radio" id="tiene_llaves_vivienda_false{{indice}}" (click)="elegirOpcion2(false)"
+                       name="tiene_llaves_vivienda" [value]="false" formControlName="tiene_llaves_vivienda">
+                <label class="btn btn-success min50w" for="tiene_llaves_vivienda_false{{indice}}"
+                       [ngClass]="opcion2? 'opacity-50':''">No</label>
               </div>
             </div>
           </div>
@@ -130,15 +128,13 @@
             <span class="p-0 text-center">¿Es conviviente? <span class="obligatorios">*</span></span>
             <div class="row mt-2 form-inline">
               <div class="col-6 form-check mt-3 text-center">
-
-
                 <input class="btn-check" type="radio" id="es_conviviente_true{{indice}}"
                        name="es_conviviente" [value]="true" formControlName="es_conviviente"
                        (click)="elegirOpcion(true)">
                 <label class="btn btn-success min50w" for="es_conviviente_true{{indice}}"
                        [ngClass]="opcion? '':'opacity-50'">Sí</label>
               </div>
-              <div class="col-6 form-check mt-3">
+              <div class="col-6 form-check mt-3 text-center">
                 <input class="btn-check" type="radio" id="es_conviviente_false{{indice}}"
                        name="es_conviviente" [value]="false" formControlName="es_conviviente"
                        (click)="elegirOpcion(false)">

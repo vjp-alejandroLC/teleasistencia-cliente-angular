@@ -36,9 +36,35 @@ export class EditMostrarClasificacionAlarmaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getDatos()
 
     this.buildForm();  //Formularios reactivos
+
+    this.cargaPaciente.getPaciente(this.cargaPaciente.idPacienteEditar).subscribe(
+      pac => {
+          this.auxiliares.getDispositivos(pac.id_terminal.id,this.tipoPeticion.id).subscribe(
+            e =>{
+              this.dispositivosAuxiliares = e;
+
+            }, error => console.log(error),
+            () =>{
+              this.clasificacion.getTipoAlarmaPorClasificacion(this.tipoPeticion.id).subscribe(
+                peticion => {
+                  this.tipoFormulario = peticion;
+
+                },
+                error => {
+                  console.log(error)
+                },
+                () => {
+                  this.filtrar();
+
+                }
+              )
+            }
+          )
+
+      }
+    )
 
 
   }
@@ -169,7 +195,7 @@ export class EditMostrarClasificacionAlarmaComponent implements OnInit {
 
     Toast.fire({
       icon: 'success',
-      title: environment.fraseCrear,
+      title: environment.fraseModificar,
     })
   }
 
