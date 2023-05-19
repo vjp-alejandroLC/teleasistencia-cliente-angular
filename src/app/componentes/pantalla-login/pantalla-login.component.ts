@@ -12,6 +12,7 @@ import {ProfileService} from "../../servicios/profile.service";
 import {IProfileUser} from "../../interfaces/i-profile-user";
 import Swal from "sweetalert2";
 import {AuthService} from "../../servicios/auth.service";
+import {ConexionWsService} from "../../servicios/websocket/conexion-ws.service";
 
 
 
@@ -23,10 +24,10 @@ import {AuthService} from "../../servicios/auth.service";
 export class PantallaLoginComponent implements OnInit{
   public login: ILogin;
   public estaLogin: boolean;
+  public id:number;
   public username:string;
   public userlastname:string;
   public grupo:string;
-  public id:number;
 
   public img:string
 
@@ -36,18 +37,14 @@ export class PantallaLoginComponent implements OnInit{
 
 
 
-  constructor(private titleService: Title,
+  constructor(private titleService: Title,private conexionWS: ConexionWsService,
               private http:HttpClient, private router: Router,private profileService:ProfileService,private auth:AuthService) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('Login');
     this.login = new Login();
-  }
-
-  ngDoCheck(): void {
     this.estaLogin = this.auth.isLoggedIn();
   }
-
 
   //hago la peticion post de login añadiendo los datos del formulario
   //Si los datos son correctos solicito el token y lo grabo en localstorage
@@ -73,6 +70,10 @@ export class PantallaLoginComponent implements OnInit{
             }
 
             this.auth.login(this.id,this.username,this.userlastname,this.grupo,this.img);
+            //  Comprobamos si el ws esta conectado, si no lo esta. lo conectamos
+            if(this.conexionWS.noEstaWsConectado()){
+              this.conexionWS.conectar();
+            }
             //redirijimos al usuario al inicio
             this.router.navigate(['/inicio']);
           })
@@ -92,10 +93,11 @@ export class PantallaLoginComponent implements OnInit{
 
   hacerLogout(): void {
     this.auth.logout();
+    this.estaLogin = this.auth.isLoggedIn();
     this.router.navigate(['/login']);
   }
-
-
+  //variable necesaria para ocultar/mostrar la contraseña
+  hide = false;
 
 
 

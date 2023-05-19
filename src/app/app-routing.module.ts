@@ -243,6 +243,9 @@ import {
 } from "./componentes/datos-sanitario/crear-datos-sanitarios/crear-datos-sanitarios.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {environment} from "../environments/environment";
+import {ModificarPasswordComponent} from "./componentes/user/modificar-password/modificar-password.component";
+import {ModificarPasswordUsuarioComponent} from "./componentes/botones-modificar/modificar-password-usuario/modificar-password-usuario.component";
+import {ModificarImagenUsuarioComponent} from "./componentes/botones-modificar/modificar-imagen-usuario/modificar-imagen-usuario.component";
 import {ItemRecursoComunitarioComponent} from "./components/recursos/recurso-comunitario/item-recurso-comunitario/item-recurso-comunitario.component";
 import {
   ClasificacionRecursoscomunitariosResolveService
@@ -798,6 +801,30 @@ const routes: Routes = [
     resolve: {
       user: ModificarUserResolveService
     }
+  },
+  {
+    path: 'usuarios/modificarPassword/:id',
+    component: ModificarPasswordComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+  },
+  {
+    path: 'usuarios/modificarPasswordUsuario/:id',
+    component: ModificarPasswordUsuarioComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
+  },
+  {
+    path: 'usuarios/modificarImagenUsuario/:id',
+    component: ModificarImagenUsuarioComponent,
+    canActivate: [AuthGuard],
+    data:{
+      role:null
+    },
   },
   {
     path: 'situaciones',

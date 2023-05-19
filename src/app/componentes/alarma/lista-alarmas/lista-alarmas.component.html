@@ -15,17 +15,15 @@
       <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
     </div>
 
-    <div class="row mb-2 d-flex justify-content-end pad">
-      <div class="col p-0"></div>
-      <div class="col-5 form-group m-0 p-0">
-      <label for="busquedaPorFecha">Búsqueda por fecha</label>
-      <input id="busquedaPorFecha" name="busquedaPorFecha" type="date" class="form-control"
-      (ngModelChange)="buscarPorFecha($event)" [(ngModel)]="inputFechaBusqueda">
-      </div>
-      <div class="col p-0 d-flex align-items-end justify-content-end">
-        <button class="btn btn-success" [routerLink]="['/alarmas/nueva']" *ngIf="isAdmin">Crear Alarma</button>
-      </div>
 
+    <div class="form-group">
+      <label for="busquedaPorFecha">Búsqueda por fecha</label>
+    </div>
+    <button class="btn btn-success float-end mar mb-3" [routerLink]="['/alarmas/nueva']" *ngIf="isAdmin">
+      Crear Alarma
+    </button>
+    <div class="form-group mb-3">
+      <input id="busquedaPorFecha" name="busquedaPorFecha" type="date" class="form-control" (ngModelChange)="buscarPorFecha($event)" [(ngModel)]="inputFechaBusqueda">
     </div>
 
 
@@ -46,16 +44,11 @@
         </thead>
         <tbody>
 
-        <tr *ngFor="let alarma of alarmasDelDia| filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: 10, currentPage: numPaginacion }"
-            app-item-alarma [alarma]="alarma" class="{{seleccionarFondo(alarma)}}">
+        <tr *ngFor="let alarma of alarmasDelDia| filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: 10, currentPage: numPaginacion }" app-item-alarma [alarma]="alarma" class="{{seleccionarFondo(alarma)}}">
         </tr>
         </tbody>
       </table>
-      <pagination-controls
-        previousLabel="Anterior"
-        nextLabel="Siguiente"
-        responsive="true"
-        (pageChange)="numPaginacion = $event"></pagination-controls>
+      <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" responsive="true" (pageChange)="numPaginacion = $event"></pagination-controls>
     </div>
   </div>
 </main>
