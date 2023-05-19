@@ -12,6 +12,7 @@ import {ProfileService} from "../../servicios/profile.service";
 import {IProfileUser} from "../../interfaces/i-profile-user";
 import Swal from "sweetalert2";
 import {AuthService} from "../../servicios/auth.service";
+import {ConexionWsService} from "../../servicios/websocket/conexion-ws.service";
 
 
 
@@ -36,7 +37,7 @@ export class PantallaLoginComponent implements OnInit{
 
 
 
-  constructor(private titleService: Title,
+  constructor(private titleService: Title,private conexionWS: ConexionWsService,
               private http:HttpClient, private router: Router,private profileService:ProfileService,private auth:AuthService) { }
 
   ngOnInit(): void {
@@ -69,6 +70,10 @@ export class PantallaLoginComponent implements OnInit{
             }
 
             this.auth.login(this.id,this.username,this.userlastname,this.grupo,this.img);
+            //  Comprobamos si el ws esta conectado, si no lo esta. lo conectamos
+            if(this.conexionWS.noEstaWsConectado()){
+              this.conexionWS.conectar();
+            }
             //redirijimos al usuario al inicio
             this.router.navigate(['/inicio']);
           })
