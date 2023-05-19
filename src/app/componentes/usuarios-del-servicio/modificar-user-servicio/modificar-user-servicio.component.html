@@ -3,10 +3,11 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Crear usuario </li>
+      <li class="breadcrumb-item active" aria-current="page">Crear usuario</li>
     </ol>
   </nav>
-  <h1 class="component-title text-center">Editar Usuario del Servicio</h1>
+  <h1 class="component-title text-center" *ngIf="!blockModificar">Editar Usuario del Servicio</h1>
+  <h1 class="component-title text-center" *ngIf="blockModificar">Información del usuario del servicio</h1>
 
   <div class="row mb-1 mt-1">
     <h4 class="formularios d-flex align-items-center justify-content-between">
@@ -15,7 +16,7 @@
     </h4>
     <div class="m-auto col-10 form-container p-3">
       <div class="collapse show" id="datosPersonales">
-        <app-modificar-persona (plegar)="pruebas($event);this.mostrar2=!this.mostrar2">
+        <app-modificar-persona (plegar)="pruebas($event);this.mostrar2=!this.mostrar2" [blockEditar]="blockModificar">
         </app-modificar-persona>
       </div>
     </div>
@@ -30,7 +31,8 @@
     <div class="m-auto col-10  p-3">
       <div class="collapse" id="datosSanitarios">
         <app-editar-datos-sanitario (plegar)="this.mostrar2=$event;this.mostrar3=!this.mostrar3"
-                                    (desplegar)="this.mostrar=$event;this.mostrar2=!this.mostrar2">
+                                    (desplegar)="this.mostrar=$event;this.mostrar2=!this.mostrar2"
+                                    [blockEditar]="blockModificar">
         </app-editar-datos-sanitario>
       </div>
     </div>
@@ -45,7 +47,8 @@
     <div class="m-auto col-10 p-3">
       <div class="collapse" id="viviendaForm">
         <app-editar-tipo-vivienda (plegar)="this.mostrar3=$event;this.mostrar4=!this.mostrar4"
-                                 (desplegar)="this.mostrar2=$event;this.mostrar3=!this.mostrar3">
+                                  (desplegar)="this.mostrar2=$event;this.mostrar3=!this.mostrar3"
+                                  [blockEditar]="blockModificar">
         </app-editar-tipo-vivienda>
       </div>
     </div>
@@ -60,7 +63,8 @@
     <div class="m-auto col-10 p-3">
       <div class="collapse" id="personaContacto">
         <app-editar-contacto (plegar)="this.mostrar4=$event;this.mostrar5=!this.mostrar5"
-                                    (desplegar)="this.mostrar3=$event;this.mostrar4=!this.mostrar4">
+                             (desplegar)="this.mostrar3=$event;this.mostrar4=!this.mostrar4"
+                             [blockEditar]="blockModificar">
         </app-editar-contacto>
       </div>
     </div>
@@ -76,7 +80,8 @@
     <div class=" m-auto col-10 p-3 form-container">
       <div class="collapse " id="dispositivosForm">
         <app-dispositivos-editar
-          (desplegar)="this.mostrar4=$event;this.mostrar5=!this.mostrar5">
+          (desplegar)="this.mostrar4=$event;this.mostrar5=!this.mostrar5"
+          [blockEditar]="blockModificar">
         </app-dispositivos-editar>
       </div>
     </div>

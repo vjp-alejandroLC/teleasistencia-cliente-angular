@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ITipoSituacion} from "../../interfaces/i-tipo-situacion";
 import {IClasificacionAlarma} from "../../interfaces/i-clasificacion-alarma";
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
@@ -23,7 +23,7 @@ export class DispositivosEditarComponent implements OnInit {
 
   /*  Atributos  */
   @Output() public desplegar = new EventEmitter;
-
+  @Input() public blockEditar;
   public listaDeSituaciones: ITipoSituacion[];
   public clasificacionAlarmas: IClasificacionAlarma[];
   public formulario: FormGroup;

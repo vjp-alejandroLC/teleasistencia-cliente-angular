@@ -20,6 +20,7 @@ import {CargaPacienteService} from "../../servicios/carga-paciente.service";
 export class EditMostrarClasificacionAlarmaComponent implements OnInit {
 
   @Input() tipoPeticion: any;
+  @Input() public blockEditar;
   public tipoFormulario: ITipoAlarma[];
   public formulario: FormGroup;
   public dispositivosAuxiliares: IDispositivosAuxiliaresTerminal[];

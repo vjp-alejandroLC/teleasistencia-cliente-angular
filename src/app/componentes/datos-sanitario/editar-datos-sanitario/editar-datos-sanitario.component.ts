@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IRecursoComunitario} from "../../../interfaces/i-recurso-comunitario";
 import {ITipoRecursoComunitario} from "../../../interfaces/i-tipo-recurso-comunitario";
 import {ITerminal} from "../../../interfaces/i-terminal";
@@ -30,6 +30,8 @@ export class EditarDatosSanitarioComponent implements OnInit {
   edit: boolean = false;
   @Output() public plegar = new EventEmitter;
   @Output() public desplegar = new EventEmitter;
+  @Input() public blockEditar;
+
   public plegado: boolean = false;
 
   mostrar: boolean = false;

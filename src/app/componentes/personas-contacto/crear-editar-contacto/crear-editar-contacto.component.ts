@@ -26,6 +26,7 @@ export class CrearEditarContactoComponent implements OnInit {
   mostrarGuardar = true;
   mostrarEditar = false;
   @Input() indice: number;
+  @Input() public blockEditar;
   idPaciente: number;
   idRelacion: number;
   submitted = false;

@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
+
 
 
 @Component({
@@ -18,7 +19,6 @@ export class CrearUserServicioComponent implements OnInit {
 
 
 pruebas(evento){
-  console.log(evento)
   this.mostrar=evento
 
 }

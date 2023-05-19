@@ -330,13 +330,20 @@ import {
 import {DispositivosComponent} from "./componentes/dispositivos/dispositivos.component";
 
 import {ModificarPasswordComponent} from "./componentes/user/modificar-password/modificar-password.component";
-import {ModificarPasswordUsuarioComponent} from "./componentes/botones-modificar/modificar-password-usuario/modificar-password-usuario.component";
-import {ModificarImagenUsuarioComponent} from "./componentes/botones-modificar/modificar-imagen-usuario/modificar-imagen-usuario.component";
-import {ItemRecursoComunitarioComponent} from "./components/recursos/recurso-comunitario/item-recurso-comunitario/item-recurso-comunitario.component";
+import {
+  ModificarPasswordUsuarioComponent
+} from "./componentes/botones-modificar/modificar-password-usuario/modificar-password-usuario.component";
+import {
+  ModificarImagenUsuarioComponent
+} from "./componentes/botones-modificar/modificar-imagen-usuario/modificar-imagen-usuario.component";
+import {
+  ItemRecursoComunitarioComponent
+} from "./components/recursos/recurso-comunitario/item-recurso-comunitario/item-recurso-comunitario.component";
 import {
   ClasificacionRecursoscomunitariosResolveService
 } from "./servicios/cerrar-alarma/clasificacion-recursoscomunitarios-resolve.service";
 import {PersonasEnAlarmaResolveService} from "./servicios/persona-contacto-alarma/personas-en-alarma-resolve.service";
+
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
   {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
@@ -606,8 +613,8 @@ const routes: Routes = [
     path: 'recursos_comunitarios/listar/:id',
     component: ListaRecursosComunitariosComponent,
     canActivate: [AuthGuard],
-    data:{
-      role:null
+    data: {
+      role: null
     },
     resolve: {
       recursos_comunitarios: ListaRecursosComunitariosResolveService
@@ -646,10 +653,10 @@ const routes: Routes = [
   },
   {
     path: 'recursos_comunitarios/borrado/:id',
-    component:ItemRecursoComunitarioComponent,
+    component: ItemRecursoComunitarioComponent,
     canActivate: [AuthGuard],
-    data:{
-      role:null
+    data: {
+      role: null
     }
   },
   {
@@ -713,7 +720,7 @@ const routes: Routes = [
     }
   },
   {
-    path:'agenda/nueva/:id',
+    path: 'agenda/nueva/:id',
     component: NuevoAgendaComponent,
     canActivate: [AuthGuard],
     resolve: {
@@ -899,24 +906,24 @@ const routes: Routes = [
     path: 'usuarios/modificarPassword/:id',
     component: ModificarPasswordComponent,
     canActivate: [AuthGuard],
-    data:{
-      role:null
+    data: {
+      role: null
     },
   },
   {
     path: 'usuarios/modificarPasswordUsuario/:id',
     component: ModificarPasswordUsuarioComponent,
     canActivate: [AuthGuard],
-    data:{
-      role:null
+    data: {
+      role: null
     },
   },
   {
     path: 'usuarios/modificarImagenUsuario/:id',
     component: ModificarImagenUsuarioComponent,
     canActivate: [AuthGuard],
-    data:{
-      role:null
+    data: {
+      role: null
     },
   },
   {
@@ -1535,10 +1542,10 @@ const routes: Routes = [
   {
     path: 'usuarios_del_servicio/crear',
     component: CrearUserServicioComponent,
-    // canActivate: [AuthGuard],
-    // data: {
-    //   role: [environment.admins]
-    // },
+    canActivate: [AuthGuard],
+    data: {
+      role: null
+    },
     resolve: {
       tipos_personas: ListaTiposModalidadesPacientesResolveService,
       datos_sanitario: ListarelacionterminalrecursocomunitarioService,
@@ -1568,6 +1575,23 @@ const routes: Routes = [
     }
   },
   {
+    path: 'usuarios_del_servicio/informacion/:id',
+    component: ModificarUserServicioComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: null
+    },
+    resolve: {
+      tipos_personas: ListaTiposModalidadesPacientesResolveService,
+      datos_sanitario: ListarelacionterminalrecursocomunitarioService,
+      tipos_viviendas: ListaViviendasResolveService,
+      tipos_situaciones: ListaSituacionesService,
+      tipos_perifericos: ListaTiposAlarmasResolveService,
+      tipos_alarmas: ListaTiposAlarmasResolveService,
+      clasificaciones_alarmas: ListaClasificacionesAlarmasResolveService
+    }
+  },
+  {
     path: 'usuarios_del_servicio/consultar',
     component: ConsultarUsersServicioComponent,
     canActivate: [AuthGuard],
@@ -1575,7 +1599,7 @@ const routes: Routes = [
       role: null
     },
     resolve: {
-      usuarios_del_servicio:CargaUsuariosDelServicioResolveService
+      usuarios_del_servicio: CargaUsuariosDelServicioResolveService
     }
   },
   {

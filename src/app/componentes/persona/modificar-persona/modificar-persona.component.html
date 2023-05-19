@@ -9,7 +9,7 @@
             <div class="form-group">
               <label for="nombre" class="form-label text-start">Nombre <span class="obligatorios">*</span></label>
               <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre"
-                     formControlName="nombre">
+                     formControlName="nombre" [readonly]="blockEditar">
             </div>
             <div *ngIf="controles.nombre.invalid && (controles.nombre.dirty || controles.nombre.touched)"
                  class="alert alert-secondary" role="alert">
@@ -22,7 +22,7 @@
             <div class="form-group">
               <label for="apellidos" class="form-label text-start">Apellidos <span class="obligatorios">*</span></label>
               <input type="text" name="apellidos" id="apellidos" class="form-control "
-                     placeholder="Apellidos" formControlName="apellidos">
+                     placeholder="Apellidos" formControlName="apellidos" [readonly]="blockEditar">
             </div>
             <div *ngIf="controles.apellidos.invalid && (controles.apellidos.dirty || controles.apellidos.touched)"
                  class="alert alert-secondary"
@@ -38,7 +38,7 @@
               <label for="expediente" class="form-label text-start">Nº Expediente <span
                 class="obligatorios">*</span></label>
               <input type="text" name="dni" id="expediente" class="form-control " placeholder="Nº Expediente"
-                     formControlName="expediente">
+                     formControlName="expediente" [readonly]="blockEditar">
             </div>
             <div *ngIf="controles.expediente.invalid && (controles.expediente.dirty || controles.expediente.touched)"
                  class="alert alert-secondary" role="alert">
@@ -56,7 +56,7 @@
           <div class="col-4">
             <div class="form-group">
               <label for="dni" class="form-label text-start">DNI <span class="obligatorios">*</span></label>
-              <input type="text" name="dni" id="dni" class="form-control " placeholder="DNI" formControlName="dni">
+              <input type="text" name="dni" id="dni" class="form-control " placeholder="DNI" formControlName="dni" [readonly]="blockEditar">
             </div>
             <div *ngIf="controles.dni.invalid && (controles.dni.dirty || controles.dni.touched)"
                  class="alert alert-secondary" role="alert">
@@ -72,7 +72,7 @@
                 class="obligatorios">*</span></label>
               <input type="date" name="fecha_nacimiento " id="fecha_nacimiento" class="form-control "
                      max='{{getToday()}}'
-                     formControlName="fecha_nacimiento">
+                     formControlName="fecha_nacimiento" [readonly]="blockEditar">
             </div>
             <div *ngIf="controles.fecha_nacimiento.errors?.fechaExcedida" class="alert alert-secondary" role="alert">
               <span>La fecha de nacimiento no puede ser mayor a la actual.</span>
@@ -82,7 +82,7 @@
           <div class="col-4">
             <div class="form-group">
               <label for="sexo" class="form-label text-start">Género <span class="obligatorios">*</span></label>
-              <ng-select id="tipoTeleasistencia" formControlName="sexo" id="sexo">
+              <ng-select id="tipoTeleasistencia" formControlName="sexo" id="sexo" [readonly]="blockEditar">
                 <ng-option *ngFor="let sexo of listaSexo; let i = index"
                            [value]="sexo">{{sexo}}</ng-option>
               </ng-select>
@@ -95,7 +95,7 @@
             <div class="form-group">
               <label for="telefono_fijo" class="form-label text-start">Télefono Fijo</label>
               <input type="tel" name="telefono_fijo" id="telefono_fijo" class="form-control "
-                     placeholder="Teléfono Fijo" formControlName="telefono_fijo">
+                     placeholder="Teléfono Fijo" formControlName="telefono_fijo" [readonly]="blockEditar">
             </div>
             <div
               *ngIf="controles.telefono_fijo.invalid && (controles.telefono_fijo.dirty || controles.telefono_fijo.touched)"
@@ -108,7 +108,7 @@
             <div class="form-group">
               <label for="telefono_movil" class="form-label text-start">Teléfono movil</label>
               <input type="tel" name="telefono_movil" id="telefono_movil" class="form-control "
-                     placeholder="Teléfono Movil" formControlName="telefono_movil">
+                     placeholder="Teléfono Movil" formControlName="telefono_movil" [readonly]="blockEditar">
             </div>
             <div
               *ngIf="controles.telefono_movil.invalid && (controles.telefono_movil.dirty || controles.telefono_movil.touched)"
@@ -123,7 +123,7 @@
               <label for="codigo_postal" class="form-label text-start">Código Postal <span
                 class="obligatorios">*</span></label>
               <input type="text" name="codigo_postal" id="codigo_postal" class="form-control "
-                     placeholder="CP" formControlName="codigo_postal">
+                     placeholder="CP" formControlName="codigo_postal" [readonly]="blockEditar">
             </div>
             <div
               *ngIf="controles.codigo_postal.invalid && (controles.codigo_postal.dirty || controles.codigo_postal.touched)"
@@ -140,7 +140,7 @@
             <div class="form-group">
               <label for="localidad" class="form-label text-start">Localidad <span class="obligatorios">*</span></label>
               <input type="text" name="localidad" id="localidad" class="form-control " placeholder="Localidad"
-                     formControlName="localidad">
+                     formControlName="localidad" [readonly]="blockEditar">
             </div>
             <div *ngIf="controles.localidad.value.invalid && (controles.localidad.dirty || controles.localidad.touched)"
                  class="alert alert-secondary"
@@ -152,7 +152,7 @@
             <div class="form-group">
               <label for="provincia" class="form-label text-start">Provincia <span class="obligatorios">*</span></label>
               <input type="text" name="provincia" id="provincia" class="form-control "
-                     required maxlength="200" placeholder="Provincia" formControlName="provincia">
+                     required maxlength="200" placeholder="Provincia" formControlName="provincia" [readonly]="blockEditar">
             </div>
             <div *ngIf="controles.provincia.invalid && (controles.provincia.dirty || controles.provincia.touched)"
                  class="alert alert-secondary"
@@ -165,7 +165,7 @@
             <div class="form-group">
               <label for="direccion" class="form-label text-start">Dirección <span class="obligatorios">*</span></label>
               <input type="text" name="direccion" id="direccion" class="form-control "
-                     placeholder="Dirección" formControlName="direccion">
+                     placeholder="Dirección" formControlName="direccion" [readonly]="blockEditar">
             </div>
             <div *ngIf="controles.direccion.invalid && (controles.direccion.dirty || controles.direccion.touched)"
                  class="alert alert-secondary"
@@ -181,13 +181,14 @@
 
           <label for="tipos_personas" class="form-label text-start">Tipo de persona <span
             class="obligatorios">*</span></label>
-          <div class="col-12 col-lg-9 pb-1 pb-lg-0">
-            <ng-select id="tipos_personas" formControlName="tipos_personas">
+          <div class="col-12 col-lg pb-1 pb-lg-0">
+            <ng-select id="tipos_personas" formControlName="tipos_personas" [readonly]="blockEditar">
               <ng-option *ngFor="let tipo_persona of tipos_personas; let i = index"
                          [value]="tipo_persona.id">{{tipo_persona.nombre}}</ng-option>
             </ng-select>
             <input type="hidden" formControlName="idTipo">
           </div>
+          <ng-container *ngIf="!blockEditar">
           <div class="col-4 col-lg-1  p-0">
             <button class="btn btn-success botonOperacion" type="button"
                     data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false"
@@ -208,25 +209,25 @@
               <i class="fa fa-solid fa-trash"></i>
             </button>
           </div>
+          </ng-container>
         </div>
+
         <div class="row">
           <div class="form-group col-12">
             <label for="text_area" class="form-label text-start">Observaciones</label>
             <textarea formControlName="text_area" name="text_area" id="text_area" class="form-control"
-                      rows="5"></textarea>
+                      rows="5" [readonly]="blockEditar"></textarea>
           </div>
         </div>
 
-        <div class="text-center">
+        <div class="text-center" *ngIf="!blockEditar">
           <button [disabled]="formulario.invalid" type="submit" class="btn btn-outline-success m-1 "
                   (click)="contraer()"
                   data-bs-toggle="collapse"
                   data-bs-target="#datosPersonales ,#datosSanitarios" aria-expanded="false"
                   aria-controls="datosPersonales">Guardar</button>
           <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/usuarios_del_servicio/consultar']">Volver</button>
-
         </div>
-
 
       </form>
     </div>

@@ -16,7 +16,7 @@
   </button>
   <button type="button" class="btn btn-delete m-1" (click)="modalConfirmacion()"
   ><i class="fa fa-trash"></i></button>
-  <button type="button" class="btn btn-outline-secondary btn-modify m-1">
+  <button type="button" class="btn btn-outline-secondary btn-modify m-1"  [routerLink]="['/usuarios_del_servicio/informacion/', paciente.id]">
     <i class="fa fa-eye"></i>
   </button>
 </td>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IDireccion} from '../../../interfaces/i-direccion';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CargaPersonaService} from '../../../servicios/carga-persona.service';
@@ -15,7 +15,6 @@ import {IPaciente} from "../../../interfaces/i-paciente";
 import {CargaTipoModalidadPacienteService} from "../../../servicios/carga-tipo-modalidad-paciente.service";
 
 
-
 @Component({
   selector: 'app-modificar-persona',
   templateUrl: './modificar-persona.component.html',
@@ -27,6 +26,7 @@ export class ModificarPersonaComponent implements OnInit {
 
   /*  Atributos  */
   @Output() public plegar = new EventEmitter;
+  @Input() public blockEditar;
   public dire: IDireccion | any;
   public formulario: FormGroup;
   public tipos_personas: TipoModalidadPaciente[];
@@ -37,9 +37,9 @@ export class ModificarPersonaComponent implements OnInit {
   public paciente: IPaciente | any;
   public idPaciente: number;
   public listaSexo: String[] = ['Hombre', 'Mujer'];
-  public pacienteEditar: IPaciente|any;
-  public personaEditar: IPersona |any;
-  public name: string|any;
+  public pacienteEditar: IPaciente | any;
+  public personaEditar: IPersona | any;
+  public name: string | any;
   public plegado: boolean = false;
 
 
@@ -101,13 +101,11 @@ export class ModificarPersonaComponent implements OnInit {
             codigo_postal: this.personaEditar.id_direccion.codigo_postal,
             tipos_personas: this.pacienteEditar.id_tipo_modalidad_paciente.nombre,
             id_tipo: this.pacienteEditar.id_tipo_modalidad_paciente.id
-
-          })
-        }
-      )
-    }, error => console.log(error)
-
-  )
+            })
+          }
+        )
+      }, error => console.log(error)
+    )
 
   }
 
@@ -160,6 +158,7 @@ export class ModificarPersonaComponent implements OnInit {
   get controles() {
     return this.formulario.controls;
   }
+
   contraer() {
     this.plegado = !this.plegado;
   }
@@ -182,7 +181,7 @@ export class ModificarPersonaComponent implements OnInit {
         codigo_postal: this.formulario.value.codigo_postal
       }
     }
-    this.cargaPersonas.modificarPersona(this.persona,this.pacienteEditar.id_persona.id).subscribe(
+    this.cargaPersonas.modificarPersona(this.persona, this.pacienteEditar.id_persona.id).subscribe(
       e => {
         this.persona = e;
         this.nuevoTerminal()
@@ -238,7 +237,6 @@ export class ModificarPersonaComponent implements OnInit {
         this.paciente = e;
         this.crearPaciente.idPaciente = e.id;
         this.terminal.id_titular = e.id;
-
 
 
         this.alertExito() // Aquí damos el exito ya que seria la ultima petición encadenada.

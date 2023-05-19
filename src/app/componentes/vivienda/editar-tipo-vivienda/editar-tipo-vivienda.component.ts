@@ -17,6 +17,8 @@ import {IPaciente} from "../../../interfaces/i-paciente";
 export class EditarTipoViviendaComponent implements OnInit {
   @Output() public plegar = new EventEmitter;
   @Output() public desplegar = new EventEmitter;
+  @Input() public blockEditar;
+
   public vivienda: ITipoVivienda | any;
   public listaViviendas: ITipoVivienda[];
   public formularioVivienda: FormGroup;

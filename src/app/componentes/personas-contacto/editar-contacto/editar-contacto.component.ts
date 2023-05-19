@@ -5,7 +5,7 @@ import {
   ViewContainerRef,
   AfterViewInit,
   Output,
-  EventEmitter
+  EventEmitter, Input
 } from '@angular/core';
 import {IDireccion} from "../../../interfaces/i-direccion";
 import {IPaciente} from "../../../interfaces/i-paciente";
@@ -37,6 +37,7 @@ export class EditarContactoComponent implements AfterViewInit {
   maximoComponentes : number = 5; //Maximo numero de componentes que crea al darle al boton de crearHTML()
   @Output() public plegar = new EventEmitter;
   @Output() public desplegar = new EventEmitter;
+  @Input() public blockEditar;
   public direccion: IDireccion | any;
   public pacientes: IPaciente[] | any;
   public paciente: IPaciente | any;
