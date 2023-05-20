@@ -11,7 +11,7 @@
                        [value]="tipoVivienda.id">{{tipoVivienda.nombre}}</ng-option>
           </ng-select>
         </div>
-        <ng-container *ngIf="blockEditar">
+        <ng-container *ngIf="!blockEditar">
           <div class="col-4 col-lg-1  p-0">
             <button class="btn btn-success botonOperacion" type="button"
                     data-bs-toggle="collapse" data-bs-target="#vivienda" aria-expanded="false"
@@ -50,7 +50,7 @@
       </div>
       <input type="hidden" formControlName="idTipo">
 
-      <ng-container *ngIf="blockEditar">
+      <ng-container *ngIf="!blockEditar">
         <div class="text-center">
           <button type="submit" class="btn btn-outline-success m-1"
                   [disabled]="formularioVivienda.invalid" data-bs-toggle="collapse"
