@@ -56,7 +56,8 @@
           <div class="col-4">
             <div class="form-group">
               <label for="dni" class="form-label text-start">DNI <span class="obligatorios">*</span></label>
-              <input type="text" name="dni" id="dni" class="form-control " placeholder="DNI" formControlName="dni" [readonly]="blockEditar">
+              <input type="text" name="dni" id="dni" class="form-control " placeholder="DNI" formControlName="dni"
+                     [readonly]="blockEditar">
             </div>
             <div *ngIf="controles.dni.invalid && (controles.dni.dirty || controles.dni.touched)"
                  class="alert alert-secondary" role="alert">
@@ -152,7 +153,8 @@
             <div class="form-group">
               <label for="provincia" class="form-label text-start">Provincia <span class="obligatorios">*</span></label>
               <input type="text" name="provincia" id="provincia" class="form-control "
-                     required maxlength="200" placeholder="Provincia" formControlName="provincia" [readonly]="blockEditar">
+                     required maxlength="200" placeholder="Provincia" formControlName="provincia"
+                     [readonly]="blockEditar">
             </div>
             <div *ngIf="controles.provincia.invalid && (controles.provincia.dirty || controles.provincia.touched)"
                  class="alert alert-secondary"
@@ -188,27 +190,29 @@
             </ng-select>
             <input type="hidden" formControlName="id_tipo">
           </div>
-          <ng-container *ngIf="!blockEditar||this.isAdmin">
-          <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-success botonOperacion" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false"
-                    aria-controls="collapseWidthExample" (click)="mostratCrearTipo()">
-              <i class="fa-solid fa-circle-plus"></i>
-            </button>
-          </div>
-          <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-warning botonOperacion" id="des1" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false"
-                    aria-controls="collapseWidthExample2" (click)="mostrarEditarTipo()" [disabled]="desactivado()">
-              <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
-            </button>
-          </div>
-          <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-danger botonOperacion" id="des2" type="button" [disabled]="desactivado()"
-                    (click)="modalConfirmacion()">
-              <i class="fa fa-solid fa-trash"></i>
-            </button>
-          </div>
+          <ng-container *ngIf="!blockEditar">
+            <ng-container *ngIf="this.isAdmin">
+              <div class="col-4 col-lg-1  p-0">
+                <button class="btn btn-success botonOperacion" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false"
+                        aria-controls="collapseWidthExample" (click)="mostratCrearTipo()">
+                  <i class="fa-solid fa-circle-plus"></i>
+                </button>
+              </div>
+              <div class="col-4 col-lg-1  p-0">
+                <button class="btn btn-warning botonOperacion" id="des1" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false"
+                        aria-controls="collapseWidthExample2" (click)="mostrarEditarTipo()" [disabled]="desactivado()">
+                  <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+                </button>
+              </div>
+              <div class="col-4 col-lg-1  p-0">
+                <button class="btn btn-danger botonOperacion" id="des2" type="button" [disabled]="desactivado()"
+                        (click)="modalConfirmacion()">
+                  <i class="fa fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </ng-container>
           </ng-container>
         </div>
 
@@ -225,8 +229,11 @@
                   (click)="contraer()"
                   data-bs-toggle="collapse"
                   data-bs-target="#datosPersonales ,#datosSanitarios" aria-expanded="false"
-                  aria-controls="datosPersonales">Guardar</button>
-          <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/usuarios_del_servicio/consultar']">Volver</button>
+                  aria-controls="datosPersonales">Guardar
+          </button>
+          <button type="button" class="btn btn-outline-secondary m-1"
+                  [routerLink]="['/usuarios_del_servicio/consultar']">Volver
+          </button>
         </div>
 
       </form>

@@ -27,27 +27,29 @@
                        [value]="tipoSituacion.id">{{tipoSituacion.nombre}}</ng-option>
           </ng-select>
         </div>
-        <ng-container *ngIf="!blockEditar||!this.isAdmin">
-          <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-success botonOperacion" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#situacion" aria-expanded="false"
-                    aria-controls="situacion" (click)="mostrarCrearTipo()">
-              <i class="fa-solid fa-circle-plus"></i>
-            </button>
-          </div>
-          <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-warning botonOperacion" id="des1" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#situacion2" aria-expanded="false"
-                    aria-controls="situacion2" (click)="mostrarEditarTipo()" [disabled]="desactivado()">
-              <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
-            </button>
-          </div>
-          <div class="col-4 col-lg-1  p-0">
-            <button class="btn btn-danger botonOperacion" id="des2" type="button" (click)="modalConfirmacion()"
-                    [disabled]="desactivado()">
-              <i class="fa fa-solid fa-trash"></i>
-            </button>
-          </div>
+        <ng-container *ngIf="!blockEditar">
+          <ng-container *ngIf="this.isAdmin">
+            <div class="col-4 col-lg-1  p-0">
+              <button class="btn btn-success botonOperacion" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#situacion" aria-expanded="false"
+                      aria-controls="situacion" (click)="mostrarCrearTipo()">
+                <i class="fa-solid fa-circle-plus"></i>
+              </button>
+            </div>
+            <div class="col-4 col-lg-1  p-0">
+              <button class="btn btn-warning botonOperacion" id="des1" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#situacion2" aria-expanded="false"
+                      aria-controls="situacion2" (click)="mostrarEditarTipo()" [disabled]="desactivado()">
+                <i class="fa fa-sharp fa-solid fa-pen fa-sm"></i>
+              </button>
+            </div>
+            <div class="col-4 col-lg-1  p-0">
+              <button class="btn btn-danger botonOperacion" id="des2" type="button" (click)="modalConfirmacion()"
+                      [disabled]="desactivado()">
+                <i class="fa fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </ng-container>
         </ng-container>
       </div>
       <!-- Fin tipos de situacion -->
