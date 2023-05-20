@@ -14,6 +14,8 @@ import {
 import {RelacionPacientePersona} from "../../../clases/relacion-paciente-persona";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {DOCUMENT} from '@angular/common';
+
 
 @Component({
   selector: 'app-crear-editar-contacto',
