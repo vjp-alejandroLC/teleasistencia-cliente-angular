@@ -8,6 +8,7 @@ import {CargaTerminalesService} from "../../../servicios/terminal/carga-terminal
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
 import {IPaciente} from "../../../interfaces/i-paciente";
+import {AuthService} from "../../../servicios/auth.service";
 
 @Component({
   selector: 'app-editar-tipo-vivienda',
@@ -26,6 +27,7 @@ export class EditarTipoViviendaComponent implements OnInit {
   public mostrarModificar: boolean = false;
   public pacienteEditar: IPaciente|any;
   public plegado: boolean = false;
+  public isAdmin: boolean;
 
   @Input() idPaciente: number;
 
@@ -38,12 +40,15 @@ export class EditarTipoViviendaComponent implements OnInit {
               private formBuilder: FormBuilder,
               private paciente: CargaPacienteService,
               private terminal: CargaTerminalesService,
+              private auth: AuthService
   ) {
   }
 
   ngOnInit(): void {
     this.listaViviendas = this.route.snapshot.data['tipos_viviendas'];
     this.buildForm();  //Formularios reactivos
+    this.isAdmin = this.auth.isAdmin();
+
   }
   contraer() {
     this.plegado = !this.plegado;
@@ -91,6 +96,8 @@ export class EditarTipoViviendaComponent implements OnInit {
     this.terminal.modificarTerminalPorId(this.pacienteEditar.id_terminal.id, datos).subscribe(
       () => {
         this.alertExito()
+        this.plegar.emit(false);
+
       },
       error => {
         this.alertError()

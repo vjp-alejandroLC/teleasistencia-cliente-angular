@@ -25,12 +25,12 @@ import {DOCUMENT} from '@angular/common';
 export class CrearEditarContactoComponent implements OnInit {
 
   @Output() onBorrarComponente = new EventEmitter();
-  mostrarGuardar = true;
-  mostrarEditar = false;
+  public mostrarGuardar = true;
+  public mostrarEditar = false;
   @Input() indice: number;
-  idPaciente: number;
-  idRelacion: number;
-  submitted = false;
+  public idPaciente: number;
+  public idRelacion: number;
+  public submitted = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
   public direccion: IDireccion | any;
   public pacientes: IPaciente[] | any;
@@ -38,8 +38,8 @@ export class CrearEditarContactoComponent implements OnInit {
   public persona: IPersona | any;
   public formulario: FormGroup | any;
   public relacionBorrar : IRelacionPacientePersona |any;
-  opcion = false;
-  opcion2 = true;
+  public opcion = false;
+  public opcion2 = true;
 
   //EXPRESION REGULAR
   readonly REGEX_NOMBREAPELLIDOS = /^[A-Z][a-zA-Z]*( [A-Z][a-zA-Z]*)*$/;

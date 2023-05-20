@@ -21,10 +21,9 @@ export class ModificarUserServicioComponent implements OnInit {
   public blockModificar: boolean = false;
 
 
-  pruebas(evento) {
-    console.log(evento)
-    this.mostrar = evento
 
+  pruebas(evento){
+    this.mostrar=evento
   }
 
   constructor(private cargaPacientes: CargaPacienteService, private route: ActivatedRoute, @Inject(DOCUMENT) document: any) {

@@ -128,6 +128,7 @@ export class EditarDatosSanitarioComponent implements OnInit {
 
   }
 
+
   //Crea el formulario gracias a los formularios reactivos que uso.
   crearFormulario(){
     this.formularioDatos = this.formBuilder.group(
@@ -225,6 +226,8 @@ export class EditarDatosSanitarioComponent implements OnInit {
     this.paciente.modificarNUSS(this.pacienteEditar.id, this.formularioDatos.get('nuss').value).subscribe(
       () =>{
         this.alertExito();
+        this.plegar.emit(false);
+
       }
     )
 
@@ -338,6 +341,7 @@ export class EditarDatosSanitarioComponent implements OnInit {
       title: environment.fraseErrorCrear
     })
   }
+
 }
 
 

@@ -13,6 +13,7 @@ import {CargaAlarmaService} from "../../servicios/alarmas/carga-alarma.service";
 import {CargaViviendaService} from "../../servicios/carga-vivienda.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../environments/environment";
+import {AuthService} from "../../servicios/auth.service";
 
 @Component({
   selector: 'app-dispositivos-editar',
@@ -36,6 +37,7 @@ export class DispositivosEditarComponent implements OnInit {
   public idTerminal: number;
   public plegado: boolean = false;
   public idVivienda: number;
+  public isAdmin: boolean;
   /* Expresiones Regulares */
 
   readonly REGEX_TER = /^\d{4,}$/;
@@ -49,7 +51,8 @@ export class DispositivosEditarComponent implements OnInit {
               private historicoSituacion: CargaHistoricoTipoSituacionService,
               private cargaTerminal: CargaTerminalesService,
               private cargaAlarma: CargaAlarmaService,
-              private cargaVivienda: CargaViviendaService) {
+              private cargaVivienda: CargaViviendaService,
+              private auth: AuthService) {
 
 
   }
@@ -58,7 +61,7 @@ export class DispositivosEditarComponent implements OnInit {
     this.listaDeSituaciones = this.route.snapshot.data['tipos_situaciones'];
     this.clasificacionAlarmas = this.route.snapshot.data['clasificaciones_alarmas'];
     this.buildForm();  //Formularios reactivos
-
+    this.isAdmin = this.auth.isAdmin();
   }
 
   /* formulario reactivo */
@@ -102,6 +105,7 @@ export class DispositivosEditarComponent implements OnInit {
   get controles() {
     return this.formulario.controls;
   }
+
 
   //Tiene UCR
   elegirOpcion(boolean) {
