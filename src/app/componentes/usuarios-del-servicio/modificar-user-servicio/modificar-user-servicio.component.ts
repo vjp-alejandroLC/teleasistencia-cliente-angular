@@ -19,7 +19,6 @@ export class ModificarUserServicioComponent implements OnInit {
 
 
   pruebas(evento){
-    console.log(evento)
     this.mostrar=evento
 
   }

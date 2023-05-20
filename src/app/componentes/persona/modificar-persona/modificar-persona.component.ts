@@ -13,6 +13,7 @@ import {IPersona} from "../../../interfaces/i-persona";
 import {ITerminal} from "../../../interfaces/i-terminal";
 import {IPaciente} from "../../../interfaces/i-paciente";
 import {CargaTipoModalidadPacienteService} from "../../../servicios/carga-tipo-modalidad-paciente.service";
+import {AuthService} from "../../../servicios/auth.service";
 
 
 
@@ -41,6 +42,7 @@ export class ModificarPersonaComponent implements OnInit {
   public personaEditar: IPersona |any;
   public name: string|any;
   public plegado: boolean = false;
+  public isAdmin: boolean;
 
 
   /* Constantes */
@@ -64,6 +66,7 @@ export class ModificarPersonaComponent implements OnInit {
    * @param formBuilder
    * @param crearTerminal
    * @param crearPaciente
+   * @param auth
    * @param modalidades
    */
   constructor(private route: ActivatedRoute,
@@ -73,13 +76,14 @@ export class ModificarPersonaComponent implements OnInit {
               private formBuilder: FormBuilder,
               private crearTerminal: CargaTerminalesService,
               private crearPaciente: CargaPacienteService,
+              private auth: AuthService,
               private modalidades: CargaTipoModalidadPacienteService) {
   }
 
   ngOnInit(): void {
     this.tipos_personas = this.route.snapshot.data['tipos_personas'];
     this.buildForm();  //Formularios reactivos
-
+    this.isAdmin = this.auth.isAdmin();
     this.crearPaciente.getPaciente(this.crearPaciente.idPacienteEditar).subscribe(
     paciente =>{
       this.pacienteEditar = paciente;
@@ -240,7 +244,7 @@ export class ModificarPersonaComponent implements OnInit {
         this.terminal.id_titular = e.id;
 
 
-
+        this.plegar.emit(false);
         this.alertExito() // Aquí damos el exito ya que seria la ultima petición encadenada.
       },
       error => {
@@ -254,12 +258,14 @@ export class ModificarPersonaComponent implements OnInit {
   /* Función que crea todas las entidades (Persona , Paciente, Terminal, Direccion) */
   nuevoUsuarioServicio(): void {
     this.crearPersona();
+
   }
 
 
   mostratCrearTipo() {
     this.mostrar = !this.mostrar;
   }
+
 
   desactivado() {
     return (this.formulario.value.tipos_personas == '') || (this.formulario.value.tipos_personas == null);
