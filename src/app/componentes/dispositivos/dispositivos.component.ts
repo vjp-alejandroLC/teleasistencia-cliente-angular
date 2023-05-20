@@ -43,7 +43,7 @@ export class DispositivosComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private crearPaciente: CargaPacienteService,
+              public crearPaciente: CargaPacienteService,
               private historicoSituacion: CargaHistoricoTipoSituacionService,
               private cargaTerminal: CargaTerminalesService,
               private cargaAlarma: CargaAlarmaService,

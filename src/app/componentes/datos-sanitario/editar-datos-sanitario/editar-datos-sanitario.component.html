@@ -71,7 +71,7 @@
 
         <div class="row mb-2">
           <div class="col-12">
-            <div class="text-center">
+            <div class="text-center" *ngIf="!blockEditar">
               <ng-container>
                 <button type="submit" class="btn btn-outline-success m-1" (click)="actualizarNuss();contraer()"
                         data-bs-toggle="collapse"

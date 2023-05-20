@@ -224,7 +224,7 @@
           </div>
         </div>
 
-        <div class="text-center">
+        <div class="text-center" *ngIf="!blockEditar">
           <button [disabled]="formulario.invalid" type="submit" class="btn btn-outline-success m-1 "
                   (click)="contraer()"
                   data-bs-toggle="collapse"

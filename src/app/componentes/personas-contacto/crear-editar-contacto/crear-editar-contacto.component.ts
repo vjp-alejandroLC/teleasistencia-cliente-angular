@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-persona";
 import {IDireccion} from "../../../interfaces/i-direccion";
 import {IPaciente} from "../../../interfaces/i-paciente";
@@ -14,7 +14,6 @@ import {
 import {RelacionPacientePersona} from "../../../clases/relacion-paciente-persona";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
-import {DOCUMENT} from '@angular/common';
 
 
 @Component({
@@ -40,25 +39,31 @@ export class CrearEditarContactoComponent implements OnInit {
   public relacionBorrar : IRelacionPacientePersona |any;
   public opcion = false;
   public opcion2 = true;
+  public blockModificar: boolean = false;
+  public urlSite: string;
+
+
 
   //EXPRESION REGULAR
   readonly REGEX_NOMBREAPELLIDOS = /^[A-Z][a-zA-Z]*( [A-Z][a-zA-Z]*)*$/;
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private  formBuilder: FormBuilder,private cargaPersonas: CargaPersonaService, private cargaDireccion: CargaDireccionService, private cargaPacientes: CargaPacienteService, private cargaRelacion: CargaRelacionPacientePersonaService) {
+  constructor(private route: ActivatedRoute, private router: Router, private  formBuilder: FormBuilder,private cargaPersonas: CargaPersonaService,
+              private cargaDireccion: CargaDireccionService, private cargaPacientes: CargaPacienteService, private cargaRelacion: CargaRelacionPacientePersonaService) {
   }
 
   ngOnInit() {
     this.relacionPacientePersona = new RelacionPacientePersona();
     this.crearFormulario();
     this.pacientes = this.cargaPacientes.getPacientes().subscribe(
+
       paciente => {
         this.pacientes = paciente;
       },
       error => console.log(error),
     )
-
   }
+
 
   borrarHTML(){
     this.onBorrarComponente.emit(); //Emito borrarComponente para avisar al padre que borraré el componente
@@ -66,6 +71,7 @@ export class CrearEditarContactoComponent implements OnInit {
   }
   elegirOpcion(elegirBoolean){
     if (elegirBoolean){
+      console.log("esta en informacion")
       this.opcion = true;
     }else{
       this.opcion = false;

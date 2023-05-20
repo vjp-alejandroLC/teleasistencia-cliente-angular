@@ -1,14 +1,23 @@
 <main class="row p-0 m-0 justify-content-center">
-
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Crear usuario</li>
+      <li class="breadcrumb-item active" aria-current="page" *ngIf="!blockModificar">Modificar usuario</li>
+      <li class="breadcrumb-item active" aria-current="page" *ngIf="blockModificar">Consultar usuario</li>
     </ol>
   </nav>
-  <h1 class="component-title text-center" *ngIf="!blockModificar">Editar Usuario del Servicio</h1>
-  <h1 class="component-title text-center" *ngIf="blockModificar">Información del usuario del servicio</h1>
-
+  <div class="row mb-3">
+    <div class="col-12 d-flex justify-content-end align-items-center">
+      <h1 class="component-title text-center align-self-center mx-auto" *ngIf="!blockModificar">Editar Usuario del
+        Servicio</h1>
+      <h1 class="component-title text-center align-self-center mx-auto desp" *ngIf="blockModificar">Información del
+        usuario
+        del servicio</h1>
+      <button class="btn btn-primary btn-underline tamanoButton" *ngIf="blockModificar"
+              (click)="toggleFormularios()" data-bs-toggle="collapse"
+              data-bs-target="#datosPersonales ,#datosSanitarios ,#viviendaForm ,#personaContacto, #dispositivosForm">{{ formulariosDesplegados ? 'Plegar' : 'Desplegar' }}</button>
+    </div>
+  </div>
   <div class="row mb-1 mt-1">
     <h4 class="formularios d-flex align-items-center justify-content-between">
       Datos Personales
@@ -29,7 +38,7 @@
          [ngClass]="{'fa-chevron-up': this.mostrar2, 'fa-chevron-down': !this.mostrar2}"></i>
     </h4>
     <div class="m-auto col-10  p-3">
-      <div class="collapse" id="datosSanitarios">
+      <div [ngClass]="blockModificar?'show':''" class="collapse" id="datosSanitarios">
         <app-editar-datos-sanitario (plegar)="this.mostrar2=$event;this.mostrar3=!this.mostrar3"
                                     (desplegar)="this.mostrar=$event;this.mostrar2=!this.mostrar2"
                                     [blockEditar]="blockModificar">
@@ -45,7 +54,7 @@
          [ngClass]="{'fa-chevron-up': this.mostrar3, 'fa-chevron-down': !this.mostrar3}"></i>
     </h4>
     <div class="m-auto col-10 p-3">
-      <div class="collapse" id="viviendaForm">
+      <div [ngClass]="blockModificar?'show':''" class="collapse" id="viviendaForm">
         <app-editar-tipo-vivienda (plegar)="this.mostrar3=$event;this.mostrar4=!this.mostrar4"
                                   (desplegar)="this.mostrar2=$event;this.mostrar3=!this.mostrar3"
                                   [blockEditar]="blockModificar">
@@ -61,7 +70,7 @@
          [ngClass]="{'fa-chevron-up': this.mostrar4, 'fa-chevron-down': !this.mostrar4}"></i>
     </h4>
     <div class="m-auto col-10 p-3">
-      <div class="collapse" id="personaContacto">
+      <div [ngClass]="blockModificar?'show':''" class="collapse" id="personaContacto">
         <app-editar-contacto (plegar)="this.mostrar4=$event;this.mostrar5=!this.mostrar5"
                              (desplegar)="this.mostrar3=$event;this.mostrar4=!this.mostrar4"
                              [blockEditar]="blockModificar">
@@ -78,12 +87,17 @@
          [ngClass]="{'fa-chevron-up': this.mostrar5, 'fa-chevron-down': !this.mostrar5}"></i>
     </h4>
     <div class=" m-auto col-10 p-3 form-container">
-      <div class="collapse " id="dispositivosForm">
+      <div [ngClass]="blockModificar?'show':''" class="collapse " id="dispositivosForm">
         <app-dispositivos-editar
           (desplegar)="this.mostrar4=$event;this.mostrar5=!this.mostrar5"
           [blockEditar]="blockModificar">
         </app-dispositivos-editar>
       </div>
     </div>
+  </div>
+  <div class="text-center">
+    <button class="btn btn-secondary" [routerLink]="['/usuarios_del_servicio/consultar']" *ngIf="blockModificar">
+      Volver
+    </button>
   </div>
 </main>

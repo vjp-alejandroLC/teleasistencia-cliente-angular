@@ -11,12 +11,12 @@
 <td> {{paciente?.id_terminal?.id_tipo_situacion?.nombre}}</td>
 
 <td>
-  <button type="submit" class="btn btn-outline-secondary btn-modify" [routerLink]="['/modificar-user-servicio/editar/', paciente.id]">
+  <button type="submit" class="btn btn-outline-warning btn-modify" [routerLink]="['/modificar-user-servicio/editar/', paciente.id]">
     <i class="fas fa-user-edit"></i>
   </button>
-  <button type="button" class="btn btn-delete m-1" (click)="modalConfirmacion()"
+  <button type="button" class="btn btn-outline-danger m-1" (click)="modalConfirmacion()"
   ><i class="fa fa-trash"></i></button>
-  <button type="button" class="btn btn-outline-secondary btn-modify m-1"  [routerLink]="['/usuarios_del_servicio/informacion/', paciente.id]">
+  <button type="button" class="btn btn-outline-success m-1"  [routerLink]="['/usuarios_del_servicio/informacion/', paciente.id]">
     <i class="fa fa-eye"></i>
   </button>
 </td>

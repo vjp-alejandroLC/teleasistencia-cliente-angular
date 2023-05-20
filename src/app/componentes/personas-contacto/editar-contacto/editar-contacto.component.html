@@ -1,7 +1,7 @@
 <ng-container #contenedorEditar></ng-container> <!-- Contenedor usado para el mostrar-creera -->
 <div class="row d-flex justify-content-center mt-2">
   <div class="col-12 col-xl-6">
-    <div class="row">
+    <div class="row" *ngIf="!blockEditar">
       <div class="col-md-4 pr-0">
         <div class="text-center">
           <button class="btn btn-outline-success botonOperacion2"  data-bs-toggle="collapse"

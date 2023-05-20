@@ -99,14 +99,14 @@
               <div class="col-6 form-check mt-3">
 
                 <input class="btn-check" type="radio" id="ucrTrue" (click)="elegirOpcion(true)"
-                       name="ucr" [value]="true" formControlName="ucr" [disabled]="blockEditar">
+                       name="ucr" [value]="true" formControlName="ucr">
                 <label class="btn btn-success min50w" for="ucrTrue" [ngClass]="opcion? '':'opacity-50'">Sí</label>
               </div>
               <div class="col-6 form-check mt-3">
                 <input class="btn-check" type="radio" id="ucrFalse" (click)="elegirOpcion(false)"
-                       name="ucr" [value]="false" formControlName="ucr" [disabled]="blockEditar">
+                       name="ucr" [value]="false" formControlName="ucr">
                 <label class="btn btn-success min50w" for="ucrFalse"
-                       [ngClass]="opcion? 'opacity-50':''||blockEditar?'opacity-50':''">No</label>
+                       [ngClass]="opcion? 'opacity-50':''">No</label>
 
               </div>
             </div>
@@ -121,8 +121,7 @@
         </app-edit-mostrar-clasificacion-alarma>
       </ng-container>
 
-      <ng-container *ngIf="blockEditar">
-        <div class="text-center">
+        <div class="text-center" *ngIf="!blockEditar">
           <button type="submit" class="btn btn-outline-success m-1" (click)="subirDatos()"
                   [disabled]="formulario.invalid"
                   [routerLink]="['/usuarios_del_servicio/consultar']">
@@ -135,7 +134,6 @@
             Volver
           </button>
         </div>
-      </ng-container>
     </form>
   </div>
 

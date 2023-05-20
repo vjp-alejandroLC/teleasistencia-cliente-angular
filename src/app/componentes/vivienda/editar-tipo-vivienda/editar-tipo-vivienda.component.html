@@ -54,7 +54,7 @@
       <input type="hidden" formControlName="idTipo">
 
       <ng-container>
-        <div class="text-center">
+        <div class="text-center" *ngIf="!blockEditar">
           <button type="submit" class="btn btn-outline-success m-1"
                   [disabled]="formularioVivienda.invalid" data-bs-toggle="collapse"
                   data-bs-target="#viviendaForm,#personaContacto" aria-expanded="false"

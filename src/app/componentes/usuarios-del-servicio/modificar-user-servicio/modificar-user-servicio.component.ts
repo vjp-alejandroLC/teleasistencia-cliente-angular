@@ -19,11 +19,30 @@ export class ModificarUserServicioComponent implements OnInit {
   public mostrar4: boolean = false;
   public mostrar5: boolean = false;
   public blockModificar: boolean = false;
+  public formulariosDesplegados: boolean = true;
 
 
+  pruebas(evento) {
+    this.mostrar = evento
+  }
 
-  pruebas(evento){
-    this.mostrar=evento
+  toggleFormularios() {
+    this.formulariosDesplegados = !this.formulariosDesplegados;
+    this.mostrar = !this.mostrar;
+    this.mostrar2 = !this.mostrar2;
+    this.mostrar3 = !this.mostrar3;
+    this.mostrar4 = !this.mostrar4;
+    this.mostrar5 = !this.mostrar5;
+
+  }
+
+  CheckArrows() {
+    if (this.blockModificar) {
+      this.mostrar2 = true;
+      this.mostrar3 = true;
+      this.mostrar4 = true;
+      this.mostrar5 = true;
+    }
   }
 
   constructor(private cargaPacientes: CargaPacienteService, private route: ActivatedRoute, @Inject(DOCUMENT) document: any) {
@@ -31,23 +50,20 @@ export class ModificarUserServicioComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargaPacientes.idPacienteEditar = Number(this.route.snapshot.paramMap.get("id"));
-    console.log("url del sitio" + document.URL)
     this.urlSite = document.URL
     this.comprobarUrl()
+    this.CheckArrows()
+
 
   }
 
 
   comprobarUrl() {
-
     if (this.urlSite.includes("informacion")) {
-      console.log("es de informacion")
       this.blockModificar = true;
     } else {
-      console.log("es de editar")
       this.blockModificar = false;
     }
-
   }
 
 

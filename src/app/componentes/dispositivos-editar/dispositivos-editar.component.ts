@@ -86,7 +86,7 @@ export class DispositivosEditarComponent implements OnInit {
       situacion: ['', [Validators.required]],
       numero_terminal: ['', [Validators.required, Validators.pattern(this.REGEX_TER)]],
       modelo_terminal: ['', [Validators.required, Validators.pattern(this.REGEX_TER)]],
-      ucr: [false, [Validators.required]]
+      ucr: [false, {disabled: this.blockEditar}, [Validators.required]]
     });
   }
 
@@ -118,7 +118,6 @@ export class DispositivosEditarComponent implements OnInit {
   }
 
 
-
   subirDatos() {
     this.idPaciente = this.crearPaciente.idPacienteEditar;
     let datos;
@@ -130,7 +129,6 @@ export class DispositivosEditarComponent implements OnInit {
       id_tipo_situacion: this.formulario.value.situacion,
       fecha_tipo_situacion: this.formulario.value.fecha_alta
     }
-
 
 
     this.cargaTerminal.modificarTerminalPorId(this.terminal.id, datos).subscribe(

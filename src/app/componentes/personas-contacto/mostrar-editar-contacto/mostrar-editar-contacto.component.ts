@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-persona";
 import {IDireccion} from "../../../interfaces/i-direccion";
 import {IPaciente} from "../../../interfaces/i-paciente";
@@ -14,6 +14,7 @@ import {
 import {RelacionPacientePersona} from "../../../clases/relacion-paciente-persona";
 import Swal from "sweetalert2";
 import {environment} from "../../../../environments/environment";
+import {DOCUMENT} from '@angular/common';
 
 @Component({
   selector: 'app-mostrar-editar-contacto',
@@ -21,7 +22,6 @@ import {environment} from "../../../../environments/environment";
   styleUrls: ['./mostrar-editar-contacto.component.scss']
 })
 export class MostrarEditarContactoComponent implements OnInit {
-
 
 
   @Output() onBorrarComponente = new EventEmitter();
@@ -38,21 +38,24 @@ export class MostrarEditarContactoComponent implements OnInit {
   public paciente: IPaciente | any;
   public persona: IPersona | any;
   public formulario: FormGroup | any;
-  public relacionBorrar : IRelacionPacientePersona |any;
+  public relacionBorrar: IRelacionPacientePersona | any;
   opcion = false;
   opcion2 = true;
+  public blockModificar: boolean = false;
+  public urlSite: string;
+
 
   //EXPRESION REGULAR
-  readonly REGEX_NOMBREAPELLIDOS = /^[A-Z][a-zA-Z]*( [A-Z][a-zA-Z]*)*$/;
 
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private  formBuilder: FormBuilder,
+              private formBuilder: FormBuilder,
               private cargaPersonas: CargaPersonaService,
               private cargaDireccion: CargaDireccionService,
               private cargaPacientes: CargaPacienteService,
-              private cargaRelacion: CargaRelacionPacientePersonaService) {
+              private cargaRelacion: CargaRelacionPacientePersonaService,
+              @Inject(DOCUMENT) document: any) {
   }
 
   ngOnInit() {
@@ -78,38 +81,48 @@ export class MostrarEditarContactoComponent implements OnInit {
 
     })
 
-
+    this.urlSite = document.URL
+    this.comprobarUrl()
 
   }
 
-  elegirOpcion(elegirBoolean){
-    if (elegirBoolean){
+  comprobarUrl() {
+    if (this.urlSite.includes("informacion")) {
+      this.blockModificar = true;
+    } else {
+      this.blockModificar = false;
+    }
+  }
+
+  elegirOpcion(elegirBoolean) {
+    if (elegirBoolean) {
       this.opcion = true;
-    }else{
+    } else {
       this.opcion = false;
     }
   }
-  elegirOpcion2(elegirBoolean){
-    if (elegirBoolean){
+
+  elegirOpcion2(elegirBoolean) {
+    if (elegirBoolean) {
       this.opcion2 = true;
-    }else{
+    } else {
       this.opcion2 = false;
     }
   }
 
 
-  borrarRelacion(){
+  borrarRelacion() {
     this.cargaRelacion.getRelacionPacientePersona(this.relacionEditar.id).subscribe(
       relacion => {
         this.relacionBorrar = relacion
       }, error => console.log(error),
       () => {
         this.cargaRelacion.eliminarRelacionPacientePersona(this.relacionBorrar).subscribe(
-          () =>{
+          () => {
             this.alertBorrarRecurso();
 
           }, error => console.log(error),
-          () =>{
+          () => {
             this.onBorrarComponente.emit(); //Emito borrarComponente para avisar al padre que borraré el componente
 
           }
@@ -119,7 +132,7 @@ export class MostrarEditarContactoComponent implements OnInit {
 
   }
 
-  editarRelacion(){
+  editarRelacion() {
     this.relacionPacientePersona = {
       'telefono': this.formulario.get('telefono_fijo').value,
       'nombre': this.formulario.get('nombre').value,
@@ -130,46 +143,37 @@ export class MostrarEditarContactoComponent implements OnInit {
       'observaciones': this.formulario.get('observaciones').value,
       'prioridad': this.formulario.get('prioridad').value,
       'es_conviviente': this.formulario.get('es_conviviente').value,
-      'tiempo_domicilio' : this.formulario.get('tiempo_domicilio').value,
+      'tiempo_domicilio': this.formulario.get('tiempo_domicilio').value,
       'id_paciente': this.cargaPacientes.idPacienteEditar
 
     }
-        this.cargaRelacion.modificarRelacion(this.relacionEditar.id,this.relacionPacientePersona).subscribe(
-          //Paso la id usada + el formulario entero para cambiar todo el objeto
-          () =>{
+    this.cargaRelacion.modificarRelacion(this.relacionEditar.id, this.relacionPacientePersona).subscribe(
+      //Paso la id usada + el formulario entero para cambiar todo el objeto
+      () => {
 
-            this.alertEditarRecurso();
+        this.alertEditarRecurso();
 
-          }, error => console.log(error),
-        )
+      }, error => console.log(error),
+    )
 
   }
 
-  crearFormulario(){
+  crearFormulario() {
     this.formulario = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
       apellidos: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
       telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_fijo)]],
       tipo_relacion: ['', [Validators.required, Validators.pattern(environment.regex_name)]],
-      tiene_llaves_vivienda: [true, [Validators.required]],
+      tiene_llaves_vivienda: [true,{disabled: this.blockModificar}, [Validators.required]],
       disponibilidad: ['', [Validators.required]],
       observaciones: ['', [Validators.required]],
       prioridad: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
       tiempo_domicilio: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
-      es_conviviente: [true, [Validators.required, Validators.maxLength(200)]]
+      es_conviviente: [true,{disabled: this.blockModificar}, [Validators.required, Validators.maxLength(200)]]
     })
 
 
-
-    /*
-
-      */
-
   }
-
-
-
-
 
 
   onSubmit() {
@@ -184,7 +188,7 @@ export class MostrarEditarContactoComponent implements OnInit {
   }
 
   //Toast para el Alert indicando que la operación fue exitosa
-  alertExito() :void {
+  alertExito(): void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -203,8 +207,9 @@ export class MostrarEditarContactoComponent implements OnInit {
       title: environment.fraseCrear,
     })
   }
+
   //Toast para el alert indicando que hubo algún error en la operación
-  alertError() :void {
+  alertError(): void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -222,8 +227,9 @@ export class MostrarEditarContactoComponent implements OnInit {
       title: environment.fraseErrorCrear
     })
   }
+
   //Toast para el Alert indicando que la operación fue borrada de forma exitosa
-  alertEditarRecurso() :void {
+  alertEditarRecurso(): void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -243,32 +249,36 @@ export class MostrarEditarContactoComponent implements OnInit {
     })
   }
 
-  get nombre(){
+  get nombre() {
     return this.formulario.get('nombre') as FormControl;
   }
-  get apellidos(){
+
+  get apellidos() {
     return this.formulario.get('apellidos') as FormControl;
   }
-  get telefono_fijo(){
+
+  get telefono_fijo() {
     return this.formulario.get('telefono_fijo') as FormControl;
   }
-  get prioridad(){
+
+  get prioridad() {
     return this.formulario.get('prioridad') as FormControl;
   }
 
-  get tipo_relacion(){
+  get tipo_relacion() {
     return this.formulario.get('tipo_relacion') as FormControl;
   }
 
-  get tiempo_domicilio(){
+  get tiempo_domicilio() {
     return this.formulario.get('tiempo_domicilio') as FormControl;
   }
 
   get form() {
     return this.formulario.controls;
   }
+
   //Toast para el Alert indicando que la operación fue borrada de forma exitosa
-  alertBorrarRecurso() :void {
+  alertBorrarRecurso(): void {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
