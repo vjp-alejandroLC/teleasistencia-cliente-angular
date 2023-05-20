@@ -288,7 +288,6 @@ export class ModificarPersonaComponent implements OnInit {
   }
 
   private eliminarTipoModalidad() {
-    console.log(this.formulario.value.tipos_personas)
     this.modalidades.eliminarTipoModalidadPaciente(this.formulario.value.tipos_personas).subscribe(
       e => {
         this.alertExitoBorrar()

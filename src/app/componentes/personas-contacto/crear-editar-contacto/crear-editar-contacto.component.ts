@@ -56,7 +56,6 @@ export class CrearEditarContactoComponent implements OnInit {
         this.pacientes = paciente;
       },
       error => console.log(error),
-      () => console.log("Fin del observable")
     )
 
   }
@@ -191,7 +190,6 @@ export class CrearEditarContactoComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.formulario);
     if (this.formulario.invalid) {
       return;
     }

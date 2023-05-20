@@ -117,7 +117,6 @@ export class DispositivosEditarComponent implements OnInit {
 
   subirDatos() {
     this.idPaciente = this.crearPaciente.idPacienteEditar;
-    console.log("TERMINAL:" +this.terminal.id);
     let datos;
     datos = {
       modelo_terminal: this.formulario.value.modelo_terminal,
@@ -141,8 +140,6 @@ export class DispositivosEditarComponent implements OnInit {
 
     this.crearPaciente.getPaciente(this.crearPaciente.idPacienteEditar).subscribe(
       pac => {
-        console.log(pac.id +" id del paciente a modificar")
-        console.log("paciente actualizado"+ this.formulario.value.ucr)
         pac.tiene_ucr = this.formulario.value.ucr;
         this.crearPaciente.modificarPaciente(pac).subscribe(
           () => {

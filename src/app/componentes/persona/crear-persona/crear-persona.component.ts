@@ -147,7 +147,6 @@ export class CrearPersonaComponent implements OnInit {
       e => {
         this.persona = e;
         this.cargaPersonas.idPersonaCreada = e.id
-        console.log(this.persona)
         this.nuevoTerminal()
 
       },
@@ -176,7 +175,6 @@ export class CrearPersonaComponent implements OnInit {
       },
       error => {
         this.alertError();
-        console.log("Error al crear el terminal --> " + error.message());
       }
     );
   }
@@ -184,7 +182,6 @@ export class CrearPersonaComponent implements OnInit {
 
   //codigo clonado
   private modificarPersona() {
-    console.log("entra por el modificar")
 
     this.persona = {
       nombre: this.formulario.value.nombre,

@@ -126,8 +126,6 @@ export class DispositivosComponent implements OnInit {
 
     this.crearPaciente.getPaciente(this.idPaciente).subscribe(
       pac => {
-        console.log(pac.id +" id del paciente a modificar")
-        console.log("paciente actualizado"+ this.formulario.value.ucr)
         pac.tiene_ucr = this.formulario.value.ucr;
         this.crearPaciente.modificarPaciente(pac).subscribe(
           () => {
