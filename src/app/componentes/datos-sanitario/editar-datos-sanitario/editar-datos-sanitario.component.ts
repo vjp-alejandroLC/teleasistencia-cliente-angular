@@ -75,12 +75,7 @@ export class EditarDatosSanitarioComponent implements OnInit {
       },
       error => console.log(error),
     );
-    this.cargaTiposRecursos.getTiposRecursosComunitarios().subscribe(
-      recursos => {
-        this.tipos_recursos_comunitarios = recursos;
-      },
-      error => console.log(error),
-    )
+
 
     this.cargaRecurso.getDatosSanitario(1).subscribe(
       recursos =>{
