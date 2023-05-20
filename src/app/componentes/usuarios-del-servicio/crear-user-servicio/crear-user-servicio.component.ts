@@ -18,7 +18,6 @@ export class CrearUserServicioComponent implements OnInit {
 
 
 pruebas(evento){
-  console.log(evento)
   this.mostrar=evento
 
 }
