@@ -239,35 +239,7 @@ export class ModificarPersonaComponent implements OnInit {
   }
 
 
-  modificarPaciente() {
 
-    this.paciente = {
-      id_terminal: this.terminal.id,
-      id_persona: this.persona.id,
-      tiene_ucr: false,
-      numero_expediente: this.formulario.value.expediente,
-      numero_seguridad_social: "",
-      prestacion_otros_servicios_sociales: "",
-      observaciones_medicas: this.formulario.value.text_area,
-      intereses_y_actividades: "",
-      id_tipo_modalidad_paciente: this.formulario.value.tipos_personas
-    }
-
-    this.crearPaciente.modificarPacienteId(this.crearPaciente.idPaciente,this.paciente).subscribe(
-      e => {
-        this.paciente = e;
-        this.crearPaciente.idPaciente = e.id;
-        this.terminal.id_titular = e.id;
-
-        this.plegar.emit(false);
-        this.alertExito() // Aquí damos el exito ya que seria la ultima petición encadenada.
-      },
-      error => {
-        this.alertError();
-        console.log("Error al crear el paciente --> " + error.message())
-      },
-    )
-  }
 
   nuevoPaciente() {
 
@@ -283,7 +255,7 @@ export class ModificarPersonaComponent implements OnInit {
       id_tipo_modalidad_paciente: this.formulario.value.tipos_personas
     }
 
-    this.crearPaciente.modificarPacienteId(this.crearPaciente.idPacienteEditar,this.paciente).subscribe(
+    this.crearPaciente.modificarPacienteId2(this.pacienteEditar.id,this.paciente).subscribe(
       e => {
         this.paciente = e;
         console.log(e);
