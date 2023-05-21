@@ -86,26 +86,26 @@ export class ModificarPersonaComponent implements OnInit {
     this.buildForm();  //Formularios reactivos
     this.isAdmin = this.auth.isAdmin();
     this.crearPaciente.getPaciente(this.crearPaciente.idPacienteEditar).subscribe(
-    paciente =>{
-      this.pacienteEditar = paciente;
-      this.cargaPersonas.getPersona(this.pacienteEditar.id_persona.id).subscribe(
-        persona => {
-          this.personaEditar = persona;
-          this.formulario.patchValue({
-            nombre: this.personaEditar.nombre,
-            apellidos: this.personaEditar.apellidos,
-            expediente: this.pacienteEditar.numero_expediente,
-            dni: this.personaEditar.dni,
-            fecha_nacimiento: this.personaEditar.fecha_nacimiento,
-            sexo: this.personaEditar.sexo,
-            telefono_fijo: this.personaEditar.telefono_fijo,
-            telefono_movil: this.personaEditar.telefono_movil,
-            localidad: this.personaEditar.id_direccion.localidad,
-            provincia: this.personaEditar.id_direccion.provincia,
-            direccion: this.personaEditar.id_direccion.direccion,
-            codigo_postal: this.personaEditar.id_direccion.codigo_postal,
-            tipos_personas: this.pacienteEditar.id_tipo_modalidad_paciente.nombre,
-            id_tipo: this.pacienteEditar.id_tipo_modalidad_paciente.id
+      paciente =>{
+        this.pacienteEditar = paciente;
+        this.cargaPersonas.getPersona(this.pacienteEditar.id_persona.id).subscribe(
+          persona => {
+            this.personaEditar = persona;
+            this.formulario.patchValue({
+              nombre: this.personaEditar.nombre,
+              apellidos: this.personaEditar.apellidos,
+              expediente: this.pacienteEditar.numero_expediente,
+              dni: this.personaEditar.dni,
+              fecha_nacimiento: this.personaEditar.fecha_nacimiento,
+              sexo: this.personaEditar.sexo,
+              telefono_fijo: this.personaEditar.telefono_fijo,
+              telefono_movil: this.personaEditar.telefono_movil,
+              localidad: this.personaEditar.id_direccion.localidad,
+              provincia: this.personaEditar.id_direccion.provincia,
+              direccion: this.personaEditar.id_direccion.direccion,
+              codigo_postal: this.personaEditar.id_direccion.codigo_postal,
+              tipos_personas: this.pacienteEditar.id_tipo_modalidad_paciente.nombre,
+              id_tipo: this.pacienteEditar.id_tipo_modalidad_paciente.id
             })
           }
         )
@@ -180,11 +180,11 @@ export class ModificarPersonaComponent implements OnInit {
   private crearPersona() {
 
     this.direccionEditar = {
-        id: this.personaEditar.id_direccion.id,
-        localidad: this.formulario.value.localidad,
-        provincia: this.formulario.value.provincia,
-        direccion: this.formulario.value.direccion,
-        codigo_postal: this.formulario.value.codigo_postal
+      id: this.personaEditar.id_direccion.id,
+      localidad: this.formulario.value.localidad,
+      provincia: this.formulario.value.provincia,
+      direccion: this.formulario.value.direccion,
+      codigo_postal: this.formulario.value.codigo_postal
     }
 
     this.personaNueva = {
