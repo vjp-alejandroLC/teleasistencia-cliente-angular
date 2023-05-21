@@ -28,6 +28,7 @@ export class EditarTipoViviendaComponent implements OnInit {
   public pacienteEditar: IPaciente|any;
   public plegado: boolean = false;
   public isAdmin: boolean;
+  public id_tipo: number;
 
   @Input() idPaciente: number;
 
@@ -42,6 +43,12 @@ export class EditarTipoViviendaComponent implements OnInit {
               private terminal: CargaTerminalesService,
               private auth: AuthService
   ) {
+  }
+
+  cambiarId(){
+    this.id_tipo = this.formularioVivienda.get('nombre').value;
+    console.log(this.id_tipo);
+    this.formularioVivienda.get('id_tipo').setValue(this.id_tipo);
   }
 
   ngOnInit(): void {
@@ -61,7 +68,13 @@ export class EditarTipoViviendaComponent implements OnInit {
 
   /* formulario reactivo */
   private buildForm() {
-
+    this.formularioVivienda = this.formBuilder.group({
+      nombre: ['', [Validators.required],
+      ],
+      text_area: ['', [Validators.max(400)]],
+      text_area2: ['', [Validators.max(400)]],
+      id_tipo:['']
+    });
     this.paciente.getPaciente(this.paciente.idPacienteEditar).subscribe(
       paciente => {
         this.pacienteEditar = paciente;
@@ -69,17 +82,11 @@ export class EditarTipoViviendaComponent implements OnInit {
           nombre: this.pacienteEditar.id_terminal.id_tipo_vivienda.nombre,
           text_area: this.pacienteEditar.id_terminal.modo_acceso_vivienda,
           text_area2: this.pacienteEditar.id_terminal.barreras_arquitectonicas,
-          idTipo: this.pacienteEditar.id_terminal.id_tipo_vivienda.id
+          id_tipo: this.pacienteEditar.id_terminal.id_tipo_vivienda.id
         })
       }
       )
-    this.formularioVivienda = this.formBuilder.group({
-      nombre: ['', [Validators.required],
-      ],
-      text_area: ['', [Validators.max(400)]],
-      text_area2: ['', [Validators.max(400)]],
-      idTipo:['']
-    });
+
   }
 
   nuevaVivienda(): void {

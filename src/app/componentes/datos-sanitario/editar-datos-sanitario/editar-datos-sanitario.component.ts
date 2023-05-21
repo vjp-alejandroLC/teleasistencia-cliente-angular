@@ -77,6 +77,7 @@ export class EditarDatosSanitarioComponent implements OnInit {
     );
 
 
+
     this.cargaRecurso.getDatosSanitario(1).subscribe(
       recursos =>{
         this.recursosMostrados = recursos;
