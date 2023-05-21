@@ -164,6 +164,7 @@ import { ModificarImagenUsuarioComponent } from './componentes/botones-modificar
 import { ModificarPasswordUsuarioComponent } from './componentes/botones-modificar/modificar-password-usuario/modificar-password-usuario.component';
 import { TiposRecursosComunitariosComponent } from './componentes/alarma/tipos-recursos-comunitarios/tipos-recursos-comunitarios.component';
 import { EditMostrarClasificacionAlarmaComponent } from './componentes/edit-mostrar-clasificacion-alarma/edit-mostrar-clasificacion-alarma.component';
+import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -309,16 +310,17 @@ import { EditMostrarClasificacionAlarmaComponent } from './componentes/edit-most
     TiposRecursosComunitariosComponent,
     EditMostrarClasificacionAlarmaComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    FormsModule,
-    NgSelectModule,
-    CommonModule,
-    NgxPaginationModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        FormsModule,
+        NgSelectModule,
+        CommonModule,
+        NgxPaginationModule,
+        ReactiveFormsModule,
+        NgbCollapseModule
+    ],
   providers: [
     CargaUserService,
     CargaClasificacionAlarmaService,

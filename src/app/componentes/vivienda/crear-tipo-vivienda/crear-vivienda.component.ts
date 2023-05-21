@@ -229,7 +229,7 @@ export class CrearViviendaComponent implements OnInit {
     this.cargaVivienda.getViviendas().subscribe(
       lista => {
         this.listaViviendas = lista;
-        this.formulario.patchValue({tipo_vivienda: id_tipo_vivienda})   // asigna directamente en el select el tipo creado a tiempo real
+        this.formulario.patchValue({nombre: id_tipo_vivienda})   // asigna directamente en el select el tipo creado a tiempo real
       },
       error => {
       },

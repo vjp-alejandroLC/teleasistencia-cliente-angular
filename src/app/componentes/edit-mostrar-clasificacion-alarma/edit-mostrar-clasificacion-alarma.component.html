@@ -21,9 +21,8 @@
           <div class="col-10">
             {{auxiliar?.id_tipo_alarma?.nombre}}
           </div>
-          <div class="col-2 p-0">
-
-            <button class="btn btn-danger boton" type="button"
+          <div class="col-2 p-0 d-flex justify-content-end">
+            <button class="btn btn-danger" type="button"
                     (click)="borrarRecurso(auxiliar,tipoPeticion?.nombre)" [disabled]="blockEditar">
               <i class="fa fa-solid fa-trash"></i>
             </button>

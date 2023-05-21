@@ -68,7 +68,7 @@ export class DispositivosComponent implements OnInit {
         validacionFechaMaxima()]],
       situacion: ['', [Validators.required]],
       numero_terminal: ['', [Validators.required, Validators.pattern(environment.regex_ter)]],
-      modelo_terminal: ['', [Validators.required, Validators.pattern(environment.regex_ter)]],
+      modelo_terminal: ['', [Validators.required, Validators.pattern(environment.regex_modelo_ter)]],
       ucr: [true, [Validators.required]]
     });
   }
@@ -187,7 +187,7 @@ export class DispositivosComponent implements OnInit {
     this.situaciones.getTiposSituaciones().subscribe(
       lista => {
         this.listaDeSituaciones = lista;
-        this.formulario.patchValue({tipo_situacion: id_tipo_situacion})
+        this.formulario.patchValue({situacion: id_tipo_situacion})
       },
       error => {
       },

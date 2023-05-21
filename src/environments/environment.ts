@@ -57,6 +57,7 @@ export const environment = {
   regex_cp:/^\d{5}$/, //codigo postal
   regex_exp:/^\d{4,}$/, // expediente paciente
   regex_ter:/^\d{4,}$/, //Terminales
+  regex_modelo_ter:/^(?!^\s)[a-zA-Z0-9\s-]+$/,
 
   //subdominio y version de la pagina
   subdominio: {

@@ -42,7 +42,7 @@ export class CrearPersonaComponent implements OnInit {
 
   /* Constantes */
 
-  readonly PLANTILLA_OBS = '- Otros Servicios: \n- Datos de ocio: \n- Servicio de Comidas:';
+  readonly PLANTILLA_OBS = 'Otros Servicios: ,Datos de ocio: ,Servicio de Comidas: ';
 
 
   /**
