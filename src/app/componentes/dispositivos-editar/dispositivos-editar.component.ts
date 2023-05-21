@@ -84,8 +84,8 @@ export class DispositivosEditarComponent implements OnInit {
       fecha_alta: ['', [Validators.required,
         validacionFechaMaxima()]],
       situacion: ['', [Validators.required]],
-      numero_terminal: ['', [Validators.required, Validators.pattern(this.REGEX_TER)]],
-      modelo_terminal: ['', [Validators.required, Validators.pattern(this.REGEX_TER)]],
+      numero_terminal: ['', [Validators.required, Validators.pattern(environment.regex_ter)]],
+      modelo_terminal: ['', [Validators.required, Validators.pattern(environment.regex_modelo_ter)]],
       ucr: [false, {disabled: this.blockEditar}, [Validators.required]]
     });
   }
