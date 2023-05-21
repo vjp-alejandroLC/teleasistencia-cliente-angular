@@ -32,24 +32,24 @@ import {MostrarCrearComponent} from "../mostrar-crear/mostrar-crear.component";
 export class CrearPersonaContactoComponent implements OnInit {
   @ViewChild('contenedorCrear', {read: ViewContainerRef}) container: ViewContainerRef; //Hace referencia al componente hijo y al contenedor del padre mediante un contenedor
 
-  idPaciente: number;
-  indicesCrear = 2; //Comienzo con el primero indice
-  maximoComponentes = 6; //Maximo numero de componentes que crea al darle al boton de crearHTML()
-  idRelacion: number;
-  primerContacto = 1; //Numero que señala el primero formulario
-  mostrarGuardar = true; //Booleano que sirve para poder no mostrar el boton de guardar contacto
-  mostrarEditar = false; //Booleano que sirve para mostrar los otros dos botones para editar o borrar el contacto
-  submitted = false;
+  public idPaciente: number;
+  public indicesCrear = 2; //Comienzo con el primero indice
+  public maximoComponentes = 6; //Maximo numero de componentes que crea al darle al boton de crearHTML()
+  public idRelacion: number;
+  public primerContacto = 1; //Numero que señala el primero formulario
+  public mostrarGuardar = true; //Booleano que sirve para poder no mostrar el boton de guardar contacto
+  public mostrarEditar = false; //Booleano que sirve para mostrar los otros dos botones para editar o borrar el contacto
+  public submitted = false;
   public plegado: boolean = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
   public direccion: IDireccion | any;
   public pacientes: IPaciente[] | any;
   public paciente: IPaciente | any;
   private componentesCreados: any[] = []; // Generamos un array de componentes para guardarlos posteriormente
-  opcion = true;
-  opcion2 = true;
+  public opcion = true;
+  public opcion2 = true;
   public formulario: FormGroup | any;
-  lista = [];
+  public lista = [];
   public relacionBorrar: IRelacionPacientePersona | any;
   @Output() public plegar = new EventEmitter;
   @Output() public desplegar = new EventEmitter;
@@ -82,7 +82,7 @@ export class CrearPersonaContactoComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
       apellidos: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
-      telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_fijo)]],
+      telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_telefono)]],
       tipo_relacion: ['', [Validators.required, Validators.pattern(environment.regex_name)]],
       tiene_llaves_vivienda: [true, [Validators.required]],
       disponibilidad: ['', [Validators.required]],

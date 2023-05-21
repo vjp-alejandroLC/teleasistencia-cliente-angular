@@ -31,10 +31,10 @@ export class EditarContactoComponent implements AfterViewInit {
 
   @ViewChild('contenedorEditar', { read: ViewContainerRef }) container: ViewContainerRef; //Hace referencia al componente hijo y al contenedor del padre mediante un contenedor
 
-  idPaciente: number;
+  public idPaciente: number;
   public plegado: boolean = false;
-  indicesCrear = 1; //Comienzo con el primero indice
-  maximoComponentes : number = 5; //Maximo numero de componentes que crea al darle al boton de crearHTML()
+  public indicesCrear = 1; //Comienzo con el primero indice
+  public maximoComponentes : number = 5; //Maximo numero de componentes que crea al darle al boton de crearHTML()
   @Output() public plegar = new EventEmitter;
   @Output() public desplegar = new EventEmitter;
   @Input() public blockEditar;
@@ -42,10 +42,10 @@ export class EditarContactoComponent implements AfterViewInit {
   public pacientes: IPaciente[] | any;
   public paciente: IPaciente | any;
   private componentesCreados: any[] = []; // Generamos un array de componentes para guardarlos posteriormente
-  opcion = false;
+  public opcion = false;
   public formulario: FormGroup | any;
-  lista = [];
-  generarIndices = 0;
+  public lista = [];
+  public generarIndices = 0;
 
 
 

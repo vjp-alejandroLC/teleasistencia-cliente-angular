@@ -184,11 +184,11 @@
           <label for="tipos_personas" class="form-label text-start">Tipo de persona <span
             class="obligatorios">*</span></label>
           <div class="col-12 col-lg pb-1 pb-lg-0">
-            <ng-select id="tipos_personas" formControlName="tipos_personas" [readonly]="blockEditar">
+            <ng-select id="tipos_personas" formControlName="tipos_personas" [readonly]="blockEditar" (change)="cambiarId()">
               <ng-option *ngFor="let tipo_persona of tipos_personas; let i = index"
                          [value]="tipo_persona.id">{{tipo_persona.nombre}}</ng-option>
             </ng-select>
-            <input type="hidden" formControlName="id_tipo">
+            <input type="hidden"  formControlName="id_tipo">
           </div>
           <ng-container *ngIf="!blockEditar">
             <ng-container *ngIf="this.isAdmin">

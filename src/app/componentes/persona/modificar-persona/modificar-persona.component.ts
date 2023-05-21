@@ -14,6 +14,7 @@ import {ITerminal} from "../../../interfaces/i-terminal";
 import {IPaciente} from "../../../interfaces/i-paciente";
 import {CargaTipoModalidadPacienteService} from "../../../servicios/carga-tipo-modalidad-paciente.service";
 import {AuthService} from "../../../servicios/auth.service";
+import {ITipoModalidadPaciente} from "../../../interfaces/i-tipo-modalidad-paciente";
 
 
 @Component({
@@ -31,6 +32,7 @@ export class ModificarPersonaComponent implements OnInit {
   public dire: IDireccion | any;
   public formulario: FormGroup;
   public tipos_personas: TipoModalidadPaciente[];
+  public nuevaModalidad: ITipoModalidadPaciente | any;
   public mostrar: boolean = false;
   public mostrarModificar: boolean = false;
   public persona: IPersona | any;
@@ -40,21 +42,17 @@ export class ModificarPersonaComponent implements OnInit {
   public listaSexo: String[] = ['Hombre', 'Mujer'];
   public pacienteEditar: IPaciente | any;
   public personaEditar: IPersona | any;
+  public direccionEditar: IDireccion | any;
+  public personaNueva: IPersona |any;
   public name: string | any;
   public plegado: boolean = false;
   public isAdmin: boolean;
+  public id_tipo: number;
 
 
   /* Constantes */
-  readonly REGEX_NAME = /^[A-Z][a-zA-ZÀ-ÿ- ]+$/;
-  readonly REGEX_DNI = /^([0-9]{8})([A-Z])$/;
-  readonly REGEX_MOVIL = /^[6|7]{1}[ ]*([0-9][ ]*){8}$/;
-  readonly REGEX_FIJO = /^[9]{1}[ ]*([0-9][ ]*){8}$/;
-  readonly REGEX_CP = /[0-9]+$/;
-  readonly REGEX_EXP = /^\d{4}$/;
-  readonly PLANTILLA_OBS = '- Otros Servicios: \n' +
-    '- Datos de ocio: \n' +
-    '- Servicio de Comidas:';
+  readonly PLANTILLA_OBS = 'Otros Servicios: ,Datos de ocio: ,Servicio de Comidas: ';
+
 
 
   /**
@@ -68,6 +66,7 @@ export class ModificarPersonaComponent implements OnInit {
    * @param crearPaciente
    * @param auth
    * @param modalidades
+   * @param tipoModalidad
    */
   constructor(private route: ActivatedRoute,
               private cargaPersonas: CargaPersonaService,
@@ -77,7 +76,9 @@ export class ModificarPersonaComponent implements OnInit {
               private crearTerminal: CargaTerminalesService,
               private crearPaciente: CargaPacienteService,
               private auth: AuthService,
-              private modalidades: CargaTipoModalidadPacienteService) {
+              private modalidades: CargaTipoModalidadPacienteService,
+              private tipoModalidad: CargaTipoModalidadPacienteService
+  ) {
   }
 
   ngOnInit(): void {
@@ -114,24 +115,26 @@ export class ModificarPersonaComponent implements OnInit {
   }
 
 
+
+
   /* formulario reactivo */
   private buildForm() {
     this.formulario = this.formBuilder.group({
       nombre: ['', [Validators.required,
         Validators.maxLength(200),
         Validators.minLength(2),
-        Validators.pattern(this.REGEX_NAME)],
+        Validators.pattern(environment.regex_name)],
       ],
       apellidos: ['', [Validators.required,
         Validators.maxLength(200),
         Validators.minLength(2),
-        Validators.pattern(this.REGEX_NAME)],
+        Validators.pattern(environment.regex_name)],
       ],
       expediente: ['', [Validators.required,
-        Validators.pattern(this.REGEX_EXP)]],
+        Validators.pattern(environment.regex_exp)]],
       dni: ['', [Validators.required,
         Validators.maxLength(9),
-        Validators.pattern(this.REGEX_DNI)],
+        Validators.pattern(environment.regex_dni)],
       ],
       fecha_nacimiento: ['', [
         Validators.required,
@@ -139,9 +142,9 @@ export class ModificarPersonaComponent implements OnInit {
       ]],
       sexo: ['', [Validators.required]],
       telefono_fijo: ['', [Validators.maxLength(12),
-        Validators.pattern(this.REGEX_FIJO)]],
+        Validators.pattern(environment.regex_fijo)]],
       telefono_movil: ['', [Validators.maxLength(12),
-        Validators.pattern(this.REGEX_MOVIL)]],
+        Validators.pattern(environment.regex_movil)]],
       localidad: ['', [Validators.required,
         Validators.maxLength(200)]],
       provincia: ['', [Validators.required,
@@ -151,9 +154,9 @@ export class ModificarPersonaComponent implements OnInit {
       codigo_postal: ['', [Validators.required,
         Validators.maxLength(5),
         Validators.minLength(5),
-        Validators.pattern(this.REGEX_CP)]],
+        Validators.pattern(environment.regex_cp)]],
       tipos_personas: ['', [Validators.required]],
-      id_tipo:[''],
+      id_tipo: [''],
       text_area: [this.PLANTILLA_OBS, [Validators.max(250)]]
     });
   }
@@ -163,6 +166,12 @@ export class ModificarPersonaComponent implements OnInit {
     return this.formulario.controls;
   }
 
+  cambiarId(){
+    this.id_tipo = this.formulario.get('tipos_personas').value;
+    console.log(this.id_tipo);
+    this.formulario.get('id_tipo').setValue(this.id_tipo);
+  }
+
   contraer() {
     this.plegado = !this.plegado;
   }
@@ -170,7 +179,15 @@ export class ModificarPersonaComponent implements OnInit {
   /* Método para crear personas.*/
   private crearPersona() {
 
-    this.persona = {
+    this.direccionEditar = {
+        id: this.personaEditar.id_direccion.id,
+        localidad: this.formulario.value.localidad,
+        provincia: this.formulario.value.provincia,
+        direccion: this.formulario.value.direccion,
+        codigo_postal: this.formulario.value.codigo_postal
+    }
+
+    this.personaNueva = {
       nombre: this.formulario.value.nombre,
       apellidos: this.formulario.value.apellidos,
       dni: this.formulario.value.dni,
@@ -178,17 +195,17 @@ export class ModificarPersonaComponent implements OnInit {
       sexo: this.formulario.value.sexo,
       telefono_fijo: this.formulario.value.telefono_fijo,
       telefono_movil: this.formulario.value.telefono_movil,
-      id_direccion: {
-        localidad: this.formulario.value.localidad,
-        provincia: this.formulario.value.provincia,
-        direccion: this.formulario.value.direccion,
-        codigo_postal: this.formulario.value.codigo_postal
-      }
+      id_direccion: this.direccionEditar
     }
-    this.cargaPersonas.modificarPersona(this.persona, this.pacienteEditar.id_persona.id).subscribe(
+    this.cargaPersonas.modificarPersona(this.personaNueva, this.pacienteEditar.id_persona.id).subscribe(
       e => {
         this.persona = e;
-        this.nuevoTerminal()
+        this.cargaDirecciones.modificarDireccion(this.direccionEditar).subscribe(
+          () =>{
+            this.nuevoTerminal()
+
+          }
+        )
 
       },
       error => {
@@ -222,26 +239,56 @@ export class ModificarPersonaComponent implements OnInit {
   }
 
 
-  /* Método para crear un paciente nuevo asociado a una terminal */
-  nuevoPaciente() {
+  modificarPaciente() {
 
     this.paciente = {
-      id_terminal: this.pacienteEditar.id_terminal.id,
-      id_persona: this.pacienteEditar.id_persona.id,
-      tiene_ucr: this.pacienteEditar.tiene_ucr,
+      id_terminal: this.terminal.id,
+      id_persona: this.persona.id,
+      tiene_ucr: false,
       numero_expediente: this.formulario.value.expediente,
-      numero_seguridad_social: this.pacienteEditar.numero_seguridad_social,
-      prestacion_otros_servicios_sociales: this.pacienteEditar.prestacion_otros_servicios_sociales,
+      numero_seguridad_social: "",
+      prestacion_otros_servicios_sociales: "",
       observaciones_medicas: this.formulario.value.text_area,
-      intereses_y_actividades: this.pacienteEditar.intereses_y_actividades,
+      intereses_y_actividades: "",
       id_tipo_modalidad_paciente: this.formulario.value.tipos_personas
     }
-    this.crearPaciente.modificarPaciente(this.pacienteEditar).subscribe(
+
+    this.crearPaciente.modificarPacienteId(this.crearPaciente.idPaciente,this.paciente).subscribe(
       e => {
         this.paciente = e;
         this.crearPaciente.idPaciente = e.id;
         this.terminal.id_titular = e.id;
 
+        this.plegar.emit(false);
+        this.alertExito() // Aquí damos el exito ya que seria la ultima petición encadenada.
+      },
+      error => {
+        this.alertError();
+        console.log("Error al crear el paciente --> " + error.message())
+      },
+    )
+  }
+
+  nuevoPaciente() {
+
+    this.paciente = {
+      id_terminal: this.terminal.id,
+      id_persona: this.persona.id,
+      tiene_ucr: false,
+      numero_expediente: this.formulario.value.expediente,
+      numero_seguridad_social: this.formulario.value.numero_seguridad_social,
+      prestacion_otros_servicios_sociales: this.formulario.value.prestacion_otros_servicios_sociales,
+      observaciones_medicas: this.formulario.value.text_area,
+      intereses_y_actividades: this.formulario.value.intereses_y_actividades,
+      id_tipo_modalidad_paciente: this.formulario.value.tipos_personas
+    }
+
+    this.crearPaciente.modificarPacienteId(this.crearPaciente.idPacienteEditar,this.paciente).subscribe(
+      e => {
+        this.paciente = e;
+        console.log(e);
+        this.crearPaciente.idPaciente = e.id;
+        this.terminal.id_titular = e.id;
 
         this.plegar.emit(false);
         this.alertExito() // Aquí damos el exito ya que seria la ultima petición encadenada.

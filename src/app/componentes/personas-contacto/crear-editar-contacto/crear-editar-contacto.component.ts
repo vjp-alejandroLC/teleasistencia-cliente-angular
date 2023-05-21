@@ -147,7 +147,7 @@ export class CrearEditarContactoComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
       apellidos: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
-      telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_fijo)]],
+      telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_telefono)]],
       tipo_relacion: ['', [Validators.required, Validators.pattern(environment.regex_name)]],
       tiene_llaves_vivienda: [true, [Validators.required]],
       disponibilidad: ['', [Validators.required]],

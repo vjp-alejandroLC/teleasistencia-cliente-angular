@@ -54,6 +54,7 @@ export const environment = {
   regex_dni:/^([0-9]{8})([A-Z])$/,
   regex_movil:/^[6|7]{1}[ ]*([0-9][ ]*){8}$/, //teléfonos moviles
   regex_fijo:/^[9]{1}[ ]*([0-9][ ]*){8}$/, // teléfonos fijos
+  regex_telefono:/^[6|7|9]{1}[ ]*([0-9][ ]*){8}$/, //fijos + movil
   regex_cp:/^\d{5}$/, //codigo postal
   regex_exp:/^\d{4,}$/, // expediente paciente
   regex_ter:/^\d{4,}$/, //Terminales

@@ -25,12 +25,12 @@ import {IRelacionPacientePersona} from "../../../interfaces/i-relacion-paciente-
 export class MostrarCrearComponent implements OnInit {
 
   @Output() onBorrarComponente = new EventEmitter();
-  mostrarGuardar = true;
-  mostrarEditar = false;
+  public mostrarGuardar = true;
+  public mostrarEditar = false;
   @Input() indice: number;
-  idPaciente: number;
-  idRelacion: number;
-  submitted = false;
+  public idPaciente: number;
+  public idRelacion: number;
+  public submitted = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
   public direccion: IDireccion | any;
   public pacientes: IPaciente[] | any;
@@ -38,8 +38,8 @@ export class MostrarCrearComponent implements OnInit {
   public persona: IPersona | any;
   public formulario: FormGroup | any;
   public relacionBorrar : IRelacionPacientePersona |any;
-  opcion = true;
-  opcion2 = true;
+  public opcion = true;
+  public opcion2 = true;
 
   //EXPRESION REGULAR
   readonly REGEX_NOMBREAPELLIDOS = /^[A-Z][a-zA-Z]*( [A-Z][a-zA-Z]*)*$/;
@@ -142,7 +142,7 @@ export class MostrarCrearComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
       apellidos: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
-      telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_fijo)]],
+      telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_telefono)]],
       tipo_relacion: ['', [Validators.required, Validators.pattern(environment.regex_name)]],
       tiene_llaves_vivienda: [true, [Validators.required]],
       disponibilidad: ['', [Validators.required]],

@@ -77,7 +77,7 @@
               <button type="submit" class="btn btn-outline-success m-1" (click)="actualizarNuss();contraer()"
                       data-bs-toggle="collapse"
                       data-bs-target="#datosSanitarios,#viviendaForm" aria-expanded="false"
-                      aria-controls="datosPersonales">
+                      aria-controls="datosPersonales" [disabled]="formulario.invalid">
                 Guardar
               </button>
               <button type="button" class="btn btn-outline-secondary m-1" (click)="volver()"

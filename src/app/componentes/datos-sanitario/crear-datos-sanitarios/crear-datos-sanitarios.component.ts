@@ -25,9 +25,9 @@ import {CargaPersonaService} from "../../../servicios/carga-persona.service";
   styleUrls: ['./crear-datos-sanitarios.component.scss']
 })
 export class CrearDatosSanitariosComponent implements OnInit {
-  edit: boolean = false;
-  mostrar: boolean = false;
-  id: number = 0;
+  public edit: boolean = false;
+  public mostrar: boolean = false;
+  public id: number = 0;
   @Output() public plegar = new EventEmitter;
   @Output() public desplegar = new EventEmitter;
 

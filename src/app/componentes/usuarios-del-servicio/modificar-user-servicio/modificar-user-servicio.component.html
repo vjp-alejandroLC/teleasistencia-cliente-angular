@@ -6,6 +6,7 @@
       <li class="breadcrumb-item active" aria-current="page" *ngIf="blockModificar">Consultar usuario</li>
     </ol>
   </nav>
+
   <div class="row mb-3">
     <div class="col-12 d-flex justify-content-end align-items-center">
       <h1 class="component-title text-center align-self-center mx-auto" *ngIf="!blockModificar">Editar Usuario del
@@ -18,6 +19,8 @@
               [attr.data-bs-target]="generadorIds()">{{ formulariosDesplegados ? 'Plegar' : 'Desplegar' }}</button>
     </div>
   </div>
+
+
   <div class="row mb-1 mt-1">
     <h4 class="formularios d-flex align-items-center justify-content-between" (click)="toggleIndividual(1)"
         [ngClass]="blockModificar?'pulsar':''">

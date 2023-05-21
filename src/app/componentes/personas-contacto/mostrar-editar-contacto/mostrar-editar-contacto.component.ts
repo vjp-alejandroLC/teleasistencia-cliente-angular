@@ -25,13 +25,12 @@ export class MostrarEditarContactoComponent implements OnInit {
 
 
   @Output() onBorrarComponente = new EventEmitter();
-  mostrarGuardar = true;
-  mostrarEditar = false;
+  public mostrarGuardar = true;
+  public mostrarEditar = false;
   @Input() indice: number;
-  idPaciente: number;
-  idRelacion: number;
+  public idPaciente: number;
   public relacionEditar: IRelacionPacientePersona;
-  submitted = false;
+  public submitted = false;
   public relacionPacientePersona: IRelacionPacientePersona | any;
   public direccion: IDireccion | any;
   public pacientes: IPaciente[] | any;
@@ -43,6 +42,7 @@ export class MostrarEditarContactoComponent implements OnInit {
   opcion2 = true;
   public blockModificar: boolean = false;
   public urlSite: string;
+
 
 
   //EXPRESION REGULAR
@@ -162,7 +162,7 @@ export class MostrarEditarContactoComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
       apellidos: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_name)]],
-      telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_fijo)]],
+      telefono_fijo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern(environment.regex_telefono)]],
       tipo_relacion: ['', [Validators.required, Validators.pattern(environment.regex_name)]],
       tiene_llaves_vivienda: [true,{disabled: this.blockModificar}, [Validators.required]],
       disponibilidad: ['', [Validators.required]],
