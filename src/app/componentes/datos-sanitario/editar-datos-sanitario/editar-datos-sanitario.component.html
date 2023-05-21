@@ -101,11 +101,11 @@
             <th>Tipo de recurso</th>
           </tr>
           <tr *ngFor="let relacion of arrayRelaciones, let i = index">
-            <td>{{relacion.id_recurso_comunitario.nombre}}</td>
-            <td>{{relacion.tiempo_estimado}}</td>
-            <td>{{relacion.id_recurso_comunitario.id_tipos_recurso_comunitario.nombre}}</td>
+            <td>{{relacion?.id_recurso_comunitario.nombre}}</td>
+            <td>{{relacion?.tiempo_estimado}}</td>
+            <td>{{relacion?.id_recurso_comunitario.id_tipos_recurso_comunitario.nombre}}</td>
             <td>
-              <button class="btn btn-outline-danger" (click)="borrarRecurso(relacion.id, i)">
+              <button class="btn btn-outline-danger" (click)="borrarRecurso(relacion?.id, i)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                      viewBox="0 0 16 16">
                   <path

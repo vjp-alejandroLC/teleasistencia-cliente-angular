@@ -100,13 +100,19 @@ export class EditarDatosSanitarioComponent implements OnInit {
       () => {
         this.cargaRelacionTerminalRecursosComunitarios.getRelacionesTerminalesRecursosComunitarios().subscribe(
           relacion =>{
-            for (const relac of relacion) {
-              if (relac.id_terminal.id == this.pacienteEditar.id_terminal.id){
-                this.arrayRelaciones.push(relac);
+            if (relacion != null){
+              for (const relac of relacion) {
+                if (relac.id_terminal.id == this.pacienteEditar.id_terminal.id){
+                  this.arrayRelaciones.push(relac);
 
+                }else{
+                }
               }
+              this.ordenarPorTiempo();
+            }else{
+
             }
-            this.ordenarPorTiempo();
+
           }
         )
       }
