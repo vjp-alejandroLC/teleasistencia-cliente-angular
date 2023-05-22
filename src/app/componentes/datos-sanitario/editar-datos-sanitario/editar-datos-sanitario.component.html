@@ -76,7 +76,7 @@
                 <button type="submit" class="btn btn-outline-success m-1" (click)="actualizarNuss();contraer()"
                         data-bs-toggle="collapse"
                         data-bs-target="#datosSanitarios,#viviendaForm" aria-expanded="false"
-                        aria-controls="datosPersonales">
+                        aria-controls="datosPersonales" [disabled]="formularioDatos.invalid">
                   Guardar
                 </button>
                 <button type="button" class="btn btn-outline-secondary m-1" (click)="volver()"
@@ -97,13 +97,17 @@
         <table class="table text-center">
           <tr>
             <th>Nombre del recurso</th>
-            <th>Tiempo estimado</th>
             <th>Tipo de recurso</th>
+            <th>Localidad</th>
+            <th>Tiempo estimado</th>
+
           </tr>
           <tr *ngFor="let relacion of arrayRelaciones, let i = index">
             <td>{{relacion?.id_recurso_comunitario.nombre}}</td>
-            <td>{{relacion?.tiempo_estimado}}</td>
             <td>{{relacion?.id_recurso_comunitario.id_tipos_recurso_comunitario.nombre}}</td>
+            <td>{{relacion?.id_recurso_comunitario.id_direccion.localidad}}</td>
+            <td>{{relacion?.tiempo_estimado}}</td>
+
             <td>
               <button class="btn btn-outline-danger" (click)="borrarRecurso(relacion?.id, i)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
