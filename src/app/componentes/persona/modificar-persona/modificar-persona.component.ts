@@ -168,7 +168,6 @@ export class ModificarPersonaComponent implements OnInit {
 
   cambiarId(){
     this.id_tipo = this.formulario.get('tipos_personas').value;
-    console.log(this.id_tipo);
     this.formulario.get('id_tipo').setValue(this.id_tipo);
   }
 
@@ -258,7 +257,6 @@ export class ModificarPersonaComponent implements OnInit {
     this.crearPaciente.modificarPacienteId2(this.pacienteEditar.id,this.paciente).subscribe(
       e => {
         this.paciente = e;
-        console.log(e);
         this.crearPaciente.idPaciente = e.id;
         this.terminal.id_titular = e.id;
 

@@ -47,7 +47,6 @@ export class EditarTipoViviendaComponent implements OnInit {
 
   cambiarId(){
     this.id_tipo = this.formularioVivienda.get('nombre').value;
-    console.log(this.id_tipo);
     this.formularioVivienda.get('id_tipo').setValue(this.id_tipo);
   }
 
