@@ -248,7 +248,6 @@ export class CrearPersonaComponent implements OnInit {
 
   /* Método para crear un paciente nuevo asociado a una terminal */
   nuevoPaciente() {
-    console.log("entra por el crear nuevo paciente")
     this.paciente = {
       id_terminal: this.terminal.id,
       id_persona: this.persona.id,

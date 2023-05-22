@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CargaPacienteService} from "../../../servicios/carga-paciente.service";
-import {ActivatedRoute} from '@angular/router'; // Importar
+import {ActivatedRoute} from '@angular/router';
 import {DOCUMENT} from '@angular/common';
 
 
@@ -18,7 +18,7 @@ export class ModificarUserServicioComponent implements OnInit {
   public mostrar3: boolean = false;
   public mostrar4: boolean = false;
   public mostrar5: boolean = false;
-  public blockModificar: boolean = false;
+  public blockModificar: boolean = false;  //Controla los elementos del modificar aparezcan o desaparezcan en funcion a la url
   public formulariosDesplegados: boolean = true;
 
 
@@ -44,7 +44,9 @@ export class ModificarUserServicioComponent implements OnInit {
     }
   }
 
-  generadorIds(): string | null {
+  generadorIds(): string | null {   //Para evitar conflictos entre el botón de plegar y desplegar y los eventos individuales, comprueba el estado del
+                                    // booleano correspondiente al id al que hace referencia y en caso de que sea igual al estado lo añade a un array para que el collapse apunte
+                                    // a ese componente
     const idFormularios: string[] = [];
 
     if (this.mostrar === this.formulariosDesplegados) {
@@ -106,7 +108,7 @@ export class ModificarUserServicioComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargaPacientes.idPacienteEditar = Number(this.route.snapshot.paramMap.get("id"));
-    this.urlSite = document.URL
+    this.urlSite = document.URL //Url de la página para comprobar si esta en el editar o en el consultar.
     this.comprobarUrl()
     this.CheckArrows()
 
@@ -120,6 +122,4 @@ export class ModificarUserServicioComponent implements OnInit {
       this.blockModificar = false;
     }
   }
-
-
 }
