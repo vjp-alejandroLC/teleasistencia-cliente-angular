@@ -35,6 +35,13 @@ export class HeaderComponent implements OnInit, DoCheck {
       this.conexionWS.conectar();
       this.cargar_clasificacion();
 
+      // Utilizamos un GET para cargar la clasificacion de los recursos
+      this.cargarClasificacion.getClasificacionRecursosComunitarios().subscribe(
+        listaClasificacion => {
+          this.clasificacionRecursos = listaClasificacion;
+        },
+        error => console.log(error),
+      )
     }
     this.cookiesAceptadas=true; //esto desactiva el popput de cookies
   }

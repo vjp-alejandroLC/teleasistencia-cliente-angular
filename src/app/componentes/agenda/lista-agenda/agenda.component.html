@@ -11,9 +11,11 @@
     <h1 class="component-title">
       {{ fechaString }}
     </h1>
-    <button type="button" class="btn btn-success me-5 float-end" [routerLink]="['/agenda/nueva']">
-      Nueva Agenda
-    </button>
+
+      <button type="button" class="btn btn-success me-5 float-end" [routerLink]="['/agenda/nueva']">
+        Nueva Agenda
+      </button>
+
     <div style="display: none" id="actualizarPagina"></div>
 
     <div class="form-group mb-3">
@@ -41,7 +43,8 @@
         <tbody>
         <tr
           *ngFor="let agenda of agendasDelDia | filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: 10, currentPage: numPaginacion }"
-          app-item-agenda [agenda]="agenda" [fechaToday]="fechaToday" class="{{agenda.fecha_resolucion === null ? 'noResuelta' : 'resuelta'}}">
+          app-item-agenda [agenda]="agenda" [fechaToday]="fechaToday"
+          class="{{agenda.fecha_resolucion === null ? 'noResuelta' : 'resuelta'}}">
         </tr>
         </tbody>
       </table>
