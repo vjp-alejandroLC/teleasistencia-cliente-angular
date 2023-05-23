@@ -9,8 +9,8 @@
 
   <div class="row mb-3">
     <div class="col-12 d-flex justify-content-end align-items-center">
-      <h1 class="component-title text-center align-self-center mx-auto" *ngIf="!blockModificar">Editar Usuario del
-        Servicio</h1>
+      <h1 class="component-title text-center align-self-center mx-auto" *ngIf="!blockModificar">Editar usuario del
+        servicio</h1>
       <h1 class="component-title text-center align-self-center mx-auto desp" *ngIf="blockModificar">Información del
         usuario
         del servicio</h1>
@@ -104,7 +104,7 @@
     </div>
   </div>
   <div class="text-center">
-    <button class="btn btn-secondary" [routerLink]="['/usuarios_del_servicio/consultar']" *ngIf="blockModificar">
+    <button class="btn btn-outline-secondary m-1" [routerLink]="['/usuarios_del_servicio/consultar']" *ngIf="blockModificar">
       Volver
     </button>
   </div>

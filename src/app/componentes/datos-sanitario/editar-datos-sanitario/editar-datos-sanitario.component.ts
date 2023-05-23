@@ -104,7 +104,6 @@ export class EditarDatosSanitarioComponent implements OnInit {
               for (const relac of relacion) {
                 if (relac.id_terminal.id == this.pacienteEditar.id_terminal.id){
                   this.arrayRelaciones.push(relac);
-
                 }else{
                 }
               }
