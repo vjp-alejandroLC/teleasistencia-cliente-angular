@@ -789,7 +789,6 @@ const routes: Routes = [
     resolve: {
       historico_agenda: DetalleHistoricoAgendaResolveService,
       agendas: ListaTodasAgendasResolveService,
-      teleoperadores: ListaUsersResolveService,
     }
   },
   {
