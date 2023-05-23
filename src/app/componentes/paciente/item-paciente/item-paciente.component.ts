@@ -49,6 +49,12 @@ export class ItemPacienteComponent implements OnInit {
     )
   }
 
+  obtenerListaDispositivos(): string {
+    // Obtiene la lista de dispositivos en formato de texto
+    const listaDispositivosTexto = this.listaDispositivos.map(item => item?.id_tipo_alarma?.nombre).join(', ');
+
+    return listaDispositivosTexto;
+  }
 
   //Toast para el Alert indicando que la operación fue exitosa
   alertExito(): void {
