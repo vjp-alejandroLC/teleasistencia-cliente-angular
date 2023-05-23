@@ -85,7 +85,14 @@ export class TiposRecursosComunitariosComponent implements OnInit {
       ()=>{
         //PETICION GET DE LOS RECURSOS QUE HAY EN LA ALARMA
         //Esto se hace para poder añadir el bloque del recurso que se ha añadido y para poder eliminar el recurso de la losta del select
-          this.actualizarContenido();
+        this.cargarRecursosAlarma.getRecursoComunitarioAlarmaSegunId(this.alarma.id,this.clasificacion.id).subscribe(
+          recursos_alarma=>{
+            this.recursos_en_alarma = recursos_alarma;
+          },
+          error => {},
+          ()=>{
+            this.filtrarRecursosTerminal()
+          })
         },
         error => {
         },
