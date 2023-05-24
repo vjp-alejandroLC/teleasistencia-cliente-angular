@@ -52,7 +52,9 @@ export class CrearTipoRecursoComunitarioComponent implements OnInit {
     this.cargaTiposRecursosComunitarios.nuevoTipoRecursoComunitario(this.tipo_recurso_comunitario).subscribe(
       e => {
         this.actualizarRecurso.emit(e.id);
+/*
         this.actualizarTipoRecurso();
+*/
         this.alertExito()
       },
       error => {
@@ -60,7 +62,7 @@ export class CrearTipoRecursoComunitarioComponent implements OnInit {
       }
     );
   }
-
+/*
   // Esta funcion es utilizada para volver a cargar los tipos de recursos (sin recargar la página)
   actualizarTipoRecurso(){
 
@@ -72,7 +74,7 @@ export class CrearTipoRecursoComunitarioComponent implements OnInit {
       },
       error => {}
     );
-  }
+  }*/
 
   // Este método nos retornará los controladores del formulario formCrearTipo
   get valorForm(){
