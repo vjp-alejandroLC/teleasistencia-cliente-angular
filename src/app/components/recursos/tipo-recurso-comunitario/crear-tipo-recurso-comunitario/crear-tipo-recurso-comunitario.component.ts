@@ -20,7 +20,7 @@ export class CrearTipoRecursoComunitarioComponent implements OnInit {
   public tipos_recursos: ITipoRecursoComunitario[];
   public formCrearTipo: FormGroup;
   public id = this.route.snapshot.params['id'];
-  @Output () mostrar = new EventEmitter;
+  @Output () actualizarRecurso = new EventEmitter;
 
 
   constructor(private titleService: Title, private route: ActivatedRoute, private cargaTiposRecursosComunitarios: CargaTipoRecursoComunitarioService,
@@ -28,7 +28,7 @@ export class CrearTipoRecursoComunitarioComponent implements OnInit {
               private cargaTipoRecursosComunitarios: CargaTipoRecursoComunitarioService) {
   }
   /*
-   * Se creoa el formulario con sus respectivas validaciones
+   * Se crea el formulario con sus respectivas validaciones
    * al cargar la página
    */
   ngOnInit(): void {
@@ -51,7 +51,7 @@ export class CrearTipoRecursoComunitarioComponent implements OnInit {
 
     this.cargaTiposRecursosComunitarios.nuevoTipoRecursoComunitario(this.tipo_recurso_comunitario).subscribe(
       e => {
-        this.mostrar.emit(!this.mostrar);
+        this.actualizarRecurso.emit(e.id);
         this.actualizarTipoRecurso();
         this.alertExito()
       },
@@ -63,9 +63,6 @@ export class CrearTipoRecursoComunitarioComponent implements OnInit {
 
   // Esta funcion es utilizada para volver a cargar los tipos de recursos (sin recargar la página)
   actualizarTipoRecurso(){
-    this.route.paramMap.subscribe(params => {
-      this.id = +params.get('id');
-    });
 
     //Peticion para refrescar los tipos de recursos
     this.cargaTipoRecursosComunitarios.getTipoRecursoComunitarioClasificacion(this.id).subscribe(
@@ -84,7 +81,7 @@ export class CrearTipoRecursoComunitarioComponent implements OnInit {
 
   //Este método se ejecutará al pulsar en volver para hacer desaparecer el formulario para crear un tipo de recurso
   mostrarCrearTipo(){
-    this.mostrar.emit(!this.mostrar);
+    this.actualizarRecurso.emit(null);
   }
 
   //Toast para el Alert indicando que la operación fue exitosa
