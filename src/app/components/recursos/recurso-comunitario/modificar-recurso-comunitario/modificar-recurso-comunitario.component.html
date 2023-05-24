@@ -40,17 +40,18 @@
 
     <div class="form-group mb-3">
       <label for="tipo_recurso_comunitario" class="form-label">Tipo de recurso comunitario</label>
-      <select class="form-select" id="tipo_recurso_comunitario" name="tipo_recurso_comunitario" value="{{recurso_comunitario.id_tipos_recurso_comunitario.nombre}}"
-              formControlName="clasificacion_recursos_comunitario">
-        <option class="tipo_recurso_comunitario_option"
-                *ngFor="let tipo_recurso_comunitario of tipos_recursos_comunitarios"
-                value="{{tipo_recurso_comunitario.id}}">
-          {{tipo_recurso_comunitario.nombre}}
-        </option>
-      </select>
-      <div *ngIf="valorForm.clasificacion_recursos_comunitario.errors?.required">
-        El tipo de recurso comunitario es obligatorio
+      <div class="col-12 p-0 pb-1 pb-lg-0">
+        <ng-select id="tipo_recurso_comunitario" name="tipo_recurso_comunitario" formControlName="clasificacion_recursos_comunitario">
+          <ng-option *ngFor="let tipo_recurso_comunitario of tipos_recursos_comunitarios"
+                     [value]="tipo_recurso_comunitario.id">{{tipo_recurso_comunitario.nombre}}</ng-option>
+        </ng-select>
+        <div *ngIf="valorForm.clasificacion_recursos_comunitario.invalid && (valorForm.clasificacion_recursos_comunitario.dirty || valorForm.clasificacion_recursos_comunitario.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="valorForm.clasificacion_recursos_comunitario.errors?.required">
+            El tipo de recurso comunitario es obligatorio
+          </div>
+        </div>
       </div>
+
     </div>
 
     <div class="form-group mb-3">
