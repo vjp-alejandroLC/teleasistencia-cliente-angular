@@ -165,9 +165,7 @@ export class CrearRecursoComunitarioComponent implements OnInit {
     this.cargaTipoRecursosComunitarios.getTipoRecursoComunitarioClasificacion(this.id).subscribe(
       lista => {
         this.tipos_recursos_comunitarios = lista;
-        if(id !== null){
-          this.nuevoRecurso.patchValue({tipo_recursos_comunitario:id})
-        }
+        this.nuevoRecurso.patchValue({tipo_recursos_comunitario:id})
       },
       error => {}
       );
@@ -186,7 +184,7 @@ export class CrearRecursoComunitarioComponent implements OnInit {
         this.alertErrorBorrar()
       },
       ()=>{
-        this.actualizarTipoRecurso(this.nuevoRecurso.controls['tipo_recursos_comunitario'].value);
+        this.actualizarTipoRecurso();
       }
     )
   }
