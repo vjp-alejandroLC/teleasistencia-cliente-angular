@@ -346,7 +346,7 @@ import {PersonasEnAlarmaResolveService} from "./servicios/persona-contacto-alarm
 
 const routes: Routes = [
   {path: 'login', component: PantallaLoginComponent},
-  {path: 'inicio', canActivate: [AuthGuard], component: HomeComponent},
+  {path: 'inicio', component: HomeComponent},
   {
     path: 'recurso-comunitarios-personales',
     canActivate: [AuthGuard],
