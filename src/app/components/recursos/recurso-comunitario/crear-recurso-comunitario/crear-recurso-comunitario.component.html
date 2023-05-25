@@ -17,7 +17,7 @@
           <ng-select id="tipo_recursos_comunitario" name="tipo_recurso_comunitario" formControlName="tipo_recursos_comunitario">
             <!-- La variable tipo_recurso_comunitario será iterada y se mostrarán todos los tipos de recursos comunitarios -->
             <ng-option *ngFor="let tipo_recurso_comunitario of tipos_recursos_comunitarios"
-                    value="{{tipo_recurso_comunitario.id}}">
+                    [value]=tipo_recurso_comunitario.id>
               {{ tipo_recurso_comunitario.nombre }}
             </ng-option>
           </ng-select>
