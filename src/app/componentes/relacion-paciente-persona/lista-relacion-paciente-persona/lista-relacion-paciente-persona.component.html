@@ -1,0 +1,41 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Relacion paciente persona</li>
+      </ol>
+    </nav>
+    <h1 class="component-title">Relacion paciente persona</h1>
+    <div class="form-group mb-3">
+      <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
+    </div>
+    <div class="table-responsive m-2">
+      <table id="tableList" class="table table-hover text-center">
+        <thead>
+        <tr class="table-purple">
+          <th  (click)="ordenacionTabla(0, 'string')" scope="col">Paciente</th>
+          <th  (click)="ordenacionTabla(1, 'string')" scope="col">Tipo Relación</th>
+          <th  (click)="ordenacionTabla(2, 'string')" scope="col">Persona contacto</th>
+          <th  (click)="ordenacionTabla(3, 'string')" scope="col">Tiene llaves de la vivienda</th>
+          <th  (click)="ordenacionTabla(4, 'string')" scope="col">Disponibilidad</th>
+          <th  (click)="ordenacionTabla(5, 'string')" scope="col">Observaciones</th>
+          <th  (click)="ordenacionTabla(6, 'string')" scope="col">Prioridad</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let relacionPacientePersona of relaciones_pacientes_personas | filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: 10, currentPage: numPaginacion }"
+            app-item-relacion-paciente-persona [relacionPacientePersona]="relacionPacientePersona">
+        </tr>
+        </tbody>
+      </table>
+      <pagination-controls
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+        responsive="true"
+        (pageChange)="numPaginacion = $event"></pagination-controls>
+    </div>
+  </div>
+</main>

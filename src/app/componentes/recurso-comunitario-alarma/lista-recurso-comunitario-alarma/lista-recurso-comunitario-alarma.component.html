@@ -1,0 +1,42 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Recurso comunitario en alarma</li>
+      </ol>
+    </nav>
+    <h1 class="component-title">Recurso comunitario en alarma</h1>
+    <div class="form-group mb-3">
+      <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
+    </div>
+    <div class="table-responsive m-2">
+      <table id="tableList" class="table table-hover text-center">
+        <thead>
+        <tr class="table-purple">
+          <th (click)="ordenacionTabla(0, 'string')" scope="col">ID y estado de alarma</th>
+          <th (click)="ordenacionTabla(1, 'string')" scope="col">Persona Contacto del centro</th>
+          <th (click)="ordenacionTabla(2, 'string')" scope="col">Nombre del centro sanitario</th>
+          <th (click)="ordenacionTabla(3, 'string')" scope="col">Telefono del centro sanitario</th>
+          <th (click)="ordenacionTabla(4, 'string')" scope="col">Acuerdo alcanzado</th>
+          <th (click)="ordenacionTabla(5, 'string')" scope="col">Fecha</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let recursoComunitarioAlarma of recursosComunitariosAlarma | filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: 10, currentPage: numPaginacion}"
+            app-item-recurso-comunitario-alarma [recursoComunitarioAlarma]="recursoComunitarioAlarma">
+        </tr>
+
+        </tbody>
+      </table>
+      <pagination-controls
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+        responsive="true"
+        (pageChange)="numPaginacion = $event"></pagination-controls>
+    </div>
+  </div>
+</main>
+

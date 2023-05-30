@@ -1,0 +1,37 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Gestion Copia de Seguridad</li>
+      </ol>
+    </nav>
+    <h1 class="component-title">Copias de seguridad</h1>
+    <div class="form-group mb-3">
+      <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
+    </div>
+    <div class="table-responsive m-2">
+      <table id="tableList" class="table table-hover text-center">
+        <thead>
+        <tr class="table-purple">
+          <th (click)="ordenacionTabla(0, 'number')" scope="col">Fecha </th>
+          <th class="ordenable" (click)="ordenacionTabla(1, 'string')" scope="col">Ubicacion <i class="fas fa-sort"></i></th>
+          <th class="ordenable" (click)="ordenacionTabla(2, 'string')" scope="col">Descripcion <i class="fas fa-sort"></i></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let copia_seguridad of copias_seguridad | filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: elementosPaginacion, currentPage: numPaginacion }"
+            app-item-copia-seguridad [copia_seguridad]="copia_seguridad">
+        </tr>
+        </tbody>
+      </table>
+      <pagination-controls
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+        responsive="true"
+        (pageChange)="numPaginacion = $event"></pagination-controls>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,71 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/recursos_comunitarios_alarma']">Recursos comunitarios en alarma</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Crear Recurso comunitario en alarma </li>
+      </ol>
+    </nav>
+    <h1 class="component-title" >Crear Recurso comunitario en alarma</h1>
+    <form #modificarRecursoComunitarioAlarmaForm="ngForm">
+      <div class="form-group mb-3">
+        <div class="form-group mb-3">
+          <label for="alarmas" class="form-label">Alarma</label>
+          <select class="form-select" id="alarmas" name="alarmas"
+                  [(ngModel)]="recursoComunitarioAlarma.id_alarma" required>
+            <option class="relacion_alarma_option" *ngFor="let alarma of alarmas; let i = index"
+                    [value]="alarma.id">{{ alarma.id }} - {{alarma.estado_alarma}}</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="recursos_comunitarios" class="form-label">Recursos Comunitarios</label>
+          <select class="form-select" id="recursos_comunitarios" name="recursos_comunitarios"
+                  [(ngModel)]="recursoComunitarioAlarma.id_recurso_comunitario" required>
+            <option class="relacion_recurso_option" *ngFor="let recursoComunitario of recursosComunitarios; let i = index"
+                    [value]="recursoComunitario.id">{{ recursoComunitario.nombre }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="resumen" class="form-label">Acuerdo alcanzado</label>
+        <textarea [(ngModel)]="recursoComunitarioAlarma.acuerdo_alcanzado" name="resumen" id="resumen" class="form-control" required></textarea>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="fecha_registro" class="form-label">Fecha de registro</label>
+        <input type="date" name="fecha_registro" id="fecha_registro" class="form-control"
+               required max="{{ anno_actual }}-{{ mes_actual }}-{{ dia_actual }}"
+               [(ngModel)]="recursoComunitarioAlarma.fecha_registro" #fecha_registro="ngModel">
+        <div *ngIf="fecha_registro.invalid && (fecha_registro.dirty || fecha_registro.touched)"
+             class="alert alert-secondary" role="alert">
+          <div *ngIf="fecha_registro.errors?.required">
+            La fecha de registro es obligatoria
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="persona_contacto" class="form-label">Persona de contacto</label>
+        <input type="text" name="persona_contacto" id="persona_contacto" class="form-control"
+               required maxlength="500"
+               [(ngModel)]="recursoComunitarioAlarma.persona" #persona_contacto="ngModel">
+        <div *ngIf="persona_contacto.invalid && (persona_contacto.dirty || persona_contacto.touched)"
+             class="alert alert-secondary" role="alert">
+          <div *ngIf="persona_contacto.errors?.required">
+            La persona de contacto es obligatoria
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-outline-success m-1" (click)="crearRecursoComunitarioAlarma()"
+              [disabled]="!modificarRecursoComunitarioAlarmaForm.form.valid">
+        Guardar
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/recursos_comunitarios_alarma']">
+        Volver
+      </button>
+
+    </form>
+  </div>
+</main>
+
