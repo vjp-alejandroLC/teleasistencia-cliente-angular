@@ -1,0 +1,59 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Agendas
+        </li>
+      </ol>
+    </nav>
+    <h1 class="component-title">
+      {{ fechaString }}
+    </h1>
+
+      <button type="button" class="btn btn-success me-5 float-end" [routerLink]="['/agenda/nueva']">
+        Nueva Agenda
+      </button>
+
+    <div style="display: none" id="actualizarPagina"></div>
+
+    <div class="form-group mb-3">
+      <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="busquedaPorFecha">Búsqueda por fecha</label>
+      <input id="busquedaPorFecha" name="busquedaPorFecha" type="date" class="form-control"
+             (ngModelChange)="buscarPorFecha($event)" [(ngModel)]="inputFechaBusqueda">
+    </div>
+    <div class="table-responsive m-2">
+      <table id="tableList" class="table table-hover text-center">
+        <thead>
+        <tr class="table-purple">
+          <th (click)="ordenacionTabla(0, 'string')" scope="col">Prioridad <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(1, 'string')" scope="col">Nombre <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(2, 'string')" scope="col">Apellido <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(3, 'string')" scope="col">Tipo Agenda <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(4, 'number')" scope="col">Nº Expediente <i class="fas fa-sort"></i></th>
+          <th (click)="ordenacionTabla(5, 'number')" scope="col">Hora prevista <i class="fas fa-sort"></i></th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr
+          *ngFor="let agenda of agendasDelDia | filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: 10, currentPage: numPaginacion }"
+          app-item-agenda [agenda]="agenda" [fechaToday]="fechaToday"
+          class="{{agenda.fecha_resolucion === null ? 'noResuelta' : 'resuelta'}}">
+        </tr>
+        </tbody>
+      </table>
+      <pagination-controls
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+        responsive="true"
+        (pageChange)="numPaginacion = $event"></pagination-controls>
+    </div>
+  </div>
+</main>
+

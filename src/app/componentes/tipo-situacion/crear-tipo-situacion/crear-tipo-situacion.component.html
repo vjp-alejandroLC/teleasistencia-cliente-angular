@@ -1,0 +1,24 @@
+<h1 class="component-title">Crear nuevo tipo de situación</h1>
+<form [formGroup]="formulario">
+  <div class="form-group mb-3">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input type="text" name="nombre" id="nombre" class="form-control" formControlName="nombre">
+    <div *ngIf="controls.nombre.invalid && (controls.nombre.dirty || controls.nombre.touched)"
+         class="alert alert-secondary" role="alert">
+      <div *ngIf="controls.nombre.errors?.required; ">
+        El nombre es obligatorio
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-outline-success m-1" (click)="nuevaSituacion()"
+          data-bs-toggle="collapse"
+          data-bs-target="#situacion" aria-expanded="false" aria-controls="situacion">
+    Guardar
+  </button>
+  <button type="button" class="btn btn-outline-secondary m-1" (click)="mostratCrearTipo()" data-bs-toggle="collapse"
+          data-bs-target="#situacion" aria-expanded="false" aria-controls="situacion">
+    Cancelar
+  </button>
+</form>
+

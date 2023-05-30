@@ -1,0 +1,20 @@
+<button *ngIf="!estaLogin" type="button" class="btn btn-outline-secondary me-2" [routerLink]="['/login']">Login</button>
+
+
+<div *ngIf="estaLogin" class="dropdown text-end">
+  <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+
+    <p class="user">{{username }} {{userlastname}}</p>
+    <div class="d-inline" *ngIf="img; else imgNull">
+      <img [src]="img" class="imagenUsuario" alt="mdo" width="40" height="40" class="rounded-circle">
+    </div>
+    <ng-template class="d-inline" #imgNull>
+      <img src="./assets/user.png" alt="mdo" width="40" height="40" class="rounded-circle">
+    </ng-template>
+  </a>
+    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+      <li><a class="dropdown-item pointer" href="/usuarios/modificarImagenUsuario/{{id}}">Cambiar Imagen</a></li>
+      <li><a class="dropdown-item pointer" href="/usuarios/modificarPasswordUsuario/{{id}}">Cambiar Contraseña</a></li>
+      <li><a class="dropdown-item pointer" (click)="hacerLogout()">Logout</a></li>
+    </ul>
+</div>

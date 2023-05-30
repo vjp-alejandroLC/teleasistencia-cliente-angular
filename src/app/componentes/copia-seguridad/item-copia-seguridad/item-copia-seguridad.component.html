@@ -1,0 +1,14 @@
+<td>{{ copia_seguridad.fecha_copia }}</td>
+<td>{{ copia_seguridad.ubicacion_copia }}</td>
+<td>{{ copia_seguridad.descripcion_copia }}</td>
+
+<td>
+  <button type="submit" class="btn btn-outline-danger btn-modify"
+          (click)="modalConfirmacion()"><i class="fa fa-trash"></i>
+  </button>
+
+  <button type="submit" class="btn btn-outline-warning btn-modify"
+          (click)="modalRestauracion()">Restaurar
+  </button>
+</td>
+

@@ -1,0 +1,73 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/agenda']">Agendas</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Datos resolución de la agenda {{id_historico_agenda}}</li>
+      </ol>
+    </nav>
+    <h1 class="component-title">Datos resolución de la agenda {{id_historico_agenda}}</h1>
+    <form [formGroup]="datosAgenda">
+
+      <div class="form-group mb-3">
+        <label for="idPaciente" class="form-label">Persona a cargo</label>
+        <input type="text" name="idPaciente" id="idPaciente" class="form-control"
+               required maxlength="200" formControlName="paciente" disabled>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="telefonoPaciente" class="form-label">Teléfono del paciente</label>
+        <input type="text" name="telefonoPaciente" id="telefonoPaciente" class="form-control"
+               required maxlength="200" formControlName="movil_paciente" disabled>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="id_tipo_agenda" class="form-label">Tipo agenda</label>
+        <input type="text" name="id_tipo_agenda" id="id_tipo_agenda" class="form-control"
+               required maxlength="200" formControlName="tipo_agenda" disabled>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="fecha_prevista" class="form-label">Fecha prevista</label>
+        <input type="datetime-local" name="fecha_prevista" id="fecha_prevista" class="form-control"
+               required maxlength="200" formControlName="fecha_prevista" disabled>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="observacionesPaciente" class="form-label">Observaciones</label>
+        <textarea disabled rows="5" cols="50" name="observacionesPaciente" id="observacionesPaciente" class="form-control"
+                  required maxlength="200" formControlName="observaciones"></textarea>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="id_agenda" class="form-label">Agenda</label>
+        <input type="text" name="id_agenda" id="id_agenda" formControlName="agenda" disabled
+                class="form-select" required>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="id_teleoperador" class="form-label">Teleoperador</label>
+        <input type="text" name="id_teleoperador" id="id_teleoperador" formControlName="teleoperador" class="form-select" required disabled>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="fecha_llamada" class="form-label">Fecha de llamada</label>
+        <input type="datetime-local" name="fecha_llamada" id="fecha_llamada" class="form-control"
+               required maxlength="200" formControlName="fecha_llamada" disabled>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="observaciones" class="form-label">Observaciones</label>
+        <textarea rows="5" cols="50" name="observaciones" id="observaciones" class="form-control"
+                  required maxlength="200" formControlName="observaciones_historico" disabled></textarea>
+      </div>
+
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/agenda']">
+        Volver
+      </button>
+
+    </form>
+  </div>
+</main>
+

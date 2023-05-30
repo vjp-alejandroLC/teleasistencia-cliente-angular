@@ -1,0 +1,44 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/relacion_terminal_recurso_comunitario']">Relacion de terminales con Recursos comunitarios</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Crear relacion de terminales con recursos comunitarios</li>
+      </ol>
+    </nav>
+    <h1 class="component-title" >Crear relacion de terminales con recursos comunitarios</h1>
+    <form #crearRelacionForm="ngForm">
+      <div class="form-group mb-3">
+        <div class="form-group mb-3">
+          <label for="relacion_terminal" class="form-label">Número de terminal</label>
+          <select class="form-select" id="relacion_terminal" name="relacion_terminal"
+                  [(ngModel)]="relacion_terminal_recursos_comunitarios.id_terminal" required>
+            <option class="relacion_terminal_option" *ngFor="let relacion_terminal of relaciones_terminales; let i = index"
+                    [value]="relacion_terminal.id">{{relacion_terminal.numero_terminal}}</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="relacion_recurso" class="form-label">Recurso Comunitario</label>
+          <select class="form-select" id="relacion_recurso" name="relacion_recurso"
+                  [(ngModel)]="relacion_terminal_recursos_comunitarios.id_recurso_comunitario" required>
+            <option class="relacion_recurso_option" *ngFor="let relacion_recurso_comunitario of relaciones_recursos_comunitarios; let i = index"
+                    [value]="relacion_recurso_comunitario.id">{{relacion_recurso_comunitario.nombre}}</option>
+          </select>
+        </div>
+      </div>
+
+
+
+      <button type="submit" class="btn btn-outline-success m-1" (click)="nuevaRelacionTerminalRecurso()"
+              [disabled]="!crearRelacionForm.form.valid">
+        Guardar
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/relacion_terminal_recurso_comunitario']">
+        Volver
+      </button>
+
+    </form>
+  </div>
+</main>
