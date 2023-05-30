@@ -1,0 +1,230 @@
+<header class="py-3 cabecera">
+  <div class="container-fluid contenedor-cabecera">
+    <a class="navbar-brand" [routerLink]="['/inicio']">
+      <img src="./assets/cabecera-logo.png" alt="Logo TLA" width="100" height="71" class="d-inline-block">
+      <span class="titulo-cabecera">TLA<span class="nombre-servicio"> - Servicio de teleasistencia</span></span>
+    </a>
+    <div class="col-md-3 text-end login">
+      <app-botones-login></app-botones-login>
+    </div>
+  </div>
+</header>
+<nav *ngIf="estaLogin" class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Tenth navbar example">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+      <ul class="navbar-nav px-5" id="ulPrincipal">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUsers" data-bs-toggle="dropdown" aria-expanded="false">
+            Usuarios
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownUsers">
+            <li><a class="dropdown-item" [routerLink]="['/usuarios']">Consultar usuarios</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/usuarios/nuevo']">Crear nuevos usuarios</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAlarmas" data-bs-toggle="dropdown" aria-expanded="false">
+            Alarmas
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownAlarmas">
+
+            <li><a class="dropdown-item" [routerLink]="['/alarmas']">Consultar Alarma</a>
+            <li><a class="dropdown-item" [routerLink]="['/alarmas/nueva/ucr']">Crear nueva alarma por UCR</a>
+            <li><a class="dropdown-item" [routerLink]="['/alarmas/nueva/terminal']">Crear nueva alarma por terminal</a>
+            </li>
+            <hr class="dropdown-divider">
+            <li><a class="dropdown-item" [routerLink]="['/centro_sanitario_alarma']">Consultar centros sanitarios en alarma</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/centro_sanitario_alarma/nuevo']">Crear centros sanitarios en alarma</a></li>
+            <hr class="dropdown-divider">
+            <li><a class="dropdown-item" [routerLink]="['/recursos_comunitarios_alarma']">Consultar recursos comunitarios en alarma</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/recursos_comunitarios_alarma/nuevo']">Crear recursos comunitarios en alarma</a></li>
+            <hr class="dropdown-divider">
+            <li><a class="dropdown-item" [routerLink]="['/personas_contacto_alarma']">Consultar Personas de contacto en alarma</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/personas_contacto_alarma/nueva']">Crear Personas de contacto en alarma</a></li>
+            <hr class="dropdown-divider">
+            <li><a class="dropdown-item" [routerLink]="['/tipos_alarmas']">Consultar tipos de alarma</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/tipos_alarmas/nuevo']">Crear nuevo tipo de alarma</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" [routerLink]="['/clasificaciones_alarmas']">Consultar clasificaciones de alarma</a>
+            </li>
+            <li><a class="dropdown-item" [routerLink]="['/clasificaciones_alarmas/nueva']">Crear nueva clasificación de
+              alarma</a></li>
+
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCentrosSanitarios" data-bs-toggle="dropdown" aria-expanded="false">
+            Centros sanitarios
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownCentrosSanitarios">
+            <li><a class="dropdown-item" [routerLink]="['/centros_sanitarios']">Consultar centros sanitarios</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/centros_sanitarios/nuevo']">Crear nuevo centro sanitario</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" [routerLink]="['/tipos_centros_sanitarios']">Consultar tipos de centros sanitarios</a>
+            </li>
+            <li><a class="dropdown-item" [routerLink]="['/tipos_centros_sanitarios/nuevo']">Crear nuevo tipo de centro
+              sanitario</a></li>
+
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPacientes" data-bs-toggle="dropdown" aria-expanded="false">
+            Pacientes
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownPacientes">
+            <li><a class="dropdown-item" [routerLink]="['/pacientes']">Consultar pacientes</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/pacientes/nuevo']">Crear paciente</a></li>
+            <hr class="dropdown-divider">
+            <li><a class="dropdown-item" [routerLink]="['/relacion_paciente_persona']">Consultar relación paciente persona</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/relacion_paciente_persona/nueva']">Crear relación paciente persona</a></li>
+            <hr class="dropdown-divider">
+            <li><a class="dropdown-item" [routerLink]="['/relaciones_usuario_centro']">Consultar Relación Paciente Centro</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/relaciones_usuario_centro/nueva']">Crear Relación Paciente Centro</a></li>
+
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownModalidadPaciente" data-bs-toggle="dropdown" aria-expanded="false">
+            Modalidad paciente
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownModalidadPaciente">
+            <li><a class="dropdown-item" [routerLink]="['/tipos_modalidades_pacientes']">Consultar tipos de modalidades de
+              pacientes</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/tipos_modalidades_pacientes/nuevo']">Crear nuevo tipo de modalidad de
+              paciente</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTerminal" data-bs-toggle="dropdown" aria-expanded="false">
+            Terminales
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownTerminal">
+            <li><a class="dropdown-item" [routerLink]="['/terminales']">Consultar terminales</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/terminales/nuevo']">Crear terminal</a></li>
+            <hr class="dropdown-divider">
+            <li><a class="dropdown-item" [routerLink]="['/relacion_terminal_recurso_comunitario']">Consultar relación Terminal Recurso Comunitario</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/relacion_terminal_recurso_comunitario/nueva']">Crear nueva relación Terminal Recurso Comunitario</a></li>
+            <hr class="dropdown-divider">
+            <li><a class="dropdown-item" [routerLink]="['/dispositivos_auxiliares_terminal']">Consultar dispositivos auxiliares de terminal</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/dispositivos_auxiliares_terminal/nuevo']">Crear dispositivos auxiliares de terminal</a></li>
+
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRecursosComunitarios" data-bs-toggle="dropdown" aria-expanded="false">
+            Recursos comunitarios
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownRecursosComunitarios">
+            <li><a class="dropdown-item" [routerLink]="['/recursos_comunitarios']">Consultar recursos comunitarios</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/recursos_comunitarios/nuevo']">Crear nuevo recurso comunitario</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" [routerLink]="['/tipos_recursos_comunitarios']">Consultar tipos de recursos
+              comunitarios</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/tipos_recursos_comunitarios/nuevo']">Crear nuevo tipo de recurso
+              comunitario</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPersonas" data-bs-toggle="dropdown" aria-expanded="false">
+            Personas
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownPersonas">
+            <li><a class="dropdown-item" [routerLink]="['/personas']">Consultar personas</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/personas/nueva']">Crear nueva persona</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDirecciones" data-bs-toggle="dropdown" aria-expanded="false">
+            Direcciones
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownDirecciones">
+            <li><a class="dropdown-item" [routerLink]="['/direcciones']">Consultar direcciones</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/direcciones/nueva']">Crear nueva dirección</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRecursosComunitariosPersonales" data-bs-toggle="dropdown" aria-expanded="false">
+            R.Comunitarios-Personales
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownRecursosComunitariosPersonales">
+            <li><a class="dropdown-item" [routerLink]="['/recurso-comunitarios-personales']">Recursos Comunitarios-Personales</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAgenda" data-bs-toggle="dropdown" aria-expanded="false">
+            Agenda
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownAgenda">
+            <li><a class="dropdown-item" [routerLink]="['/agenda']">Consultar agenda</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/agenda/nueva']">Crear nueva agenda</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" [routerLink]="['/historico_agenda']">Consultar histórico de agenda</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" [routerLink]="['/tipo_agenda']">Consultar tipos de agenda</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/tipo_agenda/nueva']">Crear nuevo tipo agenda</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTipoViviendas" data-bs-toggle="dropdown" aria-expanded="false">
+          Viviendas
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownTipoViviendas">
+            <li><a class="dropdown-item" [routerLink]="['/viviendas']">Consultar tipos de viviendas</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/viviendas/nueva']">Crear nuevo tipo de viviendas</a></li>
+          </ul>
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTipoSituaciones" data-bs-toggle="dropdown" aria-expanded="false">
+            Situaciones
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownTipoSituaciones">
+            <li><a class="dropdown-item" [routerLink]="['/situaciones']">Consultar tipos de situaciones</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/situaciones/nueva']">Crear nuevo tipo de situaciones</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" [routerLink]="['/historico_situaciones']">Consultar histórico de tipos de situaciones</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/historico_situaciones/nueva']">Crear histórico de tipos de situaciones</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCopiaSeguridad" data-bs-toggle="dropdown" aria-expanded="false">
+            Copias de seguridad
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownCopiaSeguridad">
+            <li><a class="dropdown-item" [routerLink]="['/copia_seguridad']">Consultas copias de seguridad</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/copia_seguridad/nueva']">Crear nueva copia de seguridad</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/copia_seguridad/restaurar']">Restaurar copia de seguridad</a></li>
+
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

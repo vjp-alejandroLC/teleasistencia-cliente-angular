@@ -1,0 +1,42 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Alarmas</li>
+      </ol>
+    </nav>
+    <h1 class="component-title">Alarmas</h1>
+    <div class="form-group mb-3">
+      <input id="campoBusqueda" type="text" class="form-control" placeholder="Busqueda..." [(ngModel)]="inputBusqueda">
+    </div>
+    <div class="table-responsive m-2">
+      <table id="tableList" class="table table-hover text-center">
+        <thead>
+        <tr class="table-purple">
+          <th (click)="ordenacionTabla(0, 'string')" scope="col">Estado</th>
+          <th (click)="ordenacionTabla(1, 'string')" scope="col">Fecha Registro</th>
+          <th (click)="ordenacionTabla(2, 'string')" scope="col">Observaciones</th>
+          <th (click)="ordenacionTabla(3, 'string')" scope="col">Resumen</th>
+          <th (click)="ordenacionTabla(4, 'string')" scope="col">Tipo alarma</th>
+          <th (click)="ordenacionTabla(5, 'string')" scope="col">Paciente UCR</th>
+          <th (click)="ordenacionTabla(6, 'string')" scope="col">Número Terminal</th>
+          <th (click)="ordenacionTabla(7, 'string')" scope="col">Teleoperador</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let alarma of alarmas| filtroBusqueda: inputBusqueda | paginate: { itemsPerPage: 10, currentPage: numPaginacion }"
+            app-item-alarma [alarma]="alarma" class="{{seleccionarFondo(alarma)}}">
+        </tr>
+        </tbody>
+      </table>
+      <pagination-controls
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+        responsive="true"
+        (pageChange)="numPaginacion = $event"></pagination-controls>
+    </div>
+  </div>
+</main>

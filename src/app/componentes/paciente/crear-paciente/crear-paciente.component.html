@@ -1,0 +1,101 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/pacientes']">Paciente</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Crear Paciente</li>
+      </ol>
+    </nav>
+    <h1 class="component-title" >Crear Paciente</h1>
+    <form #crearPacienteForm="ngForm">
+      <div class="form-group mb-3">
+        <label for="terminal" class="form-label">Terminal</label>
+        <select class="form-select" id="terminal" name="terminal"
+                [(ngModel)]="paciente.id_terminal" required>
+          <option class="form-select" *ngFor="let terminal of terminales; let i = index"
+                  [value]="terminal.id">{{ terminal.numero_terminal }}</option>
+        </select>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="persona" class="form-label">Persona</label>
+        <select class="form-select" id="persona" name="persona"
+                [(ngModel)]="paciente.id_persona" required>
+          <option class="form-select" *ngFor="let persona of personas; let i = index"
+                  [value]="persona.id">{{ persona.nombre }}</option>
+        </select>
+      </div>
+      <div class="form-group-check mb-3">
+        <span>Tiene UCR &nbsp;</span>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" id="tiene_ucr_true"
+                 name="tiene_ucr" [value]="true" [(ngModel)]="paciente.tiene_ucr">
+          <label class="form-check-label" for="tiene_ucr_true">Sí</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" id="tiene_ucr_false"
+                 name="tiene_ucr" [value]="false" [(ngModel)]="paciente.tiene_ucr">
+          <label class="form-check-label" for="tiene_ucr_false">No</label>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="numero_expediente" class="form-label">Numero Expediente</label>
+        <input type="text" name="numero_expediente" id="numero_expediente" class="form-control"
+               required maxlength="500" [(ngModel)]="paciente.numero_expediente" #numero_expediente="ngModel">
+        <div *ngIf="numero_expediente.invalid && (numero_expediente.dirty || numero_expediente.touched)"
+             class="alert alert-secondary" role="alert">
+          <div *ngIf="numero_expediente.errors?.required">
+            El numero de expediente es obligatorio
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="numero_seguridad_social" class="form-label">Numero seguridad social</label>
+        <input type="text" name="numero_seguridad_social" id="numero_seguridad_social" class="form-control"
+               required maxlength="500" [(ngModel)]="paciente.numero_seguridad_social" #numero_seguridad_social="ngModel">
+        <div *ngIf="numero_seguridad_social.invalid && (numero_seguridad_social.dirty || numero_seguridad_social.touched)"
+             class="alert alert-secondary" role="alert">
+          <div *ngIf="numero_seguridad_social.errors?.required">
+            El numero seguridad social es obligatorio
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group mb-3">
+        <label for="prestacion_otros_servicios_sociales" class="form-label">Prestación Otros Servicios Sociales</label>
+        <textarea [(ngModel)]="paciente.prestacion_otros_servicios_sociales" name="prestacion_otros_servicios_sociales" id="prestacion_otros_servicios_sociales" class="form-control" required></textarea>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="observaciones_medicas" class="form-label">Observaciones Medicas</label>
+        <textarea [(ngModel)]="paciente.observaciones_medicas" name="observaciones_medicas" id="observaciones_medicas" class="form-control" required></textarea>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="intereses_y_actividades" class="form-label">Intereses y actividades</label>
+        <textarea [(ngModel)]="paciente.intereses_y_actividades" name="intereses_y_actividades" id="intereses_y_actividades" class="form-control" required></textarea>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="tipo_modalidad_paciente" class="form-label">Tipo modalidad paciente</label>
+        <select class="form-select" id="tipo_modalidad_paciente" name="tipo_modalidad_paciente"
+                [(ngModel)]="paciente.id_tipo_modalidad_paciente" required>
+          <option class="form-select" *ngFor="let modalidad_paciente of tipo_modalidades_pacientes; let i = index"
+                  [value]="modalidad_paciente.id">{{ modalidad_paciente.nombre }}</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-outline-success m-1" (click)="nuevoPaciente()"
+              [disabled]="!crearPacienteForm.form.valid">
+        Guardar
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/pacientes']">
+        Volver
+      </button>
+
+    </form>
+  </div>
+</main>

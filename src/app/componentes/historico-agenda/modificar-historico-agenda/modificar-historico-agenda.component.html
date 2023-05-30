@@ -1,0 +1,77 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/historico_agenda']">Histórico agendas</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Modificar datos histórico agenda {{id_historico_agenda}}</li>
+      </ol>
+    </nav>
+    <h1 class="component-title">Modificar datos histórico agenda {{id_historico_agenda}}</h1>
+    <form #modificarHistoricoAgenda="ngForm">
+
+      <div class="form-group mb-3">
+        <label for="id_agenda" class="form-label">Agenda</label>
+        <select name="id_agenda" id="id_agenda" [(ngModel)]="historico_agenda.id_agenda" disabled
+                #id_agenda="ngModel" class="form-select" required>
+          <option class="historico_agenda_option" *ngFor="let agenda of agendas; let i = index" [value]="agenda.id">
+            {{ historico_agenda.id_agenda === agenda.id ? optionSelected(i):""}}{{ agenda.id + ' - ' + agenda.id_tipo_agenda.nombre }}
+          </option>
+        </select>
+        <div *ngIf="id_agenda.invalid && (id_agenda.dirty || id_agenda.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="id_agenda.errors?.required">
+            El campo agenda es obligatorio.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="id_teleoperador" class="form-label">Teleoperador</label>
+        <select name="id_teleoperador" id="id_teleoperador" [(ngModel)]="historico_agenda.id_teleoperador"
+                #id_teleoperador="ngModel" class="form-select" required>
+          <option class="historico_agenda_option_teleoperador" *ngFor="let teleoperador of teleoperadores; let i = index" [value]="teleoperador.id">
+            {{ historico_agenda.id_teleoperador == teleoperador.id ? optionSelectedTeleoperador(i):""}}
+            {{teleoperador.first_name + ' ' + teleoperador.last_name}}
+          </option>
+        </select>
+        <div *ngIf="id_teleoperador.invalid && (id_teleoperador.dirty || id_teleoperador.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="id_teleoperador.errors?.required">
+            El campo terminal es obligatorio.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="fecha_llamada" class="form-label">Fecha de llamada</label>
+        <input type="date" name="fecha_llamada" id="fecha_llamada" class="form-control"
+               required maxlength="200" [(ngModel)]="historico_agenda.fecha_llamada" #fecha_llamada="ngModel">
+        <div *ngIf="fecha_llamada.invalid && (fecha_llamada.dirty || fecha_llamada.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="fecha_llamada.errors?.required">
+            La fecha es obligatoria
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="observaciones" class="form-label">Observaciones</label>
+        <textarea rows="5" cols="50" name="observaciones" id="observaciones" class="form-control"
+                  required maxlength="200" [(ngModel)]="historico_agenda.observaciones" #observaciones="ngModel"></textarea>
+        <div *ngIf="observaciones.invalid && (observaciones.dirty || observaciones.touched)" class="alert alert-secondary" role="alert">
+          <div *ngIf="observaciones.errors?.required">
+            La fecha es obligatoria
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-outline-success m-1" (click)="modificarHistoricoDeAgenda()"
+              [disabled]="!modificarHistoricoAgenda.form.valid">
+        Guardar
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/historico_agenda']">
+        Volver
+      </button>
+
+    </form>
+  </div>
+</main>
+

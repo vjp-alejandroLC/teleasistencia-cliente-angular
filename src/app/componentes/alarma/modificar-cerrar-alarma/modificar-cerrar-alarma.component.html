@@ -1,0 +1,82 @@
+<main class="text-center row p-0 m-0 justify-content-center">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/alarmas']">Alarmas</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Modificar Alarma {{idAlarma}}</li>
+      </ol>
+    </nav>
+    <h1 class="component-title" >Modificar Alarma {{idAlarma}}</h1>
+    <form #modificarAlarmaForm="ngForm">
+
+      <div class="form-group mb-3">
+      <label for="nombre" class="form-label">Titular: </label>
+      <input type="text" name="nombre" id="nombre" class="form-control" disabled
+             required maxlength="500" value="{{obtenerNombre()}}" >
+  </div>
+      <div *ngIf="alarma.id_terminal" class="form-group mb-3">
+      <label for="nombre1" class="form-label">Terminal: </label>
+      <input type="text" name="nombre" id="nombre1" class="form-control" disabled
+             required maxlength="500" value="{{obtenerTerminal()}}" >
+  </div>
+
+      <div class="form-group mb-3">
+        <label for="telefonoFijo" class="form-label">Numero de telefono fijo: </label>
+        <input type="text" name="telefonoFijo" id="telefonoFijo" class="form-control" disabled
+               required maxlength="500" value="{{obtenerTelefonoFijo()}}" >
+        </div>
+      <div class="form-group mb-3">
+        <label for="telefonoMovil" class="form-label">Numero de telefono movil: </label>
+        <input type="text" name="telefonoMovil" id="telefonoMovil" class="form-control" disabled
+               required maxlength="500" value="{{obtenerTelefonoMovil()}}" >
+        </div>
+
+
+      <div class="form-group mb-3 left ">
+        <label for="tipoAlarma" class="form-label">Tipo de alarma: </label>
+        <input type="text" name="tipoAlarma" id="tipoAlarma" class="form-control" disabled
+               required maxlength="500" value="{{alarma.id_tipo_alarma.nombre}}" >
+      </div>
+
+      <div class="form-group mb-3 left ">
+        <label for="fechaCreacion" class="form-label">Fecha de creación: </label>
+        <input type="text" name="fechaCreacion" id="fechaCreacion" class="form-control" disabled
+               required maxlength="500" value="{{alarma.fecha_registro | date :'dd/MM/YYYY'}}" >
+      </div>
+      <div class="form-group mb-3">
+        <label for="estado_alarma" class="form-label">Estado Alarma: </label>
+        <input type="text" name="estado_alarma" id="estado_alarma" class="form-control" disabled
+               required maxlength="500" [(ngModel)]="alarma.estado_alarma" #estado_alarma="ngModel">
+        <div *ngIf="estado_alarma.invalid && (estado_alarma.dirty || estado_alarma.touched)"
+             class="alert alert-secondary" role="alert">
+          <div *ngIf="estado_alarma.errors?.required">
+            El estado es obligatorio
+          </div>
+        </div>
+      </div>
+            <div class="form-group mb-3">
+      <label for="observaciones" class="form-label">Observaciones</label>
+      <textarea [(ngModel)]="alarma.observaciones" name="observaciones" id="observaciones" class="form-control" required></textarea>
+
+      </div>
+
+      <div class="form-group mb-3">
+      <label for="resumen" class="form-label">Resumen</label>
+      <textarea [(ngModel)]="alarma.resumen" name="resumen" id="resumen" class="form-control" required></textarea>
+      </div>
+
+
+
+      <button type="submit" class="btn btn-outline-success m-1" (click)="modificarAlarma()"
+              [disabled]="!modificarAlarmaForm.form.valid">
+        Cerrar Alarma
+      </button>
+      <button type="button" class="btn btn-outline-secondary m-1" [routerLink]="['/alarmas']">
+        Volver
+      </button>
+
+    </form>
+  </div>
+</main>
+
