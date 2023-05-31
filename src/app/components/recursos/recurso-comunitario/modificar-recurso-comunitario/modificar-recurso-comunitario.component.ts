@@ -183,8 +183,6 @@ export class ModificarRecursoComunitarioComponent implements OnInit {
     let enc = false;
     let i = 0;
     let id;
-    console.log(recurso_comunitario)
-    console.log(this.tipo_recurso)
     while(( i < this.tipo_recurso.length) && (enc == false)){
       if(this.tipo_recurso[i].id === recurso_comunitario.id_tipos_recurso_comunitario){
         enc = true;

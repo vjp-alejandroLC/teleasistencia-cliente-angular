@@ -173,7 +173,6 @@ export class CrearRecursoComunitarioComponent implements OnInit {
 
   // Al llamar a este método se eliminará el tipo recurso comunitario, poasando por parámetros el valor que haya en el tipo recurso comunitario
   eliminarTipoRecurso(){
-    console.log(this.nuevoRecurso.controls['tipo_recursos_comunitario'].value)
     this.cargaTipoRecursosComunitarios.eliminarTipoRecursoComunitario(this.nuevoRecurso.controls['tipo_recursos_comunitario'].value).subscribe(
       e=>{
         //Si el elemento se ha borrado con exito, llama al método que muestra el alert de Exito
