@@ -36,8 +36,6 @@ export class ListaAlarmasComponent implements OnInit {
 
   }
   ordenarAlarmas(a: IAlarma, b:IAlarma):number{
-    console.log("abierta"+a.estado_alarma)
-    console.log("cerrada"+b.estado_alarma)
     if(a.estado_alarma == "Abierta" && b.estado_alarma == "Cerrada"){
       return -1;
     }
