@@ -93,12 +93,13 @@ export class CrearAlarmaComponent implements OnInit {
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
-    })
+    });
 
     Toast.fire({
       icon: 'success',
       title: environment.fraseCrear,
-    })
+    });
+    Spinner.ocultarSpinner();
   }
   //Toast para el alert indicando que hubo algún error en la operación
   alertError() :void {
@@ -118,6 +119,7 @@ export class CrearAlarmaComponent implements OnInit {
       icon: 'error',
       title: environment.fraseErrorCrear
     })
+    Spinner.ocultarSpinner();
   }
   mostratCrearTipo(){
     this.mostrar = !this.mostrar;
