@@ -165,9 +165,7 @@ export class CrearRecursoComunitarioComponent implements OnInit {
     this.cargaTipoRecursosComunitarios.getTipoRecursoComunitarioClasificacion(this.id).subscribe(
       lista => {
         this.tipos_recursos_comunitarios = lista;
-        if(id !== null){
-          this.nuevoRecurso.patchValue({tipo_recursos_comunitario:id})
-        }
+        this.nuevoRecurso.patchValue({tipo_recursos_comunitario:id})
       },
       error => {}
       );
@@ -175,7 +173,6 @@ export class CrearRecursoComunitarioComponent implements OnInit {
 
   // Al llamar a este método se eliminará el tipo recurso comunitario, poasando por parámetros el valor que haya en el tipo recurso comunitario
   eliminarTipoRecurso(){
-    console.log(this.nuevoRecurso.controls['tipo_recursos_comunitario'].value)
     this.cargaTipoRecursosComunitarios.eliminarTipoRecursoComunitario(this.nuevoRecurso.controls['tipo_recursos_comunitario'].value).subscribe(
       e=>{
         //Si el elemento se ha borrado con exito, llama al método que muestra el alert de Exito
@@ -186,7 +183,7 @@ export class CrearRecursoComunitarioComponent implements OnInit {
         this.alertErrorBorrar()
       },
       ()=>{
-        this.actualizarTipoRecurso(this.nuevoRecurso.controls['tipo_recursos_comunitario'].value);
+        this.actualizarTipoRecurso();
       }
     )
   }

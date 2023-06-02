@@ -6,6 +6,7 @@ import {OrdenacionTablasService} from "../../../servicios/ordenacion-tablas.serv
 import {AuthService} from "../../../servicios/auth.service";
 import {CargaAlarmaService} from "../../../servicios/alarmas/carga-alarma.service";
 import {IAlarma} from "../../../interfaces/i-alarma";
+import {Spinner} from "../../../clases/spinner";
 
 
 @Component({
@@ -35,8 +36,6 @@ export class ListaAlarmasComponent implements OnInit {
 
   }
   ordenarAlarmas(a: IAlarma, b:IAlarma):number{
-    console.log("abierta"+a.estado_alarma)
-    console.log("cerrada"+b.estado_alarma)
     if(a.estado_alarma == "Abierta" && b.estado_alarma == "Cerrada"){
       return -1;
     }
@@ -64,23 +63,34 @@ export class ListaAlarmasComponent implements OnInit {
   buscarPorFecha(event) {
     let fechaSeparada = event.split('-');
 
-    this.cargarAlarmas.getAlarmasPorFecha(event).subscribe(
-      e => {
-        const datos: any = e;
-        this.inputFechaBusqueda = event;
-        if (e) {
-          this.alarmasDelDia = datos.sort(this.ordenarAlarmas);
-          this.fecha = + fechaSeparada[2] + ' de '
-            + this.getNombreMesActualizarFecha(fechaSeparada[1]) + ' de '
-            + fechaSeparada[0];
-          if(datos && datos.length > 0) {
-            this.alarmasDelDia = this.alarmasDelDia.filter(el => {
-              return el;
-            });
+    if (event != undefined && event != ""){
+      Spinner.mostrarSpiner();
+      this.cargarAlarmas.getAlarmasPorFecha(event).subscribe(
+        e => {
+          const datos: any = e;
+          this.inputFechaBusqueda = event;
+          if (e) {
+            this.alarmasDelDia = datos.sort(this.ordenarAlarmas);
+            this.fecha = + fechaSeparada[2] + ' de '
+              + this.getNombreMesActualizarFecha(fechaSeparada[1]) + ' de '
+              + fechaSeparada[0];
+            if(datos && datos.length > 0) {
+              this.alarmasDelDia = this.alarmasDelDia.filter(el => {
+                return el;
+              });
+            }
           }
+          document.getElementById("campoBusqueda").focus();
+          Spinner.ocultarSpinner();
+        },
+        ()=>{
+          Spinner.ocultarSpinner();
+        },
+        () => {
+          Spinner.ocultarSpinner();
         }
-        document.getElementById("campoBusqueda").focus();
-      });
+        );
+    }
   }
   // Método para conseguir el nombre del mes usando el número que nos devuelve la función getMonth()
   getNombreMes (numMes: number) {

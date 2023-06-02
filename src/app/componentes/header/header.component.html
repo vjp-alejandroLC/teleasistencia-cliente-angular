@@ -2,7 +2,9 @@
   <div class="container-fluid contenedor-cabecera">
     <a class="navbar-brand" [routerLink]="['/inicio']">
       <img src="./assets/cabecera-logo.png" alt="Logo TLA" width="100" height="71" class="d-inline-block">
+
       <span class="titulo-cabecera">TLA<span class="nombre-servicio"> - Servicio de teleasistencia<b *ngIf="subdominioNombre" style="color: {{subdominioColor}}"><ng-container > - {{subdominioNombre}}</ng-container></b></span></span>
+
     </a>
     <div class="col-md-3 text-end login">
       <app-botones-login></app-botones-login>
@@ -20,6 +22,7 @@
 
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample09">
       <ul class="navbar-nav px-5" id="ulPrincipal1">
+
         <li class="nav p-1 mr-1" *ngIf="isAdmin">
           <a class="nav-link" href="#" [routerLink]="['/usuarios']" data-bs-toggle="dropdown" aria-expanded="false">
             Usuarios del sistema
@@ -40,7 +43,8 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navRecursos">
             <li *ngFor="let clasificacion of clasificacionRecursos">
-              <a class="dropdown-item" [routerLink]="['/recursos_comunitarios/listar/',clasificacion.id]">{{clasificacion.nombre}}</a>
+              <a class="dropdown-item"
+                 [routerLink]="['/recursos_comunitarios/listar/',clasificacion.id]">{{clasificacion.nombre}}</a>
               <!-- En el routerLink tiene que estar el id de la clasificacion del recurso-->
             </li>
           </ul>
@@ -57,8 +61,18 @@
             Alarmas
           </a>
         </li>
+
+        <li  class="nav p-1 mr-1" *ngIf="isAdmin">
+          <a class="nav-link" href="#" [routerLink]="['/lista-seguimiento-teleoperador']">
+            Seguimiento teleoperadores
+          </a>
+        </li>
       </ul>
     </div>
+  </div>
+<!--  Spinner de peticiones-->
+  <div class="spinner d-none ">
+    <img src="./assets/spinner.gif"/>
   </div>
 </nav>
 
@@ -79,6 +93,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownUsers">
             <li><a class="dropdown-item" [routerLink]="['/usuarios']">Consultar usuarios</a></li>
             <li><a class="dropdown-item" [routerLink]="['/usuarios/nuevo']">Crear nuevos usuarios</a></li>
+
           </ul>
         </li>
 
@@ -329,6 +344,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content rounded-4 shadow">
       <div class="modal-body p-4 text-center">
+
         <h5 class="mb-0">Politicas de cookies</h5>
         <p class="mb-0 mt-3">Usamos cookies para mejorar su experiencia de navegación y analizar el tráfico en nuestra web.</p>
         <p class="mb-0 mt-3 fw-bold">Esta web tiene un proposito educativo.</p>
